@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Web.IIT </title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href=../static/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/css/util.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('../static/images/bg-01.jpg');">
+			<div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
+				<form  action="#" class="login100-form validate-form flex-sb flex-w">
+				
+					<div  class="p-t-31 p-b-9">
+						<span  class="txt1">
+							Choose your interests
+						</span>
+						<br>
+						<div class="interestsbutton">
+						{% for category in categories %}
+							<li><button class="interbuttons">{{categories.name}}</button>	</li>
+						{%end for%}
+						</div>	
+					
+				</form>
+
+			</div>
+			<form  action="#" class="login100-form validate-form flex-sb flex-w">
+
+					<div  class="p-t-31 p-b-9">
+						<span  class="txt1">
+							Interests
+						</span>
+						<br>
+							
+				</form>
+		</div>
+	</div>
+
+
+	<div id="dropDownSelect1"></div>
+
+<!--===============================================================================================-->
+	<script src="../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/vendor/bootstrap/js/popper.js"></script>
+	<script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/vendor/daterangepicker/moment.min.js"></script>
+	<script src="../static/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/js/main.js"></script>
+	<script src="app.js"></script>
+	<script src="../static/js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript">
+
+$("#googlebutton").click(function(){
+	console.log($("#email").val());
+    $.ajax
+    ({
+            url: "http://localhost:3000/api/users/OAuthLogin?access_token=",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                'email': $("#email").val()
+            }),
+            type: "POST",
+            dataType: "json",
+            error: function (e) {
+            },
+            success: function (resp) {
+               alert(resp.id);
+
+            }
+    });
+});
+	</script>
+</body>
+</html>
