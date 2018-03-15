@@ -123,12 +123,14 @@ label {
 
 /*---------------------------------------------*/
 button {
+ 
 	outline: none !important;
 	border: none;
 	background: transparent;
 }
 
 button:hover {
+  font-size: 15px;
 	cursor: pointer;
 }
 
@@ -141,8 +143,9 @@ iframe {
 [ Utility ]*/
 
 .interestsbutton{
-  font-size: 30px;
+  font-size: 10px;
     text-align: center;
+     font-size: 15px !important;
 
 
 }
@@ -151,10 +154,11 @@ iframe {
   border: 2px solid black;
   margin: 2px;
   border-radius: 15px;
- max-width: 200%;
+ max-width: 100%;
 
   outline: none;
    display: inline-block;
+   font-size: 1px; 
 
 }
 .interbuttons:hover {
@@ -172,6 +176,37 @@ iframe {
   transform: scale(1);
 
 }
+.interbuttons:active{
+  visibility: visible;
+  opacity: 1;
+  
+   background-color: #00C9E4; background-image: -webkit-gradient(linear, left top, left bottom, from(#A0F5FA),to(#A0F5FA));
+ background-image: -webkit-linear-gradient(top, #00C9E4, #A0F5FA);
+ background-image: -moz-linear-gradient(top, #00C9E4, #A0F5FA);
+  border-radius: 50px; important
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transform: scale(1);
+
+}
+.interbuttons:target{
+  visibility: visible;
+  opacity: 1;
+  
+   background-color: #CC2B2B; background-image: -webkit-gradient(linear, left top, left bottom, from(#A0F5FA),to(#A0F5FA));
+ background-image: -webkit-linear-gradient(top, #CC2B2B, #A0F5FA);
+ background-image: -moz-linear-gradient(top, #CC2B2B, #A0F5FA);
+  border-radius: 50px; important
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transform: scale(1);
+
+}
+
 .txt1 {
   font-family: Montserrat-SemiBold;
   font-size: 16px;
@@ -194,9 +229,11 @@ iframe {
 .limiter {
   width: 100%;
   margin: 0 auto;
+
 }
 
 .container-login100 {
+  font-size: 15px;
   width: 100%;
   min-height: 100vh;
   display: -webkit-box;
@@ -216,6 +253,7 @@ iframe {
 
 
 .wrap-login100 {
+
   width: 680px;
   background: #fff;
   border-radius: 10px;
@@ -332,6 +370,7 @@ iframe {
 [ Input ]*/
 
 .wrap-input100 {
+
   width: 100%;
   position: relative;
   background-color: #f7f7f7;
@@ -564,6 +603,7 @@ iframe {
 
 @media (max-width: 576px) {
   .wrap-login100 {
+
     padding-left: 15px;
     padding-right: 15px;
   }

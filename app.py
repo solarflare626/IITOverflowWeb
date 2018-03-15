@@ -17,12 +17,12 @@ def fillup():
 	response = requests.get(url)
 	json_object = response.json()
 
-	categories = []
+	category = []
 
 	for i in range(len(json_object)):
-		categories.append(json_object[i]['name'])
+		category.append(json_object[i]['name'])
 
-	return render_template('test.html', categories=categories)
+	return render_template('fillupform.html', category=category)
 
 
 if __name__=='__main__':
