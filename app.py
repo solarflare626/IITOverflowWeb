@@ -20,10 +20,12 @@ def fillup():
 	category = []
 
 	for i in range(len(json_object)):
-		category.append(json_object[i]['name'])
+		category.append(json_object[i]['name']['id'])
 
 	return render_template('fillupform.html', category=category)
 
+#@app.route('/temp')
+#def submit():
 
 if __name__=='__main__':
 	app.run(debug=True)
