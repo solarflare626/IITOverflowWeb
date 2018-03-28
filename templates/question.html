@@ -45,17 +45,20 @@
             </ul>
          </div>
         </div>
-        <div class="col-md-6">
+<div class="col-md-8">
             <div class="row">
                 <div class="col-md-12">
                 <div class="panel frame-default">
                     <div class="frame-heading bg-grey-1">
                         <ul class="list-inline">
                             <li><h4>Ask A Question</h4></li>
-                            <li class="pull-right"><button type="button" class="btn btn-default">Add New</button></li>
+                            <li class="pull-right"><button type="button" id="button" onclick="showhide()" class="btn btn-default">Add New</button></li>
                         </ul>
                     </div>
-                    <div class="panel-body">
+
+                    <!-- NEW POST -->
+                    <div class="panel-body" style="display: none;" id="newpost">
+
 <form method="post">
      <div class="form-group ">
       <input class="form-control" id="text" name="text" placeholder="Enter title here" type="text"/>
@@ -66,86 +69,122 @@
       </label>
       <textarea class="form-control" cols="40" id="textarea" name="textarea" rows="10"></textarea>
      </div>
+
+     <!-- Tags -->
+<!--     <div class="form-group ">
+      <input class="form-control" id="text" name="text" placeholder="Enter title here" type="text"/>
+     </div> -->
+
+     <!-- /Tags -->
      <div class="form-group">
       <div>
-       <button class="btn btn-primary " name="submit" type="submit">
+       <button class="btn btn-primary " name="submit" onclick="showhide()" type="submit">
         Submit
        </button>
       </div>
      </div>
     </form>
+</div>
+                    <!-- New Post -->
+
+
+
+<!-- POSTS POSTS POSTS -->
+
+{% for i in questions %}
+ <div class="col-md-12">
+            <div class="[ panel panel-default ] panel-google-plus">
+                <div class="dropdown">
+                    <span class="dropdown-toggle" type="button" data-toggle="dropdown">
+                    </span>
+                    <ul class="dropdown-menu" role="menu">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+                    </ul>
+                </div>
+                <div class="panel-google-plus-tags">
+                    <ul>
+                        <li>#Snippet</li>
+                    </ul>
+                </div>
+                <div class="panel-heading">
+                    <img class="[ img-circle pull-left ]" src="https://lh3.googleusercontent.com/-CxXg7_7ylq4/AAAAAAAAAAI/AAAAAAAAAQ8/LhCIKQC5Aq4/s46-c-k-no/photo.jpg" alt="Mouse0270" />
+                    <h3>Robert McIntosh</h3>
+                  
+                  <input type="text" name="idquestion" value="{{i['createdAt']}}">
+
+
+                    <h5><span>Shared publicly</span> - <span>{{i['createdAt']}}</span> </h5>
+                </div>
+                <div class="panel-body">
+                <strong>{{i['question']}}</strong>
+                    <p>{{i['questiondesc']}}</a></p>
+
+                </div>
+                <div class="panel-footer">
+                    <button type="button" class="[ btn btn-default ]">+1</button>
+                    <button type="button" class="[ btn btn-default ]">
+                        <span class="[ glyphicon glyphicon-share-alt ]"></span>
+                    </button>
+                    <div class="input-placeholder">Add an answer...</div>
+                </div>
+
+
+
+                <form method="post" name="form2">
+                <div class="panel-google-plus-comment">
+                    <img class="img-circle" src="https://lh3.googleusercontent.com/uFp_tsTJboUY7kue5XAsGA=s46" alt="User Image" />
+                    <div class="col-md-6"  id="newcomment">
+
+
+
+
+                        <input type="text" class="answer" id ="{{i['id']}}">
+                        <button class="post_answer" value="{{i['id']}}">Post Answer</button>
+                        <button type="reset" onclick="showhide1()" name="post_answer"class="[ btn btn-default ]">Cancel</button>
+
                     </div>
+
+                    {% for answer in i.answers%} 
+                    <div class="col-md-6"  id="answers">
+              
+                    <h2>{{answer.answer}}</h2>
+
+
+
+                   </div>
+                    {% endfor %}
+
+
+                    <div class="clearfix"></div>
                 </div>
-                </div>
+              </form>
+
+
+
+
             </div>
-          
         </div>
-        <div class="col-md-3">
-            <div class="row">
-                <div class="col-md-12">
-                <div class="panel frame-default">
-                    <div class="frame-heading bg-grey-1">
-                        <h4>Publish</h4>
-                    </div>
-                    <div class="panel-body">
-                        
-                      
-                      
-                      
-                    </div>
+                {% endfor %}
+    </div>
+
+<!-- POSTS POSTS POSTS -->
+             
+
+
                 </div>
-                
                 </div>
+
+
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                <div class="panel frame-default">
-                    <div class="frame-heading bg-grey-1">
-                        <h4>Categories</h4>
-                    </div>
-                    <div class="panel-body">
-                        
-                      
-                      
-                      
-                    </div>
-                </div>
-                
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                <div class="panel frame-default">
-                    <div class="frame-heading bg-grey-1">
-                        <h4>Tags</h4>
-                    </div>
-                    <div class="panel-body">
-                        
-                      
-                      
-                      
-                    </div>
-                </div>
-                
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                <div class="panel frame-default">
-                    <div class="frame-heading bg-grey-1">
-                        <h4>Featured-Image</h4>
-                    </div>
-                    <div class="panel-body">
-                        
-                      
-                      
-                      
-                    </div>
-                </div>
-                
-                </div>
-            </div>
-            
+
+        </div>
+    
+     
+  
             
           
         </div>
@@ -160,6 +199,102 @@
 
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+
+<script type="text/javascript">
+
+    
+function showhide(){
+
+var div = document.getElementById("newpost");
+if (div.style.display !== "none") {
+    div.style.display = "none";
+}
+else {
+    div.style.display = "block";
+}
+}
+
+
+ function showhide1()
+ {
+       var div = document.getElementById("newcomment");
+if (div.style.display !== "none") {
+    div.style.display = "none";
+}
+else {
+    div.style.display = "block";
+}
+}
+
+
+
+</script>
+
+<script type="text/javascript">
+
+
+
+$(".post_answer").on("click", function(e) {
+    e.preventDefault();
+        var qid = $(this).val();
+        alert(qid);
+        var input = document.getElementById(qid);
+        var answer = input.value;
+        alert(answer);
+        var data =  {"answer": answer, "questionId": qid, "userId": 1}
+
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:3000/api/Answers",
+        data: JSON.stringify(data),
+        dataType: "json",
+        contentType: "application/json",
+        success:function(result) {
+          alert('ok');
+        },
+        error:function(result) {
+          alert('error');
+        }
+    });
+});
+
+
+
+</script>
+
+
+
+
+
+<script type="text/javascript">
+    
+    $(function () {
+   $('.panel-google-plus > .panel-footer > .input-placeholder, .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > button[type="reset"]').on('click', function(event) {
+        var $panel = $(this).closest('.panel-google-plus');
+            $comment = $panel.find('.panel-google-plus-comment');
+            
+        $comment.find('.btn:first-child').addClass('disabled');
+        $comment.find('textarea').val('');
+        
+        $panel.toggleClass('panel-google-plus-show-comment');
+        
+        if ($panel.hasClass('panel-google-plus-show-comment')) {
+            $comment.find('textarea').focus();
+        }
+   });
+   $('.panel-google-plus-comment > .panel-google-plus-textarea > textarea').on('keyup', function(event) {
+        var $comment = $(this).closest('.panel-google-plus-comment');
+        
+        $comment.find('button[type="submit"]').addClass('disabled');
+        if ($(this).val().length >= 1) {
+            $comment.find('button[type="submit"]').removeClass('disabled');
+        }
+   });
+});
+</script>
+
 
 
 

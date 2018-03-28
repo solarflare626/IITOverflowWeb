@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test</title>
+</head>
+<body>
+{% for q in questions %}
+<div style="border: 1px solid black; margin: 5px 5px 5px 5px;">
+	<h3>Question ID: {{ q.id }}</h3>
+	<h3>Question Title: {{ q.title }}</h3>
+	<h3>Question Desc: {{ q.desc }}</h3>
+	<button class="show_id" value="{{q.id}}">Click Me!</button>
+</div>
+{% endfor %}
+</body>
+</html>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(".show_id").click(function() {
+		var value = $(this).val();
+		alert(value);
+		var data = {
+		"score": String(score),
+		"e": String(e),
+	}
+	$.ajax({
+			type: 'POST',
+            url: "{{ url_for('saveScore', user=user, coursename=coursename, topicname=topicname) }}",
+            data: JSON.stringify(data, null, '\t'),
+            contentType: 'application/json;charset=UTF-8',
+            success: function() {
+                window.location.href = "{{ url_for('user_Topic') }}";
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+	});
+</script>
