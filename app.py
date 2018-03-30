@@ -1,8 +1,6 @@
 from flask import Flask, jsonify, request, render_template, url_for, redirect
 import requests
 from datetime import datetime
-from urllib.parse import quote
-from urllib.request import urlopen
 import json
 
 
@@ -45,9 +43,14 @@ def profile():
     for i in range(len(json_object)):
         ParsedValue = json_object[i]['question']
         ParsedValue1 = json_object[i]['questiondesc']
-        
-    return render_template('profile.html', question=ParsedValue, description=ParsedValue1, json_object= json_object)
+    iurl = ('http://127.0.0.1:3000/api/Interests?filter[where][userId]='+ user)
+    response = requests.get(iurl)
+    json_object2 = response.json()
+    invalue={}
+    for i in range(len(json_object2)):
+        invalue = json_object2[i]['interests']   
 
+    return render_template('profile.html', question=ParsedValue, description=ParsedValue1, json_object= json_object, interest= invalue, json_object2=json_object2)
 
 if __name__=='__main__':
-	app.run(debug=True)
+	app.run(debug=True)    
