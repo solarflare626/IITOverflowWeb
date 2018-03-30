@@ -4,11 +4,9 @@ from datetime import datetime
 from urllib.parse import quote
 from urllib.request import urlopen
 import json
-from datetime import datetime
 
 
 app = Flask(__name__)
-
 @app.route('/', methods=['GET','POST'])
 def home(username=None):
     return render_template("home.html")
@@ -33,8 +31,14 @@ def question():
     else:
         
         url = 'http://localhost:3000/api/Questions?filter[include]=answers'
+
+        url2 = 'http://localhost:3000/api/Categories'
+        response = requests.get(url2)
+        categories= response.json()
+
         html = urlopen(url).read().decode('utf-8')
         questions = json.loads(html)
+
 
 
         print(str(questions))
@@ -45,7 +49,7 @@ def question():
 
 
         print(str(questions))
-        return render_template('question.html', questions = questions, answers = answers)
+        return render_template('question2.html', questions = questions, answers = answers, categories=categories)
 
 if __name__ == '__main__':
    app.run(debug=1)

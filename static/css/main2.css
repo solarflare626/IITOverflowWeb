@@ -1,0 +1,359 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+body{
+    overflow-y: scroll;
+}
+
+html {
+    font-family: Poppins-Regular, sans-serif;
+}
+
+@font-face {
+    font-family: Poppins-Regular;
+    src: url('../fonts/poppins/Poppins-Regular.ttf');
+}
+
+.titlearea{
+    margin-left: 4%;
+    padding: 9px;
+    width: 90%;
+    margin: 15px;
+    height: 20px;
+    color: black;
+    border: 1px solid #D1D1D1;
+    display: block;
+    border-radius: 20px;
+}
+.tagsarea{
+    margin-left: 4%;
+
+    padding: 9px;
+    width: 90%;
+    margin: 15px;
+    height: 20px;
+    color: black;
+    border: 1px solid #D1D1D1;
+    display: block;
+    border-radius: 20px;
+    }
+.title{
+    display: block;
+}
+.blur {
+    -moz-filter: blur(3px);
+    
+
+}
+.landing {
+    background: #E9EBEE;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+    overflow-y: hidden;
+    display: flex;
+    min-height: 600px;
+    flex-direction: row;
+    border: 1px black solid;
+    margin: 0 auto;
+}
+
+.searchbutton {
+    background-color: #434959;
+    width: 40px;
+    height: 30px;
+    border-radius: 30px;
+    outline: none;
+    text-decoration: none;
+
+}
+
+.pages {
+    float: right;
+    margin-right: 18%;
+    margin-top: 6px;
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    z-index: 9999;
+    width: 100%;
+    background: rgba(66, 103, 178);
+    height: 5%;
+box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.8);
+}
+
+.section {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.contentLeft {
+    height: 100%;
+    width: 15%;
+    float: left;
+    margin-top: 37px;
+    margin-left: 15.3%;
+    margin-right: 0;
+    padding: 7px;
+    -ms-overflow-style: none; // IE 10+
+    overflow: -moz-scrollbars-none; // Firefox
+
+}
+
+.links {
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid #DDDFE2;
+    width: 98%;
+    height: 40%;
+    background-color: white;
+    border-radius: 10px;
+box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
+}
+
+.contentCenter {
+    
+    width: 30%;
+    margin-right: -4px;
+    margin-top: 37px;
+    overflow: hidden;
+    float: left;
+    padding: 10px;
+}
+
+.Askbutton {
+    color: white;
+    margin: 7px 0 5px 5px;
+    text-decoration: none;
+    outline: none;
+}
+
+.askquestion {
+    margin: 5px;
+    padding: 0;
+    border: 2px solid #DDDFE2;
+    width: 98%;
+    background-color: white;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 10px;
+     box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
+
+}
+.submitbutton1{
+    padding-top: 5px;
+    text-align: center;
+    top: 0;
+    right: 0;
+    float: right;
+    border: 1px solid #DDDFE2;
+    color: white;
+    background-color: #4267B2;
+    width: 80px;
+    height: 30px;
+    border-bottom-right-radius: 10px;
+box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
+}
+.submitbutton2{
+    padding-top: 5px;
+    text-align: center;
+    top: 0;
+    right: 0;
+    float: right;
+    border: 1px solid #DDDFE2;
+    color: white;
+    background-color: #4267B2;
+    width: 80px;
+    height: 30px;
+box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
+}
+
+.submitbutton3{
+    padding-top: 5px;
+    text-align: center;
+    top: 0;
+    right: 0;
+    float: right;
+    border: 1px solid #DDDFE2;
+    color: white;
+    background-color: #4267B2;
+    width: 80px;
+    height: 30px;
+    border-bottom-left-radius: 10px;
+box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
+}
+.askbuttons {
+    padding: 0 0 3px 0;
+    border: 1px solid #DDDFE2;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    width: 100%;
+    height: 35px;
+    background-color: #4267B2;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+
+}
+
+.questiontextarea {
+    height: 300px;
+    transition: all 0.5s ease;
+    
+}
+
+
+.contentRight {
+    
+    padding: 5px;
+    height: 100%;
+    margin-top: 37px;
+    width: 18%;
+    float: left;
+    overflow: hidden;
+    padding: 7px;
+}
+
+.links2 {
+    margin-right: 7px;
+    margin-top: 5px;
+    margin-bottom: 8px;
+    padding: 5px;
+    border: 2px solid #DDDFE2;
+    width: 96%;
+    height: 35%;
+    float: left;
+    background-color: white;
+    border-radius: 10px;
+box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
+}
+
+.links3 {
+    padding: 5px;
+    border: 2px solid #DDDFE2;
+    width: 96%;
+    height: 50%;
+    float: left;
+    background-color: white;
+    border-radius: 10px;
+box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
+}
+
+.nav input {
+    margin-left: 15%;
+    margin-top: 3px;
+    background-color: rgba(63, 69, 84, .6);
+    border-radius: 100px;
+    padding: 8px;
+    padding-left: 15px;
+    width: 25%;
+    height: 15px;
+    color: white;
+}
+
+.landingWrapper {
+    margin-top: 55px;
+}
+
+h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+}
+
+p {
+    margin-top: 80px;
+    font-size: 20px;
+    font-weight: 100;
+    margin-bottom: 10px;
+    opacity: 1.5;
+}
+
+.nav a {
+    font-size: 15px;
+    text-decoration: none;
+    color: white;
+    margin: 0 0 10px 10px;
+    position: relative;
+}
+
+ /* Popup container */
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    
+    margin-top: 0;
+    margin-left: 4%;
+    margin-bottom: 10px;
+     border: 1px solid #D1D1D1;
+    font-family: Poppins-Regular;
+    color: #707070 ;
+    margin-bottom: 10px;
+    padding: 7px;
+    border-radius: 100px;
+
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+    visibility: hidden;
+    
+    height: 400px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    bottom: 125%;
+    
+   
+    overflow-y: scroll;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+    width: 100%;
+    content: "";
+   
+   
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+    width: 100%;
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+} 
+.pupwrapper{
+    width: 90%;
+
+}
+

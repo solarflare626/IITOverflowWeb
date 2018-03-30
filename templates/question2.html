@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>IITOverflow</title>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+        <meta name="viewport" content="width=device-width" />
+        
+        
+        <link href="../static/css/main2.css" rel="stylesheet" />
+        <script src="../static/ckeditor/ckeditor.js"></script>
+    </head>
+
+
+    <body>
+        <div class="fullpage">
+            <div class="section">
+                <div class="landing">
+                    <div class="nav">
+                    <input class="searchbar" type="text" placeholder="Search..">
+                    <button class="searchbutton" type="submit"><i class="fa fa-search">Go!</i></button>
+                        <div class="pages">
+                    
+                            <a href="#">Home</a>
+                            <a href="#">Profile</a>
+                            <a href="#">Notifications</a>
+                            <a href="#">Logout</a>
+                    
+                        </div>
+                   
+                   
+                    
+                    
+                </div>
+                <div class="contentLeft">
+                    <div class="links">
+                    <p>HERE GOES THE LINKS AND OTHER STUFFS, LEADER BOARD</p>
+                    </div>
+                    <div class="links">
+                        <p>HERE GOES THE LINKS AND OTHER STUFFS, LEADER BOARD</p>
+                    </div>
+                </div>
+                
+                
+                <div class="contentCenter">
+                    <div class="askquestion" id="newpost">
+                     <div class="askbuttons">
+                         <input type="submit" value="Make Post" class="Askbutton">
+                        <input type="submit" value="Upload File" class="Askbutton">
+                     </div>  
+                     
+                     
+                   
+                   
+                   
+                     <form  id="form1">
+                     <textarea id="textarea"  name="textarea" id="textarea" placeholder="Ask Something"></textarea>
+                     <script>
+                        CKEDITOR.replace( 'textarea');
+                     </script>
+                     
+                    </form>
+                      <input placeholder="Add title Here" class="titlearea" type="textarea" name="title" id="title"/>
+
+                      <input type="textarea" name="" placeholder="Enter tags" class="tagsarea">
+                     
+                      <div class="popupwrapper">
+                     <div class="popup"  onclick="myFunction()">Choose Category
+                        {% for category in categories %}
+                    <button class=" popuptext " id="myPopup" value="{{ category['id'] }}">{{category['name']}}</button>
+                        {% endfor %}
+                    </div>  
+                        </div>
+
+                   
+                     <a class="submitbutton3" type="submit" >Submit</a>
+                    
+
+
+                    </div>
+                    
+                      
+
+                </div>
+
+                <div class="contentRight">
+                <div class="links2">
+                    <p>HERE GOES THE RELATED LINKS, INTEREST MGA TOPICS NGA MAGANAHAN SA USER thru interests, Some Actities sa iyang gi follow murag facebook ba</p>
+                </div>
+                <div class="links3">
+                    <p>HERE GOES THE RELATED LINKS, INTEREST MGA TOPICS NGA MAGANAHAN SA USER thru interests, Some Actities sa iyang gi follow
+                        murag facebook ba</p>
+                </div>
+                </div>
+
+                </div>
+                </div>
+            </div>
+            
+    </body>
+    <script src="../static/js/jquery-3.3.1.min.js"></script>
+   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#form1").hide();
+        $(".tagsarea").hide();
+        $(".popupwrapper").hide();
+
+
+         $("#title").focus(function() {
+        $("#form1").show('slow'); 
+        $(".tagsarea").show('slow');
+        $(".popupwrapper").show('slow'); 
+
+            
+    })
+          $('#title').blur(function(){
+        if( !$(this).val() ) {
+          $('#form1').hide('slow');
+          $(".tagsarea").hide('slow');
+        $(".popupwrapper").hide('slow'); 
+    }
+});
+
+
+    })
+</script>
+
+
+<script>
+// When the user clicks on <div>, open the popup
+function myFunction() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+}
+</script>
+
+
+
+<script type="text/javascript">
+
+    $('.questiontextarea').autoResize();
+
+  
+  
+    function showhide() {
+
+        var div = document.getElementById("newpost");
+        if (div.style.display !== "none") {
+            div.style.display = "none";
+        }
+        else {
+            div.style.display = "block";
+        }
+    }
+
+
+    function showhide1() {
+        var div = document.getElementById("newcomment");
+        if (div.style.display !== "none") {
+            div.style.display = "none";
+        }
+        else {
+            div.style.display = "block";
+        }
+    }
+
+
+
+</script>
+
+<script type="text/javascript">
+
+
+
+    $(".post_answer").on("click", function (e) {
+        e.preventDefault();
+        var qid = $(this).val();
+        alert(qid);
+        var input = document.getElementById(qid);
+        var answer = input.value;
+        alert(answer);
+        var data = { "answer": answer, "questionId": qid, "userId": 1 }
+
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:3000/api/Answers",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json",
+            success: function (result) {
+                alert('ok');
+            },
+            error: function (result) {
+                alert('error');
+            }
+        });
+    });
+
+
+
+</script>
+
+
+
+
+
+<script type="text/javascript">
+
+    $(function () {
+        $('.panel-google-plus > .panel-footer > .input-placeholder, .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > button[type="reset"]').on('click', function (event) {
+            var $panel = $(this).closest('.panel-google-plus');
+            $comment = $panel.find('.panel-google-plus-comment');
+
+            $comment.find('.btn:first-child').addClass('disabled');
+            $comment.find('textarea').val('');
+
+            $panel.toggleClass('panel-google-plus-show-comment');
+
+            if ($panel.hasClass('panel-google-plus-show-comment')) {
+                $comment.find('textarea').focus();
+            }
+        });
+        $('.panel-google-plus-comment > .panel-google-plus-textarea > textarea').on('keyup', function (event) {
+            var $comment = $(this).closest('.panel-google-plus-comment');
+
+            $comment.find('button[type="submit"]').addClass('disabled');
+            if ($(this).val().length >= 1) {
+                $comment.find('button[type="submit"]').removeClass('disabled');
+            }
+        });
+    });
+</script>
+
+
+
+</html>
