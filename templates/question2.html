@@ -46,8 +46,8 @@
                 <div class="contentCenter">
                     <div class="askquestion" id="newpost">
                      <div class="askbuttons">
-                         <input type="submit" value="Make Post" class="Askbutton">
-                        <input type="submit" value="Upload File" class="Askbutton">
+                         <input type="submit" value="Ask Something" class="Askbutton">
+                        
                      </div>  
                      
                      
@@ -110,12 +110,15 @@
         $("#form1").hide();
         $(".tagsarea").hide();
         $(".popupwrapper").hide();
+        $(".submitbutton3").hide();
 
 
          $("#title").focus(function() {
         $("#form1").show('slow'); 
         $(".tagsarea").show('slow');
         $(".popupwrapper").show('slow'); 
+         $(".submitbutton3").show('slow');
+
 
             
     })
@@ -124,6 +127,8 @@
           $('#form1').hide('slow');
           $(".tagsarea").hide('slow');
         $(".popupwrapper").hide('slow'); 
+         $(".submitbutton3").hide('slow');
+
     }
 });
 
