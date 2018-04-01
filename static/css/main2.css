@@ -7,8 +7,11 @@
     vertical-align: baseline;
     background: transparent;
 }
-body{
+
+body {
     overflow-y: scroll;
+    min-width: 100%;
+    min-height: 100%;
 }
 
 html {
@@ -20,7 +23,7 @@ html {
     src: url('../fonts/poppins/Poppins-Regular.ttf');
 }
 
-.titlearea{
+.titlearea {
     margin-left: 4%;
     padding: 9px;
     width: 90%;
@@ -31,9 +34,9 @@ html {
     display: block;
     border-radius: 20px;
 }
-.tagsarea{
-    margin-left: 4%;
 
+.tagsarea {
+    margin-left: 4%;
     padding: 9px;
     width: 90%;
     margin: 15px;
@@ -42,15 +45,16 @@ html {
     border: 1px solid #D1D1D1;
     display: block;
     border-radius: 20px;
-    }
-.title{
+}
+
+.title {
     display: block;
 }
+
 .blur {
     -moz-filter: blur(3px);
-    
-
 }
+
 .landing {
     background: #E9EBEE;
     background-repeat: no-repeat;
@@ -72,7 +76,6 @@ html {
     border-radius: 30px;
     outline: none;
     text-decoration: none;
-
 }
 
 .pages {
@@ -85,12 +88,11 @@ html {
     position: fixed;
     top: 0;
     left: 0;
-
     z-index: 9999;
     width: 100%;
     background: rgba(66, 103, 178);
     height: 5%;
-box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.8);
 }
 
 .section {
@@ -101,36 +103,191 @@ box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.8);
 
 .contentLeft {
     height: 100%;
-    width: 15%;
+    width: 17%;
     float: left;
-    margin-top: 37px;
-    margin-left: 15.3%;
+    margin-top: 45px;
+    margin-left: 12%;
     margin-right: 0;
-    padding: 7px;
-    -ms-overflow-style: none; // IE 10+
-    overflow: -moz-scrollbars-none; // Firefox
+    padding: 0;
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+}
 
+.profilepicture {
+    top: 0;
+    width: 100%;
+    height: 100px;
+    background-color: aqua;
+}
+
+.profilepicture img {
+    max-width: 100%;
+    max-height: 100%;
+    position: relative;
+}
+
+.backgroundpic {
+    width: 100%;
+    height: 100px;
+}
+
+.picture {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    background: yellow;
+    border: 2px solid white;
+    float: left;
+    position: absolute;
+    margin-top: -40px;
+    margin-left: 10px;
+    padding: 0;
+}
+
+.profileimage {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.emailinfo {
+    float: right;
+    width: 70%;
+    height: 60px;
+    padding-right: 2px;
+    white-space: -moz-pre-wrap;
+    /* Firefox */
+}
+
+.namecont {
+    width: 80%;
+    word-wrap: break-word;
+    margin-left: 7px;
+}
+
+.namecont h3 {
+    font-size: 13px;
+    margin-top: 5px;
+    margin-left: 10px;
+    color: black;
+    text-decoration: none;
+}
+
+.namecont a {
+    text-decoration: none;
+}
+
+.namecont a:hover {
+    text-decoration: underline;
+}
+
+.emailcont {
+    width: 80%;
+    word-wrap: break-word;
+    margin-left: 13px;
+}
+
+.emailcont h6 {
+    font-size: 10px;
+    color: #657786;
+}
+
+.followingcont {
+    float: right;
+    width: 50%;
+    height: 20px;
+    font-size: 15px;
+}
+
+.followingcont a {
+    text-decoration: none;
+    color: #657786;
+}
+
+.followingcont a:hover {
+    text-decoration: underline;
+}
+
+.followingcont h3 {
+    margin-left: 10%;
+}
+
+.followerscont {
+    float: left;
+    width: 50%;
+    height: 20px;
+    font-size: 15px;
+}
+
+.followerscont h3 {
+    margin-left: 30%;
+}
+
+.followerscont a {
+    text-decoration: none;
+    color: #657786;
+}
+
+.followerscont a:hover {
+    text-decoration: underline;
 }
 
 .links {
-    margin: 5px;
-    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0px;
+    width: 98%;
+    height: 27%;
+    background-color: white;
+    box-shadow: 0 4px 5px -5px rgba(0, 0, 0, 0.8);
+}
+
+.followerscount {
+    bottom: 0;
+    float: left;
+    margin-left: 22%;
+    height: 30px;
+}
+
+.followerscount a {
+    color: #1DBBFB;
+}
+
+.followingcount {
+    margin-top: 0;
+    bottom: 0;
+    float: right;
+    height: 20px;
+    margin-right: 29%;
+}
+
+.followingcount a {
+    color: #1DBBFB;
+}
+
+.links0 {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0px;
     border: 2px solid #DDDFE2;
     width: 98%;
     height: 40%;
     background-color: white;
     border-radius: 10px;
-box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
 }
 
 .contentCenter {
-    
-    width: 30%;
+    width: 37%;
     margin-right: -4px;
     margin-top: 37px;
     overflow: hidden;
     float: left;
     padding: 10px;
+    overflow-y: auto;
+    bottom: 10px;
 }
 
 .Askbutton {
@@ -148,10 +305,10 @@ box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
     background-color: white;
     border-top-right-radius: 30px;
     border-top-left-radius: 10px;
-     box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
-
+    box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
 }
-.submitbutton1{
+
+.submitbutton1 {
     padding-top: 5px;
     text-align: center;
     top: 0;
@@ -163,9 +320,10 @@ box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
     width: 80px;
     height: 30px;
     border-bottom-right-radius: 10px;
-box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
 }
-.submitbutton2{
+
+.submitbutton2 {
     padding-top: 5px;
     text-align: center;
     top: 0;
@@ -176,10 +334,10 @@ box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
     background-color: #4267B2;
     width: 80px;
     height: 30px;
-box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
 }
 
-.submitbutton3{
+.submitbutton3 {
     padding-top: 5px;
     text-align: center;
     top: 0;
@@ -191,8 +349,9 @@ box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
     width: 80px;
     height: 30px;
     border-bottom-right-radius: 10px;
-box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
 }
+
 .askbuttons {
     padding: 0 0 3px 0;
     border: 1px solid #DDDFE2;
@@ -205,21 +364,44 @@ box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
     background-color: #4267B2;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
-
 }
 
 .questiontextarea {
     height: 300px;
     transition: all 0.5s ease;
-    
 }
 
+.newdiv {
+    border: 1px solid #E9EBEE;
+    padding: 10px;
+}
+
+.titlebar {
+    position: absolute;
+    top: 0;
+    padding: 9px;
+    width: 90%;
+    margin-top: 0px;
+    height: 20px;
+    color: black;
+    border: 1px solid #D1D1D1;
+    display: block;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.categorybar {
+    border: 1px solid #D1D1D1;
+}
+
+.tagsbar {
+    border: 1px solid #D1D1D1;
+}
 
 .contentRight {
-    
     padding: 5px;
     height: 100%;
-    margin-top: 37px;
+    margin-top: 40px;
     width: 18%;
     float: left;
     overflow: hidden;
@@ -230,25 +412,53 @@ box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
     margin-right: 7px;
     margin-top: 5px;
     margin-bottom: 8px;
-    padding: 5px;
+    padding: 0;
     border: 2px solid #DDDFE2;
     width: 96%;
     height: 35%;
     float: left;
     background-color: white;
     border-radius: 10px;
-box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
+}
+
+.links2titlebar {
+    padding: 0 0 3px 0;
+    border: 1px solid #DDDFE2;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    width: 100%;
+    height: 35px;
+    background-color: #5686E8;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.links3titlebar {
+    padding: 0 0 3px 0;
+    border: 1px solid #DDDFE2;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    width: 100%;
+    height: 35px;
+    background-color: #5686E8;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
 }
 
 .links3 {
-    padding: 5px;
+    padding: 0;
     border: 2px solid #DDDFE2;
     width: 96%;
     height: 50%;
     float: left;
     background-color: white;
     border-radius: 10px;
-box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
 }
 
 .nav input {
@@ -288,28 +498,27 @@ p {
     position: relative;
 }
 
- /* Popup container */
+/* Popup container */
+
 .popup {
     position: relative;
     display: inline-block;
     cursor: pointer;
-    
     margin-top: 0;
     margin-left: 4%;
     margin-bottom: 10px;
-     border: 1px solid #D1D1D1;
+    border: 1px solid #D1D1D1;
     font-family: Poppins-Regular;
-    color: #707070 ;
+    color: #707070;
     margin-bottom: 10px;
     padding: 7px;
     border-radius: 100px;
-
 }
 
 /* The actual popup (appears on top) */
+
 .popup .popuptext {
     visibility: hidden;
-    
     height: 400px;
     background-color: #555;
     color: #fff;
@@ -318,23 +527,21 @@ p {
     padding: 8px 0;
     position: absolute;
     bottom: 125%;
-    
-   
     overflow-y: scroll;
 }
 
 /* Popup arrow */
+
 .popup .popuptext::after {
     width: 100%;
     content: "";
-   
-   
     border-width: 5px;
     border-style: solid;
     border-color: #555 transparent transparent transparent;
 }
 
 /* Toggle this class when clicking on the popup container (hide and show the popup) */
+
 .popup .show {
     width: 100%;
     visibility: visible;
@@ -343,17 +550,25 @@ p {
 }
 
 /* Add animation (fade in the popup) */
+
 @-webkit-keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity:1 ;}
-} 
-.pupwrapper{
-    width: 90%;
-
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
+.pupwrapper {
+    width: 90%;
+}

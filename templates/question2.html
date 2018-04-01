@@ -35,10 +35,35 @@
                 </div>
                 <div class="contentLeft">
                     <div class="links">
-                    <p>HERE GOES THE LINKS AND OTHER STUFFS, LEADER BOARD</p>
+                        
+                        <div class="profilepicture">
+                            <img class="backgroundpic" src="../static/images/background1.jpg">
+                            <div class="picture">
+                                <img class="profileimage" src="../static/images/phillip.jpg"  >                          </div>
+                        </div>
+                        <div class="emailinfo">
+                            <div class="namecont"><a href="#"><h3>Phillip Espina
+                                <br> </h3></a></div>
+                            <div class="emailcont"><a><h6>@phillipespina@g.msuiit.edu.ph</h6></a></div>
+                        </div>
+
+                        <div class="followerscont"><a><h3>Followers</h3></a></div>
+                        <div class="followingcont"><a>
+                            <h3>Following</h3>
+                        </a></div>
+                        
+                        <div class="followerscount"><a><h3>1.5m</h3></a></div>
+                                                <div class="followingcount">
+                                                    <a>
+                                                        <h3>10</h3>
+                                                    </a>
+                                                </div>
+
+                        
+
                     </div>
-                    <div class="links">
-                        <p>HERE GOES THE LINKS AND OTHER STUFFS, LEADER BOARD</p>
+                    <div class="links0">
+                        <div class="links3titlebar"></div>
                     </div>
                 </div>
                 
@@ -49,19 +74,16 @@
                          <input type="submit" value="Ask Something" class="Askbutton">
                         
                      </div>  
-                     
-                     
-                   
-                   
-                   
+
                      <form  id="form1">
-                     <textarea id="textarea"  name="textarea" id="textarea" placeholder="Ask Something"></textarea>
+                     <textarea  name="textarea" id="textarea" placeholder="Ask Something"></textarea>
                      <script>
                         CKEDITOR.replace( 'textarea');
+                       
                      </script>
                      
                     </form>
-                      <input placeholder="Add title Here" class="titlearea" type="textarea" name="title" id="title"/>
+                      <input  placeholder="Add title Here" class="titlearea" type="textarea" name="titlename" id="title"/>
 
                       <input type="textarea" name="" placeholder="Enter tags" class="tagsarea">
                      
@@ -72,13 +94,17 @@
                         {% endfor %}
                     </div>  
                         </div>
+                    <a class="submitbutton3" type="submit" >Submit</a>
+                   <a class="submitbutton2" type="submit" >Hide</a>
+                      </div>
+                      
+                      
+                      <div id="newDivs" class="newdiv">
+                          <div id="titlebarid" class="titlebar"></div>
+                          <div id="categorybarid" class="categorybar"></div>
+                          <div id="tagsbarid" class="tagsbar"></div>
 
-                   
-                     <a class="submitbutton3" type="submit" >Submit</a>
-                    
-
-
-                    </div>
+                      </div>
                     
                       
 
@@ -86,9 +112,11 @@
 
                 <div class="contentRight">
                 <div class="links2">
+                    <div class="links2titlebar"></div>
                     <p>HERE GOES THE RELATED LINKS, INTEREST MGA TOPICS NGA MAGANAHAN SA USER thru interests, Some Actities sa iyang gi follow murag facebook ba</p>
                 </div>
                 <div class="links3">
+                    <div class="links3titlebar"></div>
                     <p>HERE GOES THE RELATED LINKS, INTEREST MGA TOPICS NGA MAGANAHAN SA USER thru interests, Some Actities sa iyang gi follow
                         murag facebook ba</p>
                 </div>
@@ -105,12 +133,96 @@
 
 
 
+<script >
+
+   var title = document.getElementById('title').value
+
+    $(".submitbutton3").click(function(){
+         var editorText = CKEDITOR.instances.textarea.getData();
+         $("#form1").hide('slow');
+         $(".submitbutton2").hide('slow');
+          $(".popupwrapper").hide('slow');
+           $(".tagsarea").hide('slow');
+           $(".submitbutton3").hide('slow');
+           $("newDivs").show('slow');
+        $(".titlebar").show('slow');
+        $("tagsbar").show('slow');
+        $("categorybar").show('slow');
+         alert(editorText);
+
+      $('#newDivs').prepend('<div>' + editorText + '<div>');
+           CKupdate();
+        alert(title);
+        
+        
+        document.getElementById('titlebarid').innerHTML=title;
+     
+    })
+
+
+    function CKupdate() {
+            for (instance in CKEDITOR.instances) {
+                CKEDITOR.instances[instance].updateElement();
+                CKEDITOR.instances[instance].setData('');
+            }
+        }
+
+    
+
+</script>
+
+<script>
+    $(document).ready(function(){
+        $(".submitbutton2").on('click', function(){
+            $("#form1").hide('slow');
+
+          })
+            })
+</script>
+<script>
+    $(document).ready(function () {
+        $(".submitbutton2").on('click', function () {
+            $(".submitbutton3").hide('slow');
+        })
+    })
+</script>
+<script>
+    $(document).ready(function () {
+        $(".submitbutton2").on('click', function () {
+             $(".popupwrapper").hide('slow');
+        })
+    })
+</script>
+<script>
+    $(document).ready(function () {
+        $(".submitbutton2").on('click', function () {
+            $(".tagsarea").hide('slow');
+        })
+    })
+</script>
+<script>
+    $(document).ready(function () {
+        $(".submitbutton2").on('click', function () {
+            $(this).hide('slow');
+        })
+    })
+</script>
+
+
+
 <script type="text/javascript">
     $(document).ready(function(){
         $("#form1").hide();
         $(".tagsarea").hide();
         $(".popupwrapper").hide();
         $(".submitbutton3").hide();
+         $(".submitbutton2").hide();
+         $("newDivs").hide();
+         $(".titlebar").hide();
+         $("tagsbar").hide();
+         $("categorybar").hide();
+
+          CKupdate();
 
 
          $("#title").focus(function() {
@@ -118,6 +230,7 @@
         $(".tagsarea").show('slow');
         $(".popupwrapper").show('slow'); 
          $(".submitbutton3").show('slow');
+         $(".submitbutton2").show('slow');
 
 
             
