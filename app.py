@@ -1,31 +1,43 @@
-from flask import Flask, jsonify, request, render_template
-import json
-import requests
-import urllib
+from flask import Flask, jsonify,request,session, render_template
+import flask
+import sys,os
 
 app = Flask(__name__)
-
+app.secret_key = 'my very own secret key'
+app.config['SESSION_TYPE'] = 'filesystem'
 
 @app.route('/')
 def index():
-	return render_template('index.html')
+    return render_template('login.html')
+
+@app.route('/login', methods=['POST'])
+def login():
+    params = request.get_json()
+    u_id = params['data']
+    session['user'] = u_id
+    return jsonify({"message": "okay"})
+
+@app.route('/getSession')
+def currentSession():
+    if 'user' in session:
+        return session['user']
+    else:
+        return "Please Login"
 
 
-@app.route('/fillupform', methods=['POST','GET'])
-def fillup():
-	url = ('http://localhost:3000/api/Categories?access_token=V4W9EdDy9iAACCotqJTot1XGyzxRYs4CSHCYlhVPJQHKoY1KpD2KUoWudDi5EgaH')
-	response = requests.get(url)
-	json_object = response.json()
+@app.after_request
+def add_cors(resp):
+    resp.headers['Access-Control-Allow-Origin'] = flask.request.headers.get('Origin', '*')
+    resp.headers['Access-Control-Allow-Credentials'] = True
+    resp.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS, GET, PUT, DELETE'
+    resp.headers['Access-Control-Allow-Headers'] = flask.request.headers.get('Access-Control-Request-Headers',
+                                                                             'Authorization')
+    # set low for debugging
 
-	category = []
+    if app.debug:
+        resp.headers["Access-Control-Max-Age"] = '1'
+    return resp
 
-	for i in range(len(json_object)):
-		category.append(json_object[i]['name']['id'])
 
-	return render_template('fillupform.html', category=category)
-
-#@app.route('/temp')
-#def submit():
-
-if __name__=='__main__':
-	app.run(debug=True)
+if __name__ == '__main__':
+    app.run(host='localhost', debug=True)
