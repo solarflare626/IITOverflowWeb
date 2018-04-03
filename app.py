@@ -24,6 +24,16 @@ def currentSession():
     else:
         return "Please Login"
 
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    if 'user' in session:
+        return jsonify({"message": "error"})
+
+    return jsonify({"message": "okay"})
+
+
+
 
 @app.after_request
 def add_cors(resp):
