@@ -1,3 +1,47 @@
+<<<<<<< HEAD
+=======
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    var id_token = googleUser.getAuthResponse().id_token;
+    login(id_token);
+
+function login(token) {
+        $.ajax({
+            type: "POST",
+            url: "http://127.0.0.1:3000/api/users/OAuthLogin",
+            data: {"idToken": token},
+            dataType: "json",
+            success: function (resp) {
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:5000/login",
+                    data: JSON.stringify({"data": resp.id}),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: "json",
+                    success: function (resp) {
+                        if (resp.message = "okay") {
+                            console.log("OKAY!")
+                           // window.location.replace("getSession")
+                        }
+                        else{
+                            console.log("ERROR!")
+                        }
+                    }
+
+                });
+
+            },
+
+        });
+
+    }
+}
+
+>>>>>>> 3eb63abc1ac54a9d924425870036dd392a9a0fa7
 $('#autocomplete').autocomplete({
                 source: function (request, response) {
                     $.ajax({
@@ -6,8 +50,11 @@ $('#autocomplete').autocomplete({
                         type: "GET",
                         dataType: "json",
                         success: function (data) {;
+<<<<<<< HEAD
                             console.log(request);
                             console.log(data);
+=======
+>>>>>>> 3eb63abc1ac54a9d924425870036dd392a9a0fa7
                             response($.map(data, function (item) {
 
                                 return {
@@ -19,5 +66,29 @@ $('#autocomplete').autocomplete({
                     });
                 },
 
+<<<<<<< HEAD
             })
+=======
+            });
+
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        $.ajax({
+           url: "http://localhost:5000/logout",
+           dataType: "json",
+                success: function (resp) {
+                        if (resp.message = "okay") {
+                            console.log("User signed out.")
+                        }
+                        else{
+                            console.log("Something went wrong")
+                        }
+                }
+        });
+    });
+}
+
+>>>>>>> 3eb63abc1ac54a9d924425870036dd392a9a0fa7
 
