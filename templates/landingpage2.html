@@ -89,7 +89,10 @@
                     <div class="time">
                     
                     <h1> Interests Go Here!</h1>
-                                        <div style="border: 1px solid white; width: 95%;float:left ; margin-left: -10px; margin-bottom:10px;"></div>
+                                        <div style="border: 1px solid white; width: 95%;float:left ; margin-left: -10px; margin-bottom:10px;"> </div>
+                                        <br>
+                                        
+                                    
                     <div>
                         <button id="contain-interest" value="contain-interest"></button>
                        
@@ -137,7 +140,7 @@
     var contain = document.getElementById("contain-interest");
     var option = document.getElementById("options");
 
-    $(".categorybuttons").click(function(){
+    $(document).on('click', '.categorybuttons', function(){
         var categoryname = $(this).text();
         var categoryid = $(this).val();
         var text = document.createTextNode(categoryname);
@@ -145,30 +148,65 @@
         btn.setAttribute("class", "selected");
         btn.setAttribute("value", $(this).val());
         btn.appendChild(text);
+        //btn.addEventListener('onclick', unselect());
         contain.appendChild(btn);
-        $(".selected").click(function (){
+        interests.push(categoryid);
+        $(this).remove();
+        console.log(interests);
+    });
+
+    $(document).on('click', '.selected', function () {
+        var id = $(this).val();
+        var index = interests.indexOf(id);
+        alert("Index in interests: " + index);
+        if (index > -1) {
+            interests.splice(index, 1);
+        }
+        alert("List of ids: " + interests);
+        categoryname = $(this).text();
+        categoryid = $(this).val();
+        text = document.createTextNode(categoryname);
+        btn = document.createElement("button");
+        btn.setAttribute("class", "categorybuttons");
+        btn.setAttribute("value", categoryid);
+        btn.appendChild(text);
+        option.appendChild(btn);
+        $(this).remove();
+    });
+
+    /*$("button").on('click', function() {
+        if (this.className == "categorybuttons") {
+            var categoryname = $(this).text();
+            var categoryid = $(this).val();
+            var text = document.createTextNode(categoryname);
+            var btn = document.createElement("button");
+            btn.setAttribute("class", "selected");
+            btn.setAttribute("value", $(this).val());
+            btn.appendChild(text);
+            contain.appendChild(btn);
+            interests.push(categoryid);
             $(this).remove();
-            var index = interests.indexOf($(this).val());
-            alert(index);
+        }
+        else if (this.className == "selected") {
+            var id = $(this).val();
+            var index = interests.indexOf(id);
+            alert("Index in interests: " + index);
             if (index > -1) {
                 interests.splice(index, 1);
             }
-            alert(interests);
+            alert("List of ids: " + interests);
             categoryname = $(this).text();
             categoryid = $(this).val();
             text = document.createTextNode(categoryname);
             btn = document.createElement("button");
             btn.setAttribute("class", "categorybuttons");
-            btn.setAttribute("value", $(this).val());
+            btn.setAttribute("value", categoryid);
             btn.appendChild(text);
             option.appendChild(btn);
-        });
-        interests.push(categoryid);
-        $(this).remove();
-        console.log(interests);
-        
+            $(this).remove();
+        }
+    });*/
 
-    });
 
     $(".userinterests").click( function () {
         alert("Submitted");
