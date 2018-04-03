@@ -6,8 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
         <meta name="viewport" content="width=device-width" />
-        
-        
+  
         <link href="../static/css/main2.css" rel="stylesheet" />
         <script src="../static/ckeditor/ckeditor.js"></script>
     </head>
@@ -19,7 +18,7 @@
                 <div class="landing">
                     <div class="nav">
                     <input class="searchbar" type="text" placeholder="Search..">
-                    <button class="searchbutton" type="submit"><i class="fa fa-search">Go!</i></button>
+                    <button class="searchbutton" type="submit"><i>Go!</i></button>
                         <div class="pages">
                     
                             <a href="#">Home</a>
@@ -83,16 +82,12 @@
                      </script>
                      
                     </form>
-                      <input  placeholder="Add title Here" class="titlearea" type="textarea" name="titlename" id="title"/>
+                      <input  placeholder="Add title Here" class="titlearea" type="textarea" name="title" id="title"/>
 
                       <input type="textarea" name="" placeholder="Enter tags" class="tagsarea">
                      
                       <div class="popupwrapper">
-                     <div class="popup"  onclick="myFunction()">Choose Category
-                        {% for category in categories %}
-                    <button class=" popuptext " id="myPopup" value="{{ category['id'] }}">{{category['name']}}</button>
-                        {% endfor %}
-                    </div>  
+                     <div class="popup" id="popup"><button class="categorybutton" data-toggle="modal" data-target="#myModal"><b>Category :</b></button></div>  
                         </div>
                     <a class="submitbutton3" type="submit" >Submit</a>
                    <a class="submitbutton2" type="submit" >Hide</a>
@@ -125,6 +120,28 @@
                 </div>
                 </div>
             </div>
+            <!-- Modal -->
+            <div id="myModal" class="modal fade"  style="z-index: 9999;" data-backdrop="false">
+                <div class="modal-dialog">
+            
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Categories: </h4>
+                        </div>
+                        <div class="modal-body">
+                            {% for category in categories %}
+                                <button class="catbuttons" value="{{ category['id'] }}">{{category['name']}}</button>
+                            {% endfor %}
+                        </div>  
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+            
+                </div>
+            </div>
             
     </body>
     <script src="../static/js/jquery-3.3.1.min.js"></script>
@@ -135,7 +152,7 @@
 
 <script >
 
-   var title = document.getElementById('title').value
+   var posttitle = document.getElementById('title').value
 
     $(".submitbutton3").click(function(){
          var editorText = CKEDITOR.instances.textarea.getData();
@@ -152,10 +169,12 @@
 
       $('#newDivs').prepend('<div>' + editorText + '<div>');
            CKupdate();
+
+    document.getElementById('titlebarid').innerHTML = posttitle;
         alert(title);
         
         
-        document.getElementById('titlebarid').innerHTML=title;
+        
      
     })
 
@@ -208,12 +227,28 @@
     })
 </script>
 
+<script>
+    $('.catbuttons').click( function() {
+        var category = $(this).val();
+        var txt = $(this).text();
+        var text = document.createTextNode(txt);
+        var popup = document.getElementById('popup');
+        $('#myModal').hide('slow');
+        popup.appendChild(text);
+         $(".categorycontainer").show();
+
+    });
+</script>
+
 
 
 <script type="text/javascript">
     $(document).ready(function(){
         $("#form1").hide();
         $(".tagsarea").hide();
+
+
+        
         $(".popupwrapper").hide();
         $(".submitbutton3").hide();
          $(".submitbutton2").hide();
@@ -221,6 +256,7 @@
          $(".titlebar").hide();
          $("tagsbar").hide();
          $("categorybar").hide();
+         $(".categorycontainer").hide();
 
           CKupdate();
 
@@ -232,39 +268,25 @@
          $(".submitbutton3").show('slow');
          $(".submitbutton2").show('slow');
 
+         
 
             
     })
-         // $('#title').blur(function(){
-       // if( !$(this).val() ) {
-        //  $('#form1').hide('slow');
-         //$(".tagsarea").hide('slow');
-       // $(".popupwrapper").hide('slow'); 
-       //  $(".submitbutton3").hide('slow');
+          $('#title').blur(function() {
 
-  //  }
-//});
-
-
+            
+            
+         $('#form1').hide('slow');
+         $(".tagsarea").hide('slow');
+        $(".popupwrapper").hide('slow'); 
+         $(".submitbutton3").hide('slow');
+});
+    
     })
 </script>
 
 
-<script>
-// When the user clicks on <div>, open the popup
-function myFunction() {
-    var popup = document.getElementById("myPopup");
-    popup.classList.toggle("show");
-}
-</script>
-
-
-
 <script type="text/javascript">
-
-  
-
-  
   
     function showhide() {
 
