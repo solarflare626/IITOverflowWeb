@@ -34,23 +34,12 @@ def question():
 def profile():
     curuser = 1
     user =str(curuser)
-    url = ('http://localhost:3000/api/Questions?filter[where][userId]=' + user)
+    url = ('http://localhost:3000/api/users/'+user+'?filter[include]=questions&filter[include]=interests')
     response = requests.get(url)
     json_object = response.json()
-    # html = urlopen(url).read().decode('utf-8')
-    # questions = json.loads(html)
 
-    for i in range(len(json_object)):
-        ParsedValue = json_object[i]['question']
-        ParsedValue1 = json_object[i]['questiondesc']
-    iurl = ('http://127.0.0.1:3000/api/Interests?filter[where][userId]='+ user)
-    response = requests.get(iurl)
-    json_object2 = response.json()
-    invalue={}
-    for i in range(len(json_object2)):
-        invalue = json_object2[i]['interests']   
+    return render_template('profile.html', json_object=json_object)
 
-    return render_template('profile.html', question=ParsedValue, description=ParsedValue1, json_object= json_object, interest= invalue, json_object2=json_object2)
 
 if __name__=='__main__':
-	app.run(debug=True)    
+	app.run(debug=True)

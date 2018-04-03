@@ -104,9 +104,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
       <div class="w3-card w3-round w3-white w3-hide-small">
         <div class="w3-container">
         <p>Interests</p>
-        {% for i in interests %}
+        {% for i in json_object.interests %}
           <p>
-            <span class="w3-tag w3-small w3-theme-d5">{{i.interests}}</span>
+            <span class="w3-tag w3-small w3-theme-d5">{{i.name}}</span>
         {% endfor %}
         </div>
       </div>
@@ -141,7 +141,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
          </div> 
          </div> 
       
-{% for i in json_object %}
+{% for i in json_object.questions %}
         <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
         <img src="static/images/26237654_1672250442796454_2089276012_o.jpg" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
         <span class="w3-right w3-opacity">1 min</span>
