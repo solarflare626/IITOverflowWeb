@@ -98,13 +98,70 @@
                    <a class="submitbutton2" type="submit" >Hide</a>
                       </div>
                       
-                      
+                    {% for i in questions %}  
                       <div id="newDivs" class="newdiv">
-                          <div id="titlebarid" class="titlebar"></div>
-                          <div id="categorybarid" class="categorybar"></div>
+                          <div id="titlebarid" class="titlebar"> {{i['question']}} </div>
+                          <div id="categorybarid" class="categorybar"> {{i['questiondesc']}}</div>
                           <div id="tagsbarid" class="tagsbar"></div>
 
                       </div>
+                        <div class="panel-footer">
+                    <button type="button" class="[ btn btn-default ]">+1</button>
+                    <button type="button" class="[ btn btn-default ]">
+                        <span class="[ glyphicon glyphicon-share-alt ]"></span>
+                    </button>
+                    <div class="input-placeholder">Add an answer...</div>
+                                    <form method="post" name="form2">
+                <div class="panel-google-plus-comment">
+                    <img class="img-circle" src="https://lh3.googleusercontent.com/uFp_tsTJboUY7kue5XAsGA=s46" alt="User Image" />
+                    <div class="col-md-6"  id="newcomment">
+
+
+
+
+                        <input type="text" class="answer" id ="{{i['id']}}">
+
+
+                        <button class="post_answer" value="{{i['id']}}">Post Answer</button>
+                        <button type="reset" onclick="showhide1()" name="post_answer"class="[ btn btn-default ]">Cancel</button>
+
+                    </div>
+
+                    {% for answer in i.answers%} 
+                    <div class="col-md-6"  id="answers_{{answer.id}}">             
+
+
+
+                    <h2>{{answer.answer}}</h2>
+
+                    <button type="reset" id= "btn_answer_{{answer.id}}"  onclick="showhide2({{answer.id}})" class="edit_answer" value="{{answer.id}}">Edit</button>
+              
+               
+
+
+
+                   </div>
+
+                             <div style="display: none;"  class="col-md-6"  id="input_answers_{{answer.id}}">
+              
+                    <input type="text"  class="answer" value="{{answer.answer}}" id="{{answer.id}}">
+                    <button class="edit_post_answer"  value="{{answer.id}}">Post Answer</button>
+                    <button type="reset" onclick="showhide2({{answer.id}})" name="post_answer" class="[ btn btn-default ]">Cancel</button>
+
+
+                   </div>
+
+                    {% endfor %}
+
+
+                    <div class="clearfix"></div>
+                </div>
+              </form>
+                </div>
+            
+
+
+                    {% endfor %}  
                     
                       
 
@@ -138,24 +195,44 @@
    var title = document.getElementById('title').value
 
     $(".submitbutton3").click(function(){
-         var editorText = CKEDITOR.instances.textarea.getData();
-         $("#form1").hide('slow');
-         $(".submitbutton2").hide('slow');
-          $(".popupwrapper").hide('slow');
-           $(".tagsarea").hide('slow');
-           $(".submitbutton3").hide('slow');
-           $("newDivs").show('slow');
+        var editorText = CKEDITOR.instances.textarea.getData();
+        $("#form1").hide('slow');
+        $(".submitbutton2").hide('slow');
+        $(".popupwrapper").hide('slow');
+        $(".tagsarea").hide('slow');
+        $(".submitbutton3").hide('slow');
+        $("newDivs").show('slow');
         $(".titlebar").show('slow');
         $("tagsbar").show('slow');
         $("categorybar").show('slow');
-         alert(editorText);
+        alert(editorText);
 
-      $('#newDivs').prepend('<div>' + editorText + '<div>');
-           CKupdate();
-        alert(title);
-        
-        
+        $('#newDivs').prepend('<div>' + editorText + '<div>');
+
+        CKupdate();
+
+
         document.getElementById('titlebarid').innerHTML=title;
+        var title = document.getElementById('title').value
+        var question = editorText;
+        alert("Title: " + title);
+        alert("Question: " + question);
+        var data = {"question": title, "questiondesc": editorText,};
+        console.log(data);
+
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:3000/api/Questions",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json",
+            success: function (result) {
+                console.log('ok');
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
      
     })
 
@@ -289,6 +366,43 @@ function myFunction() {
     }
 
 
+function showhide2(id)
+ {
+       var div = document.getElementById("answers_"+id);
+if (div.style.display !== "none") {
+    div.style.display = "none";
+}
+else {
+    div.style.display = "block";
+}
+
+var div1 = document.getElementById("input_answers_"+id);
+if (div1.style.display !== "none") {
+    div1.style.display = "none";
+}
+else {
+    div1.style.display = "block";
+}
+
+
+
+}
+
+function showhide3(id)
+ {
+var div = document.getElementById("answers_"+id);
+if (div.style.display !== "none") {
+    div.style.display = "none";
+}
+else {
+    div.style.display = "block";
+}
+}
+
+
+
+
+
 
 </script>
 
@@ -320,7 +434,53 @@ function myFunction() {
         });
     });
 
+$(".edit_post_answer").on("click", function(e) {
+    e.preventDefault();
+        var qid = $(this).val();
+        alert(qid);
+        var input = document.getElementById(qid);
+        var answer = input.value;
+        alert(answer);
+        var data =  {"answer": answer }
 
+    $.ajax({
+        type: "PUT",
+        url: "http://localhost:3000/api/Answers/"+qid,
+        data: JSON.stringify(data),
+        dataType: "json",
+        contentType: "application/json",
+        success:function(result) {
+          alert('ok');
+        },
+        error:function(result) {
+          alert('error');
+        }
+    });
+});
+
+$(".").on("click", function(e) {
+    e.preventDefault();
+        var qid = $(this).val();
+        alert(qid);
+        var input = document.getElementById(qid);
+        var answer = input.value;
+        alert(answer);
+        var data =  {"answer": answer, "questionId": qid, "userId": 1}
+
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:3000/api/Answers",
+        data: JSON.stringify(data),
+        dataType: "json",
+        contentType: "application/json",
+        success:function(result) {
+          alert('ok');
+        },
+        error:function(result) {
+          alert('error');
+        }
+    });
+});
 
 </script>
 
