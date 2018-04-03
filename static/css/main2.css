@@ -55,7 +55,7 @@ html {
 }
 
 h1 {
-    font-size: 42px;
+    font-size: 30px;
     margin-bottom: 20px;
 }
 
@@ -76,10 +76,10 @@ a {
     border-radius: 100px;
     padding-bottom: 10px;
     padding-top: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-right: 15px;
-    font-weight: 1200;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 10px;
+    font-weight: 1200px;
     text-align: center;
     display: inline;
 }
@@ -92,8 +92,9 @@ a {
     border-radius: 100px;
     width: 20%;
     margin-left: 35%;
-    margin-top: 10%;
+    margin-top: 12%;
     font-size: 20px;
+    position: absolute;
 }
 
 .date {
@@ -106,7 +107,7 @@ a {
 
 .time {
     color: white;
-    margin-top: 10%;
+    margin-top: 0;
     margin-left: 5%;
 }
 
@@ -122,14 +123,14 @@ a {
     opacity: 0.7;
     display: block;
     border-radius: 100px;
-    padding: 0.5em 1.75em;
-    width: 160px;
-    margin-top: 100px;
+    padding: 10px;
+    width: 22%;
+    margin-top: 150px;
     float: left;
     text-align: center;
     margin-right: 30px;
-    height: 25px;
-    font-size: 20px;
+    height: 20px;
+    font-size: 15px;
     font-weight: 1000;
 }
 
@@ -151,13 +152,13 @@ a {
 }
 
 .nav {
-    padding-top: 3em;
+    margin-top: 30px;
 }
 
 .pages {
     float: right;
     text-align: right;
-    margin-top: 30px;
+    margin-top: 1%;
 }
 
 .pages a {
@@ -165,6 +166,7 @@ a {
     color: white;
     margin-left: 25px;
     vertical-align: middle;
+    font-size: 15px;
 }
 
 .logo {
@@ -173,13 +175,13 @@ a {
 }
 
 .landingWrapper {
-    width: 88%;
+    width: 90%;
     margin: auto;
 }
 
 .landingContent {
-    width: 88%;
-    margin: 150px auto 0 auto;
+    width: 92%;
+    margin: 60px auto 0 auto;
     display: flex;
 }
 
@@ -192,8 +194,9 @@ a {
 }
 
 .iphoneHand {
-    width: 620px;
-    margin-top: -75px;
+    width: 420px;
+    margin-top: 20px;
+    margin-left: 100px;
 }
 
 .contentLeft h1,
@@ -203,6 +206,9 @@ a {
     text-decoration: none;
 }
 
+.contentLeft p{
+    font-size: 15px;
+}
 .selected {
     border: 1px solid white;
     font-family: Poppins-Regular;
