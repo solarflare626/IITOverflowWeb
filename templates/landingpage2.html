@@ -94,7 +94,7 @@
                                         
                                     
                     <div>
-                        <button id="contain-interest" value="contain-interest"></button>
+                        <div id="contain-interest" value="contain-interest"></div>
                        
                     </div>
                     <button  class="userinterests" id="interestId">Submit</button>
@@ -129,11 +129,11 @@
     $(document).on('click', '.selected', function () {
         var id = $(this).val();
         var index = interests.indexOf(id);
-        alert("Index in interests: " + index);
+       // alert("Index in interests: " + index);
         if (index > -1) {
             interests.splice(index, 1);
         }
-        alert("List of ids: " + interests);
+       // alert("List of ids: " + interests);
         categoryname = $(this).text();
         categoryid = $(this).val();
         text = document.createTextNode(categoryname);

@@ -61,7 +61,8 @@ html {
 }
 
 .logo {
-    margin-left: 6%;
+    margin-top: 5%;
+    margin-left: 10.5%;
     width: 100px;
 }
 
@@ -94,7 +95,7 @@ html {
     margin-top: 6px;
 }
 
-.nav {
+.navland {
     position: fixed;
     top: 0;
     left: 0;
@@ -115,8 +116,8 @@ html {
     height: 100%;
     width: 17%;
     float: left;
-    margin-top: 45px;
-    margin-left: 12%;
+    margin-top:15%;
+    margin-left: 5%;
     margin-right: 0;
     padding: 0;
     -ms-overflow-style: none;
@@ -412,7 +413,7 @@ html {
     padding: 5px;
     height: 100%;
     margin-top: 40px;
-    width: 18%;
+    width: 35%;
     float: left;
     overflow: hidden;
     padding: 7px;
@@ -504,7 +505,7 @@ p {
     font-size: 15px;
     text-decoration: none;
     color: white;
-    margin: 0 0 10px 10px;
+    margin: 0 10px 10px 10px;
     position: relative;
 }
 
@@ -643,7 +644,7 @@ a {
     border-radius: 100px;
     width: 20%;
     margin-left: 35%;
-    margin-top: 12%;
+    margin-top: 10%;
     font-size: 20px;
     position: absolute;
 }
@@ -676,7 +677,7 @@ a {
     border-radius: 100px;
     padding: 10px;
     width: 22%;
-    margin-top: 150px;
+    margin-top: 13%;
     float: left;
     text-align: center;
     margin-right: 30px;
@@ -703,7 +704,9 @@ a {
 }
 
 .nav {
-    margin-top: 30px;
+    margin-top: 0px;
+    height: 40px;
+    padding: 10px;
 }
 
 .pages {
@@ -745,9 +748,9 @@ a {
 }
 
 .iphoneHand {
-    width: 420px;
-    margin-top: 20px;
-    margin-left: 100px;
+    width: 420px;   
+    float: left;
+    margin-top:0;
 }
 
 .contentLeft h1,
