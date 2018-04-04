@@ -63,6 +63,26 @@ html {
     border-radius: 20px;
 }
 
+#tagsID+.tag-editor {
+    background: #fafafa;
+    font-size: 12px;
+}
+
+#tagsID+.tag-editor .tag-editor-tag {
+    color: #fff;
+    background: #555;
+    border-radius: 2px;
+}
+
+#tagsID+.tag-editor .tag-editor-spacer {
+    width: 7px;
+}
+
+#tagsID+.tag-editor .tag-editor-delete 
+{
+    display: none;
+}
+
 .title {
     display: block;
 }
@@ -437,7 +457,7 @@ html {
     padding: 0;
     border: 2px solid #DDDFE2;
     width: 96%;
-    height: 35%;
+    height: 39%;
     float: left;
     background-color: white;
     border-radius: 10px;
@@ -610,4 +630,78 @@ p {
     border: 0;
     box-shadow: 0;
     display: inline;
+}
+
+/* The Modal (background) */
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, .5);
+    /* Black w/ opacity */
+    text-align: center;
+}
+
+/* Modal Content/Box */
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    /* 15% from the top and centered */
+    padding: 10px;
+    border: 1px solid #D0D0D0;
+    border-radius: 10px;
+    width: 80%;
+    text-align: center;
+    overflow: hidden;
+    box-shadow: 0 4px 10px -4px rgba(208, 208, 208, 1);
+    /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+
+.close {
+    float: right;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #4267B2;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.categorypopups {
+    border: 1px solid #D0D0D0;
+    border-radius: 100px;
+    padding: 5px;
+    margin: 3px;
+    display: inline-block;
+    color: #657786;
+}
+
+.categorypopups:hover {
+    /* background-color: linear-gradient(to right, #4267B2, #5D91FA); */
+    background: -moz-linear-gradient(45deg, #00dbde, #5D91FA);
+    background: -webkit-linear-gradient(45deg, #00dbde, #5D91FA);
+    background: -o-linear-gradient(45deg, #00dbde, #5D91FA);
+    color: white;
+    border-color: white;
+    border-width: 0;
 }

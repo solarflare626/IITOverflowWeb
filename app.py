@@ -41,14 +41,14 @@ def question():
 
 
 
-        print(str(questions))
+    
 
         url1 = 'http://localhost:3000/api/Answers'
         html1 = urlopen(url1).read().decode('utf-8')
         answers = json.loads(html1)
 
 
-        print(str(questions))
+        
         return render_template('question2.html', questions = questions, answers = answers, categories=categories)
 
 if __name__ == '__main__':
