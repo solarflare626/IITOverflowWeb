@@ -13,14 +13,26 @@ app.secret_key = 'my very own secret key'
 app.config['SESSION_TYPE'] = 'filesystem'
 
 
-# @app.route('/', methods=['GET','POST'])
-# def home(username=None):
-#     return render_template("home.html")
+# @app.route('/')
+# def index():
+#     return render_template('login.html')
 
+@app.route('/', methods= ['POST', 'GET'])
+def fillup():
+    if request.method == 'POST':
+        ids = request.json['ids']
+        for i in ids:
+            requests.post('http://localhost:3000/api/Interests?access_token=V4W9EdDy9iAACCotqJTot1XGyzxRYs4CSHCYlhVPJQHKoY1KpD2KUoWudDi5EgaH',json={"categoryId":i, "userId":1 })
 
-@app.route('/')
-def index():
-    return render_template('login.html')
+        return render_template('landingpage2.html')
+
+    else:
+        url = ('http://localhost:3000/api/Categories?access_token=V4W9EdDy9iAACCotqJTot1XGyzxRYs4CSHCYlhVPJQHKoY1KpD2KUoWudDi5EgaH')
+        response = requests.get(url)
+        categories= response.json()
+
+        return render_template('landingpage2.html',categories=categories)
+
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -89,6 +101,4 @@ def add_cors(resp):
 
 if __name__ == '__main__':
     app.run(host='localhost', debug=True)
-
-
 

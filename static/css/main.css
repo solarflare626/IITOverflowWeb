@@ -1,3 +1,4 @@
+
                     /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
 
@@ -73,7 +74,7 @@
                 }
 
                 .barcontainer {
-                    
+
                     text-align: center;
                     display: inline-block !important;
                     font-size: 20px;
@@ -81,7 +82,7 @@
 
                 .topbar {
                     text-align: center;
-                    width: 100%;  
+                    width: 100%;
                     float: right;
                 }
 
@@ -585,3 +586,114 @@
                             width: 100%;
                         }
                     }
+
+@font-face {
+  font-family: Poppins-Regular;
+  src: url('fonts/poppins/Poppins-Regular.ttf');
+}
+@font-face {
+  font-family: Poppins-Light;
+  src: url('fonts/poppins/Poppins-Light.ttf');
+}
+
+body{
+   background: linear-gradient(to right, #3960C4,#5DECFC);
+  font-family: Poppins-Regular;
+  color: white;
+ }
+a {
+  font-size: 25px;
+  text-decoration: none;
+  font-family: Poppins-Regular;
+  color: white;
+
+  margin-right: 30px;
+}
+
+.h1overflow1{
+  margin-bottom: auto;
+  font-size: 40px;
+
+}
+.imagediv{
+  float: right;
+  width: 400px;
+   margin-right: 300px;
+   margin-top: 100px;
+
+
+}
+.image1{
+  width: 700px;
+
+}
+.tryitfree{
+  background-color:#47D9F7;
+  border-color: white;
+  position: relative;
+  margin-right: 60px;
+  float: right;
+  margin-top: 33px;
+  color: white;
+  opacity: 0.9;
+}
+.header{
+  margin-top: 50px;
+}
+button{
+  border-radius: 30px;
+  color: #6C767A;
+  background-color: white;
+  font-family: Poppins-Regular;
+  width: 250px;
+  height: 50px;
+  outline: none;
+  border-width: 2px;
+  border-color: #6B7868;
+  font-size: 20px;
+}
+.h1overflow{
+  display: inline-block;
+  margin-right: 600px;
+  font-size: 40px;
+
+}
+.signupbutton{
+  background-color:#49B2EA;
+  color: white;
+  margin-right: 40px;
+  margin-top: 80px;
+  border-color: white;
+  opacity: 0.9;
+}
+
+.linksdiv{
+  margin-top: 50px;
+  margin-right: 50px;
+  float: right;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+}
+.getappbutt{
+  margin-right: 40px;
+  background-color: #000000;
+  color: white;
+  border-color: white;
+  opacity: 0.7;
+
+}
+.getappbuttcont{
+  margin-bottom: 0;
+  margin-top: 70px;
+  margin-left: 200px;
+  display: inline-block;
+  width: 50%;
+}
+
+p{
+  font-size: 20px;
+  margin-top: 40px;
+  margin-bottom: 60px;
+}
+
