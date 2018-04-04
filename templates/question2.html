@@ -6,10 +6,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
         <meta name="viewport" content="width=device-width" />
-        <link href="../static/js/jQuery-tagEditor-master/jquery.tag-editor.css">
+        
+        
         <link href="../static/css/main2.css" rel="stylesheet" />
         <script src="../static/ckeditor/ckeditor.js"></script>
-
     </head>
 
 
@@ -19,7 +19,7 @@
                 <div class="landing">
                     <div class="nav">
                     <input class="searchbar" type="text" placeholder="Search..">
-                    <button class="searchbutton" type="submit"><i>Go!</i></button>
+                    <button class="searchbutton" type="submit"><i class="fa fa-search">Go!</i></button>
                         <div class="pages">
                     
                             <a href="#">Home</a>
@@ -83,28 +83,93 @@
                      </script>
                      
                     </form>
-                      <input  placeholder="Add title Here" class="titlearea" type="textarea" name="title" id="title"/>
+                      <input  placeholder="Add title Here" class="titlearea" type="textarea" name="titlename" id="title"/>
 
-                      <input id="tagsID" type="text" name="tagsarea"  class="tagsarea">
+                      <input type="textarea" name="" placeholder="Enter tags" class="tagsarea">
                      
                       <div class="popupwrapper">
-                     <div class="popup" id="popup"><button class="categorybutton" id="myBtn"><b>Category :</b></button></div>  
+                     <div class="popup"  onclick="myFunction()">Choose Category
+                        {% for category in categories %}
+                    <button class=" popuptext " id="myPopup" value="{{ category['id'] }}">{{category['name']}}</button>
+                        {% endfor %}
+                    </div>  
                         </div>
                     <a class="submitbutton3" type="submit" >Submit</a>
                    <a class="submitbutton2" type="submit" >Hide</a>
                       </div>
                       
-                      
+                      <div class="afterPosting">
+                    {% for i in questions %}  
                       <div id="newDivs" class="newdiv">
-                          <div id="titlebarid" class="titlebar"></div>
-                          <div id="categorybarid" class="categorybar"></div>
+                          <div id="titlebarid" class="titlebar"> {{i['question']}} </div>
+                          <div id="categorybarid" class="categorybar"> {{i['questiondesc']}}</div>
                           <div id="tagsbarid" class="tagsbar"></div>
 
                       </div>
+                        <div class="panel-footer">
+                    <button type="button" class="[ btn btn-default ]">+1</button>
+                    <button type="button" class="[ btn btn-default ]">
+                        <span class="[ glyphicon glyphicon-share-alt ]"></span>
+                    </button>
+                    <div class="input-placeholder">Add an answer...</div>
+                                    <form method="post" name="form2">
+                <div class="panel-google-plus-comment">
+                    <img class="img-circle" src="https://lh3.googleusercontent.com/uFp_tsTJboUY7kue5XAsGA=s46" alt="User Image" />
+                    <div class="col-md-6"  id="newcomment">
+
+
+
+
+                        <input type="text" class="answer" id ="{{i['id']}}">
+
+
+                        <button class="post_answer" value="{{i['id']}}">Post Answer</button>
+                        <button type="reset" onclick="showhide1()" name="post_answer"class="[ btn btn-default ]">Cancel</button>
+
+                    </div>
+
+                   </div>
+
+                    {% for answer in i.answers%} 
+                    <div class="col-md-6"  id="answers_{{answer.id}}">             
+
+
+
+                    <h2>{{answer.answer}}</h2>
+
+                    <button type="reset" id= "btn_answer_{{answer.id}}"  onclick="showhide2({{answer.id}})" class="edit_answer" value="{{answer.id}}">Edit</button>
+              
+               
+
+
+
+                   </div>
+
+
+                                         <div style="display: none;"  class="col-md-6"  id="input_answers_{{answer.id}}">
+              
+                    <input  type="text"  class="answer" value="{{answer.answer}}" id="{{answer.id}}">
+                    <button class="edit_post_answer"  value="{{answer.id}}">Post Answer</button>
+                    <button  type="reset" onclick="showhide2({{answer.id}})" name="post_answer" class="[ btn btn-default ]">Cancel</button>
+                    </div>
+
+
+                    {% endfor %}
+
+
+                    <div class="clearfix"></div>
+                </div>
+
+              </form>
+                </div>
+            
+
+
+                    {% endfor %}  
                     
                       
-
-                </div>
+</div>
+               
 
                 <div class="contentRight">
                 <div class="links2">
@@ -121,59 +186,57 @@
                 </div>
                 </div>
             </div>
-
-            <!-- Trigger/Open The Modal -->
-            <button >Open Modal</button>
             
-            <!-- The Modal -->
-            <div id="myModal" class="modal">
-            
-                <!-- Modal content -->
-
-               
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                     {% for category in categories %}
-                    <a class="categorypopups"> {{category.name}} </a>
-                     {% endfor %}
-                </div>
-                
-            
-            </div>  
-          
     </body>
     <script src="../static/js/jquery-3.3.1.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="../static/js/jQuery-tagEditor-master/jquery.tag-editor.min.js"></script>
-    <script src="../static/js/jQuery-tagEditor-master/jquery.caret.min.js"></script>
+   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 
 
 <script >
 
-   var posttitle = document.getElementById('title').value
+   var title = document.getElementById('title').value
 
     $(".submitbutton3").click(function(){
-         var editorText = CKEDITOR.instances.textarea.getData();
-         $("#form1").hide('slow');
-         $(".submitbutton2").hide('slow');
-          $(".popupwrapper").hide('slow');
-           $(".tagsarea").hide('slow');
-           $(".submitbutton3").hide('slow');
-           $("newDivs").show('slow');
+        var editorText = CKEDITOR.instances.textarea.getData();
+        $("#form1").hide('slow');
+        $(".submitbutton2").hide('slow');
+        $(".popupwrapper").hide('slow');
+        $(".tagsarea").hide('slow');
+        $(".submitbutton3").hide('slow');
+        $("newDivs").show('slow');
         $(".titlebar").show('slow');
         $("tagsbar").show('slow');
         $("categorybar").show('slow');
-         alert(editorText);
+        alert(editorText);
 
-      $('#newDivs').prepend('<div>' + editorText + '<div>');
-           CKupdate();
+        $('#newDivs').prepend('<div>' + editorText + '<div>');
 
-    document.getElementById('titlebarid').innerHTML = posttitle;
-        alert(title);
-        
-            
-   
+        CKupdate();
+
+
+        document.getElementById('titlebarid').innerHTML=title;
+        var title = document.getElementById('title').value
+        var question = editorText;
+        alert("Title: " + title);
+        alert("Question: " + question);
+        var data = {"question": title, "questiondesc": editorText,};
+        console.log(data);
+
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:3000/api/Questions",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json",
+            success: function (result) {
+                console.log('ok');
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
      
     })
 
@@ -185,14 +248,12 @@
             }
         }
 
-
+    
 
 </script>
 
 <script>
     $(document).ready(function(){
-
-        
         $(".submitbutton2").on('click', function(){
             $("#form1").hide('slow');
 
@@ -225,23 +286,7 @@
         $(".submitbutton2").on('click', function () {
             $(this).hide('slow');
         })
-
-    
-
     })
-</script>
-
-<script>
-    $('.catbuttons').click( function() {
-        var category = $(this).val();
-        var txt = $(this).text();
-        var text = document.createTextNode(txt);
-        var popup = document.getElementById('popup');
-        $('#myModal').hide('slow');
-        popup.appendChild(text);
-         $(".categorycontainer").show();
-
-    });
 </script>
 
 
@@ -250,9 +295,6 @@
     $(document).ready(function(){
         $("#form1").hide();
         $(".tagsarea").hide();
-
-
-        
         $(".popupwrapper").hide();
         $(".submitbutton3").hide();
          $(".submitbutton2").hide();
@@ -260,7 +302,6 @@
          $(".titlebar").hide();
          $("tagsbar").hide();
          $("categorybar").hide();
-         $(".categorycontainer").hide();
 
           CKupdate();
 
@@ -271,22 +312,40 @@
         $(".popupwrapper").show('slow'); 
          $(".submitbutton3").show('slow');
          $(".submitbutton2").show('slow');
+
+
             
-
-       // $('#tagsID').tagEditor({
-          //      initialTags: ['Hello', 'World', 'Example', 'Tags'],
-            //    delimiter: ', ', /* space and comma */
-              //  placeholder: 'Enter tags ...',
-                //clickDelete: true,
-
-            //});
     })
-        
+         // $('#title').blur(function(){
+       // if( !$(this).val() ) {
+        //  $('#form1').hide('slow');
+         //$(".tagsarea").hide('slow');
+       // $(".popupwrapper").hide('slow'); 
+       //  $(".submitbutton3").hide('slow');
+
+  //  }
+//});
+
+
     })
 </script>
 
 
+<script>
+// When the user clicks on <div>, open the popup
+function myFunction() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+}
+</script>
+
+
+
 <script type="text/javascript">
+
+  
+
+  
   
     function showhide() {
 
@@ -309,6 +368,44 @@
             div.style.display = "block";
         }
     }
+
+
+    function showhide2(id)
+ {
+       var div = document.getElementById("answers_"+id);
+if (div.style.display !== "none") {
+    div.style.display = "none";
+}
+else {
+    div.style.display = "block";
+}
+
+var div1 = document.getElementById("input_answers_"+id);
+if (div1.style.display !== "none") {
+    div1.style.display = "none";
+}
+else {
+    div1.style.display = "block";
+}
+
+
+
+}
+
+function showhide3(id)
+ {
+var div = document.getElementById("answers_"+id);
+if (div.style.display !== "none") {
+    div.style.display = "none";
+}
+else {
+    div.style.display = "block";
+}
+}
+
+
+
+
 
 
 
@@ -342,41 +439,86 @@
         });
     });
 
+$(".edit_post_answer").on("click", function(e) {
+    e.preventDefault();
+        var qid = $(this).val();
+        alert(qid);
+        var input = document.getElementById(qid);
+        var answer = input.value;
+        alert(answer);
+        var data =  {"answer": answer }
 
+    $.ajax({
+        type: "PUT",
+        url: "http://localhost:3000/api/Answers/"+qid,
+        data: JSON.stringify(data),
+        dataType: "json",
+        contentType: "application/json",
+        success:function(result) {
+          alert('ok');
+        },
+        error:function(result) {
+          alert('error');
+        }
+    });
+});
+
+$(".").on("click", function(e) {
+    e.preventDefault();
+        var qid = $(this).val();
+        alert(qid);
+        var input = document.getElementById(qid);
+        var answer = input.value;
+        alert(answer);
+        var data =  {"answer": answer, "questionId": qid, "userId": 1}
+
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:3000/api/Answers",
+        data: JSON.stringify(data),
+        dataType: "json",
+        contentType: "application/json",
+        success:function(result) {
+          alert('ok');
+        },
+        error:function(result) {
+          alert('error');
+        }
+    });
+});
 
 </script>
 
-<script>
-    // Get the modal
-        var modal = document.getElementById('myModal');
 
-        // Get the button that opens the modal
-        var btn = document.getElementById("myBtn");
 
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
 
-        // When the user clicks on the button, open the modal
-        btn.onclick = function () {
-            modal.style.display = "block";
-        }
 
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
+<script type="text/javascript">
 
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
+    $(function () {
+        $('.panel-google-plus > .panel-footer > .input-placeholder, .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > button[type="reset"]').on('click', function (event) {
+            var $panel = $(this).closest('.panel-google-plus');
+            $comment = $panel.find('.panel-google-plus-comment');
+
+            $comment.find('.btn:first-child').addClass('disabled');
+            $comment.find('textarea').val('');
+
+            $panel.toggleClass('panel-google-plus-show-comment');
+
+            if ($panel.hasClass('panel-google-plus-show-comment')) {
+                $comment.find('textarea').focus();
             }
-        } 
+        });
+        $('.panel-google-plus-comment > .panel-google-plus-textarea > textarea').on('keyup', function (event) {
+            var $comment = $(this).closest('.panel-google-plus-comment');
+
+            $comment.find('button[type="submit"]').addClass('disabled');
+            if ($(this).val().length >= 1) {
+                $comment.find('button[type="submit"]').removeClass('disabled');
+            }
+        });
+    });
 </script>
-
-
-
-
 
 
 
