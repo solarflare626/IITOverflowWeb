@@ -33,6 +33,8 @@ def question():
         url = 'http://localhost:3000/api/Questions?filter[include]=answers'
 
         url2 = 'http://localhost:3000/api/Categories'
+
+    
         response = requests.get(url2)
         categories= response.json()
 

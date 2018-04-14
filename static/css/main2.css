@@ -28,7 +28,7 @@ html {
     padding: 15px;
     width: 86%;
     margin-top: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     height: 5px;
     color: black;
     border: 1px solid #D1D1D1;
@@ -78,8 +78,7 @@ html {
     width: 7px;
 }
 
-#tagsID+.tag-editor .tag-editor-delete 
-{
+#tagsID+.tag-editor .tag-editor-delete {
     display: none;
 }
 
@@ -286,6 +285,11 @@ html {
     box-shadow: 0 4px 5px -5px rgba(0, 0, 0, 0.8);
 }
 
+#tagsID+.tag-editor {
+    border-radius: 100px;
+    background-color: white;
+}
+
 .followerscount {
     bottom: 0;
     float: left;
@@ -313,12 +317,10 @@ html {
     padding-left: 0;
     padding-right: 0;
     padding-top: 0px;
-    border: 2px solid #DDDFE2;
     width: 98%;
     height: 40%;
     background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 4px 5px -5px rgba(0, 0, 0, 0.8);
 }
 
 .contentCenter {
@@ -341,13 +343,10 @@ html {
 
 .askquestion {
     margin: 5px;
-    padding: 0;
-    border: 2px solid #DDDFE2;
+    padding: 0 0 5px 0;
     width: 98%;
     background-color: white;
-    border-top-right-radius: 30px;
-    border-top-left-radius: 10px;
-    box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 4px 5px -5px rgba(0, 0, 0, 0.8);
 }
 
 .submitbutton1 {
@@ -404,8 +403,6 @@ html {
     width: 100%;
     height: 35px;
     background-color: #4267B2;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
 }
 
 .questiontextarea {
@@ -414,8 +411,240 @@ html {
 }
 
 .newdiv {
-    border: 1px solid #E9EBEE;
+    margin: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0px;
+    width: 98%;
+    background-color: white;
+    box-shadow: 0 4px 5px -5px rgba(0, 0, 0, 0.8);
+}
+
+.titlepost {
+    font-size: 13px;
+    padding: 5px;
+    width: 100%;
+    border-top: 1px solid #E1E2E3;
+    margin-top: 20px;
+}
+
+.titlepost:hover {
+    background-color: #F5F8FA;
+    width: 98%;
+    color: #4AB3F4;
+}
+
+.commenttextarea {
+    border: 1px solid #E1E2E3;
+    width: 100%;
+    height: 10%;
+    border-radius: 100px;
+    font-size: 13px;
+    padding: 7px;
+    box-sizing: border-box;
+    color: black;
+}
+
+.commenttextarea:focus {
+    border: 1px solid #4AB3F4;
+    box-sizing: border-box;
+}
+
+.newpostinput {
+    padding: 5px;
+}
+
+.descriptionpost:hover {
+    background-color: #F5F8FA;
+    width: 98%;
+    color: #4AB3F4;
+}
+
+.categorypost:hover {
+    background-color: #F5F8FA;
+    width: 98%;
+    color: #4AB3F4;
+}
+
+.linediv {
+    height: 0;
+    width: 95%;
+    margin-left: 2%;
+    margin-right: 4%;
+    border: 0.03125em solid #E1E2E3;
+}
+
+.divider {
+    height: 0;
+    width: 100%;
+    border: 1px solid #E1E2E3;
+}
+
+.newpostbuttons {
+    height: 35px;
+    padding: 5px;
+}
+
+.descriptionpost {
+    font-size: 13px;
+    padding: 5px;
+}
+
+.tagspost {
+    font-size: 13px;
+    padding: 5px;
+    border-bottom: 1px solid #D1D1D1;
+}
+
+.tagspost:hover {
+    background-color: #F5F8FA;
+    font-size: 13px;
+    width: 98%;
+    color: #4AB3F4;
+}
+
+.categorypost {
+    padding-left: 5px;
+    padding-right: 5px;
+    display: inline-block;
+}
+
+.answerbutton {
+    width: 25%;
+    color: #616774;
+    font-size: 13px;
+    height: 100%;
+}
+
+.answerbutton:hover {
+    border-radius: 5px;
+    background-color: #E8F5FD;
+    height: 100%;
+    font-size: 13px;
+    padding-top: 0;
+    color: #4AB3F4;
+    border: 1px solid #4AB3F4;
+}
+
+.votebutton {
+    width: 25%;
+    color: #616774;
+    margin-left: 0;
+    font-size: 13px;
+    height: 100%;
+}
+
+.votebutton:hover {
+    border-radius: 5px;
+    background-color: #E8F5FD;
+    height: 100%;
+    font-size: 13px;
+    padding-top: 0;
+    color: #4AB3F4;
+    border: 1px solid #4AB3F4;
+}
+
+.followbutton {
+    width: 25%;
+    color: #616774;
+    font-size: 13px;
+    height: 100%;
+}
+
+.followbutton:hover {
+    border-radius: 5px;
+    background-color: #E8F5FD;
+    height: 100%;
+    font-size: 13px;
+    padding-top: 0;
+    color: #4AB3F4;
+    border: 1px solid #4AB3F4;
+}
+
+.commentbutton {
+    width: 25%;
+    color: #616774;
+    font-size: 13px;
+    height: 100%;
+}
+
+.commentbutton:hover {
+    border-radius: 5px;
+    background-color: #E8F5FD;
+    height: 100%;
+    font-size: 13px;
+    padding-top: 0;
+    color: #4AB3F4;
+    border: 1px solid #4AB3F4;
+}
+
+.answerdiv {
+    border-top: 1px solid #D1D1D1;
+    position: relative;
+}
+
+.submitanswerbutton:hover {
+    background-color: white;
+    color: #4AB3F4;
+    border: 0 solid #000;
+    border-left: 1px solid #4AB3F4;
+    border-right: 1px solid #4AB3F4;
+    border-top: 1px solid #4AB3F4;
+    border-bottom: 1px solid #4AB3F4;
+    bottom: 5px;
+    right: 13px;
+    padding: 8px;
+}
+
+.submitanswerbutton {
+    position: absolute;
+    bottom: 5px;
+    right: 13px;
+    background-color: #4AB3F4;
+    border-width: 2px;
+    border-color: white;
+    color: white;
+    outline: none;
+    border-radius: 100px;
+    font-size: 15px;
+    padding: 8px;
+}
+
+.answertextarea {
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid #E1E2E3;
     padding: 10px;
+    box-sizing: border-box;
+    color: black;
+    resize: none;
+}
+
+.answertextarea::placeholder {
+    color: #ACADAD;
+    opacity: 1;
+}
+
+.commenttextarea::placeholder {
+    color: #ACADAD;
+    opacity: 1;
+}
+
+.answertextarea:focus {
+    height: 100px;
+    border-bottom: 1px solid #4AB3F4;
+    border-top: 1px solid #4AB3F4;
+}
+
+.newdiv p {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding: 10px;
+    font-size: 12px;
 }
 
 .titlebar {
@@ -455,18 +684,15 @@ html {
     margin-top: 5px;
     margin-bottom: 8px;
     padding: 0;
-    border: 2px solid #DDDFE2;
     width: 96%;
     height: 39%;
     float: left;
     background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 4px 5px -5px rgba(0, 0, 0, 0.8);
 }
 
 .links2titlebar {
     padding: 0 0 3px 0;
-    border: 1px solid #DDDFE2;
     top: 0;
     left: 0;
     right: 0;
@@ -474,13 +700,10 @@ html {
     width: 100%;
     height: 35px;
     background-color: #5686E8;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
 }
 
 .links3titlebar {
     padding: 0 0 3px 0;
-    border: 1px solid #DDDFE2;
     top: 0;
     left: 0;
     right: 0;
@@ -488,19 +711,15 @@ html {
     width: 100%;
     height: 35px;
     background-color: #5686E8;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
 }
 
 .links3 {
     padding: 0;
-    border: 2px solid #DDDFE2;
     width: 96%;
     height: 50%;
     float: left;
     background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 4px 5px -5px rgba(0, 0, 0, 0.8);
 }
 
 .nav input {
