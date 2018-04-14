@@ -32,33 +32,29 @@ def question():
     url1 = 'http://localhost:3000/api/Answers'
     html1 = urlopen(url1).read().decode('utf-8')
     answers = json.loads(html1)
-
-
-<<<<<<< HEAD
-        url2 = 'http://localhost:3000/api/Categories'
+    url2 = 'http://localhost:3000/api/Categories'
 
     
-        response = requests.get(url2)
-        categories= response.json()
+    response = requests.get(url2)
+    categories= response.json()
 
-        html = urlopen(url).read().decode('utf-8')
-        questions = json.loads(html)
+    html = urlopen(url).read().decode('utf-8')
+    questions = json.loads(html)
 
 
 
     
 
-        url1 = 'http://localhost:3000/api/Answers'
-        html1 = urlopen(url1).read().decode('utf-8')
-        answers = json.loads(html1)
+    url1 = 'http://localhost:3000/api/Answers'
+    html1 = urlopen(url1).read().decode('utf-8')
+    answers = json.loads(html1)
 
 
         
-        return render_template('question2.html', questions = questions, answers = answers, categories=categories)
-=======
-    print(str(questions))
     return render_template('question2.html', questions = questions, answers = answers, categories=categories)
->>>>>>> 939de4bd366629b748f29d7c1a007eb166116222
+
+   
+
 
 if __name__ == '__main__':
    app.run(debug=1)
