@@ -7,16 +7,16 @@ import json
 
 
 app = Flask(__name__)
+# @app.route('/', methods=['GET','POST'])
+# def home(username=None):
+#     return render_template("home.html")
+
+
+
+
+
+
 @app.route('/', methods=['GET','POST'])
-def home(username=None):
-    return render_template("home.html")
-
-
-
-
-
-
-@app.route('/ask', methods=['GET','POST'])
 def question():
     url = 'http://localhost:3000/api/Questions?filter[include]=answers'
 
