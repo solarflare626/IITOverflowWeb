@@ -24,7 +24,4 @@ python-editor==1.0.3
 six==1.10.0
 SQLAlchemy==1.1.13
 Werkzeug==0.12.2
-<<<<<<< HEAD
 requests
-=======
->>>>>>> 499e79c9912c4f79d2114e8a5a9d0edab1d0b25a
