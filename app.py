@@ -18,14 +18,21 @@ def home(username=None):
 
 @app.route('/ask', methods=['GET','POST'])
 def question():
+
+
     url = 'http://localhost:3000/api/Questions?filter[include]=answers'
 
     url2 = 'http://localhost:3000/api/Categories'
     response = requests.get(url2)
     categories= response.json()
 
-    html = urlopen(url).read().decode('utf-8')
-    questions = json.loads(html)
+
+    url3 = 'http://localhost:3000/api/Questions'
+    response1 = requests.get(url3)
+    questions = response1.json()
+
+    # html = urlopen(url).read().decode('utf-8')
+    # questions = json.loads(html)
 
     print(str(questions))
 

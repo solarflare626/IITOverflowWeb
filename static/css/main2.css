@@ -25,22 +25,38 @@ html {
 
 .titlearea {
     margin-left: 4%;
-    padding: 9px;
-    width: 90%;
-    margin: 15px;
-    height: 20px;
+    padding: 15px;
+    width: 86%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    height: 5px;
     color: black;
     border: 1px solid #D1D1D1;
     display: block;
     border-radius: 20px;
 }
 
+.categorycontainer {
+    position: relative;
+    cursor: pointer;
+    margin-top: 0;
+    float: right;
+    margin-bottom: 10px;
+    border: 1px solid #D1D1D1;
+    font-family: Poppins-Regular;
+    color: #707070;
+    margin-bottom: 10px;
+    padding: 7px;
+    border-radius: 100px;
+}
+
 .tagsarea {
     margin-left: 4%;
-    padding: 9px;
-    width: 90%;
-    margin: 15px;
-    height: 20px;
+    padding: 15px;
+    width: 86%;
+    height: 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
     color: black;
     border: 1px solid #D1D1D1;
     display: block;
@@ -61,7 +77,7 @@ html {
     background-size: cover;
     height: 100vh;
     width: 100%;
-    overflow-y: hidden;
+    overflow: hidden;
     display: flex;
     min-height: 600px;
     flex-direction: row;
@@ -71,11 +87,17 @@ html {
 
 .searchbutton {
     background-color: #434959;
+    margin-top: 5px;
     width: 40px;
     height: 30px;
     border-radius: 30px;
     outline: none;
     text-decoration: none;
+}
+
+.searchbar {
+    height: 30px;
+    font-size: 15px;
 }
 
 .pages {
@@ -504,15 +526,24 @@ p {
     position: relative;
     display: inline-block;
     cursor: pointer;
+    height: 18px;
     margin-top: 0;
     margin-left: 4%;
     margin-bottom: 10px;
     border: 1px solid #D1D1D1;
     font-family: Poppins-Regular;
-    color: #707070;
+    color: black;
     margin-bottom: 10px;
-    padding: 7px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    padding-left: 7px;
+    padding-right: 7px;
     border-radius: 100px;
+}
+
+.categorybutton {
+    color: #777777;
+    outline: none;
 }
 
 /* The actual popup (appears on top) */
@@ -571,4 +602,12 @@ p {
 
 .pupwrapper {
     width: 90%;
+}
+
+#share-buttons img {
+    width: 35px;
+    padding: 5px;
+    border: 0;
+    box-shadow: 0;
+    display: inline;
 }
