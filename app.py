@@ -45,6 +45,5 @@ def question():
     return render_template('question2.html', questions = questions, answers = answers, categories=categories)
 
 if __name__ == '__main__':
-   app.run(debug=1)
-
-   
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=True, use_reloader=True,host='0.0.0.0',port=port)
