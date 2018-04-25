@@ -20,14 +20,14 @@ def home(username=None):
 def question():
 
 
-    url = 'http://iitoverflow.herokuapp.com:3000/api/Questions?filter[include]=answers'
+    url = 'http://iitoverflow.herokuapp.com/api/Questions?filter[include]=answers'
 
-    url2 = 'http://iitoverflow.herokuapp.com:3000/api/Categories'
+    url2 = 'http://iitoverflow.herokuapp.com/api/Categories'
     response = requests.get(url2)
     categories= response.json()
 
 
-    url3 = 'http://iitoverflow.herokuapp.com:3000/api/Questions'
+    url3 = 'http://iitoverflow.herokuapp.com/api/Questions'
     response1 = requests.get(url3)
     questions = response1.json()
 
@@ -36,7 +36,7 @@ def question():
 
     print(str(questions))
 
-    url1 = 'http://iitoverflow.herokuapp.com:3000/api/Answers'
+    url1 = 'http://iitoverflow.herokuapp.com/api/Answers'
     html1 = urlopen(url1).read().decode('utf-8')
     answers = json.loads(html1)
 
