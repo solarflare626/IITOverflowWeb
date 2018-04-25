@@ -95,7 +95,7 @@ $("#googlebutton").click(function(){
 	console.log($("#email").val());
     $.ajax
     ({
-            url: "http://localhost:3000/api/users/OAuthLogin?access_token=",
+            url: "http://iitoverflow.herokuapp.com:3000/api/users/OAuthLogin?access_token=",
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({
                 'email': $("#email").val()
