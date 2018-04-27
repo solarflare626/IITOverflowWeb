@@ -57,4 +57,4 @@ def question():
 
 
 if __name__ == '__main__':
-   app.run(debug=1)
+   app.run(debug=True)
