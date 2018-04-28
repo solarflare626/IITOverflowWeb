@@ -241,7 +241,7 @@ $(".post_answer").on("click", function(e) {
 
     $.ajax({
         type: "POST",
-        url: "http://iitoverflow.herokuapp.com/api/Answers",
+        url: "http://localhost:3000/api/Answers",
         data: JSON.stringify(data),
         dataType: "json",
         contentType: "application/json",

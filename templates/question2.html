@@ -15,10 +15,8 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
         <script src="//code.jquery.com/jquery-1.9.1.js"></script>
         <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-        <link rel="stylesheet" href="../static/css/main2.css">
+        <link rel="stylesheet" href="../static/css/newsfeed.css">
         <script src="../static/ckeditor/ckeditor.js"></script>
-        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
 
     </head>
 
@@ -87,8 +85,6 @@
 
                      <form  id="form1">
                      <textarea  name="textarea" id="textarea" placeholder="Ask Something"></textarea>
-
-
                      <script>
                         CKEDITOR.replace( 'textarea');
                        
@@ -107,30 +103,13 @@
                     <a class="submitbutton3" type="submit" >Submit</a>
                    <a class="submitbutton2" type="submit" >Hide</a>
                       </div>
-                      <div>
-                          <br>
-                      </div>
                       
-{% for i in questions %}
- 
-
-<div class="container">
-<div>
-    <h2>{{i['question']}}</h2>
-    <p>{{i['questiondesc']}}</p>
-    <button class="followbutton">Follow<button> <button class="votebutton" >Vote<button><button class="commentbutton">Comment<button><button class="answerbutton">Answer<button>
-
-    <textarea class="answertextarea" placeholder="Write an Answer"></textarea><input class="submitanswerbutton" type="button" value="submit">
-
-<input class="commenttextarea" placeholder="Write a Comment">
-
-    
-    <hr>
-</div>
-</div>
-
-
-{% endfor %}
+                      
+                    <div id="newDivs" class="newdiv">
+                         
+                          
+                      </div>
+                    
                       
 
                 </div>
@@ -216,21 +195,6 @@
         var gettags = document.getElementById('tagsID').value
         var cleartitle = document.getElementById('title');
         var cleartags = document.getElementsByClassName('tag-editor-tag');
-        var data = { "question": posttitle, "questiondesc": editorText }
-
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:3000/api/Questions",
-            data: JSON.stringify(data),
-            dataType: "json",
-            contentType: "application/json",
-            success: function (result) {
-                alert('ok');
-            },
-            error: function (result) {
-                alert('error');
-            }
-        });
         //var displaytitle = document.getElementById('titlebarid');
         $("#form1").hide('slow');
         $(".submitbutton2").hide('slow');
@@ -243,37 +207,18 @@
         $("tagsbar").show('slow');
         $("categorybar").show('slow');
        
+        $('#newDivs').append('<div class="titlepost">' + 'Title: ' + posttitle + '<div>');
 
-
-
-        // $('#newDivs').append('<div class="titlepost">' + 'Title: ' + posttitle + '<div>');
-
-        //  $('#newDivs').append('<div class="descriptionpost">' + 'Description: ' + editorText + '<div>');
+         $('#newDivs').append('<div class="descriptionpost">' + 'Description: ' + editorText + '<div>');
          
-        // $('#newDivs').append('<div class="categorypost">' + 'Category: ' + catty + '<div>');
-        // $('#newDivs').append('<div class="tagspost">' + 'Tags: ' + gettags + '<div>');
-        // $('#newDivs').append('<div class="newpostbuttons"><button class="followbutton">Follow<button> <button class="votebutton" >Vote<button><button class="commentbutton">Comment<button><button class="answerbutton">Answer<button><div>');
-        // $('#newDivs').append('<div class="answerdiv"><textarea class="answertextarea" placeholder="Write an Answer"></textarea><input class="submitanswerbutton" type="button" value="submit"><div>');
-        // $('#newDivs').append('<div class="newpostinput"><input class="commenttextarea" placeholder="Write a Comment"><div>');
-
-
-
+        $('#newDivs').append('<div class="categorypost">' + 'Category: ' + catty + '<div>');
+        $('#newDivs').append('<div class="tagspost">' + 'Tags: ' + gettags + '<div>');
+        $('#newDivs').append('<div class="newpostbuttons"><button class="followbutton">Follow<button> <button class="votebutton" >Vote<button><button class="commentbutton">Comment<button><button class="answerbutton">Answer<button><div>');
+        $('#newDivs').append('<div class="answerdiv"><textarea class="answertextarea" placeholder="Write an Answer"></textarea><input class="submitanswerbutton" type="button" value="submit"><div>');
+        $('#newDivs').append('<div class="newpostinput"><input class="commenttextarea" placeholder="Write a Comment"><div>');
         cleartitle.value = "";
         $('.tag-editor-tag').html("");
         selectedCategory.text = "";
-
-
-/*FUNCTION HERE*/
-
-
- 
-      
-
-
-
-  
-
-/*FUNCTION HERE*/
         
         
    
@@ -440,7 +385,7 @@
 
 
 
-    $(".submitbutton3").on("click", function (e) {
+    $(".post_answer").on("click", function (e) {
         e.preventDefault();
         var qid = $(this).val();
         alert(qid);
@@ -451,7 +396,7 @@
 
         $.ajax({
             type: "POST",
-            url: "http://iitoverflow.herokuapp.com/api/Answers",
+            url: "http://localhost:3000/api/Answers",
             data: JSON.stringify(data),
             dataType: "json",
             contentType: "application/json",
