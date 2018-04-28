@@ -98,7 +98,7 @@ html {
 }
 
 .profile-nav {
-    font-size: 17px;
+    font-size: 15px;
     text-align: center;
     padding-top: 3px;
     padding-bottom: 3px;
@@ -108,7 +108,7 @@ html {
     z-index: 9999;
     width: 100%;
     background: white;
-    height: 50px;
+    height: 45px;
     box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.5);
 }
 
@@ -340,8 +340,8 @@ html {
 }
 
 .profilePostAnswer {
-    margin: 0;
-    width: 100%;
+    margin: 0 0 0 5%;
+    width: 90%;
     text-align: left;
     border-top: 1px solid #E9EBEE;
     overflow-x: hidden;
@@ -349,6 +349,7 @@ html {
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 15px;
+    float: center;
 }
 
 .profilePostPicture {
