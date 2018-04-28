@@ -7,30 +7,55 @@ import json
 import os
 
 app = Flask(__name__)
+# @app.route('/', methods=['GET','POST'])
+# def home(username=None):
+#     return render_template("home.html")
+
+
+
+
+
+
 @app.route('/', methods=['GET','POST'])
-def home(username=None):
-    return render_template("home.html")
-
-
-
-
-
-
-@app.route('/ask', methods=['GET','POST'])
 def question():
+    url = 'http://localhost:3000/api/Questions?filter[include]=answers'
 
+<<<<<<< HEAD
 
     url = 'http://iitoverflow.herokuapp.com/api/Questions?filter[include]=answers'
 
     url2 = 'http://iitoverflow.herokuapp.com/api/Categories'
     response = requests.get(url2)
     categories= response.json()
+=======
+    url2 = 'http://localhost:3000/api/Categories'
+    response = requests.get(url2)
+    categories= response.json()
+
+    html = urlopen(url).read().decode('utf-8')
+    questions = json.loads(html)
+
+    print(str(questions))
+
+    url1 = 'http://localhost:3000/api/Answers'
+    html1 = urlopen(url1).read().decode('utf-8')
+    answers = json.loads(html1)
+    url2 = 'http://localhost:3000/api/Categories'
+
+    
+    response = requests.get(url2)
+    categories= response.json()
+
+    html = urlopen(url).read().decode('utf-8')
+    questions = json.loads(html)
+>>>>>>> 368472eb0a77d68f11467b3792950327d7ffc52b
 
 
     url3 = 'http://iitoverflow.herokuapp.com/api/Questions'
     response1 = requests.get(url3)
     questions = response1.json()
 
+<<<<<<< HEAD
     # html = urlopen(url).read().decode('utf-8')
     # questions = json.loads(html)
 
@@ -39,11 +64,29 @@ def question():
     url1 = 'http://iitoverflow.herokuapp.com/api/Answers'
     html1 = urlopen(url1).read().decode('utf-8')
     answers = json.loads(html1)
+=======
+    
 
+    url1 = 'http://localhost:3000/api/Answers'
+    html1 = urlopen(url1).read().decode('utf-8')
+    answers = json.loads(html1)
 
+>>>>>>> 368472eb0a77d68f11467b3792950327d7ffc52b
+
+        
+    return render_template('question2.html', questions = questions, answers = answers, categories=categories)
+
+   
+
+<<<<<<< HEAD
     print(str(questions))
     return render_template('question2.html', questions = questions, answers = answers, categories=categories)
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=True, use_reloader=True,host='0.0.0.0',port=port)
+=======
+
+if __name__ == '__main__':
+   app.run(debug=True)
+>>>>>>> 368472eb0a77d68f11467b3792950327d7ffc52b
