@@ -79,12 +79,14 @@
                 <div class="contentCenter">
                     <div class="askquestion" id="newpost">
                      <div class="askbuttons">
+
                          <input type="submit" value="Ask Something" class="Askbutton">
                         
                      </div>  
 
                      <form  id="form1">
                      <textarea  name="textarea" id="textarea" placeholder="Ask Something"></textarea>
+
                      <script>
                         CKEDITOR.replace( 'textarea');
                        
@@ -93,6 +95,7 @@
                     </form>
                       <input  placeholder="Add title here..." class="titlearea" type="textarea" name="title" id="title"/>
                     <div style="margin: 20px;">
+
                         <input id="tagsID" type="text" name="tagsarea" class="tagsarea"/>
                     </div>
                      
@@ -104,11 +107,55 @@
                    <a class="submitbutton2" type="submit" >Hide</a>
                       </div>
                       
-                      
+                      {% for i in questions %}
                     <div id="newDivs" class="newdiv">
+                        
                          
                           
+                      <div class="titlepost">Title: {{i.question}} <div></div></div><div class="descriptionpost">Description: {{i.questiondesc}} <div></div></div><div class="categorypost">Category: {{i.categoryId}} <div></div></div><div class="tagspost">Tags: <div></div></div><div class="newpostbuttons"><button class="followbutton">Follow</button><button> </button><button class="votebutton">Vote</button><button></button><button class="commentbutton">Comment</button><button></button><button class="answerbutton">Answer</button><button><div></div></button></div>
+                      
+
+<!-- TOEDIT -->
+<div>
+                        
+
+                     {% for answer in i.answers %}
+
+
+                  
+                          <h2>   {{answer.answer}} </h2>
+                    
+                      
+
+                     {% endfor %}
+
+
+</div>
+
+<!-- TOEDIT -->
+
+
+
+                      <div class="answerdiv">
+
+
+                      <textarea class="answertextarea" placeholder="Write an Answer">
+
+                   
+                          
+
+                      </textarea>
+  
+                      <input class="submitanswerbutton" value="submit" type="button">
+                      
+  
+
+
+                      <div></div></div><div class="newpostinput"><input class="commenttextarea" placeholder="Write a Comment"><div></div></div>
+                          
                       </div>
+
+                      {% endfor %}
                     
                       
 
@@ -195,6 +242,24 @@
         var gettags = document.getElementById('tagsID').value
         var cleartitle = document.getElementById('title');
         var cleartags = document.getElementsByClassName('tag-editor-tag');
+        var category = document.getElementsByClassName('categorypopups')[0].id;
+
+
+        var data = { "question": posttitle, "questiondesc": editorText, "categoryId": category, "userId": 1 }
+
+        $.ajax({
+            type: "POST",
+            url: "https://iitoverflow.herokuapp.com/api/Questions",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json",
+            success: function (result) {
+                alert('ok');
+            },
+            error: function (result) {
+                alert('error');
+            }
+        });
         //var displaytitle = document.getElementById('titlebarid');
         $("#form1").hide('slow');
         $(".submitbutton2").hide('slow');
@@ -219,6 +284,14 @@
         cleartitle.value = "";
         $('.tag-editor-tag').html("");
         selectedCategory.text = "";
+
+
+
+
+
+
+  
+
         
         
    
@@ -385,7 +458,9 @@
 
 
 
-    $(".post_answer").on("click", function (e) {
+
+
+    $(".submitanswerbutton").on("click", function (e) {
         e.preventDefault();
         var qid = $(this).val();
         alert(qid);
@@ -396,7 +471,7 @@
 
         $.ajax({
             type: "POST",
-            url: "http://localhost:3000/api/Answers",
+            url: "http://iitoverflow.herokuapp.com/api/Answers",
             data: JSON.stringify(data),
             dataType: "json",
             contentType: "application/json",
@@ -408,6 +483,11 @@
             }
         });
     });
+
+
+
+
+
 
 
 
