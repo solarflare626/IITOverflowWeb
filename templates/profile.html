@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="../static/css/mainprofile.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -46,11 +47,11 @@
                         </div>
                         <div class="profile-contentTopLinks">
                             <div class="profile-contentTopNav">
-                                <a>Posts</a>
-                                <a>Followers</a>
-                                <a>Following</a>
-                                <a>Followed Questions</a>
-                                <a>Answered Questions</a>
+                                <a type="submit" id="profile-PostButton">Posts</a>
+                                <a type="submit" id="profile-FollowersButton">Followers</a>
+                                <a type="submit" id="profile-FollowingButton">Following</a>
+                                <a type="submit" id="profile-FollowedQuestionButton">Followed Questions</a>
+                                <a type="submit" id="profile-AnsweredQuestionButton">Answered Questions</a>
                                 <a class="editprofilebutton">Edit Profile</a>
 
                             </div>
@@ -67,6 +68,115 @@
                         
                         </div>
                    <div class="profileCenterDiv">
+
+                   
+                    <div class="FollowersContainer">
+                        <h1>Here Shows all Followers of user</h1>
+                        <div class="FollowersRow">
+                            <div class="col-md-3 col-sm-6">
+                                <div class="our-team">
+                                    <div class="FollowersPic">
+                                        <img src="../static/image/phillip.png">
+                    
+                                        <div class="team-content">
+                                            <h3 class="FollowersTitle">Espina</h3>
+                                            <span class="FollowersPost">Web Developer</span>
+                                        </div>
+                                        <ul class="social">
+                    
+                                            <li>
+                                                <a href="" class="fa fa-facebook"></a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="fa fa-twitter"></a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="fa fa-google-plus"></a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="fa fa-linkedin"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                    
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="our-team">
+                                    <div class="FollowersPic">
+                                        <img src="../static/image/phillip.png">
+                            
+                                        <div class="team-content">
+                                            <h3 class="FollowersTitle">Espina</h3>
+                                            <span class="FollowersPost">Web Developer</span>
+                                        </div>
+                                        <ul class="social">
+                            
+                                            <li>
+                                                <a href="" class="fa fa-facebook"></a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="fa fa-twitter"></a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="fa fa-google-plus"></a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="fa fa-linkedin"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="our-team">
+                                    <div class="FollowersPic">
+                                        <img src="../static/image/phillip.png">
+                            
+                                        <div class="team-content">
+                                            <h3 class="FollowersTitle">Espina</h3>
+                                            <span class="FollowersPost">Web Developer</span>
+                                        </div>
+                                        <ul class="social">
+                            
+                                            <li>
+                                                <a href="" class="fa fa-facebook"></a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="fa fa-twitter"></a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="fa fa-google-plus"></a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="fa fa-linkedin"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                   
+
+
+
+                    </div>
+                    <div class="FollowingContainer">
+                        <h1>Here Shows all Followed users</h1>
+                    </div>
+                    <div class="FollowedQuestionsContainer">
+                        <h1>Here shows All followed questions</h1>
+                    </div>
+                    <div class="AnsweredQuestionsContainer">
+                        <h1>Here Shows all Answered Questions</h1>
+                    </div>
+
+
+
+
+                    
                     <div class="profile-contentCenter">
                     <div class="profilePostPictureCont">
                         <img class="profilePostPicture" src="../static/image/google.png">
@@ -182,7 +292,55 @@
 
 
 </body>
-<script>
+<script type="text/javascript">
+    $(document).ready(function(){
+         $(".profile-contentCenter").show('slow');
+         $(".FollowersContainer").hide();
+         $(".FollowingContainer").hide();
+         $(".FollowedQuestionsContainer").hide();
+         $(".AnsweredQuestionsContainer").hide();
+    })
+   $("#profile-PostButton").click(function(){
+       $(".profile-contentCenter").show('slow');
+       $(".FollowersContainer").hide();
+       $(".FollowingContainer").hide();
+       $(".FollowedQuestionsContainer").hide();
+       $(".AnsweredQuestionsContainer").hide();
+
+   })
+   $("#profile-FollowersButton").click(function(){
+       $(".profile-contentCenter").hide();
+       $(".FollowersContainer").show('slow');
+       $(".FollowingContainer").hide();
+       $(".FollowedQuestionsContainer").hide();
+       $(".AnsweredQuestionsContainer").hide();
+   })
+   $("#profile-FollowingButton").click(function(){
+        $(".profile-contentCenter").hide();
+       $(".FollowersContainer").hide();
+       $(".FollowingContainer").show('slow');
+       $(".FollowedQuestionsContainer").hide();
+       $(".AnsweredQuestionsContainer").hide();
+
+   })
+   $("#profile-FollowedQuestionButton").click(function(){
+        $(".profile-contentCenter").hide();
+       $(".FollowersContainer").hide();
+       $(".FollowingContainer").hide();
+       $(".FollowedQuestionsContainer").show('slow');
+       $(".AnsweredQuestionsContainer").hide();
+   })
+    $("#profile-AnsweredQuestionButton").click(function () {
+            $(".profile-contentCenter").hide();
+            $(".FollowersContainer").hide();
+            $(".FollowingContainer").hide();
+            $(".FollowedQuestionsContainer").hide();
+            $(".AnsweredQuestionsContainer").show('slow');
+        })
+
+    
+   
+   
     
 
 </script>

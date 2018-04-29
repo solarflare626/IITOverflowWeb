@@ -108,7 +108,6 @@ html {
     z-index: 9999;
     width: 1700px;
     min-width: 1000px;
-  
     background: white;
     height: 45px;
     box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.5);
@@ -163,7 +162,6 @@ html {
 .profile-contentTopLinks {
     width: 1700px;
     min-width: 1000px;
-   
     margin: auto;
     height: 55px;
     box-sizing: border-box;
@@ -173,7 +171,6 @@ html {
 .profile-contentTopCover {
     width: 1700px;
     min-width: 1000px;
-
     height: 345px;
     box-sizing: border-box;
     display: flex;
@@ -192,7 +189,6 @@ html {
 .profile-contentTopNav {
     width: 1700px;
     min-width: 1000px;
-    
     position: relative;
     left: 50%;
     transform: translateX(-50%);
@@ -315,7 +311,6 @@ html {
 .CenterLeftRightCont {
     width: 1700px;
     min-width: 1000px;
-
     text-align: center;
     height: 100%;
 }
@@ -333,7 +328,7 @@ html {
 
 .profilePostButton {
     bottom: 0;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
 .profilePostButton a {
@@ -391,4 +386,143 @@ html {
     text-align: center;
     width: 60%;
     padding-top: 10px;
+}
+
+.FollowersContainer {
+    width: 100%;
+    height: 100%;
+    background-color: #E6ECF0;
+}
+
+.FollowingContainer {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+
+.FollowedQuestionsContainer {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+
+.AnsweredQuestionsContainer {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+
+
+.our-team {
+    padding: 30px 0 40px;
+    background: white;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    width: 200px;
+    height: 250px;
+
+}
+
+.our-team .FollowersPic {
+    display: inline-block;
+    width: 130px;
+    height: 130px;
+    margin-bottom: 50px;
+    position: relative;
+    z-index: 1;
+}
+
+.our-team .FollowersPic::before {
+    content: "";
+    width: 100%;
+    background: #eb1768;
+    position: absolute;
+    bottom: 135%;
+    right: 0;
+    left: 0;
+    transform: scale(3);
+    transition: all 0.3s linear 0s;
+}
+
+.our-team:hover .FollowersPic::before {
+    height: 100%;
+}
+
+.our-team .FollowersPic::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #ee4266;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.our-team .FollowersPic img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    transform: scale(1);
+    transition: all 0.9s ease 0s;
+}
+
+.our-team:hover .FollowersPic img {
+    box-shadow: 0 0 0 14px #f7f5ec;
+    transform: scale(0.7);
+}
+
+.our-team .team-content {
+    margin-bottom: 30px;
+}
+
+.our-team .FollowersTitle {
+    font-size: 22px;
+    font-weight: 700;
+    color: #4e5052;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    margin-bottom: 5px;
+}
+
+.our-team .FollowersPost {
+    display: block;
+    font-size: 15px;
+    text-transform: capitalize;
+    color: #4e5052;
+}
+
+.our-team .social {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background: #eb1768;
+    position: absolute;
+    left: 0;
+    transition: all 0.5s ease 0s;
+}
+
+.our-team:hover .social {
+    bottom: 0;
+}
+
+.our-team .social li {
+    display: inline-block;
+}
+
+.our-team .social li a {
+    display: block;
+    padding: 10px;
+    color: white;
+    font-size: 17px;
+    transition: all 0.5s ease 0s;
+}
+
+.our-team .social li a:hover{
+    color: #eb1768;
+    background: #f7f5ec;
+    text-decoration: none;
+
 }
