@@ -106,7 +106,9 @@ html {
     top: 0;
     left: 0;
     z-index: 9999;
-    width: 100%;
+    width: 1700px;
+    min-width: 1000px;
+  
     background: white;
     height: 45px;
     box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.5);
@@ -159,19 +161,19 @@ html {
 }
 
 .profile-contentTopLinks {
-    max-width: 100%;
-    width: 100%;
+    width: 1700px;
+    min-width: 1000px;
+   
     margin: auto;
     height: 55px;
-    padding-top: 10px;
     box-sizing: border-box;
     box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.5);
 }
 
 .profile-contentTopCover {
-    max-width: 100%;
-    width: 100%;
-    margin-top: 2.5%;
+    width: 1700px;
+    min-width: 1000px;
+
     height: 345px;
     box-sizing: border-box;
     display: flex;
@@ -188,7 +190,9 @@ html {
 }
 
 .profile-contentTopNav {
-    width: 100%;
+    width: 1700px;
+    min-width: 1000px;
+    
     position: relative;
     left: 50%;
     transform: translateX(-50%);
@@ -196,7 +200,7 @@ html {
 }
 
 .profile-contentTopNav a {
-    margin: 5px 10px 5px 10px;
+    margin: 10px 10px 5px 10px;
     color: #5F7189;
     text-decoration: none;
     font-family: Poppins-Regular, sans-serif;
@@ -233,8 +237,8 @@ html {
 }
 
 .profilepictureContainer {
-    margin-top: 5%;
-    width: 12%;
+    margin-top: 100px;
+    width: 220px;
     height: 52%;
     border: 8px solid white;
     position: absolute;
@@ -309,6 +313,9 @@ html {
 }
 
 .CenterLeftRightCont {
+    width: 1700px;
+    min-width: 1000px;
+
     text-align: center;
     height: 100%;
 }
@@ -319,13 +326,14 @@ html {
     height: 40%;
     margin: auto;
     margin-top: 10px;
-    margin-left: 9%;
+    margin-left: 8%;
     margin-right: 10px;
     background-color: white;
 }
 
 .profilePostButton {
     bottom: 0;
+    box-sizing: border-box;
 }
 
 .profilePostButton a {
@@ -350,6 +358,7 @@ html {
     text-overflow: ellipsis;
     padding: 15px;
     float: center;
+    word-wrap: break-word;
 }
 
 .profilePostPicture {
