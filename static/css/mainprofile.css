@@ -344,9 +344,11 @@ html {
     color: #4AB3F4;
     text-decoration: none;
 }
-.profilePostFollowButton:focus{
+
+.profilePostFollowButton:focus {
     text-decoration: none;
 }
+
 .profilePostFollowButton:hover {
     border-color: #4AB3F4;
 }
@@ -370,7 +372,30 @@ html {
     word-wrap: break-word;
 }
 
+.profilePostAnswerFollowedQuestions {
+    margin: 0 0 0 2.5%;
+    width: 95%;
+    text-align: left;
+    border-top: 1px solid #E9EBEE;
+    overflow-x: hidden;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 15px;
+    word-wrap: break-word;
+}
+
 .profilePostPicture {
+    width: 10%;
+    height: 10%;
+    border-radius: 50%;
+    margin-top: 5px;
+    margin-left: 10px;
+    float: left;
+    display: block;
+}
+
+.profilePostPictureFollowedQuestions {
     width: 10%;
     height: 10%;
     border-radius: 50%;
@@ -401,6 +426,13 @@ html {
     text-align: left;
 }
 
+.profileNameEmailFollowedQuestions {
+    text-align: center;
+    width: 100%;
+    padding-top: 10px;
+    text-align: left;
+}
+
 .FollowersContainer {
     margin-top: 2%;
     width: 100%;
@@ -419,7 +451,6 @@ html {
     width: 100%;
     height: inherit;
     background-color: white;
-   
 }
 
 .AnsweredQuestionsContainer {
