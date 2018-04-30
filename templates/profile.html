@@ -47,13 +47,14 @@
                         </div>
                         <div class="profile-contentTopLinks">
                             <div class="profile-contentTopNav">
-                                <a type="submit" id="profile-PostButton">Posts</a>
-                                <a type="submit" id="profile-FollowersButton">Followers</a>
-                                <a type="submit" id="profile-FollowingButton">Following</a>
-                                <a type="submit" id="profile-FollowedQuestionButton">Followed Questions</a>
-                                <a type="submit" id="profile-AnsweredQuestionButton">Answered Questions</a>
-                                <a class="editprofilebutton">Edit Profile</a>
-
+                                {% block body %}
+                                 <a type="submit" id="profile-PostButton">Posts</a>
+                                 <a type="submit" id="profile-FollowersButton">{{followers}} Followers</a>
+                                 <a type="submit" id="profile-FollowingButton">{{following}} Following</a>
+                                 <a type="submit" id="profile-FollowedQuestionButton">{{questionsfollowed}} Followed Questions</a>
+                                 <a type="submit" id="profile-AnsweredQuestionButton">{{answers}} Answered Questions</a>
+                                 <a class="editprofilebutton">Edit Profile</a>
+                                {% endblock %}
                             </div>
 
                         </div>
@@ -139,7 +140,49 @@
                 <div class="FollowersContainer">
                     <div class="FollowersRow">
                 
-                        <div class="col-md-3 col-sm-6">
+
+                    <div class="profile-contentRight">
+
+                        <h4 >Who to Follow</h4>
+                    
+                    </div>
+
+                    <div class="FollowingContainer">
+                       
+                        <div class="FollowersRow">
+                            {% for g in json_object1.following %}
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="our-team">
+                                        <div class="FollowersPic">
+                                        <img src="../static/image/phillip.png">
+
+                                        <div class="team-content">
+                                            <h3 class="FollowersTitle">{{g.displayname}}</h3></br>
+                                            <!-- <span class="FollowersPost">Web Developer</span> -->
+                                        </div>
+
+                                        <ul class="social">
+                        
+                                            <li>
+                                                <a href="" class="fa fa-facebook"></a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="fa fa-twitter"></a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="fa fa-google-plus"></a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="fa fa-linkedin"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+            
+
+                 <!--        <div class="col-md-3 col-sm-6">
                             <div class="our-team">
                                 <div class="FollowersPic">
                                     <img src="../static/image/phillip.png">
@@ -164,20 +207,62 @@
                                 </ul>
                             </div>
                 
+>>>>>>> 1a897cf8dbf28f4e6bb370dfc45f7dfd943ca04b -->
                         </div>
                 
                     </div>
+<!-- <<<<<<< HEAD
+
+
+
+                    <div class="FollowersContainer">
+======= -->
                 
                 </div>
                     <div class="FollowingContainer">
                     
+<!-- >>>>>>> 1a897cf8dbf28f4e6bb370dfc45f7dfd943ca04b -->
                         <div class="FollowersRow">
+                           {% for f in json_object1.followers %} 
                             <div class="col-md-3 col-sm-6">
                                 <div class="our-team">
                                     <div class="FollowersPic">
                                         <img src="../static/image/phillip.png">
                     
                                         <div class="team-content">
+
+                                            
+                                            <h3 class="FollowersTitle">{{f.displayname}}</h3></br>
+                                            <!-- <span class="FollowersPost">Web Developer</span> -->
+                                           
+                                        </div>
+                                        <ul class="social">
+                    
+                                            <li>
+                                                <a href="" class="fa fa-facebook"></a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="fa fa-twitter"></a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="fa fa-google-plus"></a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="fa fa-linkedin"></a>
+                                            </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %} 
+
+                        </div>
+                    </div>
+                    
+                    </div>
+                 </div>
+                </div>
+<!-- =======
                                             <h3 class="FollowersTitle">Espina</h3>
                                             <span class="FollowersPost">Web Developer</span>
                                         </div>
@@ -214,6 +299,7 @@
           
                   
                     </div>
+>>>>>>> 1a897cf8dbf28f4e6bb370dfc45f7dfd943ca04b -->
                     
                 </div>
                 </div>
