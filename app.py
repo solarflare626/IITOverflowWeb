@@ -44,14 +44,15 @@ def profile(id):
     val3 = json_object1['followersCount']
     val4 = json_object1['followingCount']
 
-    url1 = (
-    	'http://http://iitoverflow.herokuapp.com/api/users/'+user+'/questionsfollowed?filter[include]=user')
-    response = requests.get(url1)
+    url = ('http://iitoverflow.herokuapp.com/api/users/'+user +
+           '/questionsfollowed?filter={"include":{"relation":"user"}}')
+    response = requests.get(url)
     followed_questions = response.json()
+    print(followed_questions)
 
 
 
-    return render_template('profile.html', json_object=json_object, json_object1=json_object1, followers=val3, following=val4)
+    return render_template('profile.html', json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions)
 
 
 if __name__=='__main__':
