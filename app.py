@@ -33,7 +33,7 @@ def question():
 @app.route('/profile/<int:id>',methods=['GET','POST'])
 def profile(id):
     user = str(id)
-    url = ('http://iitoverflow.herokuapp.com/api/users/'+user+'?filter[include]=questions&filter[include]=interests')
+    url = ('http://iitoverflow.herokuapp.com/api/users/'+user+'?filter[include]=questions&filter[include]=interests&filter[include]=questionsfollowed')
     print(user)
     response = requests.get(url)
     json_object = response.json()
@@ -43,6 +43,7 @@ def profile(id):
     json_object1 = response.json()
     val3 = json_object1['followersCount']
     val4 = json_object1['followingCount']
+
 
 
     return render_template('profile.html', json_object=json_object, json_object1=json_object1, followers=val3, following=val4)
