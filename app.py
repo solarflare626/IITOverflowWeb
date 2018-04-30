@@ -50,8 +50,8 @@ def profile(id):
     followed_questions = response.json()
 
 
-    return render_template('profile.html', json_object=json_object, json_object1=json_object1, followers=val3, following=val4)
 
+    return render_template('profile.html', json_object=json_object, json_object1=json_object1, followers=val3, following=val4)
 
 
 if __name__=='__main__':
