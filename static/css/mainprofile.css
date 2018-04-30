@@ -18,6 +18,7 @@
     src: url('../fonts/montserrat/Montserrat-SemiBold.ttf');
 }
 
+
 * {
     margin: 0;
     padding: 0;
@@ -31,6 +32,8 @@
 body,
 html {
     height: 100%;
+    width: 100%;
+    min-width: 1000px;
     font-family: Poppins-Regular, sans-serif;
     font-size: 100%;
     background-color: #E6ECF0;
@@ -106,7 +109,7 @@ html {
     top: 0;
     left: 0;
     z-index: 9999;
-    width: 1700px;
+    width: 100%;
     min-width: 1000px;
     background: white;
     height: 45px;
@@ -160,7 +163,7 @@ html {
 }
 
 .profile-contentTopLinks {
-    width: 1700px;
+    width: 100%;
     min-width: 1000px;
     margin: auto;
     height: 55px;
@@ -169,7 +172,7 @@ html {
 }
 
 .profile-contentTopCover {
-    width: 1700px;
+    width: 100%;
     min-width: 1000px;
     height: 345px;
     box-sizing: border-box;
@@ -187,7 +190,7 @@ html {
 }
 
 .profile-contentTopNav {
-    width: 1700px;
+    width: 100%;
     min-width: 1000px;
     position: relative;
     left: 50%;
@@ -290,26 +293,30 @@ html {
     overflow: auto;
     float: left;
     height: 100%;
-    width: 700px;
+    width: 45%;
     margin: 10px auto;
     margin-right: 10px;
 }
 
 .profile-fUllpage {
     overflow: scroll;
+    width: 100%;
+    height: 100%;
+    min-width: 1000px;
+    min-height: 1000px;
 }
 
 .profile-contentRight {
     float: left;
-    width: 300px;
+    width: 20%;
     height: 40%;
-    margin: auto;
+    margin-left:1px;
     margin-top: 10px;
     background-color: white;
 }
 
 .CenterLeftRightCont {
-    width: 1700px;
+    width: 100%;
     min-width: 1000px;
     text-align: center;
     height: 100%;
@@ -317,11 +324,11 @@ html {
 
 .profile-contentLeft {
     float: left;
-    width: 300px;
+    width: 20%;
     height: 40%;
     margin: auto;
     margin-top: 10px;
-    margin-left: 8%;
+    margin-left:7%;
     margin-right: 10px;
     background-color: white;
 }
@@ -412,7 +419,6 @@ html {
     background-color: white;
 }
 
-
 .our-team {
     padding: 30px 0 40px;
     background: white;
@@ -421,7 +427,6 @@ html {
     position: relative;
     width: 200px;
     height: 250px;
-
 }
 
 .our-team .FollowersPic {
@@ -520,9 +525,8 @@ html {
     transition: all 0.5s ease 0s;
 }
 
-.our-team .social li a:hover{
+.our-team .social li a:hover {
     color: #eb1768;
     background: #f7f5ec;
     text-decoration: none;
-
 }
