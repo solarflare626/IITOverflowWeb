@@ -282,7 +282,7 @@ html {
     margin-top: 0;
     margin-bottom: 10px;
     clear: both;
-}   
+}
 
 .profileCenterDiv {
     float: left;
@@ -467,6 +467,7 @@ html {
     position: relative;
     width: 200px;
     height: 250px;
+    margin-right: 2%;
 }
 
 .our-team .FollowersPic {
@@ -525,8 +526,9 @@ html {
 }
 
 .our-team .FollowersTitle {
-    font-size: 22px;
+    font-size: 100%;
     font-weight: 700;
+    width: 100%;
     color: #4e5052;
     letter-spacing: 1px;
     text-transform: capitalize;
@@ -572,4 +574,36 @@ html {
     color: #4AB3F4;
     background: #f7f5ec;
     text-decoration: none;
+}
+
+.Profile-hider {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 200%;
+    height: 200%;
+    margin-top: -800px;
+    /*set to a negative number 1/2 of your height*/
+    margin-left: -500px;
+    /*set to a negative number 1/2 of your width*/
+    /*
+        z- index must be lower than pop up box
+       */
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.profile-popup_box1 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: 45%;
+    margin-top: -15.5%;
+    /*set to a negative number 1/2 of your height*/
+    margin-left: -25%;
+    /*set to a negative number 1/2 of your width*/
+    border: 1px solid #ccc;
+    background-color: white;
+    z-index: 100;
 }
