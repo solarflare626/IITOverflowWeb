@@ -33,28 +33,32 @@ def question():
 @app.route('/profile/<int:id>',methods=['GET','POST'])
 def profile(id):
     user = str(id)
-    url = ('http://iitoverflow.herokuapp.com/api/users/'+user+'?filter[include]=questions&filter[include]=interests&filter[include]=questionsfollowed')
+    url = ('http://iitoverflow.herokuapp.com/api/users/'+user+'?filter[include]=questions&filter[include]=interests')
     print(user)
     response = requests.get(url)
     json_object = response.json()
 
-    curl = ('http://iitoverflow.herokuapp.com/api/users/'+user+'?filter[counts]=followers&filter[counts]=following&filter[include]=followers&filter[include]=following')
-    response = requests.get(curl)
-    json_object1 = response.json()
-    val3 = json_object1['followersCount']
-    val4 = json_object1['followingCount']
 
     url = ('http://iitoverflow.herokuapp.com/api/users/'+user +
            '/questionsfollowed?filter={"include":{"relation":"user"}}')
     response = requests.get(url)
     followed_questions = response.json()
-    print(followed_questions)
+
+    curl = ('http://iitoverflow.herokuapp.com/api/users/'+user+'?filter[counts]=followers&filter[counts]=following&filter[counts]=answers&filter[counts]=questionsfollowed&filter[include]=followers&filter[include]=following&filter[include]=answers&filter[include]=questionsfollowed')
+    response = requests.get(curl)
+    json_object1 = response.json()
+    val3 = json_object1['followersCount']
+    val4 = json_object1['followingCount']
+    val5 = json_object1['answersCount']
+    val6 = json_object1['questionsfollowedCount']
 
 
 
-    return render_template('profile.html', json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions)
+    return render_template('profile.html', json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6)
 
 
-if __name__=='__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(debug=True, host= '0.0.0.0', port=port)
+    
+
+port = int(os.environ.get('PORT', 5000))
+app.run(debug=True, host= '0.0.0.0', port=port)
+
