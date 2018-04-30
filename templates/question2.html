@@ -110,7 +110,7 @@
                       </div>
                       
                       
-                      {% for i in questions %}
+                      {% for i in reversed(list(questions)) %}
                     <div id={{"newqedit_{0}".format(i.id)}} style="display: block;" class="newdiv">
                         
                          
