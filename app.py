@@ -52,9 +52,13 @@ def profile(id):
     val5 = json_object1['answersCount']
     val6 = json_object1['questionsfollowedCount']
 
+    url = ('http://iitoverflow.herokuapp.com/api/users/'+user+'/answers?filter[include]=user&filter[include]=question')
+    response = requests.get(url)
+    answered_questions = response.json()
 
 
-    return render_template('profile.html', json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6)
+
+    return render_template('profile.html', json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6, answered_questions = answered_questions)
 
 
     

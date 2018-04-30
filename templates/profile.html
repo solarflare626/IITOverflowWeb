@@ -94,7 +94,7 @@
                                     <a href="#" class="glyphicon glyphicon-comment"></a>
                                     <a href="#" class="glyphicon glyphicon-thumbs-up"></a>
                                     <a href="#" class="glyphicon glyphicon-thumbs-down"></a>
-                                    <a href="#" class="profilePostFollowButton">Follow</a>
+                                    <a href="#" class="profilePostFollowButton">Unfollow</a>
                                 </div>
                             
                             </div>
@@ -103,6 +103,27 @@
 
                     <div class="AnsweredQuestionsContainer">
                         <h1>Here Shows all Answered Questions</h1>
+                        {% for question in answered_questions %}
+                        <div class="profile-contentCenter">
+                            <div class="profilePostPictureCont">
+                                <img class="profilePostPicture" src="../static/image/google.png">
+                            </div>
+                            <div class="profileNameEmail">
+                                <a class="profilePostUsername">{{question.user.displayname}}</a>
+                                <a class="profilePostEmail">{{question.user.email}}</a>
+                                <h3 class="profilePostTitle">Title:{{ question.question.question }}</h3>
+                            </div>
+                                <p class="profilePostAnswer">{{ question.question.questiondesc }}</p>
+                            <div>{{ question.answer }}</div>
+                                <div class="profilePostButton">
+                                    <a href="#" class="glyphicon glyphicon-pencil"></a>
+                                    <a href="#" class="glyphicon glyphicon-comment"></a>
+                                    <a href="#" class="glyphicon glyphicon-thumbs-up"></a>
+                                    <a href="#" class="glyphicon glyphicon-thumbs-down"></a>
+                                    <a href="#" class="profilePostFollowButton">Unfollow</a>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
 
 
@@ -290,7 +311,7 @@
        $(".profileCenterDiv").show('slow');
    })
     $("#profile-AnsweredQuestionButton").click(function () {
-            $(".profile-contentCenter").hide();
+            $(".profile-contentCenter").show('slow');
             $(".FollowersContainer").hide();
             $(".FollowingContainer").hide();
             $(".FollowedQuestionsContainer").hide();
