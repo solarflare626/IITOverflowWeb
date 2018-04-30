@@ -83,12 +83,12 @@
                                 <div class="profileNameEmail">
                                     <a class="profilePostUsername">{{question.user.displayname}}</a>
                                     <a class="profilePostEmail">{{question.user.email}}</a>
-                                    <h3 class="profilePostTitle">Title:{{question.question}}</h3>
+                                    <h3 class="profilePostTitle">Title:{{ question.question }}</h3>
                                 </div>
                             
                                 <br>
                             
-                                <p class="profilePostAnswer">{{question.questiondesc}}</p>
+                                <p class="profilePostAnswer">{{ question.questiondesc }}</p>
                                 <div class="profilePostButton">
                                     <a href="#" class="glyphicon glyphicon-pencil"></a>
                                     <a href="#" class="glyphicon glyphicon-comment"></a>
@@ -100,6 +100,7 @@
                             </div>
                         {% endfor %}
                     </div>
+
                     <div class="AnsweredQuestionsContainer">
                         <h1>Here Shows all Answered Questions</h1>
                     </div>
@@ -352,7 +353,7 @@
 
    })
    $("#profile-FollowedQuestionButton").click(function(){
-        $(".profile-contentCenter").hide();
+        $(".profile-contentCenter").show();
        $(".FollowersContainer").hide();
        $(".FollowingContainer").hide();
        $(".FollowedQuestionsContainer").show('slow');
