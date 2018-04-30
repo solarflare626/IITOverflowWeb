@@ -73,6 +73,31 @@
                     
                     <div class="FollowedQuestionsContainer">
                         <h1>Here shows All followed questions</h1>
+                        {% for question in followed_questions %}
+                            <div class="profile-contentCenter">
+                                <div class="profilePostPictureCont">
+                                    <img class="profilePostPicture" src="../static/image/google.png">
+                            
+                                </div>
+                                <div class="profileNameEmail">
+                                    <a class="profilePostUsername">{{question.user.displayname}}</a>
+                                    <a class="profilePostEmail">{{question.user.email}}</a>
+                                    <h3 class="profilePostTitle">Title:{{question.question}}</h3>
+                                </div>
+                            
+                                <br>
+                            
+                                <p class="profilePostAnswer">{{question.questiondesc}}</p>
+                                <div class="profilePostButton">
+                                    <a href="#" class="glyphicon glyphicon-pencil"></a>
+                                    <a href="#" class="glyphicon glyphicon-comment"></a>
+                                    <a href="#" class="glyphicon glyphicon-thumbs-up"></a>
+                                    <a href="#" class="glyphicon glyphicon-thumbs-down"></a>
+                                    <a href="#" class="profilePostFollowButton">Follow</a>
+                                </div>
+                            
+                            </div>
+                        {% endfor %}
                     </div>
                     <div class="AnsweredQuestionsContainer">
                         <h1>Here Shows all Answered Questions</h1>
@@ -106,207 +131,90 @@
                     
                     </div>
                     {%endfor%}
-             
-                   
-                </div>
-                
-                    <div class="profile-contentRight">
-
-                        <h4 >Who to Follow</h4>
+                      
                     
-                    </div>
-
-                    <div class="FollowingContainer">
-                       
-                        <div class="FollowersRow">
-                            <div class="col-md-3 col-sm-6">
-                                <div class="our-team">
-                                    <div class="FollowersPic">
-                                        <img src="../static/image/phillip.png">
-                        
-                                        <div class="team-content">
-                                            <h3 class="FollowersTitle">Espina</h3>
-                                            <span class="FollowersPost">Web Developer</span>
-                                        </div>
-                                        <ul class="social">
-                        
-                                            <li>
-                                                <a href="" class="fa fa-facebook"></a>
-                                            </li>
-                                            <li>
-                                                <a href="" class="fa fa-twitter"></a>
-                                            </li>
-                                            <li>
-                                                <a href="" class="fa fa-google-plus"></a>
-                                            </li>
-                                            <li>
-                                                <a href="" class="fa fa-linkedin"></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                        
-                            </div>
-                            <div class="col-md-3 col-sm-6">
-                                <div class="our-team">
-                                    <div class="FollowersPic">
-                                        <img src="../static/image/phillip.png">
-                        
-                                        <div class="team-content">
-                                            <h3 class="FollowersTitle">Espina</h3>
-                                            <span class="FollowersPost">Web Developer</span>
-                                        </div>
-                                        <ul class="social">
-                        
-                                            <li>
-                                                <a href="" class="fa fa-facebook"></a>
-                                            </li>
-                                            <li>
-                                                <a href="" class="fa fa-twitter"></a>
-                                            </li>
-                                            <li>
-                                                <a href="" class="fa fa-google-plus"></a>
-                                            </li>
-                                            <li>
-                                                <a href="" class="fa fa-linkedin"></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                        
-                            </div>
-                            <div class="col-md-3 col-sm-6">
-                                <div class="our-team">
-                                    <div class="FollowersPic">
-                                        <img src="../static/image/phillip.png">
-                        
-                                        <div class="team-content">
-                                            <h3 class="FollowersTitle">Espina</h3>
-                                            <span class="FollowersPost">Web Developer</span>
-                                        </div>
-                                        <ul class="social">
-                        
-                                            <li>
-                                                <a href="" class="fa fa-facebook"></a>
-                                            </li>
-                                            <li>
-                                                <a href="" class="fa fa-twitter"></a>
-                                            </li>
-                                            <li>
-                                                <a href="" class="fa fa-google-plus"></a>
-                                            </li>
-                                            <li>
-                                                <a href="" class="fa fa-linkedin"></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                        
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-                    <div class="FollowersContainer">
-                        <div class="FollowersRow">
-                            <div class="col-md-3 col-sm-6">
-                                <div class="our-team">
-                                    <div class="FollowersPic">
-                                        <img src="../static/image/phillip.png">
-                    
-                                        <div class="team-content">
-                                            <h3 class="FollowersTitle">Espina</h3>
-                                            <span class="FollowersPost">Web Developer</span>
-                                        </div>
-                                        <ul class="social">
-                    
-                                            <li>
-                                                <a href="" class="fa fa-facebook"></a>
-                                            </li>
-                                            <li>
-                                                <a href="" class="fa fa-twitter"></a>
-                                            </li>
-                                            <li>
-                                                <a href="" class="fa fa-google-plus"></a>
-                                            </li>
-                                            <li>
-                                                <a href="" class="fa fa-linkedin"></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                    
-                            </div>
-                            <div class="col-md-3 col-sm-6">
-                                <div class="our-team">
-                                    <div class="FollowersPic">
-                                        <img src="../static/image/phillip.png">
-                    
-                                        <div class="team-content">
-                                            <h3 class="FollowersTitle">Espina</h3>
-                                            <span class="FollowersPost">Web Developer</span>
-                                        </div>
-                                        <ul class="social">
-                    
-                                            <li>
-                                                <a href="" class="fa fa-facebook"></a>
-                                            </li>
-                                            <li>
-                                                <a href="" class="fa fa-twitter"></a>
-                                            </li>
-                                            <li>
-                                                <a href="" class="fa fa-google-plus"></a>
-                                            </li>
-                                            <li>
-                                                <a href="" class="fa fa-linkedin"></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                    
-                            </div>
-                            <div class="col-md-3 col-sm-6">
-                                <div class="our-team">
-                                    <div class="FollowersPic">
-                                        <img src="../static/image/phillip.png">
-                    
-                                        <div class="team-content">
-                                            <h3 class="FollowersTitle">Espina</h3>
-                                            <span class="FollowersPost">Web Developer</span>
-                                        </div>
-                                        <ul class="social">
-                    
-                                            <li>
-                                                <a href="" class="fa fa-facebook"></a>
-                                            </li>
-                                            <li>
-                                                <a href="" class="fa fa-twitter"></a>
-                                            </li>
-                                            <li>
-                                                <a href="" class="fa fa-google-plus"></a>
-                                            </li>
-                                            <li>
-                                                <a href="" class="fa fa-linkedin"></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                    
-                            </div>
-                        </div>
-                    
-                    </div>
-                    
-                    
-                    </div>
+                  
                  </div>
+                <div class="FollowersContainer">
+                    <div class="FollowersRow">
+                
+                        <div class="col-md-3 col-sm-6">
+                            <div class="our-team">
+                                <div class="FollowersPic">
+                                    <img src="../static/image/phillip.png">
+                                    <div class="team-content">
+                                        <h3 class="FollowersTitle">Espina</h3>
+                                        <span class="FollowersPost">Web Developer</span>
+                                    </div>
+                                </div>
+                                <ul class="social">
+                                    <li>
+                                        <a href="" class="fa fa-facebook"></a>
+                                    </li>
+                                    <li>
+                                        <a href="" class="fa fa-twitter"></a>
+                                    </li>
+                                    <li>
+                                        <a href="" class="fa fa-google-plus"></a>
+                                    </li>
+                                    <li>
+                                        <a href="" class="fa fa-linkedin"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                
+                        </div>
+                
+                    </div>
+                
+                </div>
+                    <div class="FollowingContainer">
+                    
+                        <div class="FollowersRow">
+                            <div class="col-md-3 col-sm-6">
+                                <div class="our-team">
+                                    <div class="FollowersPic">
+                                        <img src="../static/image/phillip.png">
+                    
+                                        <div class="team-content">
+                                            <h3 class="FollowersTitle">Espina</h3>
+                                            <span class="FollowersPost">Web Developer</span>
+                                        </div>
+                    
+                                    </div>
+                                    <ul class="social">
+                    
+                                        <li>
+                                            <a href="" class="fa fa-facebook"></a>
+                                        </li>
+                                        <li>
+                                            <a href="" class="fa fa-twitter"></a>
+                                        </li>
+                                        <li>
+                                            <a href="" class="fa fa-google-plus"></a>
+                                        </li>
+                                        <li>
+                                            <a href="" class="fa fa-linkedin"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                    
+                            </div>
+                    
+                    
+                        </div>
+                    </div>
+
+                <div class="profile-contentRight">
+                
+                    <h4>Who to Follow</h4>
+                
+                </div>
           
                   
                     </div>
                     
-                   
+                </div>
                 </div>
               
             </div>

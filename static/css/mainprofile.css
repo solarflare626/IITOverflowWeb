@@ -135,6 +135,7 @@ html {
 
 .profile-section {
     width: 100%;
+    min-width: 1000px;
     height: 100%;
     overflow: hidden;
 }
@@ -146,7 +147,6 @@ html {
     height: 100vh;
     width: 100%;
     display: flex;
-    min-height: 600px;
     display: block;
     margin: 0 auto;
 }
@@ -261,11 +261,10 @@ html {
 .profile-contentCenter {
     border-bottom: 1px solid #E9EBEE;
     width: 100%;
-    height: 25%;
+    clear: both;
     margin: auto;
     font-family: Poppins-Regular, sans-serif;
     background-color: white;
-    box-sizing: border-box;
 }
 
 .profile-contentCenter:hover {
@@ -276,33 +275,27 @@ html {
     text-decoration: none;
     color: #5F7189;
     padding: 10px;
-    margin: auto;
-    padding: 0px;
     width: 100%;
     font-size: 18px;
     float: left;
     text-align: left;
-    margin-left: 105px;
     margin-top: 0;
     margin-bottom: 10px;
     clear: both;
 }
 
 .profileCenterDiv {
-    overflow: auto;
     float: left;
     height: 100%;
-    width: 45%;
+    width: 50%;
     margin: 10px auto;
     margin-right: 10px;
 }
 
-.profile-fUllpage {
+.profile-fullpage {
     overflow: scroll;
     width: 100%;
-    height: 100%;
     min-width: 1000px;
-    min-height: 1000px;
 }
 
 .profile-contentRight {
@@ -323,22 +316,26 @@ html {
 
 .profile-contentLeft {
     float: left;
-    width: 20%;
+    padding-left: 5%;
+    padding-right: 5%;
     height: 40%;
+    width: 20%;
     margin: auto;
     margin-top: 10px;
-    margin-left: 7%;
+    margin-left: 5%;
     margin-right: 10px;
     background-color: white;
 }
 
 .profilePostButton {
-    bottom: 0;
-    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 10px;
+    padding-right: 13px;
 }
 
 .profilePostButton a {
-    margin: 12px 45px 0 45px;
+    width: 18%;
+    height: 100%;
     color: #5F7189;
     font-size: 15px;
 }
@@ -347,10 +344,22 @@ html {
     color: #4AB3F4;
     text-decoration: none;
 }
+.profilePostFollowButton:focus{
+    text-decoration: none;
+}
+.profilePostFollowButton:hover {
+    border-color: #4AB3F4;
+}
+
+.profilePostFollowButton {
+    border: 1px solid #5F7189;
+    border-radius: 30px;
+    padding: 3px 10px 3px 10px;
+}
 
 .profilePostAnswer {
-    margin: 0 0 0 5%;
-    width: 90%;
+    margin: 0 0 0 2.5%;
+    width: 95%;
     text-align: left;
     border-top: 1px solid #E9EBEE;
     overflow-x: hidden;
@@ -358,7 +367,6 @@ html {
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 15px;
-    float: center;
     word-wrap: break-word;
 }
 
@@ -373,16 +381,14 @@ html {
 }
 
 .profilePostEmail {
-    float: left;
     width: 60%;
-    margin-left: 15px;
     font-size: 10px;
     display: block;
 }
 
 .profilePostUsername {
     display: block;
-    width: 60%;
+    width: 100%;
     margin-top: 0px;
     font-size: 15px;
     margin-left: 0;
@@ -390,8 +396,9 @@ html {
 
 .profileNameEmail {
     text-align: center;
-    width: 60%;
+    width: 100%;
     padding-top: 10px;
+    text-align: left;
 }
 
 .FollowersContainer {
@@ -410,8 +417,9 @@ html {
 
 .FollowedQuestionsContainer {
     width: 100%;
-    height: 100%;
+    height: inherit;
     background-color: white;
+   
 }
 
 .AnsweredQuestionsContainer {
@@ -421,7 +429,7 @@ html {
 }
 
 .our-team {
-    padding: 30px 0 40px;
+    padding-top: 20px;
     background: white;
     text-align: center;
     overflow: hidden;
@@ -433,16 +441,16 @@ html {
 .our-team .FollowersPic {
     display: inline-block;
     width: 130px;
-    height: 130px;
-    margin-bottom: 50px;
+    height: 123px;
     position: relative;
     z-index: 1;
+    margin-bottom: 50px;
 }
 
 .our-team .FollowersPic::before {
     content: "";
     width: 100%;
-    background: #eb1768;
+    background: #4AB3F4;
     position: absolute;
     bottom: 135%;
     right: 0;
@@ -453,6 +461,7 @@ html {
 
 .our-team:hover .FollowersPic::before {
     height: 100%;
+    display: block;
 }
 
 .our-team .FollowersPic::after {
@@ -460,7 +469,7 @@ html {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: #ee4266;
+    background: #4AB3F4;
     position: absolute;
     top: 0;
     left: 0;
@@ -481,7 +490,7 @@ html {
 }
 
 .our-team .team-content {
-    margin-bottom: 30px;
+    display: block;
 }
 
 .our-team .FollowersTitle {
@@ -498,14 +507,16 @@ html {
     font-size: 15px;
     text-transform: capitalize;
     color: #4e5052;
+    margin-bottom: 10px;
 }
 
 .our-team .social {
     width: 100%;
     padding: 0;
     margin: 0;
-    background: #eb1768;
+    background: #4AB3F4;
     position: absolute;
+    bottom: -100px;
     left: 0;
     transition: all 0.5s ease 0s;
 }
@@ -527,7 +538,7 @@ html {
 }
 
 .our-team .social li a:hover {
-    color: #eb1768;
+    color: #4AB3F4;
     background: #f7f5ec;
     text-decoration: none;
 }
