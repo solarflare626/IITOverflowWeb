@@ -44,7 +44,7 @@ def question():
     # html = urlopen(url).read().decode('utf-8')
     # questions = json.loads(html)
 
-    print(str(questions))
+   
 
     url1 = 'http://iitoverflow.herokuapp.com/api/Answers'
     html1 = urlopen(url1).read().decode('utf-8')

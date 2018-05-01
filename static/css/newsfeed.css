@@ -24,6 +24,10 @@ html {
     src: url('../fonts/poppins/Poppins-Regular.ttf');
 }
 
+.fullpage {
+    overflow-y: scroll;
+}
+
 .titlearea {
     margin-left: 4%;
     padding: 15px;
@@ -36,7 +40,11 @@ html {
     display: block;
     border-radius: 20px;
 }
+.titlearea:focus{
 
+    border-color: #1CB4F1;
+    
+}
 .categorycontainer {
     position: relative;
     cursor: pointer;
@@ -135,7 +143,7 @@ html {
     width: 100%;
     background: white;
     height: 5%;
-    box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 2px 6px -4px rgba(0, 0, 0, 0.8);
 }
 
 .section {
@@ -333,7 +341,7 @@ html {
     overflow: hidden;
     float: left;
     padding: 10px;
-    overflow-y: auto;
+    overflow-y: scroll;
     bottom: 10px;
 }
 
@@ -349,7 +357,7 @@ html {
     padding: 0 0 5px 0;
     width: 98%;
     background-color: white;
-    box-shadow: 0 4px 5px -5px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 1px 3px -3px rgba(0, 0, 0, 0.8);
 }
 
 .submitbutton1 {
@@ -420,27 +428,24 @@ html {
 
 .newdiv {
     margin: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     width: 98%;
     background-color: white;
-    box-shadow: 0 4px 5px -5px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 1px 3px -3px rgba(0, 0, 0, 0.8);
+    color: #66757F;
 }
 
 .titlepost {
     font-size: 13px;
     padding: 5px;
     width: 100%;
-    border-top: 1px solid #E1E2E3;
-    margin-top: 20px;
+    margin-top: 0px;
 }
 
 .titlepost:hover {
     background-color: #F5F8FA;
-    width: 98%;
+    width: 100%;
     color: #4AB3F4;
 }
 
@@ -462,17 +467,18 @@ html {
 
 .newpostinput {
     padding: 5px;
+    margin-top: 10px;
 }
 
 .descriptionpost:hover {
     background-color: #F5F8FA;
-    width: 98%;
+    width: 100%;
     color: #4AB3F4;
 }
 
 .categorypost:hover {
     background-color: #F5F8FA;
-    width: 98%;
+    width: 100%;
     color: #4AB3F4;
 }
 
@@ -509,7 +515,7 @@ html {
 .tagspost:hover {
     background-color: #F5F8FA;
     font-size: 13px;
-    width: 98%;
+    width: 100%;
     color: #4AB3F4;
 }
 
