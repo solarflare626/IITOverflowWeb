@@ -8,7 +8,6 @@ app = Flask(__name__)
 app.secret_key = 'my very own secret key'
 app.config['SESSION_TYPE'] = 'filesystem'
 
-
 @app.route('/')
 def index():
     return render_template('login.html')
