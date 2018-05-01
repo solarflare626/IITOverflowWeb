@@ -1,9 +1,0 @@
-body {font-family: 'Roboto';font-size: 15px;
-}
-p {line-height:22px; letter-spacing:0.5px;}
-* {-webkit-border-radius: 0 !important;-moz-border-radius: 0 !important; border-radius: 0 !important;}
-.frame-default {border-color: #e4e4e4;}
-.frame-heading {color: #333;border-color: #ddd; 
-    padding: 1px 15px; border-bottom: 1px solid #dd0000;}
-.bg-grey-1 {background:#ededed; color:#333 !important;}
-    
