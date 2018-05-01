@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 
 
-@app.route('/', methods=['GET','POST'])
+@app.route('/newsfeed', methods=['GET','POST'])
 def question():
 
 
