@@ -17,7 +17,7 @@
 
     <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
     <script src="../static/js/jquery-3.3.1.min.js"></script>
-        
+
     <!-- This following line is optional. Only necessary if you use the option css3:false and you want to use other easing effects rather than "linear", "swing" or "easeInOutCubic". -->
     <script src="../static/vendors/jquery.easings.min.js"></script>
 
@@ -37,49 +37,12 @@
 </head>
 
 <body>
-    <div class="fullpage">
-        <div class="section">
-            <div class="landing">
-                <div class="landingWrapper">
-                    <div class="nav">
-
-                        <a href="#"><img src="../static/image/seal-03.png" alt="logo" class="logo"></a>
-
-                        <div class="pages">
-                            <a href="#">Home</a>
-                            <a href="#">About</a>
-                            <a href="#">Downloads</a>
-                            <a href="#section1" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></a>
-                        </div>
-
-
-                    </div>
-                    <div class="landingContent">
-                        <div class="contentLeft">
-                            <h1>IIT Overflow : Ask Questions and Start <br> Learning Today!</h1>
-                            <p>IITOverflow is an interactive website which caters MSU-IIT student's <br> daily inquiry for knowledge.<br> We provide a fast-pace environment where every students can ask <br> quegstions regarding their homeworks or projects. ..</p>
-
-                            <div class="btnTwocont">
-                                <a href="#" class="btnTwo">Get App Now!</a>
-                                <a href="#" class="btnTwo">Sign Up Now</a>
-                            </div>
-                        </div>
-                        <div class="contentRight">
-                            <img src="../static/image/iphoneX_inHand.png" alt="iphoneXinhand" class="iphoneHand"> </div>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div id="section1" class="section">
+        <div id="" class="section">
             <div class="features">
                 <div class="date" id="options">
-                    
+
                     <h1 style="float:right;">Choose Your Interests!</h1>
-                    
+
                     <div style="border: 1px solid white; width: 165%;float:left ; margin-left: -700px;"></div>
                     <br>
                     <br>
@@ -88,17 +51,17 @@
                     {% for category in categories %}
                     <button class="categorybuttons" value="{{ category['id'] }}" type="submit">{{category['name']}}</button>
                     {% endfor %}
-                    
+
                 </div>
                     <div class="time">
-                    
+
                     <h1> Interests Go Here!</h1>
                                         <div style="border: 1px solid white; width: 95%;float:left ; margin-left: -10px; margin-bottom:10px;"></div>
                     <div>
                         <button id="contain-interest" value="contain-interest"></button>
-                       
+
                     </div>
-                    <a type="submit" href="newsfeed" class="userinterests" id="interestId">Submit</a>
+                    <button class="userinterests" id="interestId">Submit</button>
                 </div>
             </div>
         </div>
@@ -140,7 +103,7 @@
         interests.push(categoryid);
         $(this).remove();
         console.log(interests);
-        
+
 
     });
 

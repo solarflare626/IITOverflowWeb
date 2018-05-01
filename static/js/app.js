@@ -1,4 +1,4 @@
-var currentUser
+var currentUser;
 
 function onSignIn(googleUser) {
     // var profile = googleUser.getBasicProfile();
@@ -26,10 +26,11 @@ function login(token) {
                     contentType: 'application/json; charset=utf-8',
                     dataType: "json",
                     success: function (resp) {
+                        console.log("success");
                         if (resp.message = "okay") {
-                            currentUser = resp.userID
-                            console.log("Success")
-                           // window.location.replace("getSession")
+                            currentUser = resp.userID;
+                            // console.log("Success")                  // just for checking
+                            window.location.replace("/categories")
                         }
                         else{
                             console.log("ERROR!")
@@ -45,7 +46,7 @@ function login(token) {
 }
 
 function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
+    var auth2 =gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
         $.ajax({
            url: "http://localhost:5000/logout",
@@ -61,5 +62,4 @@ function signOut() {
         });
     });
 }
-
 
