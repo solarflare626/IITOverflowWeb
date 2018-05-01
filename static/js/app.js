@@ -26,10 +26,11 @@ function login(token) {
                     contentType: 'application/json; charset=utf-8',
                     dataType: "json",
                     success: function (resp) {
+                        console.log("success");
                         if (resp.message = "okay") {
                             currentUser = resp.userID;
-                            console.log("Success")                  // just for checking
-                           // window.location.replace("getSession")
+                            // console.log("Success")                  // just for checking
+                            window.location.replace("/categories")
                         }
                         else{
                             console.log("ERROR!")
