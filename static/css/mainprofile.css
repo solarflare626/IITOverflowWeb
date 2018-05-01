@@ -263,6 +263,7 @@ html {
     width: 100%;
     clear: both;
     margin: auto;
+    margin-bottom: 10px;
     font-family: Poppins-Regular, sans-serif;
     background-color: white;
     z-index: 105;
@@ -456,7 +457,7 @@ html {
 
 .AnsweredQuestionsContainer {
     width: 100%;
-    height: 100%;
+    
     background-color: white;
 }
 
