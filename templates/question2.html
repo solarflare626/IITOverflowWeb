@@ -20,13 +20,19 @@
 
         <script src="../static/ckeditor/ckeditor.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+        <link href="../static/css/fontawesome-all.css" rel="stylesheet">
 
 
     </head>
 
 
     <body>
+        <div class="hider" id="hider"> </div>
+
         <div class="fullpage">
+           
+            
+
             <div class="section">
                 <div class="landing">
                     <div class="nav">
@@ -34,10 +40,10 @@
                     <button class="searchbutton" type="submit"><i>Go!</i></button>
                         <div class="pages">
                     
-                            <a href="#">Home</a>
-                            <a href="#">Profile</a>
+                            <a href="newsfeed">Home</a>
+                            <a href="profile">Profile</a>
                             <a href="#">Notifications</a>
-                            <a href="#">Logout</a>
+                            <a href="landing">Logout</a>
                     
                         </div>
                    
@@ -75,12 +81,12 @@
 
                     </div>
                     <div class="links0">
-                        <div class="links3titlebar"></div>
+                        
                     </div>
                 </div>
                 
                 
-                <div class="contentCenter" >
+                <div class="contentCenter">
                     <div class="askquestion" id="newpost">
                      <div class="askbuttons">
                          <input type="submit" value="Ask Something" class="Askbutton">
@@ -106,26 +112,31 @@
                      <div class="popup" id="popup"><button class="categorybutton" id="myBtn"><b>Category :</b></button></div>  
                         </div>
                     <a class="submitbutton3" type="submit" >Submit</a>
-                   <a class="submitbutton2" type="" ="submit" >Hide</a>
+                   <a class="submitbutton2" type="submit" >Hide</a>
                       </div>
                       
                       <div id="newsfeedParent">
-                      
-                      {% for i in questions|reverse  %}
+
+                      {% for i in questions|reverse %}
+
+                     
                     <div id={{"newqedit_{0}".format(i.id)}} style="display: block;" class="newdiv">
                         
-                         
+                         <button class="btn btn-danger" id={{"duplicate_{0}".format(i.id)}} style="display: none;" >DUPLICATE</button>
                           
                       <div class="titlepost">Title: {{i.question|safe}}
-
-
-                            <i  onclick="showhide({{i.id}})" class="fa fa-reply"></i>
-                            <i id={{i.id}} class="fa fa-heart qheart"></i>
+                        <div class=" editanddeleteButtonCont">
+                            <i onclick="showhide({{i.id}})" class="fa fa-edit Newsfeed-editButton "></i>
+                            <i id={{i.id}} class="fas fa-trash-alt qheart"></i>
+                            <i onclick="showhide1({{i.id}})" class="fas fa-copy duplicate"></i>
+                        </div>
 
                       <div>
-                          
+                       
 
-                      </div></div><div class="descriptionpost">Description: {{i.questiondesc|safe}} <div></div></div><div class="categorypost">Category: {{i.categoryId}} <div></div></div><div class="tagspost">Tags:
+
+
+                      </div></div><div class="descriptionpost">Description:  {{i.questiondesc|safe}}  <div></div></div><div class="categorypost">Category: {{i.categoryId}} <div></div></div><div class="tagspost">Tags:
 
                       {% for tag in i.tags %}
 
@@ -146,9 +157,9 @@
         <ul id="comments-list" class="comments-list">
             <li>
                 <div class="comment-main-level">
-                    <!-- Avatar -->
+                    <!-- Avatar 
                     <div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></div>
-                    <!-- Contenedor del Comentario -->
+                    Contenedor del Comentario -->
                     <div class="comment-box">
                         <div class="comment-head">
                             <h6 class="comment-name by-author"><a href="http://creaticode.com/blog">{{answer.userId}}</a></h6>
@@ -177,7 +188,6 @@
                      {% endfor %}
 
 
-
 </div>
 
 <!-- TOEDIT -->
@@ -204,6 +214,8 @@
 
 
 
+
+
                       <!-- EDIT MODE -->
 
                     <div style="display: none;" id={{"qedit_{0}".format(i.id)}}  class="newdivEdit">
@@ -218,8 +230,9 @@
   
 
 
-                         <input type="text" id="titleedit"  value={{i.question}}>
-                         <input type="textarea" id="descedit" value={{i.questiondesc}}>
+                         <input class="editQuestionTitle" type="text" id="titleedit"  value={{i.question}}>
+
+                         <input class="editTitleDescription" type="text" id="descedit" value={{i.questiondesc}}>
 
                         <div style="margin: 20px;">
 
@@ -232,10 +245,14 @@
                          </div>
 
 
+                         <div class="newsfeedPopUpButton-Cont">
 
-                         <a id={{i.id}} class="submitbutton5" type="submit" >Save</a>
+                        <a id={{i.id}} class="submitbutton5" type="submit" >Save</a>
                          <a onclick="showhide({{i.id}})" >Cancel</a>
-                         
+
+      <!--                    <a id={{i.id}} class="submitbutton5" type="submit" >Save</a>
+                         <a class="submitbutton5" onclick="showhide({{i.id}})" >Cancel</a> -->
+                        </div>
                     </form>
                         
                           
@@ -249,17 +266,20 @@
 
 
                       {% endfor %}
-                    </div>
+
+                       </div>
+                    
                       
 
                 </div>
 
                 <div class="contentRight">
                 <div class="links2">
-                    <div class="links2titlebar"></div>
+        
                 </div>
                 <div class="links3">
-                    <div class="links3titlebar"></div>
+                    
+
               
                 </div>
                 </div>
@@ -300,7 +320,7 @@
             autocomplete: {
                 delay: 0, // show suggestions immediately
                 position: { collision: 'flip' }, // automatic menu position up/down
-                source: {{tag_list|tojson}}
+                source: ['notch','qb','daku']
             },
             forceLowercase: false,
             
@@ -375,18 +395,19 @@
 
 
       $(".submitbutton5").click(function(){
+        
 
         var qid = $(this).attr('id');
         var editorText = CKEDITOR.instances.textarea.getData();
-        var posttitle = document.getElementById('titleedit').value
-        var gettags = document.getElementById('tagsIDedit').value
+        var posttitle = document.getElementById('titleedit').value;
+        var gettags = document.getElementById('tagsIDedit').value;
         var cleartitle = document.getElementById('titleedit');
         var cleartags = document.getElementsByClassName('tag-editor-tag');
         console.log(cleartags);
         // var category = document.getElementsByClassName('categorypopups')[0].id;
 
 
-        var data = { "id": qid, "question": posttitle, "questiondesc": editorText, "userId": 4 }
+        var data = { "question": posttitle, "questiondesc": editorText, "userId": 4 };
 
         $.ajax({
             type: "PUT",
@@ -395,10 +416,11 @@
             dataType: "json",
             contentType: "application/json",
             success: function (result) {
-                alert('ok');
-                qid = result.id
+                console.log(result);
+                alert('gaga');
+                qid = result.id;
 
-                var tagslength = cleartags.length
+                var tagslength = cleartags.length;
 
 
 
@@ -408,8 +430,9 @@
 
 
 
-            var data1 = {"name": cleartags[i].innerText, "categoryId": category}
+            var data1 = {"name": cleartags[i].innerText, "categoryId": category};   
             console.log(cleartags[i].innerText);
+
 
 // EDIT
                 
@@ -419,20 +442,23 @@
                     data: JSON.stringify(data1),
                     dataType: "json",
                     contentType: "application/json",
-                    success: function (result) {
-                        alert('ok');
+                    success: function (result1) {
+                       // alert('ok');
+                       console.log(result1);
 
                     },
-                    error: function (result) {
-                        alert(result);
-                        console.log(JSON.stringify(result));
+                    error: function (result1) {
+                        //alert(result1);
+                        console.log(JSON.stringify(result1));
                     }
                 });
 
 // EDIT
                     
                 }
-                $('.tag-editor-tag').html("");
+
+                
+
 
                 
 
@@ -457,7 +483,7 @@
 
     $(".submitbutton3").click(function(){
 
-        
+
         var editorText = CKEDITOR.instances.textarea.getData();
         var posttitle = document.getElementById('title').value
         var gettags = document.getElementById('tagsID').value
@@ -500,33 +526,34 @@
                     data: JSON.stringify(data1),
                     dataType: "json",
                     contentType: "application/json",
-                    success: function (result2) {
+                    success: function (result) {
                         alert('ok');
 
                     },
-                    error: function (result2) {
-                        alert(result2);
-                        console.log(JSON.stringify(result2));
+                    error: function (result) {
+                        alert(result);
+                        console.log(JSON.stringify(result));
                     }
                 });
 
 // EDIT
                     
                 }
-                console.log(result);
+
                 var question = '<div id="newqedit_'+result.id+'" style="display: block;" class="newdiv">';
                 question += '<div class="titlepost">Title: '+result.question+' <i onclick="showhide('+result.id+')" class="fa fa-reply"></i> <i id="'+result.id+'" class="fa fa-heart qheart"></i><div></div>';
 
-                question += '<div class="descriptionpost">Description:' + result.questiondesc + '<div></div></div><div class="categorypost">Category: ' + result.categoryId + ' <div></div></div><div class="tagspost">Tags: ' + result.cleartags + '<div></div></div><div class="newpostbuttons"><button class="followbutton">Follow</button><button> </button><button class="votebutton">Vote</button><button></button><button class="commentbutton">Comment</button><button></button><button class="answerbutton">Answer</button><button><div></div></button></div><!-- TOEDIT --><div></div><!-- TOEDIT -->div class="answerdiv"><textarea class="answertextarea" id="answer_5" placeholder="Write an Answer"> </textarea><input class="submitanswerbutton" id="5" value="submit" type="button"><div></div></div><div class="newpostinput"><input class="commenttextarea" placeholder="Write a Comment"><div></div></div>'                         
+                question += '<div class="descriptionpost">Description:' + result.questiondesc + '<div></div></div><div class="categorypost">Category: ' + result.categoryId + ' <div></div></div><div class="tagspost">Tags: ' + result.cleartags + '<div></div></div><div class="newpostbuttons"><button class="followbutton">Follow</button><button> </button><button class="votebutton">Vote</button><button></button><button class="commentbutton">Comment</button><button></button><button class="answerbutton">Answer</button><button><div></div></button></div><!-- TOEDIT --><div></div><!-- TOEDIT --><div class="answerdiv"><textarea class="answertextarea" id="answer_5" placeholder="Write an Answer"> </textarea><input class="submitanswerbutton" id="5" value="submit" type="button"><div></div></div><div class="newpostinput"><input class="commenttextarea" placeholder="Write a Comment"><div></div></div>';                         
                       
 
 
-                question += '</div>'
+                question += '</div>';
    
 
-                //$("#newsfeedParent").prepend(question);
+                $("#newsfeedParent").prepend(question);
                 //$("#newsfeedParent").html( question +$("#newsfeedParent").html());
                 $('.tag-editor-tag').html("");
+                
 
                 
 
@@ -582,15 +609,6 @@
 </script>
 
 
-<script type="text/javascript">
-    
-
-
-
-
-</script>
-
-
 
 <script>
 
@@ -638,6 +656,8 @@
             $("#form1").hide('slow');
             
           })
+        
+
           
 
 
@@ -706,6 +726,9 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
+        $(".hider").hide();
+
+        
         $("#form1").hide();
         $("#tagsID").hide();
         $("#tagsID+.tag-editor").hide();
@@ -744,22 +767,52 @@
 
 
 <script type="text/javascript">
+     $("#hider").click(function () {
+
+            $("#hider").fadeOut("slow");
+            $("#form2").hide("slow");
+        });
   
     function showhide(id) {
 
-        
+       
 
         var div = document.getElementById("qedit_"+id);
         var div1 = document.getElementById("newqedit_"+id);
         if (div.style.display !== "none") {
             div.style.display = "none";
             div1.style.display = "block";
+            $("#hider").fadeOut("slow");
         }
         else {
             div.style.display = "block";
             div1.style.display = "none";
+             $("#hider").fadeIn('slow');
+            
         }
+        
     }
+
+    function showhide1(id) {
+
+
+    var x = document.getElementById("duplicate_"+id);
+    if (x.style.display === "none") {
+        x.style.display = "block";
+        $("#hider").fadeOut("slow");
+    } else {
+        x.style.display = "none";
+        $("#hider").fadeOut("slow");
+    }
+}
+       
+
+   
+
+
+
+
+
 
 
 
