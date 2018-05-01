@@ -98,7 +98,7 @@
                         <div id="contain-interest" value="contain-interest"></div>
                        
                     </div>
-                    <a type="submit" href="newsfeed" class="userinterests" id="interestId">Submit</a>
+                    <a  class="userinterests" id="interestId">Submit</a>
                 </div>
             </div>
         </div>
@@ -120,7 +120,6 @@
         btn.setAttribute("value", $(this).val());
         btn.appendChild(text);
         contain.appendChild(btn);
-<<<<<<< HEAD
         interests.push(categoryid);
         $(this).remove();
         console.log(interests);
@@ -145,7 +144,7 @@
         $(this).remove();
     });
 
-    /*$("button").on('click', function() {
+    $("button").on('click', function() {
         if (this.className == "categorybuttons") {
             var categoryname = $(this).text();
             var categoryid = $(this).val();
@@ -156,9 +155,7 @@
             btn.appendChild(text);
             contain.appendChild(btn);
             interests.push(categoryid);
-=======
         $(".selected").click(function (){
->>>>>>> Login
             $(this).remove();
             var index = interests.indexOf($(this).val());
             alert(index);

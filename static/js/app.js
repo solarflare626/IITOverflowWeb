@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 var currentUser;
 
 function onSignIn(googleUser) {
@@ -63,7 +63,7 @@ function signOut() {
         });
     });
 }
-=======
+
 $('#autocomplete').autocomplete({
                 source: function (request, response) {
                     $.ajax({
@@ -82,5 +82,5 @@ $('#autocomplete').autocomplete({
                 }
 
             });
->>>>>>> QandA
+
 
