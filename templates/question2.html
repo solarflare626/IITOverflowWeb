@@ -20,13 +20,18 @@
 
         <script src="../static/ckeditor/ckeditor.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-
+        <link href="../static/css/fontawesome-all.css" rel="stylesheet">
 
     </head>
 
 
     <body>
+        <div class="hider" id="hider"> </div>
+
         <div class="fullpage">
+           
+            
+
             <div class="section">
                 <div class="landing">
                     <div class="nav">
@@ -116,13 +121,16 @@
                          
                           
                       <div class="titlepost">Title: {{i.question}} 
-
-
-                            <i  onclick="showhide({{i.id}})" class="fa fa-reply"></i>
-                            <i id={{i.id}} class="fa fa-heart qheart"></i>
+                        <div class=" editanddeleteButtonCont">
+                            <i onclick="showhide({{i.id}})" class="fa fa-edit Newsfeed-editButton "></i>
+                            <i id={{i.id}} class="fas fa-trash-alt qheart"></i>
+                            <i class="fas fa-copy"></i>
+                        </div>
 
                       <div>
-                          
+                       
+
+
 
                       </div></div><div class="descriptionpost">Description: {{i.questiondesc}} <div></div></div><div class="categorypost">Category: {{i.categoryId}} <div></div></div><div class="tagspost">Tags:
 
@@ -216,8 +224,8 @@
   
 
 
-                         <input type="text" id="titleedit"  value={{i.question}}>
-                         <input type="textarea" id="descedit" value={{i.questiondesc}}>
+                         <input class="editQuestionTitle" type="text" id="titleedit"  value={{i.question}}>
+                         <input class="editTitleDescription" type="textarea" id="descedit" value={{i.questiondesc}}>
 
                         <div style="margin: 20px;">
 
@@ -230,10 +238,10 @@
                          </div>
 
 
-
+                         <div class="newsfeedPopUpButton-Cont">
                          <a id={{i.id}} class="submitbutton5" type="submit" >Save</a>
-                         <a onclick="showhide({{i.id}})" >Cancel</a>
-                         
+                         <a class="submitbutton5" onclick="showhide({{i.id}})" >Cancel</a>
+                        </div>
                     </form>
                         
                           
@@ -615,6 +623,8 @@
             $("#form1").hide('slow');
             
           })
+        
+
           
 
 
@@ -683,6 +693,9 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
+        $(".hider").hide();
+
+        
         $("#form1").hide();
         $("#tagsID").hide();
         $("#tagsID+.tag-editor").hide();
@@ -721,23 +734,31 @@
 
 
 <script type="text/javascript">
+     $("#hider").click(function () {
+
+            $("#hider").fadeOut("slow");
+            $("#form2").hide("slow");
+        });
   
     function showhide(id) {
 
-        
+       
 
         var div = document.getElementById("qedit_"+id);
         var div1 = document.getElementById("newqedit_"+id);
         if (div.style.display !== "none") {
             div.style.display = "none";
             div1.style.display = "block";
+            $("#hider").fadeOut("slow");
         }
         else {
             div.style.display = "block";
             div1.style.display = "none";
+             $("#hider").fadeIn('slow');
+            
         }
+        
     }
-
 
 
 </script>

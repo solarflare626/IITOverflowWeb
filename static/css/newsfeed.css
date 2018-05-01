@@ -31,7 +31,7 @@ html {
 .titlearea {
     margin-left: 4%;
     padding: 15px;
-    width: 86%;
+    width: 93%;
     margin-top: 15px;
     margin-bottom: 20px;
     height: 5px;
@@ -40,11 +40,11 @@ html {
     display: block;
     border-radius: 20px;
 }
-.titlearea:focus{
 
+.titlearea:focus {
     border-color: #1CB4F1;
-    
 }
+
 .categorycontainer {
     position: relative;
     cursor: pointer;
@@ -154,10 +154,10 @@ html {
 
 .contentLeft {
     height: 100%;
-    width: 17%;
+    width: 20%;
     float: left;
     margin-top: 45px;
-    margin-left: 12%;
+    margin-left: 7.5%;
     margin-right: 0;
     padding: 0;
     -ms-overflow-style: none;
@@ -335,7 +335,7 @@ html {
 }
 
 .contentCenter {
-    width: 37%;
+    width: 45%;
     margin-right: -4px;
     margin-top: 37px;
     overflow: hidden;
@@ -383,7 +383,7 @@ html {
     float: right;
     border: 1px solid #DDDFE2;
     color: white;
-    background-color: #4267B2;
+    background-color: #1CB4F1;
     width: 80px;
     height: 30px;
     box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
@@ -397,7 +397,7 @@ html {
     float: right;
     border: 1px solid #DDDFE2;
     color: white;
-    background-color: #4267B2;
+    background-color: #1CB4F1;
     width: 80px;
     height: 30px;
     border-bottom-right-radius: 10px;
@@ -428,12 +428,13 @@ html {
 
 .newdiv {
     margin: 5px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     width: 98%;
     background-color: white;
     box-shadow: 0 1px 3px -3px rgba(0, 0, 0, 0.8);
     color: #66757F;
+    border: 1px solid #D1D1D1;
 }
 
 .titlepost {
@@ -441,6 +442,7 @@ html {
     padding: 5px;
     width: 100%;
     margin-top: 0px;
+    display: inline-block;
 }
 
 .titlepost:hover {
@@ -601,26 +603,32 @@ html {
 
 .submitanswerbutton:hover {
     background-color: white;
-    color: #4AB3F4;
+    color: white;
     border: 0 solid #000;
-    border-left: 1px solid #4AB3F4;
-    border-right: 1px solid #4AB3F4;
-    border-top: 1px solid #4AB3F4;
-    border-bottom: 1px solid #4AB3F4;
-    bottom: 5px;
+    background-color: #4AB3F4;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    bottom: 3px;
     right: 13px;
     padding: 8px;
+    outline: none;
 }
 
 .submitanswerbutton {
     position: absolute;
-    bottom: 5px;
+    bottom: 3px;
     right: 13px;
-    background-color: #4AB3F4;
+    background-color: white;
     border-width: 2px;
     border-color: white;
-    color: white;
+    color: #4AB3F4;
     outline: none;
+    border-left: 1px solid #4AB3F4;
+    border-right: 1px solid #4AB3F4;
+    border-top: 1px solid #4AB3F4;
+    border-bottom: 1px solid #4AB3F4;
     border-radius: 100px;
     font-size: 15px;
     padding: 8px;
@@ -687,7 +695,7 @@ html {
     padding: 5px;
     height: 100%;
     margin-top: 40px;
-    width: 18%;
+    width: 20%;
     float: left;
     overflow: hidden;
     padding: 7px;
@@ -779,16 +787,15 @@ p {
     position: relative;
     display: inline-block;
     cursor: pointer;
-    height: 18px;
+    height: 20%;
     margin-top: 0;
     margin-left: 4%;
-    margin-bottom: 10px;
     border: 1px solid #D1D1D1;
     font-family: Poppins-Regular;
     color: black;
     margin-bottom: 10px;
     padding-top: 5px;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     padding-left: 7px;
     padding-right: 7px;
     border-radius: 100px;
@@ -937,4 +944,98 @@ p {
     color: white;
     border-color: white;
     border-width: 0;
+}
+
+.editanddeleteButtonCont {
+    float: right;
+    display: inline-block;
+    width: 40%;
+    min-width: 30%;
+}
+
+.editanddeleteButtonCont i {
+    margin-left: 15%;
+    float: right;
+}
+
+#form2 {
+    border: 1px solid #D1D1D1;
+    width: 98%;
+    background-color: white;
+    margin: 5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    min-width: 20%;
+    margin-top: -15.5%;
+    /*set to a negative number 1/2 of your height*/
+    margin-left: -25%;
+    /*set to a negative number 1/2 of your width*/
+    z-index: 100;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+}
+
+.hider {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 200%;
+    height: 200%;
+    margin-top: -800px;
+    /*set to a negative number 1/2 of your height*/
+    margin-left: -500px;
+    /*set to a negative number 1/2 of your width*/
+    /*
+        z- index must be lower than pop up box
+       */
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow-y: hidden;
+}
+
+.submitbutton5 {
+    border: 1px solid #4AB3F4;
+    background-color: white;
+    color: #66757F;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 30px;
+    bottom: 10px;
+    display: inline-block;
+}
+
+.submitbutton5:hover {
+    border: 1px solid white;
+    background-color: #4AB3F4;
+    color: white;
+    text-decoration: none;
+}
+
+.newsfeedPopUpButton-Cont {
+    width: 100%;
+    text-align: center;
+}
+
+.editQuestionTitle {
+    margin-left: 4%;
+    padding: 15px;
+    width: 93%;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    height: 5px;
+    color: black;
+    border: 1px solid #D1D1D1;
+    display: block;
+    border-radius: 20px;
+}
+
+.editTitleDescription {
+    font-size: 13px;
+    padding: 5px;
+    width: 100%;
+    margin-top: 0px;
+    display: inline-block;
 }
