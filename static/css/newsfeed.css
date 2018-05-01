@@ -1,0 +1,1041 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+body {
+    overflow-y: scroll;
+    min-width: 100%;
+    min-height: 100%;
+    font-family: Poppins-Regular;
+}
+
+html {
+    font-family: Poppins-Regular, sans-serif;
+}
+
+@font-face {
+    font-family: Poppins-Regular;
+    src: url('../fonts/poppins/Poppins-Regular.ttf');
+}
+
+.fullpage {
+    overflow-y: scroll;
+}
+
+.titlearea {
+    margin-left: 4%;
+    padding: 15px;
+    width: 93%;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    height: 5px;
+    color: black;
+    border: 1px solid #D1D1D1;
+    display: block;
+    border-radius: 20px;
+}
+
+.titlearea:focus {
+    border-color: #1CB4F1;
+}
+
+.categorycontainer {
+    position: relative;
+    cursor: pointer;
+    margin-top: 0;
+    float: right;
+    margin-bottom: 10px;
+    border: 1px solid #D1D1D1;
+    font-family: Poppins-Regular;
+    color: #707070;
+    margin-bottom: 10px;
+    padding: 7px;
+    border-radius: 100px;
+}
+
+.tagsarea {
+    margin-left: 4%;
+    padding: 15px;
+    width: 86%;
+    height: 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    color: black;
+    border: 1px solid #D1D1D1;
+    display: block;
+    border-radius: 20px;
+}
+
+#tagsID+.tag-editor {
+    background: #fafafa;
+    font-size: 12px;
+}
+
+#tagsID+.tag-editor .tag-editor-tag {
+    color: #fff;
+    background: #555;
+    border-radius: 2px;
+}
+
+#tagsID+.tag-editor .tag-editor-spacer {
+    width: 7px;
+}
+
+#tagsID+.tag-editor .tag-editor-delete {
+    display: none;
+}
+
+.title {
+    display: block;
+}
+
+.blur {
+    -moz-filter: blur(3px);
+}
+
+.landing {
+    background: #E9EBEE;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    min-height: 600px;
+    flex-direction: row;
+    border: 1px black solid;
+    margin: 0 auto;
+}
+
+.searchbutton {
+    background-color: #434959;
+    margin-top: 5px;
+    width: 40px;
+    height: 30px;
+    border-radius: 30px;
+    outline: none;
+    text-decoration: none;
+}
+
+.searchbar {
+    height: 30px;
+    font-size: 15px;
+}
+
+.pages {
+    float: right;
+    margin-right: 18%;
+    margin-top: .6%;
+    font-family: Poppins-Regular;
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100%;
+    background: white;
+    height: 5%;
+    box-shadow: 0 2px 6px -4px rgba(0, 0, 0, 0.8);
+}
+
+.section {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.contentLeft {
+    height: 100%;
+    width: 20%;
+    float: left;
+    margin-top: 45px;
+    margin-left: 7.5%;
+    margin-right: 0;
+    padding: 0;
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+}
+
+.profilepicture {
+    top: 0;
+    width: 100%;
+    height: 100px;
+    background-color: aqua;
+}
+
+.profilepicture img {
+    max-width: 100%;
+    max-height: 100%;
+    position: relative;
+}
+
+.backgroundpic {
+    width: 100%;
+    height: 100px;
+}
+
+.picture {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    background: yellow;
+    border: 2px solid white;
+    float: left;
+    position: absolute;
+    margin-top: -40px;
+    margin-left: 10px;
+    padding: 0;
+}
+
+.profileimage {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.emailinfo {
+    float: right;
+    width: 70%;
+    height: 60px;
+    padding-right: 2px;
+    white-space: -moz-pre-wrap;
+    /* Firefox */
+}
+
+.namecont {
+    width: 80%;
+    word-wrap: break-word;
+    margin-left: 7px;
+}
+
+.namecont h3 {
+    font-size: 13px;
+    margin-top: 5px;
+    margin-left: 10px;
+    color: black;
+    text-decoration: none;
+}
+
+.namecont a {
+    text-decoration: none;
+}
+
+.namecont a:hover {
+    text-decoration: underline;
+}
+
+.emailcont {
+    width: 80%;
+    word-wrap: break-word;
+    margin-left: 13px;
+}
+
+.emailcont h6 {
+    font-size: 10px;
+    color: #657786;
+}
+
+.followingcont {
+    float: right;
+    width: 50%;
+    height: 20px;
+    font-size: 15px;
+}
+
+.followingcont a {
+    text-decoration: none;
+    color: #657786;
+}
+
+.followingcont a:hover {
+    text-decoration: underline;
+}
+
+.followingcont h3 {
+    margin-left: 10%;
+}
+
+.followerscont {
+    float: left;
+    width: 50%;
+    height: 20px;
+    font-size: 15px;
+}
+
+.followerscont h3 {
+    margin-left: 30%;
+}
+
+.followerscont a {
+    text-decoration: none;
+    color: #657786;
+}
+
+.followerscont a:hover {
+    text-decoration: underline;
+}
+
+.links {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0px;
+    width: 98%;
+    height: 30%;
+    background-color: white;
+    box-shadow: 0 4px 5px -5px rgba(0, 0, 0, 0.8);
+    font-family: Poppins-Regular;
+}
+
+#tagsID+.tag-editor {
+    border-radius: 100px;
+    background-color: white;
+}
+
+.followerscount {
+    bottom: 0;
+    float: left;
+    margin-left: 22%;
+    height: 30px;
+}
+
+.followerscount a {
+    color: #1DBBFB;
+}
+
+.followingcount {
+    margin-top: 0;
+    bottom: 0;
+    float: right;
+    height: 20px;
+    margin-right: 29%;
+}
+
+.followingcount a {
+    color: #1DBBFB;
+}
+
+.links0 {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0px;
+    width: 98%;
+    height: 40%;
+    background-color: white;
+    box-shadow: 0 4px 5px -5px rgba(0, 0, 0, 0.8);
+}
+
+.contentCenter {
+    width: 45%;
+    margin-right: -4px;
+    margin-top: 37px;
+    overflow: hidden;
+    float: left;
+    padding: 10px;
+    overflow-y: scroll;
+    bottom: 10px;
+}
+
+.Askbutton {
+    color: white;
+    margin: 7px 0 5px 5px;
+    text-decoration: none;
+    outline: none;
+}
+
+.askquestion {
+    margin: 5px;
+    padding: 0 0 5px 0;
+    width: 98%;
+    background-color: white;
+    box-shadow: 0 1px 3px -3px rgba(0, 0, 0, 0.8);
+}
+
+.submitbutton1 {
+    padding-top: 5px;
+    text-align: center;
+    top: 0;
+    right: 0;
+    float: right;
+    border: 1px solid #DDDFE2;
+    color: white;
+    background-color: #4267B2;
+    width: 80px;
+    height: 30px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
+}
+
+.submitbutton2 {
+    padding-top: 5px;
+    text-align: center;
+    top: 0;
+    right: 0;
+    float: right;
+    border: 1px solid #DDDFE2;
+    color: white;
+    background-color: #1CB4F1;
+    width: 80px;
+    height: 30px;
+    box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
+}
+
+.submitbutton3 {
+    padding-top: 5px;
+    text-align: center;
+    top: 0;
+    right: 0;
+    float: right;
+    border: 1px solid #DDDFE2;
+    color: white;
+    background-color: #1CB4F1;
+    width: 80px;
+    height: 30px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
+}
+
+.askbuttons {
+    padding: 0 0 3px 0;
+    border: 1px solid #DDDFE2;
+    color: top: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    width: 100%;
+    height: 35px;
+    background-color: white;
+    color: #66757F;
+}
+
+.Askbutton {
+    color: #66757F;
+}
+
+.questiontextarea {
+    height: 300px;
+    transition: all 0.5s ease;
+}
+
+.newdiv {
+    margin: 5px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width: 98%;
+    background-color: white;
+    box-shadow: 0 1px 3px -3px rgba(0, 0, 0, 0.8);
+    color: #66757F;
+    border: 1px solid #D1D1D1;
+}
+
+.titlepost {
+    font-size: 13px;
+    padding: 5px;
+    width: 100%;
+    margin-top: 0px;
+    display: inline-block;
+}
+
+.titlepost:hover {
+    background-color: #F5F8FA;
+    width: 100%;
+    color: #4AB3F4;
+}
+
+.commenttextarea {
+    border: 1px solid #E1E2E3;
+    width: 100%;
+    height: 10%;
+    border-radius: 100px;
+    font-size: 13px;
+    padding: 7px;
+    box-sizing: border-box;
+    color: black;
+}
+
+.commenttextarea:focus {
+    border: 1px solid #4AB3F4;
+    box-sizing: border-box;
+}
+
+.newpostinput {
+    padding: 5px;
+    margin-top: 10px;
+}
+
+.descriptionpost:hover {
+    background-color: #F5F8FA;
+    width: 100%;
+    color: #4AB3F4;
+}
+
+.categorypost:hover {
+    background-color: #F5F8FA;
+    width: 100%;
+    color: #4AB3F4;
+}
+
+.linediv {
+    height: 0;
+    width: 95%;
+    margin-left: 2%;
+    margin-right: 4%;
+    border: 0.03125em solid #E1E2E3;
+}
+
+.divider {
+    height: 0;
+    width: 100%;
+    border: 1px solid #E1E2E3;
+}
+
+.newpostbuttons {
+    height: 35px;
+    padding: 5px;
+}
+
+.descriptionpost {
+    font-size: 13px;
+    padding: 5px;
+}
+
+.tagspost {
+    font-size: 13px;
+    padding: 5px;
+    border-bottom: 1px solid #D1D1D1;
+}
+
+.tagspost:hover {
+    background-color: #F5F8FA;
+    font-size: 13px;
+    width: 100%;
+    color: #4AB3F4;
+}
+
+.categorypost {
+    padding-left: 5px;
+    padding-right: 5px;
+    display: inline-block;
+}
+
+.answerbutton {
+    width: 25%;
+    color: #616774;
+    font-size: 13px;
+    height: 100%;
+}
+
+.answerbutton:hover {
+    border-radius: 5px;
+    background-color: #E8F5FD;
+    height: 100%;
+    font-size: 13px;
+    padding-top: 0;
+    color: #4AB3F4;
+    border: 1px solid #4AB3F4;
+}
+
+.votebutton {
+    width: 25%;
+    color: #616774;
+    margin-left: 0;
+    font-size: 13px;
+    height: 100%;
+}
+
+.votebutton:hover {
+    border-radius: 5px;
+    background-color: #E8F5FD;
+    height: 100%;
+    font-size: 13px;
+    padding-top: 0;
+    color: #4AB3F4;
+    border: 1px solid #4AB3F4;
+}
+
+.followbutton {
+    width: 25%;
+    color: #616774;
+    font-size: 13px;
+    height: 100%;
+}
+
+.followbutton:hover {
+    border-radius: 5px;
+    background-color: #E8F5FD;
+    height: 100%;
+    font-size: 13px;
+    padding-top: 0;
+    color: #4AB3F4;
+    border: 1px solid #4AB3F4;
+}
+
+.commentbutton {
+    width: 25%;
+    color: #616774;
+    font-size: 13px;
+    height: 100%;
+}
+
+.commentbutton:hover {
+    border-radius: 5px;
+    background-color: #E8F5FD;
+    height: 100%;
+    font-size: 13px;
+    padding-top: 0;
+    color: #4AB3F4;
+    border: 1px solid #4AB3F4;
+}
+
+.answerdiv {
+    border-top: 1px solid #D1D1D1;
+    position: relative;
+}
+
+.submitanswerbutton:hover {
+    background-color: white;
+    color: white;
+    border: 0 solid #000;
+    background-color: #4AB3F4;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    bottom: 3px;
+    right: 13px;
+    padding: 8px;
+    outline: none;
+}
+
+.submitanswerbutton {
+    position: absolute;
+    bottom: 3px;
+    right: 13px;
+    background-color: white;
+    border-width: 2px;
+    border-color: white;
+    color: #4AB3F4;
+    outline: none;
+    border-left: 1px solid #4AB3F4;
+    border-right: 1px solid #4AB3F4;
+    border-top: 1px solid #4AB3F4;
+    border-bottom: 1px solid #4AB3F4;
+    border-radius: 100px;
+    font-size: 15px;
+    padding: 8px;
+}
+
+.answertextarea {
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid #E1E2E3;
+    padding: 10px;
+    box-sizing: border-box;
+    color: black;
+    resize: none;
+}
+
+.answertextarea::placeholder {
+    color: #ACADAD;
+    opacity: 1;
+}
+
+.commenttextarea::placeholder {
+    color: #ACADAD;
+    opacity: 1;
+}
+
+.answertextarea:focus {
+    height: 100px;
+    border-bottom: 1px solid #4AB3F4;
+    border-top: 1px solid #4AB3F4;
+}
+
+.newdiv p {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding: 10px;
+    font-size: 12px;
+}
+
+.titlebar {
+    position: absolute;
+    top: 0;
+    padding: 9px;
+    width: 90%;
+    margin-top: 0px;
+    height: 20px;
+    color: black;
+    border: 1px solid #D1D1D1;
+    display: block;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.categorybar {
+    border: 1px solid #D1D1D1;
+}
+
+.tagsbar {
+    border: 1px solid #D1D1D1;
+}
+
+.contentRight {
+    padding: 5px;
+    height: 100%;
+    margin-top: 40px;
+    width: 20%;
+    float: left;
+    overflow: hidden;
+    padding: 7px;
+}
+
+.links2 {
+    margin-right: 7px;
+    margin-top: 5px;
+    margin-bottom: 8px;
+    padding: 0;
+    width: 96%;
+    height: 39%;
+    float: left;
+    background-color: white;
+    box-shadow: 0 4px 5px -5px rgba(0, 0, 0, 0.8);
+}
+
+.links2titlebar {
+    padding: 0 0 3px 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    width: 100%;
+    height: 35px;
+    background-color: #5686E8;
+}
+
+.links3titlebar {
+    padding: 0 0 3px 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    width: 100%;
+    height: 35px;
+    background-color: #5686E8;
+}
+
+.links3 {
+    padding: 0;
+    width: 96%;
+    height: 50%;
+    float: left;
+    background-color: white;
+    box-shadow: 0 4px 5px -5px rgba(0, 0, 0, 0.8);
+}
+
+.nav input {
+    margin-left: 15%;
+    margin-top: 3px;
+    background-color: rgba(63, 69, 84, .6);
+    border-radius: 100px;
+    padding: 8px;
+    padding-left: 15px;
+    width: 25%;
+    height: 15px;
+    color: white;
+}
+
+.landingWrapper {
+    margin-top: 55px;
+}
+
+h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+}
+
+p {
+    margin-top: 80px;
+    font-size: 20px;
+    font-weight: 100;
+    margin-bottom: 10px;
+    opacity: 1.5;
+}
+
+.nav a {
+    font-size: 15px;
+    text-decoration: none;
+    color: #66757F;
+    margin: 0 0 10px 10px;
+    position: relative;
+}
+
+/* Popup container */
+
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    height: 20%;
+    margin-top: 0;
+    margin-left: 4%;
+    border: 1px solid #D1D1D1;
+    font-family: Poppins-Regular;
+    color: black;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 7px;
+    padding-right: 7px;
+    border-radius: 100px;
+}
+
+.categorybutton {
+    color: #777777;
+    outline: none;
+}
+
+/* The actual popup (appears on top) */
+
+.popup .popuptext {
+    visibility: hidden;
+    height: 400px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    bottom: 125%;
+    overflow-y: scroll;
+}
+
+/* Popup arrow */
+
+.popup .popuptext::after {
+    width: 100%;
+    content: "";
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+
+.popup .show {
+    width: 100%;
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup) */
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.pupwrapper {
+    width: 90%;
+}
+
+#share-buttons img {
+    width: 35px;
+    padding: 5px;
+    border: 0;
+    box-shadow: 0;
+    display: inline;
+}
+
+/* The Modal (background) */
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, .5);
+    /* Black w/ opacity */
+    text-align: center;
+}
+
+/* Modal Content/Box */
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    /* 15% from the top and centered */
+    padding: 10px;
+    border: 1px solid #D0D0D0;
+    border-radius: 10px;
+    width: 80%;
+    text-align: center;
+    overflow: hidden;
+    box-shadow: 0 4px 10px -4px rgba(208, 208, 208, 1);
+    /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+
+.close {
+    float: right;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #4267B2;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.categorypopups {
+    border: 1px solid #D0D0D0;
+    border-radius: 100px;
+    padding: 5px;
+    margin: 3px;
+    display: inline-block;
+    color: #657786;
+}
+
+.categorypopups:hover {
+    /* background-color: linear-gradient(to right, #4267B2, #5D91FA); */
+    background: -moz-linear-gradient(45deg, #00dbde, #5D91FA);
+    background: -webkit-linear-gradient(45deg, #00dbde, #5D91FA);
+    background: -o-linear-gradient(45deg, #00dbde, #5D91FA);
+    color: white;
+    border-color: white;
+    border-width: 0;
+}
+
+.editanddeleteButtonCont {
+    float: right;
+    display: inline-block;
+    width: 40%;
+    min-width: 30%;
+}
+
+.editanddeleteButtonCont i {
+    margin-left: 15%;
+    float: right;
+}
+
+#form2 {
+    border: 1px solid #D1D1D1;
+    width: 98%;
+    background-color: white;
+    margin: 5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    min-width: 20%;
+    margin-top: -15.5%;
+    /*set to a negative number 1/2 of your height*/
+    margin-left: -25%;
+    /*set to a negative number 1/2 of your width*/
+    z-index: 100;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+}
+
+.hider {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 200%;
+    height: 200%;
+    margin-top: -800px;
+    /*set to a negative number 1/2 of your height*/
+    margin-left: -500px;
+    /*set to a negative number 1/2 of your width*/
+    /*
+        z- index must be lower than pop up box
+       */
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow-y: hidden;
+}
+
+.submitbutton5 {
+    border: 1px solid #4AB3F4;
+    background-color: white;
+    color: #66757F;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 30px;
+    bottom: 10px;
+    display: inline-block;
+}
+
+.submitbutton5:hover {
+    border: 1px solid white;
+    background-color: #4AB3F4;
+    color: white;
+    text-decoration: none;
+}
+
+.newsfeedPopUpButton-Cont {
+    width: 100%;
+    text-align: center;
+}
+
+.editQuestionTitle {
+    margin-left: 4%;
+    padding: 15px;
+    width: 93%;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    height: 5px;
+    color: black;
+    border: 1px solid #D1D1D1;
+    display: block;
+    border-radius: 20px;
+}
+
+.editTitleDescription {
+    font-size: 13px;
+    padding: 5px;
+    width: 100%;
+    margin-top: 0px;
+    display: inline-block;
+}
