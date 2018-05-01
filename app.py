@@ -1,11 +1,7 @@
 import requests
 import flask
 import sys,os
-from flask import Flask, render_template, request, flash,session,redirect,url_for, jsonify
-from datetime import datetime
-from urllib.parse import quote
-from urllib.request import urlopen
-import json
+from flask import Flask, render_template, request,session,redirect,url_for, jsonify
 
 
 app = Flask(__name__)
@@ -13,77 +9,27 @@ app.secret_key = 'my very own secret key'
 app.config['SESSION_TYPE'] = 'filesystem'
 
 
-# @app.route('/')
-# def index():
-#     return render_template('login.html')
-
-@app.route('/', methods= ['POST', 'GET'])
-def fillup():
-    if request.method == 'POST':
-        ids = request.json['ids']
-        for i in ids:
-            requests.post('http://localhost:3000/api/Interests?access_token=V4W9EdDy9iAACCotqJTot1XGyzxRYs4CSHCYlhVPJQHKoY1KpD2KUoWudDi5EgaH',json={"categoryId":i, "userId":1 })
-
-        return render_template('landingpage2.html')
-
-    else:
-        url = ('http://localhost:3000/api/Categories?access_token=V4W9EdDy9iAACCotqJTot1XGyzxRYs4CSHCYlhVPJQHKoY1KpD2KUoWudDi5EgaH')
-        response = requests.get(url)
-        categories= response.json()
-
-        return render_template('landingpage2.html',categories=categories)
-
+@app.route('/')
+def index():
+    return render_template('login.html')
 
 @app.route('/login', methods=['POST'])
 def login():
     params = request.get_json()
-    u_id = params['data']
+    u_token = params["id"]
+    u_id = params["userID"]
+    session['token'] = u_token
     session['user'] = u_id
-    return jsonify({"message": "okay"})
-
-@app.route('/getSession')
-def currentSession():
-    if 'user' in session:
-        return session['user']
-    else:
-        return "Please Login"
+    return jsonify({"userID": session['user'], 'message': 'okay'})
 
 @app.route('/logout')
 def logout():
     session.pop('user', None)
+    session.pop('token', None)
     if 'user' in session:
         return jsonify({"message": "error"})
 
     return jsonify({"message": "okay"})
-
-@app.route('/ask', methods=['GET','POST'])
-def question():
-
-    if request.method == 'POST':
-        question_title = request.form['text']
-        question_desc = request.form['textarea']
-        requests.post('http://localhost:3000/api/Questions', json={"question": question_title, "questiondesc": question_desc,})
-        return redirect(url_for('question'))
-
-    else:  
-        url = 'http://localhost:3000/api/Questions?filter[include]=answers'
-        url2 = 'http://localhost:3000/api/Categories'
-        response = requests.get(url2)
-        categories= response.json()
-
-        html = urlopen(url).read().decode('utf-8')
-        questions = json.loads(html)
-
-
-        print(str(questions))
-
-        url1 = 'http://localhost:3000/api/Answers'
-        html1 = urlopen(url1).read().decode('utf-8')
-        answers = json.loads(html1)
-
-
-        print(str(questions))
-        return render_template('question2.html', questions = questions, answers = answers, categories=categories)
 
 @app.after_request
 def add_cors(resp):
