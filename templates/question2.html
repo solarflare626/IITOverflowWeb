@@ -106,11 +106,11 @@
                      <div class="popup" id="popup"><button class="categorybutton" id="myBtn"><b>Category :</b></button></div>  
                         </div>
                     <a class="submitbutton3" type="submit" >Submit</a>
-                   <a class="submitbutton2" type="submit" >Hide</a>
+                   <a class="submitbutton2" type="" ="submit" >Hide</a>
                       </div>
                       
                       
-                      {% for i in reversed(list(questions)) %}
+                      {% for i in questions|reverse  %}
                     <div id={{"newqedit_{0}".format(i.id)}} style="display: block;" class="newdiv">
                         
                          
@@ -384,7 +384,7 @@
         // var category = document.getElementsByClassName('categorypopups')[0].id;
 
 
-        var data = { "question": posttitle, "questiondesc": editorText, "userId": 4 }
+        var data = { "id": qid, "question": posttitle, "questiondesc": editorText, "userId": 4 }
 
         $.ajax({
             type: "PUT",
