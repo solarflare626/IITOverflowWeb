@@ -30,7 +30,7 @@
 
 body,
 html {
-    height: 100%;
+    height: 100%;    
     width: 100%;
     min-width: 1000px;
     font-family: Poppins-Regular, sans-serif;
@@ -295,7 +295,7 @@ html {
 }
 
 .profile-fullpage {
-    overflow: scroll;
+    overflow-y: scroll;
     width: 100%;
     min-width: 1000px;
 }
@@ -314,6 +314,7 @@ html {
     min-width: 1000px;
     text-align: center;
     height: 100%;
+    overflow-y: scroll;
 }
 
 .profile-contentLeft {
@@ -457,7 +458,6 @@ html {
 
 .AnsweredQuestionsContainer {
     width: 100%;
-    
     background-color: white;
 }
 
@@ -620,5 +620,5 @@ html {
     z-index: 100;
     border-radius: 30px;
     box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.5);
-    padding:15px;
+    padding: 15px;
 }
