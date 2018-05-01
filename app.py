@@ -57,7 +57,6 @@ def profile(id):
     answered_questions = response.json()
 
 
-
     return render_template('profile.html', json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6, answered_questions = answered_questions)
 
 
@@ -65,4 +64,3 @@ def profile(id):
 
 port = int(os.environ.get('PORT', 5000))
 app.run(debug=True, host= '0.0.0.0', port=port)
-

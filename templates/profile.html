@@ -109,8 +109,7 @@
                                 <img class="profilePostPicture" src="../static/image/google.png">
                             </div>
                             <div class="profileNameEmail">
-                                <a class="profilePostUsername">{{question.user.displayname}}</a>
-                                <a class="profilePostEmail">{{question.user.email}}</a>
+                                <a class="profilePostEmail"  >{{question.user.email}}</a>
                                 <h3 class="profilePostTitle">Title:{{ question.question.question }}</h3>
                             </div>
                                 <p class="profilePostAnswer">{{ question.question.questiondesc }}</p>
@@ -136,7 +135,7 @@
 
                     </div>
                          <div class="profileNameEmail"> 
-                         <a class="profilePostUsername">{{json_object.displayname}}</a>
+                         <a class="profilePostUsername" >{{json_object.displayname}}</a>
                         <a class="profilePostEmail">{{json_object.email}}</a>
                         <h3 class="profilePostTitle">Title:{{i.question}}</h3>
                         </div>
@@ -164,9 +163,9 @@
                             <div class="col-md-3 col-sm-6">
                                 <div class="our-team">
                                     <div class="FollowersPic">
-                                        <img src="../static/image/phillip.png">
+                                        <img src={{follower.picture}}>
                                         <div class="team-content">
-                                            <h3 class="FollowersTitle">{{ follower.displayname }}</h3>
+                                            <h3 class="FollowersTitle" >{{ follower.displayname }}</h3>
                                             <span class="FollowersPost">Web Developer</span>
                                         </div>
                                     </div>
@@ -206,7 +205,7 @@
                                             <img src="../static/image/phillip.png">
 
                                             <div class="team-content">
-                                                <h3 class="FollowersTitle">{{g.displayname}}</h3>
+                                                <h3 class="FollowersTitle" href="/profile/{{json_object1.id}}">{{g.displayname}}</h3>
                                                 <span class="FollowersPost">Web Developer</span>
                                             </div>
                                         </div>
