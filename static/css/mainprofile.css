@@ -294,7 +294,7 @@ html {
 }
 
 .profile-fullpage {
-    overflow: scroll;
+    overflow: auto;
     width: 100%;
     min-width: 1000px;
 }
@@ -313,6 +313,7 @@ html {
     min-width: 1000px;
     text-align: center;
     height: 100%;
+    overflow:scroll; 
 }
 
 .profile-contentLeft {
