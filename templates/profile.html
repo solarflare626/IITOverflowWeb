@@ -64,7 +64,7 @@
                     <div class="profile-contentTopLinks">
                         <div class="profile-contentTopNav">
                             {% block body %}
-                            <a type="submit" id="profile-PostButton">Posts</a>
+                            <a type="submit" id="profile-PostButton"> {{questions}} Posts</a>
                             <a type="submit" id="profile-FollowersButton">{{followers}} Followers</a>
                             <a type="submit" id="profile-FollowingButton">{{following}} Following</a>
                             <a type="submit" id="profile-FollowedQuestionButton">{{questionsfollowed}} Followed Questions</a>
@@ -148,10 +148,10 @@
 
 
                         {% for i in json_object.questions %}
-
+                        <a href= "{{json_object.id}}"> 
                         <div class="profile-contentCenter" id="{{i.id}}" >
                             <div class="profilePostPictureCont">
-                                <img class="profilePostPicture" src="../static/image/google.png">
+                                <img class="profilePostPicture" src={{json_object.picture}}>
 
                             </div>
                             <div class="profileNameEmail">
@@ -172,22 +172,25 @@
                             </div>
 
                         </div>
+                        </a>
                         {%endfor%}
 
 
 
                     </div>
                     <div class="FollowersContainer">
-                        <div class="FollowersRow">
+                        <div class="FollowersRow">                            
                             {% for follower in json_object1.followers %}
                             <div class="col-md-2 col-sm-6">
                                 <div class="our-team">
+                                    <a href= "{{follower.id}}"> 
                                     <div class="FollowersPic">
                                         <img src={{follower.picture}}>
                                         <div class="team-content">
                                             <h3 class="FollowersTitle">{{ follower.displayname }}</h3>
                                         </div>
                                     </div>
+                                    </a>
                                     <ul class="social">
                                         <li>
                                             <a href="" class="fa fa-facebook"></a>
@@ -204,6 +207,7 @@
                                     </ul>
                                 </div>
                             </div>
+                           
                             {% endfor %}
                         </div>
                     </div>
@@ -220,14 +224,16 @@
                             {% for g in json_object1.following %}
                             <div class="col-md-2 col-sm-6">
                                 <div class="our-team">
+                                    <a href= "{{g.id}}"> 
                                     <div class="FollowersPic">
-                                        <img src="../static/image/phillip.png">
+                                        <img src={{g.picture}}>
 
                                         <div class="team-content">
                                             <h3 class="FollowersTitle">{{g.displayname}}</h3>
                                             <span class="FollowersPost">Web Developer</span>
                                         </div>
                                     </div>
+                                    </a>
                                     <ul class="social">
                                         <li>
                                             <a href="" class="fa fa-facebook"></a>
@@ -291,7 +297,7 @@
      $(".profile-contentCenter").click(function () {
             $("#hider").fadeIn("slow");
             $('#popup_box1').fadeIn("slow");
-    
+     
             $("#buttonClose").click(function () {
 
              $("#hider").fadeOut("slow");
