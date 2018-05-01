@@ -80,7 +80,7 @@
                 </div>
                 
                 
-                <div class="contentCenter">
+                <div class="contentCenter" >
                     <div class="askquestion" id="newpost">
                      <div class="askbuttons">
                          <input type="submit" value="Ask Something" class="Askbutton">
@@ -109,13 +109,14 @@
                    <a class="submitbutton2" type="" ="submit" >Hide</a>
                       </div>
                       
+                      <div id="newsfeedParent">
                       
                       {% for i in questions|reverse  %}
                     <div id={{"newqedit_{0}".format(i.id)}} style="display: block;" class="newdiv">
                         
                          
                           
-                      <div class="titlepost">Title: {{i.question}} 
+                      <div class="titlepost">Title: {{i.question|safe}}
 
 
                             <i  onclick="showhide({{i.id}})" class="fa fa-reply"></i>
@@ -124,7 +125,7 @@
                       <div>
                           
 
-                      </div></div><div class="descriptionpost">Description: {{i.questiondesc}} <div></div></div><div class="categorypost">Category: {{i.categoryId}} <div></div></div><div class="tagspost">Tags:
+                      </div></div><div class="descriptionpost">Description: {{i.questiondesc|safe}} <div></div></div><div class="categorypost">Category: {{i.categoryId}} <div></div></div><div class="tagspost">Tags:
 
                       {% for tag in i.tags %}
 
@@ -174,6 +175,7 @@
                       
 
                      {% endfor %}
+
 
 
 </div>
@@ -247,7 +249,7 @@
 
 
                       {% endfor %}
-                    
+                    </div>
                       
 
                 </div>
@@ -298,7 +300,7 @@
             autocomplete: {
                 delay: 0, // show suggestions immediately
                 position: { collision: 'flip' }, // automatic menu position up/down
-                source: ['notch','qb','daku']
+                source: {{tag_list|tojson}}
             },
             forceLowercase: false,
             
@@ -455,7 +457,7 @@
 
     $(".submitbutton3").click(function(){
 
-
+        
         var editorText = CKEDITOR.instances.textarea.getData();
         var posttitle = document.getElementById('title').value
         var gettags = document.getElementById('tagsID').value
@@ -498,19 +500,32 @@
                     data: JSON.stringify(data1),
                     dataType: "json",
                     contentType: "application/json",
-                    success: function (result) {
+                    success: function (result2) {
                         alert('ok');
 
                     },
-                    error: function (result) {
-                        alert(result);
-                        console.log(JSON.stringify(result));
+                    error: function (result2) {
+                        alert(result2);
+                        console.log(JSON.stringify(result2));
                     }
                 });
 
 // EDIT
                     
                 }
+                console.log(result);
+                var question = '<div id="newqedit_'+result.id+'" style="display: block;" class="newdiv">';
+                question += '<div class="titlepost">Title: '+result.question+' <i onclick="showhide('+result.id+')" class="fa fa-reply"></i> <i id="'+result.id+'" class="fa fa-heart qheart"></i><div></div>';
+
+                question += '<div class="descriptionpost">Description:' + result.questiondesc + '<div></div></div><div class="categorypost">Category: ' + result.categoryId + ' <div></div></div><div class="tagspost">Tags: ' + result.cleartags + '<div></div></div><div class="newpostbuttons"><button class="followbutton">Follow</button><button> </button><button class="votebutton">Vote</button><button></button><button class="commentbutton">Comment</button><button></button><button class="answerbutton">Answer</button><button><div></div></button></div><!-- TOEDIT --><div></div><!-- TOEDIT -->div class="answerdiv"><textarea class="answertextarea" id="answer_5" placeholder="Write an Answer"> </textarea><input class="submitanswerbutton" id="5" value="submit" type="button"><div></div></div><div class="newpostinput"><input class="commenttextarea" placeholder="Write a Comment"><div></div></div>'                         
+                      
+
+
+                question += '</div>'
+   
+
+                //$("#newsfeedParent").prepend(question);
+                //$("#newsfeedParent").html( question +$("#newsfeedParent").html());
                 $('.tag-editor-tag').html("");
 
                 
@@ -564,6 +579,15 @@
         }
     
     
+</script>
+
+
+<script type="text/javascript">
+    
+
+
+
+
 </script>
 
 

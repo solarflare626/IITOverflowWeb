@@ -1,5 +1,5 @@
 import requests
-from flask import Flask, render_template, request, flash,session,redirect,url_for
+from flask import Flask, render_template, request, flash,session,redirect,url_for, Markup
 from datetime import datetime
 from urllib.parse import quote
 from urllib.request import urlopen
@@ -50,10 +50,30 @@ def question():
     html1 = urlopen(url1).read().decode('utf-8')
     answers = json.loads(html1)
 
+
+    url5 = 'http://iitoverflow.herokuapp.com/api/Tags'
+    html5 = urlopen(url5).read().decode('utf-8')
+    tag_list = json.loads(html5)
+    
+    newlist = []
+    for i in tag_list:
+        newlist.append(i['name'])
+
+    print(newlist)
+
+
+
+
+   
+
+    
+                    
+
+
     
 
 
-    return render_template('question2.html', questions = questions, answers = answers, categories=categories)
+    return render_template('question2.html', tag_list = newlist, questions = questions, answers = answers, categories=categories)
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
