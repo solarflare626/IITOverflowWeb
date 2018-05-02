@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="../static/css/mainprofile.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <script src="../static/js/mainprofile.js"></script>
+   
+    
+</head>
+<body>
+    
+    <div class="profile-fullpage">
+<div class="Profile-hider" id="hider">
+
+</div>
+        
+        <div class="profile-popup_box1" id="popup_box1">
+            Message
+            <br />
+            <a id="buttonClose">Close</a>
+        </div>
+
+        <div class="profile-section">
+            <div class="profile-landing">
+               
+                <div class="profile-nav">
+                    <div class="profile-search">
+
+                        <button class="profile-searchbutton" type="submit">
+                            <span class="glyphicon glyphicon-search">
+                        </button>
+                        <input class="profile-searchbar" type="text" placeholder="Search..">
+
+                    </div>
+                    <div class="profile-pages">
+
+                        <a href="newsfeed" onclick="test();">
+                            <span class="glyphicon glyphicon-home"></span> Home</a>
+                        <a href="1">
+                            <span class="glyphicon glyphicon-user"></span> Profile</a>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-bell"></span> Notifications</a>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-asterisk"></span> Logout</a>
+
+                    </div>
+                </div>
+                <div class="profile-contentTop">
+                    <div class="profile-contentTopCover">
+                        <img src="../static/image/background1.jpg" alt="profilecover">
+                        <div class="profilepictureContainer">
+                            <img src="../static/image/phillip.png" alt="Profilepic">
+                        </div>
+                    </div>
+                    <div class="profile-contentTopLinks">
+                        <div class="profile-contentTopNav">
+                            {% block body %}
+                            <a type="submit" id="profile-PostButton"> {{questions}} Posts</a>
+                            <a type="submit" id="profile-FollowersButton">{{followers}} Followers</a>
+                            <a type="submit" id="profile-FollowingButton">{{following}} Following</a>
+                            <a type="submit" id="profile-FollowedQuestionButton">{{questionsfollowed}} Followed Questions</a>
+                            <a type="submit" id="profile-AnsweredQuestionButton">{{answers}} Answered Questions</a>
+                            <a class="editprofilebutton">Edit Profile</a>
+                            {% endblock %}
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+                <div class="CenterLeftRightCont">
+                   
+                   
+                   
+
+
+                    <div class="profile-contentLeft">
+
+                        <h4>Bio info here</h4>
+
+                    </div>
+                    <div class="profileCenterDiv">
+
+
+
+                        <div class="FollowedQuestionsContainer">
+                            {% for question in followed_questions %}
+                            <div class="profile-contentCenter" >
+                                <div class="profilePostPictureCont">
+                                    <img class="profilePostPicture" src="../static/image/google.png">
+
+                                </div>
+                                <div class="profileNameEmail">
+                                    <a class="profilePostUsername">{{question.user.displayname}}</a>
+                                    <a class="profilePostEmail">{{question.user.email}}</a>
+                                    <h3 class="profilePostTitle">Title:{{ question.question }}</h3>
+                                </div>
+
+                                <br>
+
+                                <p class="profilePostAnswer">{{ question.questiondesc }}</p>
+                                <div class="profilePostButton">
+                                    <a href="#" class="glyphicon glyphicon-pencil"></a>
+                                    <a href="#" class="glyphicon glyphicon-comment"></a>
+                                    <a href="#" class="glyphicon glyphicon-thumbs-up"></a>
+                                    <a href="#" class="glyphicon glyphicon-thumbs-down"></a>
+                                    <a href="#" class="profilePostFollowButton">Unfollow</a>
+                                </div>
+
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="AnsweredQuestionsContainer">
+                            {% for question in answered_questions %}
+                            <div class="profile-contentCenter">
+                                <div class="profilePostPictureCont">
+                                    <img class="profilePostPicture" src="../static/image/google.png">
+                                </div>
+                                <div class="profileNameEmail">
+                                    <a class="profilePostUsername">{{question.user.displayname}}</a>
+                                    <a class="profilePostEmail">{{question.user.email}}</a>
+                                    <h3 class="profilePostTitle">Title:{{ question.question.question }}</h3>
+                                </div>
+                                <p class="profilePostAnswer">Description:{{ question.question.questiondesc }}</p>
+                                <div class="profile-questionAnswer">Answer: {{ question.answer }}</div>
+                                <div class="profilePostButton">
+                                    <a href="#" class="glyphicon glyphicon-pencil"></a>
+                                    <a href="#" class="glyphicon glyphicon-comment"></a>
+                                    <a href="#" class="glyphicon glyphicon-thumbs-up"></a>
+                                    <a href="#" class="glyphicon glyphicon-thumbs-down"></a>
+                                    <a href="#" class="profilePostFollowButton">Unfollow</a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+
+
+                        {% for i in json_object.questions %}
+                        <a href= "{{json_object.id}}"> 
+                        <div class="profile-contentCenter" id="{{i.id}}" >
+                            <div class="profilePostPictureCont">
+                                <img class="profilePostPicture" src={{json_object.picture}}>
+
+                            </div>
+                            <div class="profileNameEmail">
+                                <a class="profilePostUsername">{{json_object.displayname}}</a>
+                                <a class="profilePostEmail">{{json_object.email}}</a>
+                                <h3 class="profilePostTitle">Title:{{i.question}}</h3>
+                            </div>
+
+                            <br>
+
+                            <p class="profilePostAnswer">{{i.questiondesc}}</p>
+                            <div class="profilePostButton">
+                                <a href="#" class="glyphicon glyphicon-pencil"></a>
+                                <a href="#" class="glyphicon glyphicon-comment"></a>
+                                <a href="#" class="glyphicon glyphicon-thumbs-up"></a>
+                                <a href="#" class="glyphicon glyphicon-thumbs-down"></a>
+                                <a href="#" class="profilePostFollowButton">Follow</a>
+                            </div>
+
+                        </div>
+                        </a>
+                        {%endfor%}
+
+
+
+                    </div>
+                    <div class="FollowersContainer">
+                        <div class="FollowersRow">                            
+                            {% for follower in json_object1.followers %}
+                            <div class="col-md-2 col-sm-6">
+                                <div class="our-team">
+                                    <a href= "{{follower.id}}"> 
+                                    <div class="FollowersPic">
+                                        <img src={{follower.picture}}>
+                                        <div class="team-content">
+                                            <h3 class="FollowersTitle">{{ follower.displayname }}</h3>
+                                        </div>
+                                    </div>
+                                    </a>
+                                    <ul class="social">
+                                        <li>
+                                            <a href="" class="fa fa-facebook"></a>
+                                        </li>
+                                        <li>
+                                            <a href="" class="fa fa-twitter"></a>
+                                        </li>
+                                        <li>
+                                            <a href="" class="fa fa-google-plus"></a>
+                                        </li>
+                                        <li>
+                                            <a href="" class="fa fa-linkedin"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                           
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="profile-contentRight">
+
+                        <h4>Who to Follow</h4>
+
+                    </div>
+
+                    <div class="FollowingContainer">
+
+                        <div class="FollowersRow">
+                            {% for g in json_object1.following %}
+                            <div class="col-md-2 col-sm-6">
+                                <div class="our-team">
+                                    <a href= "{{g.id}}"> 
+                                    <div class="FollowersPic">
+                                        <img src={{g.picture}}>
+
+                                        <div class="team-content">
+                                            <h3 class="FollowersTitle">{{g.displayname}}</h3>
+                                            <span class="FollowersPost">Web Developer</span>
+                                        </div>
+                                    </div>
+                                    </a>
+                                    <ul class="social">
+                                        <li>
+                                            <a href="" class="fa fa-facebook"></a>
+                                        </li>
+                                        <li>
+                                            <a href="" class="fa fa-twitter"></a>
+                                        </li>
+                                        <li>
+                                            <a href="" class="fa fa-google-plus"></a>
+                                        </li>
+                                        <li>
+                                            <a href="" class="fa fa-linkedin"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+    </div>
+    </div>
+
+    </div>
+
+
+    </div>
+    </div>
+
+
+    </div>
+
+    </div>
+    </div>
+
+    </div>
+
+    </div>
+
+
+<script src="../static/js/app.js"></script>
+</body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".profile-contentCenter").show('slow');
+        $(".FollowersContainer").hide();
+        $(".FollowingContainer").hide();
+        $(".FollowedQuestionsContainer").hide();
+        $(".AnsweredQuestionsContainer").hide();
+        $("#hider").hide();
+        $("#popup_box1").hide();
+    
+        
+    
+    
+    })
+
+     $(".profile-contentCenter").click(function () {
+            $("#hider").fadeIn("slow");
+            $('#popup_box1').fadeIn("slow");
+     
+            $("#buttonClose").click(function () {
+
+             $("#hider").fadeOut("slow");
+             $('#popup_box1').fadeOut("slow");
+         });
+          $("#hider").click(function () {
+
+             $("#hider").fadeOut("slow");
+             $('#popup_box1').fadeOut("slow");
+         });
+        });
+
+
+    $("#profile-PostButton").click(function () {
+        $(".profile-contentCenter").show('slow');
+        $(".FollowersContainer").hide();
+        $(".FollowingContainer").hide();
+        $(".FollowedQuestionsContainer").hide();
+        $(".AnsweredQuestionsContainer").hide();
+        $(".profile-contentRight").show('slow');
+        $(".profile-contentLeft").show('slow');
+        $(".profileCenterDiv").show('slow');
+
+    })
+    $("#profile-FollowersButton").click(function () {
+        $(".profile-contentCenter").hide();
+        $(".FollowersContainer").show('slow');
+        $(".FollowingContainer").hide();
+        $(".FollowedQuestionsContainer").hide();
+        $(".AnsweredQuestionsContainer").hide();
+        $(".profile-contentRight").hide();
+        $(".profile-contentLeft").hide();
+        $(".profileCenterDiv").hide();
+
+    })
+    $("#profile-FollowingButton").click(function () {
+        $(".profile-contentCenter").hide();
+        $(".FollowersContainer").hide();
+        $(".FollowingContainer").show('slow');
+        $(".FollowedQuestionsContainer").hide();
+        $(".AnsweredQuestionsContainer").hide();
+        $(".profile-contentRight").hide();
+        $(".profile-contentLeft").hide();
+        $(".profileCenterDiv").hide();
+
+    })
+    $("#profile-FollowedQuestionButton").click(function () {
+        $(".profile-contentCenter").show();
+        $(".FollowersContainer").hide();
+        $(".FollowingContainer").hide();
+        $(".FollowedQuestionsContainer").show('slow');
+        $(".AnsweredQuestionsContainer").hide();
+        $(".profile-contentRight").show('slow');
+        $(".profile-contentLeft").show('slow');
+        $(".profileCenterDiv").show('slow');
+    })
+    $("#profile-AnsweredQuestionButton").click(function () {
+        $(".profile-contentCenter").show('slow');
+        $(".FollowersContainer").hide();
+        $(".FollowingContainer").hide();
+        $(".FollowedQuestionsContainer").hide();
+        $(".AnsweredQuestionsContainer").show('slow');
+        $(".profile-contentRight").show('slow');
+        $(".profile-contentLeft").show('slow');
+        $(".profileCenterDiv").show('slow');
+    })
+
+
+
+
+    
+        function test() {
+
+            windows.location.replace(null);}
+</script>

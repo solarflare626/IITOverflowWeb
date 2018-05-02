@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 .idea/
 =======
 .idea/*
@@ -120,3 +121,27 @@ migrations
 flask
 .vscode
 >>>>>>> QandA
+=======
+
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+*~
+*.sw[mnpcod]
+*.log
+*.tmp
+*.tmp.*
+log.txt
+*.sublime-project
+*.sublime-workspace
+.vscode/
+npm-debug.log*
+.idea/
+FlowEnv/
+node_modules/
+
+
+.DS_Store
+Thumbs.db
+UserInterfaceState.xcuserstate
+>>>>>>> FollowedInterest-Profile

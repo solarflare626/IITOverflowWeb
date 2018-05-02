@@ -1,5 +1,8 @@
 /*!
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> FollowedInterest-Profile
  * Bootstrap v4.0.0 (https://getbootstrap.com)
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
@@ -145,6 +148,7 @@ small {
   font-size: 80%;
 }
 
+<<<<<<< HEAD
 =======
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.
@@ -218,6 +222,8 @@ small {
   font-size: 80%;
 }
 >>>>>>> 3eb63abc1ac54a9d924425870036dd392a9a0fa7
+=======
+>>>>>>> FollowedInterest-Profile
 sub,
 sup {
   position: relative;
@@ -226,6 +232,9 @@ sup {
   vertical-align: baseline;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> FollowedInterest-Profile
 
 sub {
   bottom: -.25em;
@@ -264,6 +273,7 @@ a:not([href]):not([tabindex]):focus {
 pre,
 code,
 kbd,
+<<<<<<< HEAD
 =======
 sup {
   top: -.5em;
@@ -293,11 +303,16 @@ code,
 kbd,
 pre,
 >>>>>>> 3eb63abc1ac54a9d924425870036dd392a9a0fa7
+=======
+>>>>>>> FollowedInterest-Profile
 samp {
   font-family: monospace, monospace;
   font-size: 1em;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> FollowedInterest-Profile
 
 pre {
   margin-top: 0;
@@ -365,6 +380,7 @@ input {
   overflow: visible;
 }
 
+<<<<<<< HEAD
 =======
 button,
 input,
@@ -379,11 +395,16 @@ button {
   overflow: visible;
 }
 >>>>>>> 3eb63abc1ac54a9d924425870036dd392a9a0fa7
+=======
+>>>>>>> FollowedInterest-Profile
 button,
 select {
   text-transform: none;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> FollowedInterest-Profile
 
 button,
 html [type="button"],
@@ -9011,6 +9032,7 @@ a.text-dark:hover, a.text-dark:focus {
   color: #6c757d !important;
 }
 
+<<<<<<< HEAD
 =======
 button,
 html input[type="button"],
@@ -9099,11 +9121,47 @@ th {
   a[href^="#"]:after,
   a[href^="javascript:"]:after {
     content: "";
+=======
+.text-hide {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+.visible {
+  visibility: visible !important;
+}
+
+.invisible {
+  visibility: hidden !important;
+}
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+  a:not(.btn) {
+    text-decoration: underline;
+  }
+  abbr[title]::after {
+    content: " (" attr(title) ")";
+  }
+  pre {
+    white-space: pre-wrap !important;
+>>>>>>> FollowedInterest-Profile
   }
   pre,
   blockquote {
     border: 1px solid #999;
+<<<<<<< HEAD
 
+=======
+>>>>>>> FollowedInterest-Profile
     page-break-inside: avoid;
   }
   thead {
@@ -9113,9 +9171,12 @@ th {
   img {
     page-break-inside: avoid;
   }
+<<<<<<< HEAD
   img {
     max-width: 100% !important;
   }
+=======
+>>>>>>> FollowedInterest-Profile
   p,
   h2,
   h3 {
@@ -9126,6 +9187,7 @@ th {
   h3 {
     page-break-after: avoid;
   }
+<<<<<<< HEAD
   .navbar {
     display: none;
   }
@@ -9134,6 +9196,21 @@ th {
     border-top-color: #000 !important;
   }
   .label {
+=======
+  @page {
+    size: a3;
+  }
+  body {
+    min-width: 992px !important;
+  }
+  .container {
+    min-width: 992px !important;
+  }
+  .navbar {
+    display: none;
+  }
+  .badge {
+>>>>>>> FollowedInterest-Profile
     border: 1px solid #000;
   }
   .table {
@@ -9148,6 +9225,7 @@ th {
     border: 1px solid #ddd !important;
   }
 }
+<<<<<<< HEAD
 @font-face {
   font-family: 'Glyphicons Halflings';
 
@@ -15722,3 +15800,6 @@ button.close {
 }
 /*# sourceMappingURL=bootstrap.css.map */
 >>>>>>> 3eb63abc1ac54a9d924425870036dd392a9a0fa7
+=======
+/*# sourceMappingURL=bootstrap.css.map */
+>>>>>>> FollowedInterest-Profile
