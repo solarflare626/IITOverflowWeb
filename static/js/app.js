@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 var currentUser;
 
 function onSignIn(googleUser) {
@@ -18,6 +16,7 @@ function login(token) {
             data: {"idToken": token},
             dataType: "json",
             success: function (resp) {
+                console.log("SUCCESS LVL 1");
                 $.ajax({
                     type: "POST",
                     url: "http://localhost:5000/login",
@@ -28,11 +27,11 @@ function login(token) {
                     contentType: 'application/json; charset=utf-8',
                     dataType: "json",
                     success: function (resp) {
-                        console.log("success");
+                        console.log("SUCCESS LVL 2");
                         if (resp.message = "okay") {
                             currentUser = resp.userID;
                             // console.log("Success")                  // just for checking
-                            window.location.replace("/categories")
+                            window.location.replace("/newsfeed");
                         }
                         else{
                             console.log("ERROR!")
@@ -47,24 +46,34 @@ function login(token) {
     }
 }
 
+function onLoad() {
+    gapi.load('auth2', function() {
+        gapi.auth2.init();
+    });
+}
+
 function signOut() {
+    console.log("Signed Out 1");
     var auth2 =gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
+        console.log("Signed Out 2");
         $.ajax({
            url: "http://localhost:5000/logout",
            dataType: "json",
                 success: function (resp) {
+                        console.log("Signed Out 3");
                         if (resp.message = "okay") {
-                            console.log("User signed out.")
+                            console.log("User signed out.");
+                            window.location.replace("/");
                         }
                         else{
-                            console.log("Something went wrong")
+                            console.log("Something went wrong.")
                         }
                 }
         });
     });
 }
-
+/*
 $('#autocomplete').autocomplete({
                 source: function (request, response) {
                     $.ajax({
@@ -76,35 +85,9 @@ $('#autocomplete').autocomplete({
                                 return {
                                     label: item.question,
                                     value: item.id
-=======
-$('#autocomplete').autocomplete({
-                source: function (request, response) {
-                    $.ajax({
-                      //  url: "http://127.0.0.1:3000/api/Tags?filter=%7B%20%22fields%22%3A%20%7B%22id%22%3A%20true%2C%20%22name%22%3A%20true%2C%20%22createdAt%22%3A%20false%2C%20%22updatedAt%22%3A%20false%2C%20%22deletedAt%22%3A%20false%2C%20%22categoryID%22%3A%20false%7D%7D",
-                        url: "http://127.0.0.1:3000/api/Tags?filter=%7B%20%22where%22%20%3A%7B%20%22name%22%20%3A%20%7B%20%22like%22%3A%20%22%25"+request.term+"%25%22%7D%7D%7D",
-                        type: "GET",
-                        dataType: "json",
-                        success: function (data) {;
-                            console.log(request);
-                            console.log(data);
-                            response($.map(data, function (item) {
-
-                                return {
-                                    label: item.name,
-                                    value: item.name
->>>>>>> FollowedInterest-Profile
                                 }
-                            }));
+                            }
                         }
-                    });
-<<<<<<< HEAD
-                }
+                    )
 
-            });
-
-=======
-                },
-
-            })
->>>>>>> FollowedInterest-Profile
-
+*/

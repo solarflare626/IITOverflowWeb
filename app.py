@@ -42,6 +42,7 @@ def login():
     u_id = params["userID"]
     session['token'] = u_token
     session['user'] = u_id
+    #return redirect(url_for('question'))
     return jsonify({"userID": session['user'], 'message': 'okay'})
 
 
@@ -83,6 +84,35 @@ def question():
 
     return render_template('question2.html', tag_list=newlist, questions=questions, answers=answers, categories=categories)
 
+@app.route('/profile', methods=['GET', 'POST'])
+def profile2():
+    user = str(session['user'])
+    url = ('http://iitoverflow.herokuapp.com/api/users/'+user +
+           '?filter[include]=questions&filter[include]=interests')
+    print(user)
+    response = requests.get(url)
+    json_object = response.json()
+
+    url = ('http://iitoverflow.herokuapp.com/api/users/'+user +
+           '/questionsfollowed?filter={"include":{"relation":"user"}}')
+    response = requests.get(url)
+    followed_questions = response.json()
+
+    curl = ('http://iitoverflow.herokuapp.com/api/users/'+user +
+            '?filter[counts]=followers&filter[counts]=following&filter[counts]=answers&filter[counts]=questionsfollowed&filter[include]=followers&filter[include]=following&filter[include]=answers&filter[include]=questionsfollowed')
+    response = requests.get(curl)
+    json_object1 = response.json()
+    val3 = json_object1['followersCount']
+    val4 = json_object1['followingCount']
+    val5 = json_object1['answersCount']
+    val6 = json_object1['questionsfollowedCount']
+
+    url = ('http://iitoverflow.herokuapp.com/api/users/'+user +
+           '/answers?filter[include]=user&filter[include]=question')
+    response = requests.get(url)
+    answered_questions = response.json()
+
+    return render_template('profile.html', json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6, answered_questions=answered_questions)
 
 @app.route('/profile/<int:id>', methods=['GET', 'POST'])
 def profile(id):
