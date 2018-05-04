@@ -17,6 +17,12 @@ html {
     src: url('fonts/poppins/Poppins-Regular.ttf');
 }
 
+.fullpage {
+    width: 100%;
+    height: 100%;
+    min-width: 1000px;
+}
+
 .logo {
     margin-left: 6%;
     width: 100px;
@@ -26,7 +32,6 @@ html {
     background: linear-gradient(rgba(57, 96, 196, .8), rgba(93, 236, 252, .7)), url(../image/background1.jpeg);
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
     width: 100%;
     overflow-y: hidden;
     min-height: 600px;
@@ -60,7 +65,7 @@ h1 {
 }
 
 p {
-    margin-top: 80px;
+    margin-top: 10px;
     font-size: 20px;
     font-weight: 100;
     margin-bottom: 10px;
@@ -122,9 +127,10 @@ a {
     opacity: 0.7;
     display: block;
     border-radius: 100px;
-    padding: 0.5em 1.75em;
-    width: 160px;
-    margin-top: 100px;
+    padding: 10px;
+    padding-bottom: 13px;
+    width: 30%;
+    margin-top: 60px;
     float: left;
     text-align: center;
     margin-right: 30px;
@@ -181,8 +187,9 @@ a {
 
 .landingContent {
     width: 88%;
-    margin: 150px auto 0 auto;
+    margin: 50px auto 0 auto;
     display: flex;
+    max-height: 30%;
 }
 
 .contentLeft {
@@ -194,15 +201,29 @@ a {
 }
 
 .iphoneHand {
-    width: 620px;
-    margin-top: -75px;
+    width: 520px;
+    margin-top: -55px;
 }
 
-.contentLeft h1,
 .contentLeft p,
 .contentLeft a {
     color: white;
     text-decoration: none;
+}
+
+.contentLeft h1 {
+    font-size: 30px;
+    color: white;
+    text-decoration: white;
+}
+
+.contentLeft p {
+    font-size: 18px;
+    margin-left: 5%;
+}
+
+.contentLeft p:hover {
+    font-weight: 1000;
 }
 
 .selected {
@@ -222,4 +243,3 @@ a {
     padding: 4px;
     border-radius: 100px;
 }
-

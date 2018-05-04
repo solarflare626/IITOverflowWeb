@@ -30,7 +30,7 @@
 
 body,
 html {
-    height: 100%;    
+    height: 100%;
     width: 100%;
     min-width: 1000px;
     font-family: Poppins-Regular, sans-serif;
@@ -295,7 +295,6 @@ html {
 }
 
 .profile-fullpage {
-
     overflow-y: scroll;
     overflow: auto;
     width: 100%;
@@ -316,13 +315,13 @@ html {
     min-width: 1000px;
     text-align: center;
     height: 100%;
-    overflow:scroll; 
+    overflow: scroll;
 }
 
 .profile-contentLeft {
+    font-family: Poppins-Regular, sans-serif;
     float: left;
-    padding-left: 5%;
-    padding-right: 5%;
+    padding: 10px;
     height: 40%;
     width: 20%;
     margin: auto;
@@ -330,6 +329,29 @@ html {
     margin-left: 5%;
     margin-right: 10px;
     background-color: white;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.profile-contentLeft h5 {
+    text-align: left;
+    color: #5F7189;
+    font-family: Poppins-Regular, sans-serif;
+}
+
+.profile-contentLeft h3 {
+    width: 100%;
+    text-align: left;
+}
+
+.profile-contentLeft h3:hover {
+    text-decoration: underline;
+    color: #4AB3F4;
+}
+
+.profile-contentLeft h6:hover {
+    text-decoration: underline;
+    color: #4AB3F4;
 }
 
 .profilePostButton {
@@ -341,8 +363,7 @@ html {
 .profilePostButton a {
     width: 18%;
     height: 100%;
-    color: #5F7189;
-    font-size: 15px;
+    color: font-size: 15px;
 }
 
 .profilePostButton a:hover {

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,18 +12,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
-    <script src="../static/js/mainprofile.js"></script>
-   
-    
-</head>
-<body>
-    
-    <div class="profile-fullpage">
-<div class="Profile-hider" id="hider">
 
-</div>
-        
+    <script src="../static/js/mainprofile.js"></script>
+
+
+</head>
+
+<body>
+
+    <div class="profile-fullpage">
+        <div class="Profile-hider" id="hider">
+
+        </div>
+
         <div class="profile-popup_box1" id="popup_box1">
             Message
             <br />
@@ -31,7 +33,7 @@
 
         <div class="profile-section">
             <div class="profile-landing">
-               
+
                 <div class="profile-nav">
                     <div class="profile-search">
 
@@ -69,8 +71,7 @@
                             <a type="submit" id="profile-FollowingButton">{{following}} Following</a>
                             <a type="submit" id="profile-FollowedQuestionButton">{{questionsfollowed}} Followed Questions</a>
                             <a type="submit" id="profile-AnsweredQuestionButton">{{answers}} Answered Questions</a>
-                            <a class="editprofilebutton">Edit Profile</a>
-                            {% endblock %}
+                            <a class="editprofilebutton">Edit Profile</a> {% endblock %}
                         </div>
 
                     </div>
@@ -79,15 +80,18 @@
 
                 </div>
                 <div class="CenterLeftRightCont">
-                   
-                   
-                   
+
+
+
 
 
                     <div class="profile-contentLeft">
 
-                        <h4>Bio info here</h4>
 
+                        <h3>Franco Jigo C. Pacana</h3>
+                        <h5>@francojigo.pacana@g.msuiit.edu.ph</h5>
+                        <i class="fa fa-compass"><h5 >Iligan City, Northern Mindanao </h5></i>
+                        <i class="fa fa-calendar-alt"><h5>Born on November 22, 1993 </h5></i>
                     </div>
                     <div class="profileCenterDiv">
 
@@ -95,7 +99,7 @@
 
                         <div class="FollowedQuestionsContainer">
                             {% for question in followed_questions %}
-                            <div class="profile-contentCenter" >
+                            <div class="profile-contentCenter">
                                 <div class="profilePostPictureCont">
                                     <img class="profilePostPicture" src="../static/image/google.png">
 
@@ -148,30 +152,30 @@
 
 
                         {% for i in json_object.questions %}
-                        <a href= "{{json_object.id}}"> 
-                        <div class="profile-contentCenter" id="{{i.id}}" >
-                            <div class="profilePostPictureCont">
-                                <img class="profilePostPicture" src={{json_object.picture}}>
+                        <a href="{{json_object.id}}">
+                            <div class="profile-contentCenter" id="{{i.id}}">
+                                <div class="profilePostPictureCont">
+                                    <img class="profilePostPicture" src={{json_object.picture}}>
+
+                                </div>
+                                <div class="profileNameEmail">
+                                    <a class="profilePostUsername">{{json_object.displayname}}</a>
+                                    <a class="profilePostEmail">{{json_object.email}}</a>
+                                    <h3 class="profilePostTitle">Title:{{i.question}}</h3>
+                                </div>
+
+                                <br>
+
+                                <p class="profilePostAnswer">{{i.questiondesc}}</p>
+                                <div class="profilePostButton">
+                                    <a href="#" class="glyphicon glyphicon-pencil"></a>
+                                    <a href="#" class="glyphicon glyphicon-comment"></a>
+                                    <a href="#" class="glyphicon glyphicon-thumbs-up"></a>
+                                    <a href="#" class="glyphicon glyphicon-thumbs-down"></a>
+                                    <a href="#" class="profilePostFollowButton">Follow</a>
+                                </div>
 
                             </div>
-                            <div class="profileNameEmail">
-                                <a class="profilePostUsername">{{json_object.displayname}}</a>
-                                <a class="profilePostEmail">{{json_object.email}}</a>
-                                <h3 class="profilePostTitle">Title:{{i.question}}</h3>
-                            </div>
-
-                            <br>
-
-                            <p class="profilePostAnswer">{{i.questiondesc}}</p>
-                            <div class="profilePostButton">
-                                <a href="#" class="glyphicon glyphicon-pencil"></a>
-                                <a href="#" class="glyphicon glyphicon-comment"></a>
-                                <a href="#" class="glyphicon glyphicon-thumbs-up"></a>
-                                <a href="#" class="glyphicon glyphicon-thumbs-down"></a>
-                                <a href="#" class="profilePostFollowButton">Follow</a>
-                            </div>
-
-                        </div>
                         </a>
                         {%endfor%}
 
@@ -179,17 +183,17 @@
 
                     </div>
                     <div class="FollowersContainer">
-                        <div class="FollowersRow">                            
+                        <div class="FollowersRow">
                             {% for follower in json_object1.followers %}
                             <div class="col-md-2 col-sm-6">
                                 <div class="our-team">
-                                    <a href= "{{follower.id}}"> 
-                                    <div class="FollowersPic">
-                                        <img src={{follower.picture}}>
-                                        <div class="team-content">
-                                            <h3 class="FollowersTitle">{{ follower.displayname }}</h3>
+                                    <a href="{{follower.id}}">
+                                        <div class="FollowersPic">
+                                            <img src={{follower.picture}}>
+                                            <div class="team-content">
+                                                <h3 class="FollowersTitle">{{ follower.displayname }}</h3>
+                                            </div>
                                         </div>
-                                    </div>
                                     </a>
                                     <ul class="social">
                                         <li>
@@ -207,7 +211,7 @@
                                     </ul>
                                 </div>
                             </div>
-                           
+
                             {% endfor %}
                         </div>
                     </div>
@@ -224,15 +228,15 @@
                             {% for g in json_object1.following %}
                             <div class="col-md-2 col-sm-6">
                                 <div class="our-team">
-                                    <a href= "{{g.id}}"> 
-                                    <div class="FollowersPic">
-                                        <img src={{g.picture}}>
+                                    <a href="{{g.id}}">
+                                        <div class="FollowersPic">
+                                            <img src={{g.picture}}>
 
-                                        <div class="team-content">
-                                            <h3 class="FollowersTitle">{{g.displayname}}</h3>
-                                            <span class="FollowersPost">Web Developer</span>
+                                            <div class="team-content">
+                                                <h3 class="FollowersTitle">{{g.displayname}}</h3>
+                                                <span class="FollowersPost">Web Developer</span>
+                                            </div>
                                         </div>
-                                    </div>
                                     </a>
                                     <ul class="social">
                                         <li>
@@ -281,10 +285,10 @@
     </div>
 
 
-<script src="../static/js/app.js"></script>
+    <script src="../static/js/app.js"></script>
 </body>
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
         $(".profile-contentCenter").show('slow');
         $(".FollowersContainer").hide();
         $(".FollowingContainer").hide();
@@ -292,30 +296,30 @@
         $(".AnsweredQuestionsContainer").hide();
         $("#hider").hide();
         $("#popup_box1").hide();
-    
-        
-    
-    
+
+
+
+
     })
 
-     $(".profile-contentCenter").click(function () {
-            $("#hider").fadeIn("slow");
-            $('#popup_box1').fadeIn("slow");
-     
-            $("#buttonClose").click(function () {
+    $(".profile-contentCenter").click(function() {
+        $("#hider").fadeIn("slow");
+        $('#popup_box1').fadeIn("slow");
 
-             $("#hider").fadeOut("slow");
-             $('#popup_box1').fadeOut("slow");
-         });
-          $("#hider").click(function () {
+        $("#buttonClose").click(function() {
 
-             $("#hider").fadeOut("slow");
-             $('#popup_box1').fadeOut("slow");
-         });
+            $("#hider").fadeOut("slow");
+            $('#popup_box1').fadeOut("slow");
         });
+        $("#hider").click(function() {
+
+            $("#hider").fadeOut("slow");
+            $('#popup_box1').fadeOut("slow");
+        });
+    });
 
 
-    $("#profile-PostButton").click(function () {
+    $("#profile-PostButton").click(function() {
         $(".profile-contentCenter").show('slow');
         $(".FollowersContainer").hide();
         $(".FollowingContainer").hide();
@@ -326,7 +330,7 @@
         $(".profileCenterDiv").show('slow');
 
     })
-    $("#profile-FollowersButton").click(function () {
+    $("#profile-FollowersButton").click(function() {
         $(".profile-contentCenter").hide();
         $(".FollowersContainer").show('slow');
         $(".FollowingContainer").hide();
@@ -337,7 +341,7 @@
         $(".profileCenterDiv").hide();
 
     })
-    $("#profile-FollowingButton").click(function () {
+    $("#profile-FollowingButton").click(function() {
         $(".profile-contentCenter").hide();
         $(".FollowersContainer").hide();
         $(".FollowingContainer").show('slow');
@@ -348,7 +352,7 @@
         $(".profileCenterDiv").hide();
 
     })
-    $("#profile-FollowedQuestionButton").click(function () {
+    $("#profile-FollowedQuestionButton").click(function() {
         $(".profile-contentCenter").show();
         $(".FollowersContainer").hide();
         $(".FollowingContainer").hide();
@@ -358,7 +362,7 @@
         $(".profile-contentLeft").show('slow');
         $(".profileCenterDiv").show('slow');
     })
-    $("#profile-AnsweredQuestionButton").click(function () {
+    $("#profile-AnsweredQuestionButton").click(function() {
         $(".profile-contentCenter").show('slow');
         $(".FollowersContainer").hide();
         $(".FollowingContainer").hide();
@@ -372,8 +376,9 @@
 
 
 
-    
-        function test() {
 
-            windows.location.replace(null);}
+    function test() {
+
+        windows.location.replace(null);
+    }
 </script>
