@@ -499,7 +499,7 @@ html {
 }
 
 .newpostbuttons {
-    height: 35px;
+    height: 40px;
     padding: 5px;
 }
 
@@ -781,6 +781,7 @@ p {
     position: relative;
 }
 
+
 /* Popup container */
 
 .popup {
@@ -806,6 +807,7 @@ p {
     outline: none;
 }
 
+
 /* The actual popup (appears on top) */
 
 .popup .popuptext {
@@ -821,6 +823,7 @@ p {
     overflow-y: scroll;
 }
 
+
 /* Popup arrow */
 
 .popup .popuptext::after {
@@ -831,6 +834,7 @@ p {
     border-color: #555 transparent transparent transparent;
 }
 
+
 /* Toggle this class when clicking on the popup container (hide and show the popup) */
 
 .popup .show {
@@ -839,6 +843,7 @@ p {
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s
 }
+
 
 /* Add animation (fade in the popup) */
 
@@ -872,6 +877,7 @@ p {
     display: inline;
 }
 
+
 /* The Modal (background) */
 
 .modal {
@@ -895,6 +901,7 @@ p {
     text-align: center;
 }
 
+
 /* Modal Content/Box */
 
 .modal-content {
@@ -910,6 +917,7 @@ p {
     box-shadow: 0 4px 10px -4px rgba(208, 208, 208, 1);
     /* Could be more or less, depending on screen size */
 }
+
 
 /* The Close Button */
 
@@ -1038,4 +1046,30 @@ p {
     width: 100%;
     margin-top: 0px;
     display: inline-block;
+}
+
+button .msg-follow,
+button .msg-following,
+button .msg-unfollow {
+    display: none;
+}
+
+button .msg-follow {
+    display: inline;
+}
+
+button.following .msg-follow {
+    display: none;
+}
+
+button.following .msg-following {
+    display: inline;
+}
+
+button.following:not(.wait):hover .msg-following {
+    display: none;
+}
+
+button.following:not(.wait):hover .msg-unfollow {
+    display: inline;
 }
