@@ -141,19 +141,22 @@
 
                             <button class="btn btn-danger" id={{ "duplicate_{0}".format(i.id)}} style="display: none;">DUPLICATE</button>
 
-                            <div class="titlepost">Title: {{i.question|safe}}
+                            <div class="titlepost">
+
+                                <div class="titlepostpicture"><img src="../static/images/phillip.jpg"></div>
+                                <h4 class="titlepostname">Franco Jigo C. Pacana</h4>
+
                                 <div class=" editanddeleteButtonCont">
                                     <i onclick="showhide({{i.id}})" class="fa fa-edit Newsfeed-editButton "></i>
                                     <i id={{i.id}} class="fas fa-trash-alt qheart"></i>
                                     <i onclick="showhide1({{i.id}})" class="fas fa-copy duplicate"></i>
                                 </div>
 
-                                <div>
+
+                                <h5 class="titlepostTitle">Title: {{i.question|safe}}</h5>
 
 
 
-
-                                </div>
                             </div>
                             <div class="descriptionpost">Description: {{i.questiondesc|safe}}
                                 <div></div>
@@ -871,4 +874,12 @@
     }).on('mouseleave', function() {
         $(this).removeClass('wait');
     })
+
+    $('.answerbutton').click(function() {
+        $('.answertextarea').focus();
+    });
+
+    $('.commentbutton').click(function() {
+        $('.commenttextarea').focus();
+    });
 </script>
