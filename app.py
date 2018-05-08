@@ -144,6 +144,28 @@ def profile(id):
 
     return render_template('profile.html', json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6, answered_questions=answered_questions)
 
+@app.route('/tags', methods=['GET','POST'])
+def tagslist():
+   
+    urlCategory = 'http://iitoverflow.herokuapp.com/api/Categories?filter[include]=tags'   
+    
+    catresponse = urlopen(urlCategory).read().decode('utf-8')
+    categorylist = json.loads(catresponse)
+
+
+    return render_template('tags.html', category=categorylist)
+
+@app.route('/tagsQ/<int:id>', methods=['GET','POST'])
+def tagsQ(id):
+   
+    urlCategory = 'http://iitoverflow.herokuapp.com/api/Tags/' +str(id)+'?filter={"include":[{"relation":"questions","scope":{"include":[{"relation":"user"},{"relation":"category"},{"relation":"upvotes"},{"relation":"answers","scope":{"include":"comments"}}]}}]}'
+    
+    catresponse = urlopen(urlCategory).read().decode('utf-8')
+    categorylist = json.loads(catresponse)
+
+
+    return render_template('specifictags.html', questions= categorylist['questions'])
+
 
 
 @app.after_request

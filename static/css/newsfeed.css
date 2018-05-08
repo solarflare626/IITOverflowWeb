@@ -10,7 +10,7 @@
 
 body {
     overflow-y: scroll;
-    min-width: 100%;
+    min-width: 800px;
     min-height: 100%;
     font-family: Poppins-Regular;
 }
@@ -114,18 +114,21 @@ html {
 }
 
 .searchbutton {
-    background-color: #434959;
+    background-color: white;
     margin-top: 5px;
     width: 40px;
     height: 30px;
     border-radius: 30px;
     outline: none;
     text-decoration: none;
+    color: rgb(133, 152, 165);
+    border: 2px solid #66757F;
 }
 
-.searchbar {
-    height: 30px;
-    font-size: 15px;
+.searchbutton:hover {
+    background-color: #4AB3F4;
+    color: white;
+    border: 2px solid #66757F;
 }
 
 .pages {
@@ -142,7 +145,7 @@ html {
     z-index: 9999;
     width: 100%;
     background: white;
-    height: 5%;
+    height: 6%;
     box-shadow: 0 2px 6px -4px rgba(0, 0, 0, 0.8);
 }
 
@@ -435,6 +438,8 @@ html {
     box-shadow: 0 1px 3px -3px rgba(0, 0, 0, 0.8);
     color: #66757F;
     border: 1px solid #D1D1D1;
+    text-align: center;
+    font-family: Poppins-Regular;
 }
 
 .titlepost {
@@ -442,7 +447,41 @@ html {
     padding: 5px;
     width: 100%;
     margin-top: 0px;
+    text-align: left;
+}
+
+.titlepostTitle {
+    height: 50%;
+    text-overflow: ellipsis;
+    padding-left: 10%;
+}
+
+.titlepostname {
     display: inline-block;
+}
+
+.titlepostpicture {
+    border-radius: 50%;
+    width: 10%;
+    height: 10%;
+    padding-bottom: 10%;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    display: inline-block;
+    float: left;
+    margin-right: 2%;
+}
+
+.titlepostpicture img {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
 }
 
 .titlepost:hover {
@@ -453,7 +492,7 @@ html {
 
 .commenttextarea {
     border: 1px solid #E1E2E3;
-    width: 100%;
+    width: 95%;
     height: 10%;
     border-radius: 100px;
     font-size: 13px;
@@ -474,8 +513,9 @@ html {
 
 .descriptionpost:hover {
     background-color: #F5F8FA;
-    width: 100%;
     color: #4AB3F4;
+    width: 100%;
+    padding-left: 10%;
 }
 
 .categorypost:hover {
@@ -499,24 +539,30 @@ html {
 }
 
 .newpostbuttons {
-    height: 35px;
+    height: 40px;
     padding: 5px;
 }
 
 .descriptionpost {
     font-size: 13px;
     padding: 5px;
+    text-overflow: ellipsis;
+    width: 100%;
+    padding-left: 10%;
+    text-align: left;
 }
 
 .tagspost {
-    font-size: 13px;
+    font-size: 12px;
     padding: 5px;
+    padding-left: 10%;
     border-bottom: 1px solid #D1D1D1;
+    text-align: left;
 }
 
 .tagspost:hover {
     background-color: #F5F8FA;
-    font-size: 13px;
+    font-size: 12px;
     width: 100%;
     color: #4AB3F4;
 }
@@ -524,7 +570,10 @@ html {
 .categorypost {
     padding-left: 5px;
     padding-right: 5px;
-    display: inline-block;
+    display: block;
+    font-size: 12px;
+    text-align: left;
+    padding-left: 10%;
 }
 
 .answerbutton {
@@ -747,13 +796,18 @@ html {
 .nav input {
     margin-left: 15%;
     margin-top: 3px;
-    background-color: rgba(63, 69, 84, .6);
     border-radius: 100px;
     padding: 8px;
     padding-left: 15px;
     width: 25%;
-    height: 15px;
-    color: white;
+    height: 30px;
+    color: #66757F;
+    border: 2px solid rgb(131, 145, 155);
+    background-color: white;
+}
+
+.nav input:focus {
+    border: 3px solid #4AB3F4;
 }
 
 .landingWrapper {
@@ -781,6 +835,7 @@ p {
     position: relative;
 }
 
+
 /* Popup container */
 
 .popup {
@@ -806,6 +861,7 @@ p {
     outline: none;
 }
 
+
 /* The actual popup (appears on top) */
 
 .popup .popuptext {
@@ -821,6 +877,7 @@ p {
     overflow-y: scroll;
 }
 
+
 /* Popup arrow */
 
 .popup .popuptext::after {
@@ -831,6 +888,7 @@ p {
     border-color: #555 transparent transparent transparent;
 }
 
+
 /* Toggle this class when clicking on the popup container (hide and show the popup) */
 
 .popup .show {
@@ -839,6 +897,7 @@ p {
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s
 }
+
 
 /* Add animation (fade in the popup) */
 
@@ -872,6 +931,7 @@ p {
     display: inline;
 }
 
+
 /* The Modal (background) */
 
 .modal {
@@ -895,6 +955,7 @@ p {
     text-align: center;
 }
 
+
 /* Modal Content/Box */
 
 .modal-content {
@@ -910,6 +971,7 @@ p {
     box-shadow: 0 4px 10px -4px rgba(208, 208, 208, 1);
     /* Could be more or less, depending on screen size */
 }
+
 
 /* The Close Button */
 
@@ -948,9 +1010,10 @@ p {
 
 .editanddeleteButtonCont {
     float: right;
-    display: inline-block;
+    display: block;
     width: 40%;
     min-width: 30%;
+    top: 0;
 }
 
 .editanddeleteButtonCont i {
@@ -1038,4 +1101,30 @@ p {
     width: 100%;
     margin-top: 0px;
     display: inline-block;
+}
+
+button .msg-follow,
+button .msg-following,
+button .msg-unfollow {
+    display: none;
+}
+
+button .msg-follow {
+    display: inline;
+}
+
+button.following .msg-follow {
+    display: none;
+}
+
+button.following .msg-following {
+    display: inline;
+}
+
+button.following:not(.wait):hover .msg-following {
+    display: none;
+}
+
+button.following:not(.wait):hover .msg-unfollow {
+    display: inline;
 }
