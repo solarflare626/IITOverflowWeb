@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="../static/js/jquery-ui-1.12.1.custom/jquery-ui.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <link href="../static/css/fontawesome-all.css" rel="stylesheet">
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
+    <link href="../static/css/tags.css" rel="stylesheet">
+    <title>Tags</title>
+
+</head>
+
+<body>
+    <div class="tags-fullpage">
+        <div class="tags-section">
+            <div class="tags-landing">
+                <div class="tags-nav">
+                    <input id="autocomplete" class="searchbar" type="text" placeholder="Search..">
+                    <button class="searchbutton" type="submit"><i>Go!</i></button>
+                    <div class="tags-pages">
+
+                        <a href="newsfeed">Home</a>
+                        <a href="profile">Profile</a>
+                        <a href="#">Notifications</a>
+                        <a href="landing">Logout</a>
+                    </div>
+                </div>
+                <div class="tags-alltagscontainer">
+                    {% for c in category %}
+                    <div class="categorytagsCont">
+                        <a type="submit" class="categoryname">{{ c.name }}</a> {% for t in c.tags %}
+                        <a type="submit" href="/tagsQ/{{t.id}}" class="tagsname">{{ t.name }}</a> {% endfor %}
+                    </div>
+                    {% endfor %}
+
+                </div>
+                <div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
