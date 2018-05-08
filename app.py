@@ -7,13 +7,30 @@ import json
 import os
 
 app = Flask(__name__)
-# @app.route('/', methods=['GET','POST'])
-# def home(username=None):
-#     return render_template("home.html")
 
 
 
+@app.route('/tags', methods=['GET','POST'])
+def tagslist():
+   
+    urlCategory = 'http://iitoverflow.herokuapp.com/api/Categories?filter[include]=tags'   
+    
+    catresponse = urlopen(urlCategory).read().decode('utf-8')
+    categorylist = json.loads(catresponse)
 
+
+    return render_template('tags.html', category=categorylist)
+
+@app.route('/tagsQ/<int:id>', methods=['GET','POST'])
+def tagsQ(id):
+   
+    urlCategory = 'http://iitoverflow.herokuapp.com/api/Tags/' +str(id)+'?filter={"include":[{"relation":"questions","scope":{"include":[{"relation":"user"},{"relation":"category"},{"relation":"upvotes"},{"relation":"answers","scope":{"include":"comments"}}]}}]}'
+    
+    catresponse = urlopen(urlCategory).read().decode('utf-8')
+    categorylist = json.loads(catresponse)
+
+
+    return render_template('specifictags.html', questions= categorylist['questions'])
 
 
 @app.route('/newsfeed', methods=['GET','POST'])
@@ -27,22 +44,14 @@ def question():
     response = requests.get(url2)
     categories= response.json()
 
+    
+
 
 
 
     url3 = 'http://iitoverflow.herokuapp.com/api/Questions'
     response1 = requests.get(url)
     questions = response1.json()
-
-   
-
-
-
-
-
-
-    # html = urlopen(url).read().decode('utf-8')
-    # questions = json.loads(html)
 
    
 
@@ -58,19 +67,6 @@ def question():
     newlist = []
     for i in tag_list:
         newlist.append(i['name'])
-
-    print(newlist)
-
-
-
-
-   
-
-    
-                    
-
-
-    
 
 
     return render_template('question2.html', tag_list = newlist, questions = questions, answers = answers, categories=categories)
