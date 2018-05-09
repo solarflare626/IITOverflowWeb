@@ -12,28 +12,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
 
     <script src="../static/js/mainprofile.js"></script>
+
 
 
 </head>
 
 <body>
-
     <div class="profile-fullpage">
-        <div class="Profile-hider" id="hider">
-
-        </div>
-
-        <div class="profile-popup_box1" id="popup_box1">
-            Message
-            <br />
-            <a id="buttonClose">Close</a>
-        </div>
-
         <div class="profile-section">
             <div class="profile-landing">
-
                 <div class="profile-nav">
                     <div class="profile-search">
 
@@ -45,14 +35,10 @@
                     </div>
                     <div class="profile-pages">
 
-                        <a href="newsfeed" onclick="test();">
-                            <span class="glyphicon glyphicon-home"></span> Home</a>
-                        <a href="1">
-                            <span class="glyphicon glyphicon-user"></span> Profile</a>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-bell"></span> Notifications</a>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-asterisk"></span> Logout</a>
+                        <a href="#"><span class="glyphicon glyphicon-home"></span>  Home</a>
+                        <a href="#"><span class="glyphicon glyphicon-user"></span>  Profile</a>
+                        <a href="#"><span class="glyphicon glyphicon-bell"></span>  Notifications</a>
+                        <a href="#"><span class="glyphicon glyphicon-asterisk"></span> Logout</a>
 
                     </div>
                 </div>
@@ -60,210 +46,198 @@
                     <div class="profile-contentTopCover">
                         <img src="../static/image/background1.jpg" alt="profilecover">
                         <div class="profilepictureContainer">
-                            <img src="../static/image/phillip.png" alt="Profilepic">
+                            <img id="profPic" src="{{ json_object.picture }}" alt="Profilepic">
                         </div>
                     </div>
                     <div class="profile-contentTopLinks">
                         <div class="profile-contentTopNav">
                             {% block body %}
-                            <a type="submit" id="profile-PostButton"> {{questions}} Posts</a>
+                            <a type="submit" id="profile-PostButton">{{questions}} Posts</a>
                             <a type="submit" id="profile-FollowersButton">{{followers}} Followers</a>
                             <a type="submit" id="profile-FollowingButton">{{following}} Following</a>
                             <a type="submit" id="profile-FollowedQuestionButton">{{questionsfollowed}} Followed Questions</a>
-                            <a type="submit" id="profile-AnsweredQuestionButton">{{answers}} Answered Questions</a>
-                            <a class="editprofilebutton">Edit Profile</a> {% endblock %}
+                            <a type="submit" id="profile-AnsweredQuestionButton">{{answers}} Answered Questions</a> {% endblock %}
+                            <a class="editprofilebutton" style="cursor:pointer;">Edit Profile</a>
                         </div>
+                        <div class="CenterLeftRightCont">
+                            <div class="profile-contentLeft">
 
-                    </div>
-
-
-
-                </div>
-                <div class="CenterLeftRightCont">
-
-
-
-
-
-                    <div class="profile-contentLeft">
-
-
-                        <h3>Franco Jigo C. Pacana</h3>
-                        <h5>@francojigo.pacana@g.msuiit.edu.ph</h5>
-                        <i class="fa fa-compass"><h5 >Iligan City, Northern Mindanao </h5></i>
-                        <i class="fa fa-calendar-alt"><h5>Born on November 22, 1993 </h5></i>
-                    </div>
-                    <div class="profileCenterDiv">
-
-
-
-                        <div class="FollowedQuestionsContainer">
-                            {% for question in followed_questions %}
-                            <div class="profile-contentCenter">
-                                <div class="profilePostPictureCont">
-                                    <img class="profilePostPicture" src="../static/image/google.png">
-
-                                </div>
-                                <div class="profileNameEmail">
-                                    <a class="profilePostUsername">{{question.user.displayname}}</a>
-                                    <a class="profilePostEmail">{{question.user.email}}</a>
-                                    <h3 class="profilePostTitle">Title:{{ question.question }}</h3>
-                                </div>
-
-                                <br>
-
-                                <p class="profilePostAnswer">{{ question.questiondesc }}</p>
-                                <div class="profilePostButton">
-                                    <a href="#" class="glyphicon glyphicon-pencil"></a>
-                                    <a href="#" class="glyphicon glyphicon-comment"></a>
-                                    <a href="#" class="glyphicon glyphicon-thumbs-up"></a>
-                                    <a href="#" class="glyphicon glyphicon-thumbs-down"></a>
-                                    <a href="#" class="profilePostFollowButton">Unfollow</a>
-                                </div>
-
+                                <h4>Bio info here</h4>
+                                <p id="dispn"> {{ json_object['displayname'] }}</p>
                             </div>
-                            {% endfor %}
-                        </div>
+                            <div class="profileCenterDiv">
 
-                        <div class="AnsweredQuestionsContainer">
-                            {% for question in answered_questions %}
-                            <div class="profile-contentCenter">
-                                <div class="profilePostPictureCont">
-                                    <img class="profilePostPicture" src="../static/image/google.png">
+
+
+                                <div class="FollowedQuestionsContainer">
+                                    {% for question in followed_questions %}
+                                    <div class="profile-contentCenter">
+                                        <div class="profilePostPictureCont">
+                                            <img class="profilePostPicture" src="../static/image/google.png">
+
+                                        </div>
+                                        <div class="profileNameEmail">
+                                            <a class="profilePostUsername">{{question.user.displayname}}</a>
+                                            <a class="profilePostEmail">{{question.user.email}}</a>
+                                            <h3 class="profilePostTitle">Title:{{ question.question }}</h3>
+                                        </div>
+
+                                        <br>
+
+                                        <p class="profilePostAnswer">{{ question.questiondesc }}</p>
+                                        <div class="profilePostButton">
+                                            <a href="#" class="glyphicon glyphicon-pencil"></a>
+                                            <a href="#" class="glyphicon glyphicon-comment"></a>
+                                            <a href="#" class="glyphicon glyphicon-thumbs-up"></a>
+                                            <a href="#" class="glyphicon glyphicon-thumbs-down"></a>
+                                            <a href="#" class="profilePostFollowButton">Unfollow</a>
+                                        </div>
+
+                                    </div>
+                                    {% endfor %}
                                 </div>
-                                <div class="profileNameEmail">
-                                    <a class="profilePostUsername">{{question.user.displayname}}</a>
-                                    <a class="profilePostEmail">{{question.user.email}}</a>
-                                    <h3 class="profilePostTitle">Title:{{ question.question.question }}</h3>
+
+                                <div class="AnsweredQuestionsContainer">
+                                    {% for question in answered_questions %}
+                                    <div class="profile-contentCenter">
+                                        <div class="profilePostPictureCont">
+                                            <img class="profilePostPicture" src="{{ question.user.picture }}">
+                                        </div>
+                                        <div class="profileNameEmail">
+                                            <a class="profilePostUsername">{{question.user.displayname}}</a>
+                                            <a class="profilePostEmail">{{question.user.email}}</a>
+                                            <h3 class="profilePostTitle">Title:{{ question.question.question }}</h3>
+                                        </div>
+                                        <p class="profilePostAnswer">{{ question.question.questiondesc }}</p>
+                                        <div>{{ question.answer }}</div>
+                                        <div class="profilePostButton">
+                                            <a href="#" class="glyphicon glyphicon-pencil"></a>
+                                            <a href="#" class="glyphicon glyphicon-comment"></a>
+                                            <a href="#" class="glyphicon glyphicon-thumbs-up"></a>
+                                            <a href="#" class="glyphicon glyphicon-thumbs-down"></a>
+                                            <a href="#" class="profilePostFollowButton">Unfollow</a>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
                                 </div>
-                                <p class="profilePostAnswer">Description:{{ question.question.questiondesc }}</p>
-                                <div class="profile-questionAnswer">Answer: {{ question.answer }}</div>
-                                <div class="profilePostButton">
-                                    <a href="#" class="glyphicon glyphicon-pencil"></a>
-                                    <a href="#" class="glyphicon glyphicon-comment"></a>
-                                    <a href="#" class="glyphicon glyphicon-thumbs-up"></a>
-                                    <a href="#" class="glyphicon glyphicon-thumbs-down"></a>
-                                    <a href="#" class="profilePostFollowButton">Unfollow</a>
+
+
+
+                                {% for i in json_object.questions %}
+
+                                <div class="profile-contentCenter">
+                                    <div class="profilePostPictureCont">
+                                        <img class="profilePostPicture" src="{{ json_object.picture }}">
+
+                                    </div>
+                                    <div class="profileNameEmail">
+                                        <a class="profilePostUsername">{{json_object.displayname}}</a>
+                                        <a class="profilePostEmail">{{json_object.email}}</a>
+                                        <h3 class="profilePostTitle">Title:{{i.question}}</h3>
+                                    </div>
+
+                                    <br>
+
+                                    <p class="profilePostAnswer">{{i.questiondesc}}</p>
+                                    <div class="profilePostButton">
+                                        <a href="#" class="glyphicon glyphicon-pencil"></a>
+                                        <a href="#" class="glyphicon glyphicon-comment"></a>
+                                        <a href="#" class="glyphicon glyphicon-thumbs-up"></a>
+                                        <a href="#" class="glyphicon glyphicon-thumbs-down"></a>
+                                        <a href="#" class="profilePostFollowButton">Follow</a>
+                                    </div>
+
                                 </div>
+                                {%endfor%}
                             </div>
-                            {% endfor %}
-                        </div>
 
 
-
-                        {% for i in json_object.questions %}
-                        <a href="{{json_object.id}}">
-                            <div class="profile-contentCenter" id="{{i.id}}">
-                                <div class="profilePostPictureCont">
-                                    <img class="profilePostPicture" src={{json_object.picture}}>
-
-                                </div>
-                                <div class="profileNameEmail">
-                                    <a class="profilePostUsername">{{json_object.displayname}}</a>
-                                    <a class="profilePostEmail">{{json_object.email}}</a>
-                                    <h3 class="profilePostTitle">Title:{{i.question}}</h3>
-                                </div>
-
-                                <br>
-
-                                <p class="profilePostAnswer">{{i.questiondesc}}</p>
-                                <div class="profilePostButton">
-                                    <a href="#" class="glyphicon glyphicon-pencil"></a>
-                                    <a href="#" class="glyphicon glyphicon-comment"></a>
-                                    <a href="#" class="glyphicon glyphicon-thumbs-up"></a>
-                                    <a href="#" class="glyphicon glyphicon-thumbs-down"></a>
-                                    <a href="#" class="profilePostFollowButton">Follow</a>
-                                </div>
-
+                            <div>
+                                <a href=" "> </a>
                             </div>
-                        </a>
-                        {%endfor%}
-
-
-
-                    </div>
-                    <div class="FollowersContainer">
-                        <div class="FollowersRow">
-                            {% for follower in json_object1.followers %}
-                            <div class="col-md-2 col-sm-6">
-                                <div class="our-team">
+                            <div class="FollowersContainer">
+                                <div class="FollowersRow">
+                                    {% for follower in json_object1.followers %}
                                     <a href="{{follower.id}}">
-                                        <div class="FollowersPic">
-                                            <img src={{follower.picture}}>
-                                            <div class="team-content">
-                                                <h3 class="FollowersTitle">{{ follower.displayname }}</h3>
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="our-team">
+                                                <div class="FollowersPic">
+                                                    <img src="{{ follower.picture }}">
+                                                    <div class="team-content">
+                                                        <h3 class="FollowersTitle">{{ follower.displayname }}</h3>
+                                                        <span class="FollowersPost">Web Developer</span>
+                                                    </div>
+                                                </div>
+                                                <ul class="social">
+                                                    <li>
+                                                        <a href="" class="fa fa-facebook"></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="" class="fa fa-twitter"></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="" class="fa fa-google-plus"></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="" class="fa fa-linkedin"></a>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </a>
-                                    <ul class="social">
-                                        <li>
-                                            <a href="" class="fa fa-facebook"></a>
-                                        </li>
-                                        <li>
-                                            <a href="" class="fa fa-twitter"></a>
-                                        </li>
-                                        <li>
-                                            <a href="" class="fa fa-google-plus"></a>
-                                        </li>
-                                        <li>
-                                            <a href="" class="fa fa-linkedin"></a>
-                                        </li>
-                                    </ul>
+                                    {% endfor %}
                                 </div>
                             </div>
 
-                            {% endfor %}
-                        </div>
-                    </div>
 
-                    <div class="profile-contentRight">
 
-                        <h4>Who to Follow</h4>
 
-                    </div>
+                            <div class="profile-contentRight">
 
-                    <div class="FollowingContainer">
+                                <h4>Who to Follow</h4>
 
-                        <div class="FollowersRow">
-                            {% for g in json_object1.following %}
-                            <div class="col-md-2 col-sm-6">
-                                <div class="our-team">
-                                    <a href="{{g.id}}">
-                                        <div class="FollowersPic">
-                                            <img src={{g.picture}}>
+                            </div>
 
-                                            <div class="team-content">
-                                                <h3 class="FollowersTitle">{{g.displayname}}</h3>
-                                                <span class="FollowersPost">Web Developer</span>
+                            <div class="FollowingContainer">
+
+                                <div class="FollowersRow">
+                                    {% for g in json_object1.following %}
+                                    <div class="col-md-3 col-sm-6">
+                                        <div class="our-team">
+                                            <div class="FollowersPic">
+                                                <img src="{{g.picture }}">
+
+                                                <div class="team-content">
+                                                    <h3 class="FollowersTitle">{{g.displayname}}</h3>
+                                                    <span class="FollowersPost">Web Developer</span>
+                                                </div>
                                             </div>
+                                            <ul class="social">
+                                                <li>
+                                                    <a href="" class="fa fa-facebook"></a>
+                                                </li>
+                                                <li>
+                                                    <a href="" class="fa fa-twitter"></a>
+                                                </li>
+                                                <li>
+                                                    <a href="" class="fa fa-google-plus"></a>
+                                                </li>
+                                                <li>
+                                                    <a href="" class="fa fa-linkedin"></a>
+                                                </li>
+                                            </ul>
                                         </div>
-                                    </a>
-                                    <ul class="social">
-                                        <li>
-                                            <a href="" class="fa fa-facebook"></a>
-                                        </li>
-                                        <li>
-                                            <a href="" class="fa fa-twitter"></a>
-                                        </li>
-                                        <li>
-                                            <a href="" class="fa fa-google-plus"></a>
-                                        </li>
-                                        <li>
-                                            <a href="" class="fa fa-linkedin"></a>
-                                        </li>
-                                    </ul>
+                                    </div>
+                                    {% endfor %}
                                 </div>
+
                             </div>
-                            {% endfor %}
                         </div>
 
                     </div>
                 </div>
-
             </div>
         </div>
-    </div>
-    </div>
 
     </div>
     </div>
@@ -284,8 +258,38 @@
 
     </div>
 
+    <div id="modalProf" class="modal">
+        <div class="modal_close close"></div>
+        <div class="modal_main">
+            <img src="/static/images/ic.png" class="close" style="height: 20px; width: 20px; margin-top:13px;left:96%;position:fixed;">
+            <form class="form form-vertical" action="http://iitoverflow.herokuapp.com/api/users/4/updatePofile" method="post" enctype="multipart/form-data">
 
-    <script src="../static/js/app.js"></script>
+
+                <div class="kv-avatar">
+                    <div class="file-loading">
+                        <input id="avatar-1" name="file" type="file" required>
+                    </div>
+                </div>
+
+
+
+                <hr>
+                <input type="text" id="dispName" value="{{ json_object['displayname'] }}" placeholder="Displayname">
+
+
+
+
+                <br>
+                <button type="submit" id="submitProfile" tyle="margin-left: 40%" class="submitEditbutton">Submit</button>
+
+
+
+
+            </form>
+
+        </div>
+    </div>
+
 </body>
 <script type="text/javascript">
     $(document).ready(function() {
@@ -294,31 +298,7 @@
         $(".FollowingContainer").hide();
         $(".FollowedQuestionsContainer").hide();
         $(".AnsweredQuestionsContainer").hide();
-        $("#hider").hide();
-        $("#popup_box1").hide();
-
-
-
-
     })
-
-    $(".profile-contentCenter").click(function() {
-        $("#hider").fadeIn("slow");
-        $('#popup_box1').fadeIn("slow");
-
-        $("#buttonClose").click(function() {
-
-            $("#hider").fadeOut("slow");
-            $('#popup_box1').fadeOut("slow");
-        });
-        $("#hider").click(function() {
-
-            $("#hider").fadeOut("slow");
-            $('#popup_box1').fadeOut("slow");
-        });
-    });
-
-
     $("#profile-PostButton").click(function() {
         $(".profile-contentCenter").show('slow');
         $(".FollowersContainer").hide();
@@ -328,7 +308,6 @@
         $(".profile-contentRight").show('slow');
         $(".profile-contentLeft").show('slow');
         $(".profileCenterDiv").show('slow');
-
     })
     $("#profile-FollowersButton").click(function() {
         $(".profile-contentCenter").hide();
@@ -339,7 +318,6 @@
         $(".profile-contentRight").hide();
         $(".profile-contentLeft").hide();
         $(".profileCenterDiv").hide();
-
     })
     $("#profile-FollowingButton").click(function() {
         $(".profile-contentCenter").hide();
@@ -350,7 +328,6 @@
         $(".profile-contentRight").hide();
         $(".profile-contentLeft").hide();
         $(".profileCenterDiv").hide();
-
     })
     $("#profile-FollowedQuestionButton").click(function() {
         $(".profile-contentCenter").show();
@@ -372,13 +349,105 @@
         $(".profile-contentLeft").show('slow');
         $(".profileCenterDiv").show('slow');
     })
-
-
-
-
-
-    function test() {
-
-        windows.location.replace(null);
-    }
+    $(document).ready(function() {
+        $(".editprofilebutton").click(function() {
+            $(".modal").fadeIn();
+            $(".modal_main").show();
+        });
+    });
+    $(document).ready(function() {
+        $(".close").click(function() {
+            $(".modal").fadeOut();
+            $(".modal_main").fadeOut();
+        });
+    });
+    $("#submitProfile").on("click", function(e) {
+        e.preventDefault();
+        // formdata = new FormData(); 
+        var formdata = new FormData();
+        //var index = 0;
+        //var dispn = document.getElementById('dispn');   
+        var file = $('#avatar-1').prop('files');
+        console.log(file);
+        var name = $("#dispName").val();
+        var user = {
+            "displayname": name
+        };
+        console.log(JSON.stringify(user));
+        $.ajax({
+            url: "http://iitoverflow.herokuapp.com/api/users/1",
+            type: "PATCH",
+            data: JSON.stringify(user),
+            dataType: "JSON",
+            contentType: 'application/json',
+            success: function(data2) {
+                console.log("profile ", data2);
+                $("#dispn").text(data2.displayname);
+                if (file.length > 0)
+                    if (formdata) {
+                        formdata.append("file", file[0]);
+                        console.log(formdata);
+                        $.ajax({
+                            url: "http://iitoverflow.herokuapp.com/api/users/4/updateProfile",
+                            type: "POST",
+                            data: formdata,
+                            processData: false,
+                            contentType: false,
+                            success: function(data) {
+                                console.log("profile ", data.picture);
+                                console.log("profile ", data.picture);
+                                $("#profPic").attr("src", data.picture);
+                                $("#modalProf").hide();
+                            },
+                            error: function(err) {
+                                console.log("profile error :", err);
+                            }
+                        });
+                    }
+                    $("#modalProf").hide();
+            },
+            error: function(err) {
+                console.log("profile error :", err);
+            }
+        });
+    });
 </script>
+
+<script>
+    $(document).ready(function() {
+        $(".call_modal").click(function() {
+            $(".modal").fadeIn();
+            $(".modal_main").show();
+        });
+    });
+    $(document).ready(function() {
+        $(".close").click(function() {
+            $(".modal").fadeOut();
+            $(".modal_main").fadeOut();
+        });
+    });
+</script>
+
+<script>
+    $("#avatar-1").fileinput({
+        overwriteInitial: true,
+        maxFileSize: 1500,
+        showClose: false,
+        showCaption: false,
+        browseLabel: '',
+        removeLabel: '',
+        browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
+        removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+        removeTitle: 'Cancel or reset changes',
+        elErrorContainer: '#kv-avatar-errors-1',
+        msgErrorClass: 'alert alert-block alert-danger',
+        defaultPreviewContent: '<img src="/static/images/default.png" alt="Your Avatar">',
+        layoutTemplates: {
+            main2: '{preview} ' + btnCust + ' {remove} {browse}'
+        },
+        allowedFileExtensions: ["jpg", "png", "gif"]
+    });
+</script>
+
+
+</html>
