@@ -58,6 +58,7 @@ def logout():
 
 @app.route('/newsfeed', methods=['GET', 'POST'])
 def question():
+    curuser = str(session['user'])
     url = 'http://iitoverflow.herokuapp.com/api/Questions?filter={"include":[{"relation": "answers", "scope":{"include": {"relation": "user"}}}, {"relation":"category"}, {"relation": "tags"}]}'
 
     url2 = 'http://iitoverflow.herokuapp.com/api/Categories'
@@ -82,48 +83,18 @@ def question():
     for i in tag_list:
         newlist.append(i['name'])
 
-    return render_template('question2.html', tag_list=newlist, questions=questions, answers=answers, categories=categories)
-
-@app.route('/profile', methods=['GET', 'POST'])
-def profile2():
-    user = str(session['user'])
-    url = ('http://iitoverflow.herokuapp.com/api/users/'+user +
-           '?filter[include]=questions&filter[include]=interests')
-    print(user)
-    response = requests.get(url)
-    json_object = response.json()
-
-    url = ('http://iitoverflow.herokuapp.com/api/users/'+user +
-           '/questionsfollowed?filter={"include":{"relation":"user"}}')
-    response = requests.get(url)
-    followed_questions = response.json()
-
-    curl = ('http://iitoverflow.herokuapp.com/api/users/'+user +
-            '?filter[counts]=followers&filter[counts]=following&filter[counts]=answers&filter[counts]=questionsfollowed&filter[include]=followers&filter[include]=following&filter[include]=answers&filter[include]=questionsfollowed')
-    response = requests.get(curl)
-    json_object1 = response.json()
-    val3 = json_object1['followersCount']
-    val4 = json_object1['followingCount']
-    val5 = json_object1['answersCount']
-    val6 = json_object1['questionsfollowedCount']
-
-    url = ('http://iitoverflow.herokuapp.com/api/users/'+user +
-           '/answers?filter[include]=user&filter[include]=question')
-    response = requests.get(url)
-    answered_questions = response.json()
-    
-    return render_template('profile.html', json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6, answered_questions=answered_questions)
+    return render_template('question2.html', curuser =curuser, tag_list=newlist, questions=questions, answers=answers, categories=categories)
 
 @app.route('/profile/<int:id>',methods=['GET','POST'])
 def profile(id):
     user = str(id)
-    curr = 1
+    curr = session['user']
     curuser = str(curr)
     print(curr)
     if id == curr:
         url = ('http://iitoverflow.herokuapp.com/api/users/'+user+'?filter[include]=questions&filter[include]=interests')
         print(user)
-        response = requests.get(url)
+        response =   requests.get(url)
         json_object = response.json()
         url = ('http://iitoverflow.herokuapp.com/api/users/'+user +'/questionsfollowed?filter={"include":{"relation":"user"}}')
         response = requests.get(url)
@@ -199,7 +170,7 @@ def tagsQ(id):
 
     return render_template('specifictags.html', questions= categorylist['questions'])
 
-    
+
 
 @app.after_request
 def add_cors(resp):
