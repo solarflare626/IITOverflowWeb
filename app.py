@@ -58,7 +58,7 @@ def logout():
 
 @app.route('/newsfeed', methods=['GET', 'POST'])
 def question():
-    url = 'http://iitoverflow.herokuapp.com/api/Questions?filter[include]=answers&filter[include]=tags'
+    url = 'http://iitoverflow.herokuapp.com/api/Questions?filter={"include":[{"relation": "answers", "scope":{"include": {"relation": "user"}}}, {"relation":"category"}, {"relation": "tags"}]}'
 
     url2 = 'http://iitoverflow.herokuapp.com/api/Categories'
     response = requests.get(url2)
@@ -184,6 +184,10 @@ def tagslist():
 
     return render_template('tags.html', category=categorylist)
 
+@app.route('/getCurrentUser', methods=['GET'])
+def getSession():
+    return jsonify({"message": str(session['user'])})
+
 @app.route('/tagsQ/<int:id>', methods=['GET','POST'])
 def tagsQ(id):
    
@@ -195,7 +199,7 @@ def tagsQ(id):
 
     return render_template('specifictags.html', questions= categorylist['questions'])
 
-
+    
 
 @app.after_request
 def add_cors(resp):
