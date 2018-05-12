@@ -65,8 +65,13 @@ def tagslist():
 
 @app.route('/newsfeed', methods=['GET','POST'])
 def question():
+<<<<<<< HEAD
 
     url = 'http://iitoverflow.herokuapp.com/api/Questions?filter={"include":[{"relation":"answers","scope":{"include":[{"relation":"user"},{"relation":"comments"}]}},{"relation":"category"},{"relation":"tags"}]}'
+=======
+    curuser = str(session['user'])
+    url = 'http://iitoverflow.herokuapp.com/api/Questions?filter={"include":[{"relation": "answers", "scope":{"include": {"relation": "user"}}}, {"relation":"category"}, {"relation": "tags"}]}'
+>>>>>>> b00024feaf6b980c5cf1f7c0f18c2ab58f29f9b4
 
     url2 = 'http://iitoverflow.herokuapp.com/api/Categories'
     response = requests.get(url2)
@@ -90,6 +95,7 @@ def question():
     for i in tag_list:
         newlist.append(i['name'])
 
+<<<<<<< HEAD
     return render_template('question2.html', tag_list = newlist, questions = questions, categories=categories, answers=answers)
 
 @app.route('/profile', methods=['GET', 'POST'])
@@ -120,14 +126,44 @@ def profile2():
     answered_questions = response.json()
 
     return render_template('profile.html', json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6, answered_questions=answered_questions)
+=======
+    return render_template('question2.html', curuser =curuser, tag_list=newlist, questions=questions, answers=answers, categories=categories)
+>>>>>>> b00024feaf6b980c5cf1f7c0f18c2ab58f29f9b4
 
 @app.route('/profile/<int:id>', methods=['GET', 'POST'])
 def profile(id):
     user = str(id)
+<<<<<<< HEAD
     url = ('http://iitoverflow.herokuapp.com/api/users/'+user +
            '?filter[include]=questions&filter[include]=interests')
     response = requests.get(url)
     json_object = response.json()
+=======
+    curr = session['user']
+    curuser = str(curr)
+    print(curr)
+    if id == curr:
+        url = ('http://iitoverflow.herokuapp.com/api/users/'+user+'?filter[include]=questions&filter[include]=interests')
+        print(user)
+        response =   requests.get(url)
+        json_object = response.json()
+        url = ('http://iitoverflow.herokuapp.com/api/users/'+user +'/questionsfollowed?filter={"include":{"relation":"user"}}')
+        response = requests.get(url)
+        followed_questions = response.json()
+
+        curl = ('http://iitoverflow.herokuapp.com/api/users/'+user +'?filter[counts]=followers&filter[counts]=following&filter[counts]=answers&filter[counts]=questionsfollowed&filter[counts]=questions&filter[include]=followers&filter[include]=following&filter[include]=answers&filter[include]=questionsfollowed&filter[include]=questions')
+        response = requests.get(curl)
+        json_object1 = response.json()
+        val3 = json_object1['followersCount']
+        val4 = json_object1['followingCount']
+        val5 = json_object1['answersCount']
+        val6 = json_object1['questionsfollowedCount']
+        val7 = json_object1['questionsCount']
+
+        url = ('http://iitoverflow.herokuapp.com/api/users/'+user +'/answers?filter[include]=user&filter[include]=question')
+        response = requests.get(url)
+        answered_questions = response.json()
+>>>>>>> b00024feaf6b980c5cf1f7c0f18c2ab58f29f9b4
 
     url = ('http://iitoverflow.herokuapp.com/api/users/'+user +
            '/questionsfollowed?filter={"include":{"relation":"user"}}')
@@ -155,6 +191,22 @@ def profile(id):
 def getSession():
     return jsonify({"message": str(session['user'])})
 
+<<<<<<< HEAD
+=======
+@app.route('/tagsQ/<int:id>', methods=['GET','POST'])
+def tagsQ(id):
+   
+    urlCategory = 'http://iitoverflow.herokuapp.com/api/Tags/' +str(id)+'?filter={"include":[{"relation":"questions","scope":{"include":[{"relation":"user"},{"relation":"category"},{"relation":"upvotes"},{"relation":"answers","scope":{"include":"comments"}}]}}]}'
+    
+    catresponse = urlopen(urlCategory).read().decode('utf-8')
+    categorylist = json.loads(catresponse)
+
+
+    return render_template('specifictags.html', questions= categorylist['questions'])
+
+
+
+>>>>>>> b00024feaf6b980c5cf1f7c0f18c2ab58f29f9b4
 @app.after_request
 def add_cors(resp):
     resp.headers['Access-Control-Allow-Origin'] = flask.request.headers.get(
