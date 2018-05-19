@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, session, render_template
+from flask import Flask, jsonify, request, session, render_template, url_for, redirect
 import flask
 import requests
 from urllib.request import urlopen
@@ -16,19 +16,27 @@ def index():
 
 @app.route('/categories', methods=['POST', 'GET'])
 def fillup():
-    if request.method == 'POST':
-        ids = request.json['ids']
-        for i in ids:
-            requests.post('http://iitoverflow.herokuapp.com/api/Interests',
-                          json={"categoryId": i, "userId": session['user']})
-        return jsonify({"message": "ok"})
 
+    url = ("http://iitoverflow.herokuapp.com/api/Interests/findOne?filter[where][userId]=" + str(session['user']) + "")
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        print("test")
+        return redirect(url_for('question'))
     else:
-        url = ('http://iitoverflow.herokuapp.com/api/Categories')
-        response = requests.get(url)
-        categories = response.json()
+        if request.method == 'POST':
+            ids = request.json['ids']
+            for i in ids:
+                requests.post('http://iitoverflow.herokuapp.com/api/Interests',
+                              json={"categoryId": i, "userId": session['user']})
+            return jsonify({"message": "ok"})
 
-        return render_template('Categories.html', categories=categories)
+        else:
+            url = ('http://iitoverflow.herokuapp.com/api/Categories')
+            response = requests.get(url)
+            categories = response.json()
+
+            return render_template('Categories.html', categories=categories)
 
 
 @app.route('/login', methods=['POST'])
@@ -66,7 +74,7 @@ def tagslist():
 
 @app.route('/newsfeed', methods=['GET','POST'])
 def question():
-    if session['user'] is None:
+    if session.get('user') == None:
         return render_template('relog.html')
     else:
         curuser = str(session['user'])
@@ -101,7 +109,6 @@ def profile(id):
     user = str(id)
     curr = session['user']
     curuser = str(curr)
-    print(curr)
     if id == curr:
         url = ('http://iitoverflow.herokuapp.com/api/users/'+user+'?filter[include]=questions&filter[include]=interests')
         print(user)
