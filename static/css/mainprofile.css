@@ -303,7 +303,7 @@ html {
     width: 20%;
     height: 40%;
     margin-left: 1px;
-    margin-top: 10px;
+    margin-top: 7px;
     background-color: white;
 }
 
@@ -312,21 +312,18 @@ html {
     min-width: 1000px;
     text-align: center;
     height: 100%;
+    margin-top: 10px;
     position: absolute;
     overflow: scroll;
 }
 
 .profile-contentLeft {
     float: left;
-    padding-left: 5%;
-    padding-right: 5%;
-    height: 40%;
+    height: 100%;
     width: 20%;
-    margin: auto;
-    margin-top: 10px;
+    padding: 0;
     margin-left: 5%;
     margin-right: 10px;
-    background-color: white;
 }
 
 .profilePostButton {
@@ -778,5 +775,35 @@ button.following:not(.wait):hover .msg-unfollow {
 }
 
 .profile-linksInterest {
-    border: 1px solid black;
+    margin-top: 8px;
+    background-color: white;
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+}
+
+.profile-linksInterest a {
+    border: 1px solid #E9EBEE;
+    padding: 5px;
+    color: #5F7189;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 30px;
+    display: inline-block;
+}
+
+.profile-linksInterest a:hover {
+    text-decoration: none;
+    color: #4AB3F4;
+    border: 1px solid #4AB3F4;
+    margin-right: 5px;
+}
+
+.profile-bioInfo {
+    background-color: white;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    text-align: left;
 }
