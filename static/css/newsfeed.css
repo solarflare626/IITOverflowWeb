@@ -110,7 +110,7 @@ html {
     min-height: 600px;
     flex-direction: row;
     border: 1px black solid;
-    margin: 0 auto;
+    margin: 0;
 }
 
 .searchbutton {
@@ -149,6 +149,101 @@ html {
     box-shadow: 0 2px 6px -4px rgba(0, 0, 0, 0.8);
 }
 
+.newsfeed-nav {
+    font-size: 15px;
+    text-align: center;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100%;
+    min-width: 1000px;
+    background: white;
+    height: 45px;
+    box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.5);
+}
+
+.newsfeed-pages {
+    width: 50%;
+    height: inherit;
+    margin-right: 10%;
+    float: right;
+    box-sizing: border-box;
+}
+
+.newsfeed-nav a {
+    display: inline-block;
+    font-size: 20px;
+    padding: 8px;
+    text-decoration: none;
+    color: #5F7189;
+    margin: 2px 8px 10px 10px;
+    position: relative;
+    display: inline-block;
+    font-family: Poppins-Regular, sans-serif;
+    font-size: 100%;
+}
+
+.newsfeed-nav a:hover {
+    color: #4AB3F4;
+    text-decoration: none;
+}
+
+.newsfeed-searchbutton {
+    background-color: white;
+    border: 1px solid #DFE2E4;
+    color: #5F7189;
+    margin-top: 5px;
+    margin-left: 5px;
+    width: 40px;
+    height: 30px;
+    border-radius: 30px;
+    outline: none;
+    text-decoration: none;
+    float: right;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    padding-right: 3px;
+}
+
+.newsfeed-searchbutton:hover {
+    background-color: white;
+    color: #4AB3F4;
+    border-right: 2px solid #4AB3F4;
+    border-left: 2px solid #4AB3F4;
+    border-top: 2px solid #4AB3F4;
+    border-bottom: 2px solid #4AB3F4;
+}
+
+.newsfeed-search {
+    width: 30%;
+    display: inline-block;
+    font-family: Poppins-Regular, sans-serif;
+    font-size: 100%;
+}
+
+.newsfeed-searchbar {
+    height: 30px;
+    background-color: #F5F8FA;
+    color: #5F7189;
+    font-size: 15px;
+    border: 1px solid #DFE2E4;
+    border-radius: 100px;
+    width: 60%;
+    padding: 10px;
+    float: right;
+    margin-top: 5px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.newsfeed-searchbar:focus {
+    border: 2px solid #4AB3F4;
+    background-color: white;
+}
+
 .section {
     width: 100%;
     height: 100%;
@@ -161,6 +256,7 @@ html {
     float: left;
     margin-top: 45px;
     margin-left: 7.5%;
+    display: inline-block;
     margin-right: 0;
     padding: 0;
     -ms-overflow-style: none;
@@ -327,6 +423,27 @@ html {
     color: #1DBBFB;
 }
 
+#post {
+    position: absolute;
+    /* Sit on top of the page content */
+    display: none;
+    /* Hidden by default */
+    width: 100%;
+    /* Full width (cover the whole page) */
+    height: 100%;
+    /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Black background with opacity */
+    z-index: 10000;
+    /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer;
+    /* Add a pointer on hover */
+}
+
 .links0 {
     padding-left: 0;
     padding-right: 0;
@@ -343,6 +460,7 @@ html {
     margin-top: 37px;
     overflow: hidden;
     float: left;
+    display: inline-block;
     padding: 10px;
     overflow-y: scroll;
     bottom: 10px;
@@ -361,6 +479,8 @@ html {
     width: 98%;
     background-color: white;
     box-shadow: 0 1px 3px -3px rgba(0, 0, 0, 0.8);
+    position: relative;
+    z-index: 10001;
 }
 
 .submitbutton1 {
@@ -748,6 +868,7 @@ html {
     float: left;
     overflow: hidden;
     padding: 7px;
+    display: inline-block;
 }
 
 .links2 {

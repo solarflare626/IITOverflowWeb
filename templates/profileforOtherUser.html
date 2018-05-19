@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,27 +12,28 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+
     <script src="../static/js/mainprofile.js"></script>
-   
-    
+
+
 </head>
+
 <body>
-    <div class="Profile-hider" id="hider">
-    
-    </div>
+    <!-- <div class="Profile-hider" id="hider">
+
+    </div> -->
     <div class="profile-fullpage">
 
-        
-        <div class="profile-popup_box1" id="popup_box1">
+
+        <!-- <div class="profile-popup_box1" id="popup_box1">
             Message
             <br />
             <a id="buttonClose">Close</a>
-        </div>
+        </div> -->
 
         <div class="profile-section">
             <div class="profile-landing">
-               
+
                 <div class="profile-nav">
                     <div class="profile-search">
 
@@ -68,17 +70,13 @@
                             <a type="submit" id="profile-FollowersButton">{{followers}} Followers</a>
                             <a type="submit" id="profile-FollowingButton">{{following}} Following</a>
                             <a type="submit" id="profile-FollowedQuestionButton">{{questionsfollowed}} Followed Questions</a>
-                            <a type="submit" id="profile-AnsweredQuestionButton">{{answers}} Answered Questions</a>
-                            {% if s_code == 404%}
-                            <button id ="followus" class = "unfollow">
+                            <a type="submit" id="profile-AnsweredQuestionButton">{{answers}} Answered Questions</a> {% if s_code == 404%}
+                            <button id="followus" class="unfollow">
                                 <a class="msg-follow followbutton" id ="followusText" >Follow</a>
-                            </button>   
-                            {%else%}
-                            <button id ="followus" class = "unfollow">
+                            </button> {%else%}
+                            <button id="followus" class="unfollow">
                                 <a class="msg-follow followbutton" id= "followusText">Unfollow</a>
-                            </button>
-                            {%endif%}
-                            {% endblock %}
+                            </button> {%endif%} {% endblock %}
                         </div>
 
                     </div>
@@ -87,9 +85,9 @@
 
                 </div>
                 <div class="CenterLeftRightCont">
-                   
-                   
-                   
+
+
+
 
 
                     <div class="profile-contentLeft">
@@ -103,7 +101,7 @@
 
                         <div class="FollowedQuestionsContainer">
                             {% for question in followed_questions %}
-                            <div class="profile-contentCenter" >
+                            <div class="profile-contentCenter">
                                 <div class="profilePostPictureCont">
                                     <img class="profilePostPicture" src="../static/image/google.png">
 
@@ -157,7 +155,7 @@
 
                         {% for i in json_object.questions %}
 
-                        <div class="profile-contentCenter" id="{{i.id}}" >
+                        <div class="profile-contentCenter" id="{{i.id}}">
                             <div class="profilePostPictureCont">
                                 <img class="profilePostPicture" src="../static/image/google.png">
 
@@ -282,119 +280,117 @@
 
     </div>
 
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".profile-contentCenter").show('slow');
+            $(".FollowersContainer").hide();
+            $(".FollowingContainer").hide();
+            $(".FollowedQuestionsContainer").hide();
+            $(".AnsweredQuestionsContainer").hide();
+            $("#hider").hide();
+            $("#popup_box1").hide();
+        });
+        $(".profile-contentCenter").click(function() {
+            $("#hider").fadeIn("slow");
+            $('#popup_box1').fadeIn("slow");
+
+            $("#buttonClose").click(function() {
+                $("#hider").fadeOut("slow");
+                $('#popup_box1').fadeOut("slow");
+            });
+            $("#hider").click(function() {
+                $("#hider").fadeOut("slow");
+                $('#popup_box1').fadeOut("slow");
+            });
+        });
+        $("#profile-PostButton").click(function() {
+            $(".profile-contentCenter").show('slow');
+            $(".FollowersContainer").hide();
+            $(".FollowingContainer").hide();
+            $(".FollowedQuestionsContainer").hide();
+            $(".AnsweredQuestionsContainer").hide();
+            $(".profile-contentRight").show('slow');
+            $(".profile-contentLeft").show('slow');
+            $(".profileCenterDiv").show('slow');
+        });
+        $("#profile-FollowersButton").click(function() {
+            $(".profile-contentCenter").hide();
+            $(".FollowersContainer").show('slow');
+            $(".FollowingContainer").hide();
+            $(".FollowedQuestionsContainer").hide();
+            $(".AnsweredQuestionsContainer").hide();
+            $(".profile-contentRight").hide();
+            $(".profile-contentLeft").hide();
+            $(".profileCenterDiv").hide();
+        });
+        $("#profile-FollowingButton").click(function() {
+            $(".profile-contentCenter").hide();
+            $(".FollowersContainer").hide();
+            $(".FollowingContainer").show('slow');
+            $(".FollowedQuestionsContainer").hide();
+            $(".AnsweredQuestionsContainer").hide();
+            $(".profile-contentRight").hide();
+            $(".profile-contentLeft").hide();
+            $(".profileCenterDiv").hide();
+        });
+        $("#profile-FollowedQuestionButton").click(function() {
+            $(".profile-contentCenter").show();
+            $(".FollowersContainer").hide();
+            $(".FollowingContainer").hide();
+            $(".FollowedQuestionsContainer").show('slow');
+            $(".AnsweredQuestionsContainer").hide();
+            $(".profile-contentRight").show('slow');
+            $(".profile-contentLeft").show('slow');
+            $(".profileCenterDiv").show('slow');
+        });
+        $("#profile-AnsweredQuestionButton").click(function() {
+            $(".profile-contentCenter").show('slow');
+            $(".FollowersContainer").hide();
+            $(".FollowingContainer").hide();
+            $(".FollowedQuestionsContainer").hide();
+            $(".AnsweredQuestionsContainer").show('slow');
+            $(".profile-contentRight").show('slow');
+            $(".profile-contentLeft").show('slow');
+            $(".profileCenterDiv").show('slow');
+        });
+
+        $('#followus').on('click', function() {
+            $.ajax({
+                type: 'HEAD',
+                async: true,
+                url: 'http://iitoverflow.herokuapp.com/api/users/{{ curuser }}/following/rel/{{ user }}',
+                success: function(message) {
+                    $.ajax({
+                        type: 'DELETE',
+                        async: true,
+                        url: 'http://iitoverflow.herokuapp.com/api/users/{{ curuser }}/following/rel/{{ user }}',
+                        success: function(message) {
+                            $("#followusText").text("Follow");
+                            console.log("unfollowed")
+                        },
+                        error: function(message) {
+                            console.log(message);
+                        }
+                    });
+                    $('#followusText').text("Follow")
+                },
+                error: function(message) {
+                    if (message.status == 404) {
+                        $.ajax({
+                            type: "PUT",
+                            async: true,
+                            url: 'http://iitoverflow.herokuapp.com/api/users/{{ curuser }}/following/rel/{{ user }}',
+                            success: function(message) {
+                                $("#followusText").text("Unfollow");
+                                console.log("Followed");
+
+                            }
+                        });
+                    }
+                }
+            });
+        });
+    </script>
 
 
 </body>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $(".profile-contentCenter").show('slow');
-        $(".FollowersContainer").hide();
-        $(".FollowingContainer").hide();
-        $(".FollowedQuestionsContainer").hide();
-        $(".AnsweredQuestionsContainer").hide();
-        $("#hider").hide();
-        $("#popup_box1").hide();
-    })
-     $(".profile-contentCenter").click(function () {
-            $("#hider").fadeIn("slow");
-            $('#popup_box1').fadeIn("slow");
-    
-            $("#buttonClose").click(function () {
-             $("#hider").fadeOut("slow");
-             $('#popup_box1').fadeOut("slow");
-         });
-          $("#hider").click(function () {
-             $("#hider").fadeOut("slow");
-             $('#popup_box1').fadeOut("slow");
-         });
-        });
-    $("#profile-PostButton").click(function () {
-        $(".profile-contentCenter").show('slow');
-        $(".FollowersContainer").hide();
-        $(".FollowingContainer").hide();
-        $(".FollowedQuestionsContainer").hide();
-        $(".AnsweredQuestionsContainer").hide();
-        $(".profile-contentRight").show('slow');
-        $(".profile-contentLeft").show('slow');
-        $(".profileCenterDiv").show('slow');
-    })
-    $("#profile-FollowersButton").click(function () {
-        $(".profile-contentCenter").hide();
-        $(".FollowersContainer").show('slow');
-        $(".FollowingContainer").hide();
-        $(".FollowedQuestionsContainer").hide();
-        $(".AnsweredQuestionsContainer").hide();
-        $(".profile-contentRight").hide();
-        $(".profile-contentLeft").hide();
-        $(".profileCenterDiv").hide();
-    })
-    $("#profile-FollowingButton").click(function () {
-        $(".profile-contentCenter").hide();
-        $(".FollowersContainer").hide();
-        $(".FollowingContainer").show('slow');
-        $(".FollowedQuestionsContainer").hide();
-        $(".AnsweredQuestionsContainer").hide();
-        $(".profile-contentRight").hide();
-        $(".profile-contentLeft").hide();
-        $(".profileCenterDiv").hide();
-    })
-    $("#profile-FollowedQuestionButton").click(function () {
-        $(".profile-contentCenter").show();
-        $(".FollowersContainer").hide();
-        $(".FollowingContainer").hide();
-        $(".FollowedQuestionsContainer").show('slow');
-        $(".AnsweredQuestionsContainer").hide();
-        $(".profile-contentRight").show('slow');
-        $(".profile-contentLeft").show('slow');
-        $(".profileCenterDiv").show('slow');
-    })
-    $("#profile-AnsweredQuestionButton").click(function () {
-        $(".profile-contentCenter").show('slow');
-        $(".FollowersContainer").hide();
-        $(".FollowingContainer").hide();
-        $(".FollowedQuestionsContainer").hide();
-        $(".AnsweredQuestionsContainer").show('slow');
-        $(".profile-contentRight").show('slow');
-        $(".profile-contentLeft").show('slow');
-        $(".profileCenterDiv").show('slow');
-    })
-    $("#followus").on("click", function(){
-        console.log("clicked");
-       
-                $.ajax({
-                type: "HEAD",
-                async: true,
-                url: 'http://iitoverflow.herokuapp.com/api/users/'+{{curuser}}+ '/following/rel/'+{{user}} + '',
-                success: function(message){
-                        $.ajax({
-                        type: "DELETE",
-                        async: true,
-                        url: 'http://iitoverflow.herokuapp.com/api/users/'+{{curuser}}+ '/following/rel/'+{{user}} + '',
-                        success: function(message){
-                            $("#followusText").text("Follow");
-                            console.log("unfollowed")
-                        },error : function(message){
-                                console.log(message);
-                        }
-                });
-                    $("#followusText").text("Follow");
-                    
-                },error : function(message){
-                    if(message.status = 404){
-                        $.ajax({
-                        type: "PUT",
-                        async: true,
-                        url: 'http://iitoverflow.herokuapp.com/api/users/'+{{curuser}}+ '/following/rel/'+{{user}} + '',
-                        success: function(message){
-                            $("#followusText").text("Unfollow");
-                            console.log("Followed");
-                            
-                        },error : function(message){
-                                console.log(message);
-                        } });
-                    }
-                    
-                }
-                });
-    });
-</script>

@@ -8,13 +8,6 @@
     background: transparent;
 }
 
-.SignInMessage {
-    text-align: left;
-    color: white;
-    font-size: 150%;
-    margin-top: 7%;
-}
-
 html {
     font-family: Poppins-Regular, sans-serif;
 }
@@ -103,8 +96,8 @@ a {
     padding: 4px;
     border-radius: 100px;
     width: 20%;
-    margin-left: 35%;
-    margin-top: 10%;
+    margin-left: 40%;
+    margin-top: 2%;
     font-size: 20px;
 }
 
@@ -118,7 +111,7 @@ a {
 
 .time {
     color: white;
-    margin-top: 10%;
+    margin-top: 5%;
     margin-left: 5%;
 }
 
