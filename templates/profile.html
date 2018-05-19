@@ -73,9 +73,9 @@
                                 </div>
                                 <div class="profile-linksInterest">
                                     <h4>{{interests}} Interests</h4>
+                                    <hr style="border-width: 2px;">
                                     <br> {% for interest in json_object1.interests %}
-                                    <h5> {{interest.name}} </h5>
-                                    {% endfor %}
+                                    <a> {{interest.name}} </a> {% endfor %}
 
                                 </div>
 
