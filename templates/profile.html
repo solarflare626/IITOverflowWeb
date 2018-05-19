@@ -66,11 +66,11 @@
                         </div>
                         <div class="CenterLeftRightCont">
                             <div class="profile-contentLeft">
-
-                                <h4>Bio info here</h4>
-                                <p id="dispn"> {{ json_object['displayname'] }} </p>
-                                <a class="profilePostEmail"> {{json_object.email}} </a>
-
+                                <div class="profile-bioInfo">
+                                    <h4>Bio info here</h4>
+                                    <p id="dispn"> {{ json_object['displayname'] }} </p>
+                                    <a class="profilePostEmail"> {{json_object.email}} </a>
+                                </div>
                                 <div class="profile-linksInterest">
                                     <h4>{{interests}} Interests</h4>
                                     <br> {% for interest in json_object1.interests %}

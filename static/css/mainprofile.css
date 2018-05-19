@@ -318,15 +318,12 @@ html {
 
 .profile-contentLeft {
     float: left;
-    padding-left: 5%;
-    padding-right: 5%;
     height: 40%;
     width: 20%;
     margin: auto;
     margin-top: 10px;
     margin-left: 5%;
     margin-right: 10px;
-    background-color: white;
 }
 
 .profilePostButton {
@@ -778,5 +775,13 @@ button.following:not(.wait):hover .msg-unfollow {
 }
 
 .profile-linksInterest {
-    border: 1px solid black;
+    margin-top: 26%;
+    background-color: white;
+    width: 100%;
+}
+
+.profile-bioInfo {
+    margin-top: 20%;
+    background-color: white;
+    width: 100%;
 }
