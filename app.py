@@ -38,7 +38,6 @@ def login():
     u_id = params["userID"]
     session['token'] = u_token
     session['user'] = u_id
-    print(session['user'])
     return jsonify({"userID": session['user'], 'message': 'okay'})
 
 
@@ -67,32 +66,35 @@ def tagslist():
 
 @app.route('/newsfeed', methods=['GET','POST'])
 def question():
-    curuser = str(session['user'])
-    url = 'http://iitoverflow.herokuapp.com/api/Questions?filter={"include":[{"relation": "answers", "scope":{"include": {"relation": "user"}}}, {"relation":"category"}, {"relation": "tags"}]}'
+    if session['user'] is None:
+        return render_template('relog.html')
+    else:
+        curuser = str(session['user'])
+        url = 'http://iitoverflow.herokuapp.com/api/Questions?filter={"include":[{"relation": "user"},{"relation": "answers", "scope":{"include": {"relation": "user"}}}, {"relation":"category"}, {"relation": "tags"}]}'
 
-    url2 = 'http://iitoverflow.herokuapp.com/api/Categories'
-    response = requests.get(url2) 
-    categories= response.json()
-    
-    response1 = requests.get(url)
-    questions = response1.json()
+        url2 = 'http://iitoverflow.herokuapp.com/api/Categories'
+        response = requests.get(url2)
+        categories= response.json()
 
-    # html = urlopen(url).read().decode('utf-8')
-    # questions = json.loads(html)
+        response1 = requests.get(url)
+        questions = response1.json()
 
-    url1 = 'http://iitoverflow.herokuapp.com/api/Answers?filter[include]=user'
-    html1 = urlopen(url1).read().decode('utf-8')
-    answers = json.loads(html1)
+        # html = urlopen(url).read().decode('utf-8')
+        # questions = json.loads(html)
 
-    url5 = 'http://iitoverflow.herokuapp.com/api/Tags'
-    html5 = urlopen(url5).read().decode('utf-8')
-    tag_list = json.loads(html5)
-    
-    newlist = []
-    for i in tag_list:
-        newlist.append(i['name'])
+        url1 = 'http://iitoverflow.herokuapp.com/api/Answers?filter[include]=user'
+        html1 = urlopen(url1).read().decode('utf-8')
+        answers = json.loads(html1)
 
-    return render_template('question2.html', curuser =curuser, tag_list=newlist, questions=questions, answers=answers, categories=categories)
+        url5 = 'http://iitoverflow.herokuapp.com/api/Tags'
+        html5 = urlopen(url5).read().decode('utf-8')
+        tag_list = json.loads(html5)
+
+        newlist = []
+        for i in tag_list:
+            newlist.append(i['name'])
+
+        return render_template('question2.html', curuser =curuser, tag_list=newlist, questions=questions, answers=answers, categories=categories)
 
 @app.route('/profile/<int:id>', methods=['GET', 'POST'])
 def profile(id):
