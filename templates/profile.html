@@ -67,12 +67,13 @@
                         <div class="CenterLeftRightCont">
                             <div class="profile-contentLeft">
                                 <div class="profile-bioInfo">
-                                    <h4>Bio info here</h4>
-                                    <p id="dispn"> {{ json_object['displayname'] }} </p>
+
+                                    <h4 id="dispn"> {{ json_object['displayname'] }} </h4>
+                                    <hr style: "border-width:2px;">
                                     <a class="profilePostEmail"> {{json_object.email}} </a>
                                 </div>
                                 <div class="profile-linksInterest">
-                                    <h4>{{interests}} Interests</h4>
+                                    <h4>Interests</h4>
                                     <hr style="border-width: 2px;">
                                     <br> {% for interest in json_object1.interests %}
                                     <a> {{interest.name}} </a> {% endfor %}

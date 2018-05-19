@@ -407,8 +407,13 @@ html {
 
 .profilePostEmail {
     width: 60%;
-    font-size: 10px;
+    font-size: 15px;
+    color: #5F7189;
     display: block;
+}
+
+.profilePostEmail:hover {
+    color: #4AB3F4
 }
 
 .profilePostUsername {
@@ -780,6 +785,14 @@ button.following:not(.wait):hover .msg-unfollow {
     width: 100%;
     text-align: left;
     padding: 10px;
+    color: #5F7189;
+    padding-bottom: 15px;
+    border: 1px solid transparent;
+}
+
+.profile-linksInterest:hover {
+    box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgb(222, 226, 233);
 }
 
 .profile-linksInterest a {
@@ -806,4 +819,13 @@ button.following:not(.wait):hover .msg-unfollow {
     padding: 10px;
     margin-top: 10px;
     text-align: left;
+    color: #5F7189;
+    padding-bottom: 15px;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+}
+
+.profile-bioInfo:hover {
+    box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgb(222, 226, 233);
 }
