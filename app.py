@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, session, render_template
+from flask import Flask, jsonify, request, session, render_template, url_for, redirect
 import flask
 import requests
 from urllib.request import urlopen
@@ -16,19 +16,27 @@ def index():
 
 @app.route('/categories', methods=['POST', 'GET'])
 def fillup():
-    if request.method == 'POST':
-        ids = request.json['ids']
-        for i in ids:
-            requests.post('http://iitoverflow.herokuapp.com/api/Interests',
-                          json={"categoryId": i, "userId": session['user']})
-        return jsonify({"message": "ok"})
 
+    url = ("http://iitoverflow.herokuapp.com/api/Interests/findOne?filter[where][userId]=" + str(session['user']) + "")
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        print("test")
+        return redirect(url_for('question'))
     else:
-        url = ('http://iitoverflow.herokuapp.com/api/Categories')
-        response = requests.get(url)
-        categories = response.json()
+        if request.method == 'POST':
+            ids = request.json['ids']
+            for i in ids:
+                requests.post('http://iitoverflow.herokuapp.com/api/Interests',
+                              json={"categoryId": i, "userId": session['user']})
+            return jsonify({"message": "ok"})
 
-        return render_template('Categories.html', categories=categories)
+        else:
+            url = ('http://iitoverflow.herokuapp.com/api/Categories')
+            response = requests.get(url)
+            categories = response.json()
+
+            return render_template('Categories.html', categories=categories)
 
 
 @app.route('/login', methods=['POST'])
@@ -38,7 +46,6 @@ def login():
     u_id = params["userID"]
     session['token'] = u_token
     session['user'] = u_id
-    print(session['user'])
     return jsonify({"userID": session['user'], 'message': 'okay'})
 
 
@@ -67,39 +74,46 @@ def tagslist():
 
 @app.route('/newsfeed', methods=['GET','POST'])
 def question():
-    curuser = str(session['user'])
-    url = 'http://iitoverflow.herokuapp.com/api/Questions?filter={"include":[{"relation": "answers", "scope":{"include": {"relation": "user"}}}, {"relation":"category"}, {"relation": "tags"}]}'
 
-    url2 = 'http://iitoverflow.herokuapp.com/api/Categories'
-    response = requests.get(url2) 
-    categories= response.json()
-    
-    response1 = requests.get(url)
-    questions = response1.json()
+    if session.get('user') == None:
+        return render_template('relog.html')
+    else:
+        curuser = str(session['user'])
+        url = 'http://iitoverflow.herokuapp.com/api/Questions?filter={"include":[{"relation": "user"},{"relation": "answers", "scope":{"include": {"relation": "user"}}}, {"relation":"category"}, {"relation": "tags"}]}'
 
-    # html = urlopen(url).read().decode('utf-8')
-    # questions = json.loads(html)
 
-    url1 = 'http://iitoverflow.herokuapp.com/api/Answers?filter[include]=user'
-    html1 = urlopen(url1).read().decode('utf-8')
-    answers = json.loads(html1)
+        url2 = 'http://iitoverflow.herokuapp.com/api/Categories'
+        response = requests.get(url2)
+        categories= response.json()
 
-    url5 = 'http://iitoverflow.herokuapp.com/api/Tags'
-    html5 = urlopen(url5).read().decode('utf-8')
-    tag_list = json.loads(html5)
-    
-    newlist = []
-    for i in tag_list:
-        newlist.append(i['name'])
+        user = requests.get('http://iitoverflow.herokuapp.com/api/users/'+curuser)
+        user = user.json()
 
-    return render_template('question2.html', curuser =curuser, tag_list=newlist, questions=questions, answers=answers, categories=categories)
+        # html = urlopen(url).read().decode('utf-8')
+        # questions = json.loads(html)
+
+        response1 = requests.get(url)
+        questions = response1.json()
+
+        url1 = 'http://iitoverflow.herokuapp.com/api/Answers?filter[include]=user'
+        html1 = urlopen(url1).read().decode('utf-8')
+        answers = json.loads(html1)
+
+        url5 = 'http://iitoverflow.herokuapp.com/api/Tags'
+        html5 = urlopen(url5).read().decode('utf-8')
+        tag_list = json.loads(html5)
+
+        newlist = []
+        for i in tag_list:
+            newlist.append(i['name'])
+
+    return render_template('question2.html', curuser =curuser,user=user, tag_list=newlist, questions=questions, answers=answers, categories=categories)
 
 @app.route('/profile/<int:id>', methods=['GET', 'POST'])
 def profile(id):
     user = str(id)
     curr = session['user']
     curuser = str(curr)
-    print(curr)
     if id == curr:
         url = ('http://iitoverflow.herokuapp.com/api/users/'+user+'?filter[include]=questions&filter[include]=interests')
         print(user)
