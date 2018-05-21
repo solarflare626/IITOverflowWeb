@@ -76,7 +76,7 @@ def tagslist():
 def question():
 
     if session.get('user') == None:
-        return render_template('relog.html')
+        return render_template('landingpage2.html')
     else:
         curuser = str(session['user'])
         url = 'http://iitoverflow.herokuapp.com/api/Questions?filter={"include":[{"relation": "user"},{"relation": "answers", "scope":{"include": {"relation": "user"}}}, {"relation":"category"}, {"relation": "tags"}]}'
