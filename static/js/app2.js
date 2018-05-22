@@ -6,12 +6,25 @@ $(document).ready(function() {
         $.when(getCurrentUser()).done(function(e) {
             $('.followbutton').each(function() {
                 checker(this.id);
+                checker2(this.id,this.name)
             });
         });
     });
+    $('.glyphicon-thumbs-up, .glyphicon-thumbs-down').click(function(){
+        var $this = $(this),
+        c = $this.data('count');
+        if (!c) c = 0;
+        c++;
+        $this.data('count',c);
+        $('#'+this.id+'-bs3').html(c);
 });
+});
+$(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+    });
 
-$('button').click(function() {
+$(".follow").on("click", function() {
     var $this = $(this);
     $this.toggleClass('following')
     if ($this.is('.following')) {
@@ -63,6 +76,7 @@ function unfollow(id) {
 }
 
 function checker(id) {
+
     $.ajax({
         type: "HEAD",
         url: "http://iitoverflow.herokuapp.com/api/users/" + currentUser + "/questionsfollowed/rel/" + id + "",
@@ -82,6 +96,18 @@ function checker(id) {
     })
 
 }
+
+function checker2(id,u_id){
+
+        if (currentUser == u_id) {
+        $("#" + id + ".followbutton").prop( "disabled", true );
+    }
+
+}
+
+
+
+
 
 
 $('#autocomplete').autocomplete({
@@ -109,10 +135,12 @@ function onSignIn(googleUser) {
 }
 
 
-
 function signOut() {
+
     var auth2 = gapi.auth2.getAuthInstance();
+    auth2.disconnect();
     auth2.signOut().then(function() {
+
         $.ajax({
             url: "http://localhost:5000/logout",
             dataType: "json",
