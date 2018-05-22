@@ -45,14 +45,10 @@
                     </div>
                     <div class="profile-pages">
 
-                        <a href="#">
-                            <span class="glyphicon glyphicon-home"></span> Home</a>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-user"></span> Profile</a>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-bell"></span> Notifications</a>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-asterisk"></span> Logout</a>
+                        <a href="{{ url_for('.question') }}"><span class="glyphicon glyphicon-home"></span>  Home</a>
+                        <a href="{{ url_for('.profile', id=curuser)}}"><span class="glyphicon glyphicon-user"></span>  Profile</a>
+                        <a href="#"><span class="glyphicon glyphicon-bell"></span>  Notifications</a>
+                        <a href="" onclick="signOut();"><span class="glyphicon glyphicon-asterisk"></span> Logout</a>
 
                     </div>
                 </div>
@@ -70,7 +66,8 @@
                             <a type="submit" id="profile-FollowersButton">{{followers}} Followers</a>
                             <a type="submit" id="profile-FollowingButton">{{following}} Following</a>
                             <a type="submit" id="profile-FollowedQuestionButton">{{questionsfollowed}} Followed Questions</a>
-                            <a type="submit" id="profile-AnsweredQuestionButton">{{answers}} Answered Questions</a> {% if s_code == 404%}
+                            <a type="submit" id="profile-AnsweredQuestionButton">{{answers}} Answered Questions</a> 
+                            {% if s_code == 404%}
                             <button id="followus" class="unfollow">
                                 <a class="msg-follow followbutton" id ="followusText" >Follow</a>
                             </button> {%else%}
@@ -101,7 +98,7 @@
 
 
                         <div class="FollowedQuestionsContainer">
-                            {% for question in followed_questions %}
+                            {% for question in followed_questions|reverse %}
                             <div class="profile-contentCenter">
                                 <div class="profilePostPictureCont">
                                     <img class="profilePostPicture" src="../static/image/google.png">
@@ -144,8 +141,8 @@
                                 <div class="profilePostButton">
                                     <a href="#" class="glyphicon glyphicon-pencil"></a>
                                     <a href="#" class="glyphicon glyphicon-comment"></a>
-                                    <a href="#" class="glyphicon glyphicon-thumbs-up"></a>
-                                    <a href="#" class="glyphicon glyphicon-thumbs-down"></a>
+                                    <a href="#" value="{{ question.id }}" class="glyphicon glyphicon-thumbs-up"></a>
+                                    <a href="#" value="{{ question.id}}" class="glyphicon glyphicon-thumbs-down"></a>
                                     <a href="#" class="profilePostFollowButton">Unfollow</a>
                                 </div>
                             </div>
@@ -190,7 +187,7 @@
                             <div class="col-md-2 col-sm-6">
                                 <div class="our-team">
                                     <div class="FollowersPic">
-                                        <img src="../static/image/phillip.png">
+                                        <img src="{{ follower.picture }}">
                                         <div class="team-content">
                                             <h3 class="FollowersTitle">{{ follower.displayname }}</h3>
                                         </div>
@@ -228,7 +225,7 @@
                             <div class="col-md-2 col-sm-6">
                                 <div class="our-team">
                                     <div class="FollowersPic">
-                                        <img src="../static/image/phillip.png">
+                                        <img src="{{ g.picture }}">
 
                                         <div class="team-content">
                                             <h3 class="FollowersTitle">{{g.displayname}}</h3>
@@ -384,6 +381,56 @@
                             success: function(message) {
                                 $("#followusText").text("Unfollow");
                                 console.log("Followed");
+
+                            }
+                        });
+                    }
+                }
+            });
+        });
+
+        $('.glyphicon glyphicon-thumbs-up').on('click', function() {
+            var qid = $(this).val();
+            $.ajax({
+                type: 'HEAD',
+                async: true,
+                url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsupvoted/rel/'+qid,
+                success: function(message) {
+                    console.log("Already upvoted!");
+                },
+                error: function(message) {
+                    if (message.status == 404) {
+                        $.ajax({
+                            type: "PUT",
+                            async: true,
+                            url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsupvoted/rel/'+qid,
+                            success: function(message) {
+                                console.log("Upvoted question!");
+
+                            }
+                        });
+                    }
+                }
+            });
+        });
+
+        $('.glyphicon glyphicon-thumbs-down').on('click', function() {
+            var qid = $(this).val();
+            $.ajax({
+                type: 'HEAD',
+                async: true,
+                url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsdownvoted/rel/'+qid,
+                success: function(message) {
+                    console.log("Already upvoted!");
+                },
+                error: function(message) {
+                    if (message.status == 404) {
+                        $.ajax({
+                            type: "PUT",
+                            async: true,
+                            url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsdownvoted/rel/'+qid,
+                            success: function(message) {
+                                console.log("Upvoted question!");
 
                             }
                         });

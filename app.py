@@ -164,7 +164,8 @@ def profile(id):
         response = requests.get(url)
         answered_questions = response.json()
 
-        return render_template('profileforOtherUser.html', curr= curr, curuser= curuser, user=str(id), s_code= s_code, json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6, questions=val7, nswered_questions=answered_questions)
+
+        return render_template('profileforOtherUser.html',curr= curr, curuser= curuser, user=str(id), s_code= s_code, json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6, questions=val7, nswered_questions=answered_questions)
 
 
 @app.route('/getCurrentUser', methods=['POST'])

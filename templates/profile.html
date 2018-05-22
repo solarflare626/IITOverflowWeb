@@ -88,7 +88,7 @@
 
 
                                 <div class="FollowedQuestionsContainer">
-                                    {% for question in followed_questions %}
+                                    {% for question in followed_questions|reverse %}
                                     <div class="profile-contentCenter">
                                         <div class="profilePostPictureCont">
                                             <img class="profilePostPicture" src="../static/image/google.png">
@@ -106,8 +106,8 @@
                                         <div class="profilePostButton">
                                             <a href="#" class="glyphicon glyphicon-pencil"></a>
                                             <a href="#" class="glyphicon glyphicon-comment"></a>
-                                            <a href="#" class="glyphicon glyphicon-thumbs-up"></a>
-                                            <a href="#" class="glyphicon glyphicon-thumbs-down"></a>
+                                            <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up"></a>
+                                            <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down"></a>
                                             <a href="#" class="profilePostFollowButton">Unfollow</a>
                                         </div>
 
@@ -285,7 +285,7 @@
         <div class="modal_close close"></div>
         <div class="modal_main">
             <img src="/static/images/ic.png" class="close" style="height: 20px; width: 20px; margin-top:13px;left:96%;position:fixed;">
-            <form class="form form-vertical" action="http://iitoverflow.herokuapp.com/api/users/4/updatePofile" method="post" enctype="multipart/form-data">
+            <form class="form form-vertical" action="http://iitoverflow.herokuapp.com/api/users/{{curuser}}/updatePofile" method="post" enctype="multipart/form-data">
 
 
                 <div class="kv-avatar">
@@ -322,6 +322,7 @@
     <!--<script src="../static/js/app2.js"></script>-->
 </body>
 <script type="text/javascript">
+
     $(document).ready(function() {
         $(".profile-contentCenter").show('slow');
         $(".FollowersContainer").hide();
@@ -558,6 +559,74 @@
         category_contain.appendChild(btn);
         $(this).remove();
     });
+</script>
+
+<script>
+     function upvote(qid) {
+            console.log(qid);
+            $.ajax({
+                type: 'HEAD',
+                async: true,
+                url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsupvoted/rel/'+qid,
+                success: function(message) {
+                    console.log("Already upvoted!");
+                },
+                error: function(message) {
+                    if (message.status == 404) {
+                        $.ajax({
+                            type: "PUT",
+                            async: true,
+                            url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsupvoted/rel/'+qid,
+                            success: function(message) {
+                               $.ajax({
+                                   type: "DELETE",
+                                   async: true,
+                                   url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsdownvoted/rel/'+qid,
+                                   success: function() {
+                                       console.log("Sucessful deleted downvote after upvote!");
+                                   }
+                               });
+                               console.log("Upvoted question!");
+
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        function downvote(qid) {
+            console.log(qid);
+            $.ajax({
+                type: 'HEAD',
+                async: true,
+                url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsdownvoted/rel/'+qid,
+                success: function(message) {
+                    console.log("Already downvoted!");
+                },
+                error: function(message) {
+                    if (message.status == 404) {
+                        $.ajax({
+                            type: "PUT",
+                            async: true,
+                            url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsdownvoted/rel/'+qid,
+                            success: function(message) {
+                                $.ajax({
+                                   type: "DELETE",
+                                   async: true,
+                                   url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsupvoted/rel/'+qid,
+                                   success: function() {
+                                       console.log("Sucessful deleted upvote after downvote!");
+                                   }
+                               });
+                                console.log("Downvoted question!");
+
+                            }
+                        });
+                    }
+                }
+            });
+        }
 </script>
 
 </html>
