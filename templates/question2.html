@@ -35,144 +35,172 @@
 
 
 <body>
-    <div class="fullpage">
 
 
 
-        <div class="section">
-            <div class="landing">
-                <div class="newsfeed-nav-container">
-                    <div class="newsfeed-nav">
-                        <div class="newsfeed-search">
 
-                            <button class="newsfeed-searchbutton" type="submit">
+
+
+    <div class="newsfeed-nav-container">
+        <div class="newsfeed-nav">
+            <div class="newsfeed-search">
+
+                <button class="newsfeed-searchbutton" type="submit">
                             <span class="glyphicon glyphicon-search">
                         </button>
-                            <input class="newsfeed-searchbar" type="text" placeholder="Search..">
+                <input class="newsfeed-searchbar" type="text" placeholder="Search..">
 
-                        </div>
-                        <div class="newsfeed-pages">
+            </div>
+            <div class="newsfeed-pages">
 
-                            <a href="{{ url_for('.question') }}"><span class="glyphicon glyphicon-home"></span>  Home</a>
-                            <a href="{{ url_for('.profile', id = curuser) }}"><span class="glyphicon glyphicon-user"></span>  Profile</a>
-                            <a href=""><span class="glyphicon glyphicon-bell"></span>  Notifications</a>
-                            <a href="" onclick="signOut();return false;"><span class="glyphicon glyphicon-asterisk"></span> Logout</a>
+                <a href="{{ url_for('.question') }}" class="homeButton"><span class="glyphicon glyphicon-home"></span>  Home</a>
+                <a href="{{ url_for('.profile', id = curuser) }}"><span class="glyphicon glyphicon-user"></span>  Profile</a>
+                <a class="Notificationbutton"><span class="glyphicon glyphicon-bell"></span>  Notifications</a>
+                <a href="" onclick="signOut();return false;"><span class="glyphicon glyphicon-asterisk"></span> Logout</a>
 
-                        </div>
-                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="contentLeft">
+        <div class="links">
+            <div class="profilepicture">
+                <img class="backgroundpic" src="../static/image/background1.jpg">
+                <div class="picture">
+                    <img class="profileimage" src="{{ user.picture }}"> </div>
+            </div>
+            <div class="emailinfo">
+                <div class="namecont">
+                    <a href="#">
+                        <h3>{{ user.displayname }}
+                            <br> </h3>
+                    </a>
                 </div>
-                <div class="contentLeft">
-                    <div class="links">
-
-                        <div class="profilepicture">
-                            <img class="backgroundpic" src="../static/image/background1.jpg">
-                            <div class="picture">
-                                <img class="profileimage" src="{{ user.picture }}"> </div>
-                        </div>
-                        <div class="emailinfo">
-                            <div class="namecont">
-                                <a href="#">
-                                    <h3>{{ user.displayname }}
-                                        <br> </h3>
-                                </a>
-                            </div>
-                            <div class="emailcont">
-                                <a>
-                                    <h6>{{ user.email }}</h6>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="followerscont">
-                            <a>
-                                <h3>Followers</h3>
-                            </a>
-                        </div>
-                        <div class="followingcont">
-                            <a>
-                                <h3>Following</h3>
-                            </a>
-                        </div>
-
-                        <div class="followerscount">
-                            <a>
-                                <h3>1.5m</h3>
-                            </a>
-                        </div>
-                        <div class="followingcount">
-                            <a>
-                                <h3>10</h3>
-                            </a>
-                        </div>
-
-
-
-                    </div>
-                    <div class="links0">
-
-                    </div>
+                <div class="emailcont">
+                    <a>
+                        <h6>{{ user.email }}</h6>
+                    </a>
                 </div>
+            </div>
 
 
-                <div class="contentCenter" id="contentCenter">
-                    <div class="askquestion" id="newpost">
-                        <div class="askbuttons">
-                            <input type="submit" value="Ask Something" class="Askbutton">
+
+
+
+
+        </div>
+        <div class="whotofollowcont">
+            <h4>Who to Follow</h4>
+            <div class="whotoFollow">
+                <div class="picture1">
+                    <img class="profileimage" src="{{ user.picture }}">
+                </div>
+                <div class="whotoFollowName">
+                    <a>Iris Ebale</a>
+                    <a>@Iris.Ebale@g.msuiit.edu.ph</a>
+
+                </div>
+                <a class="whotofollowButton">Follow</a>
+            </div>
+            <div class="whotoFollow">
+                <div class="picture1">
+                    <img class="profileimage" src="{{ user.picture }}">
+                </div>
+                <div class="whotoFollowName">
+                    <a>Iris Ebale</a>
+                    <a>@Iris.Ebale@g.msuiit.edu.ph</a>
+
+                </div>
+                <a class="whotofollowButton">Follow</a>
+
+            </div>
+            <div class="whotoFollow">
+                <div class="picture1">
+                    <img class="profileimage" src="{{ user.picture }}">
+                </div>
+                <div class="whotoFollowName">
+                    <a>Iris Ebale</a>
+                    <a>@Iris.Ebale@g.msuiit.edu.ph</a>
+
+                </div>
+                <a class="whotofollowButton">Follow</a>
+            </div>
+            <a>
+                <h4>See all</h4>
+            </a>
+
+
+
+        </div>
+
+    </div>
+
+
+
+    <div class="contentCenter" id="contentCenter">
+        <div class="askquestion" id="newpost">
+            <div class="askbuttons">
+                <input type="submit" value="Ask Something" class="Askbutton">
+            </div>
+            <input placeholder="Add title here..." class="titlearea" type="textarea" name="title" id="title" />
+            <form id="form1">
+                <textarea name="textarea" id="textarea" placeholder="Ask Something"></textarea>
+                <script>
+                    CKEDITOR.replace('textarea');
+                </script>
+            </form>
+            <div id="tags-container" style="margin: 20px;">
+                <input id="tagsID" type="text" name="tagsarea" class="tagsarea" />
+            </div>
+
+            <div class="popupwrapper">
+
+                <div class="popup"><button class="categorybutton" id="myBtn"><b>Category :</b></button></div>
+            </div>
+            <div style="text-align: center; width: 100%;">
+                <button id="submitbutton3" class="submitbutton3">Submit</button>
+            </div>
+        </div>
+
+        <div id="toReload">
+
+            <div id="newsfeedParent">
+
+                {% for i in questions|reverse %}
+
+
+                <div id={{ "newqedit_{0}".format(i.id)}} style="display: block;" class="newdiv">
+
+                    <button class="btn btn-danger" id={{ "duplicate_{0}".format(i.id)}} style="display: none;">DUPLICATE</button>
+
+                    <div class="titlepost">
+
+                        <div class="titlepostpicture"><img src="{{ i.user.picture }}"></div>
+                        <h4 class="titlepostname">{{ i.user.displayname }}</h4>
+
+                        <div class=" editanddeleteButtonCont">
+                            <i onclick="showhide( {{i.id}})" class="fa fa-edit Newsfeed-editButton" title="Edit"></i>
+                            <i id={{i.id}} class="fas fa-trash-alt qheart" title="Delete"></i>
+                            <i onclick="showhide1({{i.id}})" class="fas fa-copy duplicate" title="Mark As Duplicate"></i>
+
                         </div>
-                        <input placeholder="Add title here..." class="titlearea" type="textarea" name="title" id="title" />
-                        <form id="form1">
-                            <textarea name="textarea" id="textarea" placeholder="Ask Something"></textarea>
-                            <script>
-                                CKEDITOR.replace('textarea');
-                            </script>
-                        </form>
-                        <div id="tags-container" style="margin: 20px;">
-                            <input id="tagsID" type="text" name="tagsarea" class="tagsarea" />
-                        </div>
-
-                        <div class="popupwrapper">
-
-                            <div class="popup"><button class="categorybutton" id="myBtn"><b>Category :</b></button></div>
-                        </div>
-                        <button id="submitbutton3" style="border-radius: 10; background-color: aquamarine; color: white;">SUBMIT</button>
-                    </div>
-
-                    <div id="toReload">
-
-                        <div id="newsfeedParent">
-
-                            {% for i in questions|reverse %}
 
 
-                            <div id={{ "newqedit_{0}".format(i.id)}} style="display: block;" class="newdiv">
-
-                                <button class="btn btn-danger" id={{ "duplicate_{0}".format(i.id)}} style="display: none;">DUPLICATE</button>
-
-                                <div class="titlepost">
-
-                                    <div class="titlepostpicture"><img src="{{ i.user.picture }}"></div>
-                                    <h4 class="titlepostname">{{ i.user.displayname }}</h4>
-
-                                    <div class=" editanddeleteButtonCont">
-                                        <i onclick="showhide( {{i.id}})" class="fa fa-edit Newsfeed-editButton" title="Edit"></i>
-                                        <i id={{i.id}} class="fas fa-trash-alt qheart" title="Delete"></i>
-                                        <i onclick="showhide1({{i.id}})" class="fas fa-copy duplicate" title="Mark As Duplicate"></i>
-
-                                    </div>
-
-
-                                    <h5 class="titlepostTitle">Title: {{i.question|safe}}</h5>
-
-
-
-                                </div>
-                                <div class="descriptionpost">Description: {{i.questiondesc|safe}}
                                     <div></div>
                                 </div>
-                                <div class="categorypost">Category: {{i.category.name}}
-                                    <div></div>
-                                </div>
-                                <div class="tagspost">Tags: {% for tag in i.tags %} {{tag.name}} {% endfor %}
+                                <div class="newpostbuttons"><button id="{{ i.id }}" name="{{ i.userId }}" class="follow followbutton">
+
+                        <h5 class="titlepostTitle">Title: {{i.question|safe}}</h5>
+
+
+
+                    </div>
+                    <div class="descriptionpost">Description: {{i.questiondesc|safe}}
+                        <div></div>
+                    </div>
+                    <div class="categorypost">Category: {{i.name}}
+                        <div></div>
+                    </div>
+                    <div class="tagspost">Tags: {% for tag in i.tags %} {{tag.name}} {% endfor %}
 
                                     <div></div>
                                 </div>
@@ -183,45 +211,45 @@
                                   </button><button class="commentbutton">Comment</button><button class="answerbutton" id="{{i.id}}">Answer</button><button title="Upvote" style="color: #1abc9c;" class="votebutton glyphicon glyphicon-thumbs-up"></button><button title="Downvote" style="color: #e74c3c;" class="votebutton glyphicon glyphicon-thumbs-down"></button></div>
 
 
-                                <div id={{ "toReloadAnswer_{0}".format(i.id)}}>
+                    <div id={{ "toReloadAnswer_{0}".format(i.id)}}>
 
 
-                                    {% for answer in i.answers|reverse %}
+                        {% for answer in i.answers|reverse %}
 
-                                    <div class="comments-container">
-                                        <ul id="comments-list" class="comments-list">
-                                            <li>
-                                                <div class="comment-main-level">
-                                                    <!-- Avatar 
+                        <div class="comments-container">
+                            <ul id="comments-list" class="comments-list">
+                                <li>
+                                    <div class="comment-main-level">
+                                        <!-- Avatar 
                     <div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></div>
                     Contenedor del Comentario -->
-                                                    <div class="comment-box">
-                                                        <div class="comment-head">
-                                                            <h6 class="comment-name by-author">
-                                                                </a>
-                                                            </h6>
-                                                            <span>Posted on: {{ answer.createdAt }}</span>
-                                                            <i id={{answer.id}} class="fa fa-reply edit"></i>
-                                                            <i id={{answer.id}} class="fa fa-heart heart"></i>
-                                                        </div>
-                                                        <div class="comment-content">
-                                                            {{ answer.answer|safe }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </li>
-
-                                            <li>
-
-                                            </li>
-                                        </ul>
+                                        <div class="comment-box">
+                                            <div class="comment-head">
+                                                <h6 class="comment-name by-author">
+                                                    </a>
+                                                </h6>
+                                                <span>Posted on: {{ answer.createdAt }}</span>
+                                                <i id={{answer.id}} class="fa fa-reply edit"></i>
+                                                <i id={{answer.id}} class="fa fa-heart heart"></i>
+                                            </div>
+                                            <div class="comment-content">
+                                                {{ answer.answer|safe }}
+                                            </div>
+                                        </div>
                                     </div>
 
+                                </li>
+
+                                <li>
+
+                                </li>
+                            </ul>
+                        </div>
 
 
 
-                                    <!--    <ul class="comments-list reply-list">
+
+                        <!--    <ul class="comments-list reply-list">
 
     {% for comment in i.answers.comments|reverse %}
    <li>
@@ -251,140 +279,194 @@
 
 
 
-                                    <div class="newpostinput" id={{answer.id}}><input class="commenttextarea" placeholder="Write a Comment">
-                                        <div></div>
+                        <div class="newpostinput" id={{answer.id}}><input class="commenttextarea" placeholder="Write a Comment">
+                            <div></div>
 
-
-                                    </div>
-
-                                    <!-- <h2>   {{answer.answer}} </h2> -->
-
-
-
-                                    {% endfor %}
-
-
-                                </div>
-
-                                <!-- TOEDIT -->
-
-
-                                <div class="answerdiv">
-
-
-                                    <textarea class="answertextarea" id={{ "answer_{0}".format(i.id) }} placeholder="Write an Answer"> </textarea>
-
-
-
-
-
-                                    <input class="submitanswerbutton" id={{i.id}} value=submit type="button">
-
-
-
-
-                                    <div></div>
-                                </div>
-
-
-                            </div>
-
-
-
-
-
-                            <!-- EDIT MODE -->
-
-                            <div style="display: none;" id={{ "qedit_{0}".format(i.id)}} class="newdivEdit">
-
-
-                                <form id="form2">
-
-                                    <i onclick="showhide({{i.id}})" class="fa fa-reply"></i>
-                                    <i id={{i.id}} class="fa fa-heart qheart"></i>
-
-
-
-
-
-                                    <input class="editQuestionTitle" type="text" id="titleedit" value={{i.question}}>
-
-                                    <input class="editTitleDescription" type="text" id="descedit" value={{i.questiondesc}}>
-
-                                    <div style="margin: 20px;">
-
-                                        {% for tag in i.tags %}
-
-                                        <input id="tagsIDedit" type="text" name="tagsarea" value={{tag.name}} class="tagsarea" /> {% endfor %}
-                                    </div>
-
-
-                                    <div class="newsfeedPopUpButton-Cont">
-
-                                        <a id={{i.id}} class="submitbutton5" type="submit">Save</a>
-                                        <a onclick="showhide({{i.id}})">Cancel</a>
-
-                                        <!--                    <a id={{i.id}} class="submitbutton5" type="submit" >Save</a>
-                         <a class="submitbutton5" onclick="showhide({{i.id}})" >Cancel</a> -->
-                                    </div>
-                                </form>
-
-
-
-
-                            </div>
-
-                            <!-- EDIT MODE END -->
-
-
-
-
-                            {% endfor %}
 
                         </div>
 
+                        <!-- <h2>   {{answer.answer}} </h2> -->
+
+
+
+                        {% endfor %}
+
+
                     </div>
 
+                    <!-- TOEDIT -->
+
+
+                    <div class="answerdiv">
+
+
+                        <textarea class="answertextarea" id={{ "answer_{0}".format(i.id) }} placeholder="Write an Answer"> </textarea>
+
+
+
+
+
+                        <input class="submitanswerbutton" id={{i.id}} value=submit type="button">
+
+
+
+
+                        <div></div>
+                    </div>
+
+
                 </div>
 
+
+
+
+
+                <!-- EDIT MODE -->
+
+                <div style="display: none;" id={{ "qedit_{0}".format(i.id)}} class="newdivEdit">
+
+
+                    <form id="form2">
+
+                        <i onclick="showhide({{i.id}})" class="fa fa-reply"></i>
+                        <i id={{i.id}} class="fa fa-heart qheart"></i>
+
+
+
+
+
+                        <input class="editQuestionTitle" type="text" id="titleedit" value={{i.question}}>
+
+                        <input class="editTitleDescription" type="text" id="descedit" value={{i.questiondesc}}>
+
+                        <div style="margin: 20px;">
+
+                            {% for tag in i.tags %}
+
+                            <input id="tagsIDedit" type="text" name="tagsarea" value={{tag.name}} class="tagsarea" /> {% endfor %}
+                        </div>
+
+
+                        <div class="newsfeedPopUpButton-Cont">
+
+                            <a id={{i.id}} class="submitbutton5" type="submit">Save</a>
+                            <a onclick="showhide({{i.id}})">Cancel</a>
+
+                            <!--                    <a id={{i.id}} class="submitbutton5" type="submit" >Save</a>
+                         <a class="submitbutton5" onclick="showhide({{i.id}})" >Cancel</a> -->
+                        </div>
+                    </form>
+
+
+
+
+                </div>
+
+                <!-- EDIT MODE END -->
+
+
+
+
+                {% endfor %}
+
             </div>
+
         </div>
 
-        <div class="contentRight">
-            <div class="links2">
+    </div>
 
+    </div>
+    </div>
+
+    <div class="contentRight">
+        <div class="links2">
+            <h3>LeaderBoard</h3>
+            <hr>
+            <div class="whotoFollow1">
+                <div class="picture1">
+                    <img class="profileimage" src="{{ user.picture }}">
+                </div>
+                <div class="whotoFollowName">
+                    <a>Iris Ebale</a>
+                    <a>@Iris.Ebale@g.msuiit.edu.ph</a>
+
+                </div>
+                <a class="whotofollowButton">Follow</a>
+                <a class="voteScore">Top 1 with 100 upvotes</a>
             </div>
-            <div class="links3">
+            <div class="whotoFollow1">
+                <div class="picture1">
+                    <img class="profileimage" src="{{ user.picture }}">
+                </div>
+                <div class="whotoFollowName">
+                    <a>Iris Ebale</a>
+                    <a>@Iris.Ebale@g.msuiit.edu.ph</a>
 
-
-
+                </div>
+                <a class="whotofollowButton">Follow</a>
+                <a class="voteScore">Top 2 with 99 upvotes</a>
             </div>
+            <div class="whotoFollow1">
+                <div class="picture1">
+                    <img class="profileimage" src="{{ user.picture }}">
+                </div>
+                <div class="whotoFollowName">
+                    <a>Iris Ebale</a>
+                    <a>@Iris.Ebale@g.msuiit.edu.ph</a>
+
+                </div>
+                <a class="whotofollowButton">Follow</a>
+                <a class="voteScore">Top 3 with 98 upvotes</a>
+            </div>
+
         </div>
-        <div id="postQuestionModal" class="modal" style="z-index: 2000;">
-            <div class="modal-content" style="width: 40%; border-radius: 0px; margin-top: 5%; margin-left: 28.5%; padding: 0px;">
-                <div class="askbuttons" style="text-align: left;">
-                    <input type="submit" value="Ask Something" class="Askbutton">
-                </div>
-                <input placeholder="Add title here..." class="titlearea" type="textarea" name="title" id="title" />
-                <form id="form1">
-                    <textarea name="textarea" id="textarea" placeholder="Ask Something"></textarea>
-                    <script>
-                        CKEDITOR.replace('textarea');
-                    </script>
+        <div class="links3">
+            <h3>Related Links</h3>
+            <hr>
+            <a class="links3Linkstitle"><span class="glyphicon glyphicon-link"></span> of Neural Network Error Measures for
+                    Simulation of Slender Marine Structures</a>
+            <a class="links3Linkstitle"><span class="glyphicon glyphicon-link"></span> of Neural Network Error Measures for
+                        Simulation of Slender Marine Structures</a>
+            <a class="links3Linkstitle"><span class="glyphicon glyphicon-link"></span> of Neural Network Error Measures for
+                            Simulation of Slender Marine Structures</a>
+            <a class="links3Linkstitle"><span class="glyphicon glyphicon-link"></span> of Neural Network Error Measures for
+                                Simulation of Slender Marine Structures</a>
 
-                </form>
-                <div style="margin: 20px;">
-                    <input id="tagsID" type="text" name="tagsarea" class="tagsarea" />
-                </div>
 
-                <div class="popupwrapper">
 
-                    <div class="popup"><button class="categorybutton" id="myBtn"><b>Category :</b></button></div>
-                </div>
+
+        </div>
+    </div>
+    <div id="postQuestionModal" class="modal" style="z-index: 2000;">
+        <div class="modal-content" style="width: 40%; border-radius: 0px; margin-top: 5%; margin-left: 28.5%; padding: 0px;">
+            <div class="askbuttons" style="text-align: left;">
+                <input type="submit" value="Ask Something" class="Askbutton">
+            </div>
+            <input placeholder="Add title here..." class="titlearea" type="textarea" name="title" id="title" />
+            <form id="form1">
+                <textarea name="textarea" id="textarea" placeholder="Ask Something"></textarea>
+                <script>
+                    CKEDITOR.replace('textarea');
+                </script>
+
+            </form>
+            <div style="margin: 20px;">
+                <input id="tagsID" type="text" name="tagsarea" class="tagsarea" />
+            </div>
+
+            <div class="popupwrapper">
+
+                <div class="popup"><button class="categorybutton" id="myBtn"><b>Category :</b></button></div>
             </div>
         </div>
     </div>
     </div>
+
+    <div class="notificationContainer">
+        <p>Hello noh?
+
+        </p>
+
     </div>
 
     <div id="myModal" class="modal">
@@ -412,6 +494,12 @@
 
 
 <script>
+    $(".Notificationbutton").click(function() {
+        $(".notificationContainer").fadeIn('slow');
+        $("#post").fadeIn('slow');
+
+    });
+
     $("#submitbutton3").click(function() {
 
 
@@ -1188,19 +1276,22 @@
     });
 
     function showhide(id) {
-
-
-
         var div = document.getElementById("qedit_" + id);
         var div1 = document.getElementById("newqedit_" + id);
         if (div.style.display !== "none") {
             div.style.display = "none";
             div1.style.display = "block";
             $("#hider").fadeOut("slow");
+            $("#post").fadeOut('slow');
+            $("#form2").css("z-index", "9998");
+            $("#newpost").css("z-index", "10001");
         } else {
             div.style.display = "block";
-            div1.style.display = "none";
+            div1.style.display = "block";
             $("#hider").fadeIn('slow');
+            $("#post").fadeIn('slow');
+            $("#form2").css("z-index", "10003");
+            $("#newpost").css("z-index", "9999");
 
         }
 
