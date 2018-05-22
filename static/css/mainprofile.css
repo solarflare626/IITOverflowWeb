@@ -245,6 +245,27 @@ html {
     border-bottom: 2px solid #4AB3F4;
 }
 
+.messageprofile {
+    background-color: white;
+    border: 2px solid #5F7189;
+    color: #5F7189;
+    width: 12%;
+    height: 35px;
+    border-radius: 30px;
+    outline: none;
+    text-decoration: none;
+    padding: 5px;
+}
+
+.messageprofile:hover {
+    background-color: white;
+    color: #4AB3F4;
+    border-right: 2px solid #4AB3F4;
+    border-left: 2px solid #4AB3F4;
+    border-top: 2px solid #4AB3F4;
+    border-bottom: 2px solid #4AB3F4;
+}
+
 .profilepictureContainer {
     margin-top: 100px;
     width: 220px;
