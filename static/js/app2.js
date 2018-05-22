@@ -10,19 +10,7 @@ $(document).ready(function() {
             });
         });
     });
-    $('.glyphicon-thumbs-up, .glyphicon-thumbs-down').click(function(){
-        var $this = $(this),
-        c = $this.data('count');
-        if (!c) c = 0;
-        c++;
-        $this.data('count',c);
-        $('#'+this.id+'-bs3').html(c);
 });
-});
-$(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
-        event.preventDefault();
-        $(this).ekkoLightbox();
-    });
 
 $(".follow").on("click", function() {
     var $this = $(this);
@@ -110,24 +98,25 @@ function checker2(id,u_id){
 
 
 
-$('#autocomplete').autocomplete({
-    source: function(request, response) {
-        $.ajax({
-            url: "http://iitoverflow.herokuapp.com/api/Questions?filter[where][question][ilike]=%" + request.term + "%",
-            type: "GET",
-            dataType: "json",
-            success: function(data) {
-                response($.map(data, function(item) {
-                    return {
-                        label: item.question,
-                        value: item.id
-                    }
-                }));
-            }
-        });
-    }
+    $('#autocomplete').autocomplete({
+                source: function (request, response) {
+                    var test = encodeURIComponent(request.term);
+                    $.ajax({
+                        url: "http://iitoverflow.herokuapp.com/api/Questions?filter[where][question][ilike]=%25"+test+"%25",
+                        type: "GET",
+                        dataType: "json",
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    label: item.question,
+                                    value: item.question
+                                }
+                            }));
+                        }
+                    });
+                }
 
-});
+            });
 
 function onSignIn(googleUser) {
     var id_token = googleUser.getAuthResponse().id_token;
