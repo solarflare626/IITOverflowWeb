@@ -46,9 +46,9 @@
             <div class="newsfeed-search">
 
                 <button class="newsfeed-searchbutton" type="submit">
-                            <span class="glyphicon glyphicon-search">
+                    <span class="glyphicon glyphicon-search"></span>
                         </button>
-                <input class="newsfeed-searchbar" type="text" placeholder="Search..">
+                <input id="autocomplete" class="newsfeed-searchbar" type="text" placeholder="Search..">
 
             </div>
             <div class="newsfeed-pages">
@@ -184,11 +184,6 @@
 
                         </div>
 
-
-                                    <div></div>
-                                </div>
-                                <div class="newpostbuttons"><button id="{{ i.id }}" name="{{ i.userId }}" class="follow followbutton">
-
                         <h5 class="titlepostTitle">Title: {{i.question|safe}}</h5>
 
 
@@ -208,7 +203,7 @@
                                     <span class="msg-follow">Follow</span>
                                     <span class="msg-following">Following</span>
                                     <span class="msg-unfollow">Unfollow</span>
-                                  </button><button class="commentbutton">Comment</button><button class="answerbutton" id="{{i.id}}">Answer</button><button title="Upvote" style="color: #1abc9c;" class="votebutton glyphicon glyphicon-thumbs-up"></button><button title="Downvote" style="color: #e74c3c;" class="votebutton glyphicon glyphicon-thumbs-down"></button></div>
+                                  </button><button class="commentbutton">Comment</button><button class="answerbutton" id="{{i.id}}">Answer</button><button onclick="upvote({{ i.id }})" title="Upvote" style="color: #1abc9c;" class="votebutton glyphicon glyphicon-thumbs-up">{{ i.upvotesCount-i.downvotesCount }}</button><button onclick="downvote({{ i.id }})" title="Downvote" style="color: #e74c3c;" class="votebutton glyphicon glyphicon-thumbs-down"></button></div>
 
 
                     <div id={{ "toReloadAnswer_{0}".format(i.id)}}>
@@ -484,6 +479,7 @@
     <div class="hider" id="hider" style="height: 100vh;"> </div>
     <div id="post"></div>
     <script src="../static/js/app2.js"></script>
+    <script src="../static/js/app3.js"></script>
 </body>
 <script src="../static/js/jquery-3.3.1.min.js"></script>
 <script src="//code.jquery.com/jquery-1.9.1.js"></script>
