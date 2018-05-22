@@ -81,6 +81,10 @@ def question():
         curuser = str(session['user'])
         url = 'http://iitoverflow.herokuapp.com/api/Questions?filter={"counts":["upvotes","downvotes"],"include":[{"relation": "user"},{"relation": "answers", "scope":{"include": {"relation": "user"}}}, {"relation":"category"}, {"relation": "tags"}]}'
 
+        followable = 'http://iitoverflow.herokuapp.com/api/users/'+curuser+'/followable'
+
+        response3 =  requests.get(followable)
+        followableusers = response3.json()
 
         url2 = 'http://iitoverflow.herokuapp.com/api/Categories'
         response = requests.get(url2)
@@ -97,7 +101,7 @@ def question():
 
         url1 = 'http://iitoverflow.herokuapp.com/api/Answers?filter[include]=user'
         html1 = urlopen(url1).read().decode('utf-8')
-        answers = json.loads(html1)
+        answers = json.loads(html1) 
 
         url5 = 'http://iitoverflow.herokuapp.com/api/Tags'
         html5 = urlopen(url5).read().decode('utf-8')
@@ -106,8 +110,10 @@ def question():
         newlist = []
         for i in tag_list:
             newlist.append(i['name'])
+        
+      
 
-    return render_template('question2.html', curuser =curuser,user=user, tag_list=newlist, questions=questions, answers=answers, categories=categories)
+    return render_template('question2.html', curuser =curuser,user=user, tag_list=newlist, questions=questions, answers=answers, categories=categories, followableusers=followableusers)
 
 @app.route('/profile/<int:id>', methods=['GET', 'POST'])
 def profile(id):
@@ -215,7 +221,7 @@ def add_cors(resp):
                                                                              
     # set low for debugging
 
-    if app.debug:
+    if app.debug: 
         resp.headers["Access-Control-Max-Age"] = '1'
     return resp
 

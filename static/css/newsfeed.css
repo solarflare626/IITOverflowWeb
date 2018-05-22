@@ -6,6 +6,7 @@
     font-size: 100%;
     vertical-align: baseline;
     background: transparent;
+    font-family: Poppins-Regular, sans-serif;
 }
 
 body {
@@ -13,7 +14,8 @@ body {
     overflow-x: hidden;
     min-width: 800px;
     min-height: 100%;
-    font-family: Poppins-Regular;
+    background-color: #D1D1D1;
+    font-family: Poppins-Regular, sans-serif;
 }
 
 html {
@@ -37,13 +39,14 @@ html {
     margin-bottom: 20px;
     height: 5px;
     color: black;
-    border: 1px solid #D1D1D1;
     display: block;
+    border: 1px solid #707070;
     border-radius: 20px;
+    background-color: white;
 }
 
 .titlearea:focus {
-    border-color: #1CB4F1;
+    border-color: #AA3939;
 }
 
 .categorycontainer {
@@ -166,8 +169,12 @@ html {
     box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.5);
 }
 
+.duplicatebutton {
+    margin-left: 40%;
+}
+
 .newsfeed-pages {
-    width: 50%;
+    width: 60%;
     height: inherit;
     margin-right: 10%;
     float: right;
@@ -188,7 +195,7 @@ html {
 }
 
 .newsfeed-nav a:hover {
-    color: #4AB3F4;
+    color: #AA3939;
     text-decoration: none;
 }
 
@@ -211,11 +218,11 @@ html {
 
 .newsfeed-searchbutton:hover {
     background-color: white;
-    color: #4AB3F4;
-    border-right: 2px solid #4AB3F4;
-    border-left: 2px solid #4AB3F4;
-    border-top: 2px solid #4AB3F4;
-    border-bottom: 2px solid #4AB3F4;
+    color: #AA3939;
+    border-right: 2px solid #AA3939;
+    border-left: 2px solid #AA3939;
+    border-top: 2px solid #AA3939;
+    border-bottom: 2px solid #AA3939;
 }
 
 .newsfeed-search {
@@ -241,7 +248,7 @@ html {
 }
 
 .newsfeed-searchbar:focus {
-    border: 2px solid #4AB3F4;
+    border: 2px solid #AA3939;
     background-color: white;
 }
 
@@ -251,7 +258,7 @@ html {
 }
 
 .contentLeft {
-    height: 600px;
+    height: 800px;
     width: 20%;
     min-width: 18%;
     float: left;
@@ -304,7 +311,7 @@ html {
     float: left;
     position: absolute;
     margin-top: 5px;
-    margin-left: 10px;
+    margin-left: 7px;
     padding: 0;
     display: block;
 }
@@ -407,7 +414,7 @@ html {
     padding-right: 0;
     padding-top: 0px;
     width: 100%;
-    height: 40%;
+    height: 30%;
     background-color: white;
     box-shadow: 0 4px 5px -5px rgba(0, 0, 0, 0.8);
     font-family: Poppins-Regular, sans-serif;
@@ -416,12 +423,13 @@ html {
 .whotofollowcont {
     padding: 10px;
     width: 100%;
-    height: 60%;
+    height: 40%;
     background-color: white;
     box-shadow: 0 4px 5px -5px rgba(0, 0, 0, 0.8);
     font-family: Poppins-Regular, sans-serif;
     text-align: center;
     clear: both;
+    overflow-y: scroll;
 }
 
 .whotofollowcont h4 {
@@ -435,6 +443,16 @@ html {
     border-bottom: 1px solid #D1D1D1;
     text-overflow: ellipsis;
     padding-bottom: 10px;
+    color: #555;
+}
+
+.whotoFollowName a {
+    color: #555;
+}
+
+.whotoFollow:hover {
+    background-color: rgb(221, 109, 109, 0.1);
+    color: white;
 }
 
 .whotoFollow1 {
@@ -443,10 +461,16 @@ html {
     border-bottom: 1px solid #D1D1D1;
     text-overflow: ellipsis;
     padding-bottom: 10px;
+    color: #555;
+}
+
+.whotoFollow1:hover {
+    background-color: rgb(221, 109, 109, 0.1);
+    color: white;
 }
 
 .whotofollowButton {
-    border: 1px solid #D1D1D1;
+    border: 1px solid white;
     padding-top: 5px;
     padding-bottom: 5px;
     padding-right: 10px;
@@ -458,8 +482,9 @@ html {
 }
 
 .whotofollowButton:hover {
-    background-color: #4AB3F4;
-    color: white;
+    background-color: white;
+    color: #801515;
+    border: 1px solid #801515;
 }
 
 .whotofollowButton:hover {
@@ -467,7 +492,7 @@ html {
 }
 
 .whotoFollowName {
-    margin-left: 25%;
+    margin-left: 23%;
     margin-top: 15px;
     display: inline-block;
     width: 50%;
@@ -605,23 +630,34 @@ html {
     text-align: center;
     border: 1px solid #DDDFE2;
     color: white;
-    background-color: #1CB4F1;
+    background-color: rgb(169, 58, 58, 0.9);
     width: 80%;
     height: 30px;
     border-radius: 10px;
 }
 
+.submitbutton3:hover {
+    border: 1px solid rgb(169, 58, 58);
+    background-color: white;
+    color: rgb(169, 58, 58);
+    ;
+}
+
 .askbuttons {
     padding: 0 0 3px 0;
     border: 1px solid #DDDFE2;
-    color: top: 0;
+    color: white;
+    top: 0;
     left: 0;
     right: 0;
     margin: 0;
     width: 100%;
     height: 35px;
-    background-color: white;
-    color: #66757F;
+    background: linear-gradient(to right, #D46A6A, #801515);
+}
+
+.askbuttons h5 {
+    color: white;
 }
 
 .Askbutton {
@@ -652,6 +688,10 @@ html {
     width: 100%;
     margin-top: 0px;
     text-align: left;
+}
+
+.titlepost i {
+    font-size: 15px;
 }
 
 .titlepostTitle {
@@ -691,7 +731,7 @@ html {
 .titlepost:hover {
     background-color: #F5F8FA;
     width: 100%;
-    color: #4AB3F4;
+    color: #801515;
 }
 
 .commenttextarea {
@@ -717,7 +757,7 @@ html {
 
 .descriptionpost:hover {
     background-color: #F5F8FA;
-    color: #4AB3F4;
+    color: #801515;
     width: 100%;
     padding-left: 10%;
 }
@@ -725,7 +765,7 @@ html {
 .categorypost:hover {
     background-color: #F5F8FA;
     width: 100%;
-    color: #4AB3F4;
+    color: #801515;
 }
 
 .linediv {
@@ -768,7 +808,7 @@ html {
     background-color: #F5F8FA;
     font-size: 12px;
     width: 100%;
-    color: #4AB3F4;
+    color: #801515;
 }
 
 .categorypost {
@@ -789,12 +829,12 @@ html {
 
 .answerbutton:hover {
     border-radius: 5px;
-    background-color: #E8F5FD;
+    background: linear-gradient(to right, #D46A6A, #801515);
     height: 100%;
     font-size: 13px;
     padding-top: 0;
-    color: #4AB3F4;
-    border: 1px solid #4AB3F4;
+    color: white;
+    border: 1px solid #801515;
 }
 
 .votebutton {
@@ -807,12 +847,12 @@ html {
 
 .votebutton:hover {
     border-radius: 5px;
-    background-color: #E8F5FD;
+    background: linear-gradient(to right, #D46A6A, #801515);
     height: 100%;
     font-size: 13px;
     padding-top: 0;
-    color: #4AB3F4;
-    border: 1px solid #4AB3F4;
+    color: white;
+    border: 1px solid #801515;
 }
 
 .followbutton {
@@ -824,12 +864,12 @@ html {
 
 .followbutton:hover {
     border-radius: 5px;
-    background-color: #E8F5FD;
+    background: linear-gradient(to right, #D46A6A, #801515);
     height: 100%;
     font-size: 13px;
     padding-top: 0;
-    color: #4AB3F4;
-    border: 1px solid #4AB3F4;
+    color: white;
+    border: 1px solid #801515;
 }
 
 .commentbutton {
@@ -841,12 +881,12 @@ html {
 
 .commentbutton:hover {
     border-radius: 5px;
-    background-color: #E8F5FD;
+    background: linear-gradient(to right, #D46A6A, #801515);
     height: 100%;
     font-size: 13px;
     padding-top: 0;
-    color: #4AB3F4;
-    border: 1px solid #4AB3F4;
+    color: white;
+    border: 1px solid #801515;
 }
 
 .answerdiv {
@@ -858,7 +898,7 @@ html {
     background-color: white;
     color: white;
     border: 0 solid #000;
-    background-color: #4AB3F4;
+    background-color: #801515;
     border-left: 1px solid white;
     border-right: 1px solid white;
     border-top: 1px solid white;
@@ -876,12 +916,12 @@ html {
     background-color: white;
     border-width: 2px;
     border-color: white;
-    color: #4AB3F4;
+    color: #66757F;
     outline: none;
-    border-left: 1px solid #4AB3F4;
-    border-right: 1px solid #4AB3F4;
-    border-top: 1px solid #4AB3F4;
-    border-bottom: 1px solid #4AB3F4;
+    border-left: 1px solid #801515;
+    border-right: 1px solid #801515;
+    border-top: 1px solid #801515;
+    border-bottom: 1px solid #801515;
     border-radius: 100px;
     font-size: 15px;
     padding: 8px;
@@ -1031,7 +1071,7 @@ html {
     color: rgb(105, 101, 101);
 }
 
-.links3Linkstitle: hover {
+.links3Linkstitle:hover {
     color: #5686E8;
 }
 
@@ -1138,6 +1178,50 @@ p {
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s
+}
+
+
+/* The container <div> - needed to position the dropdown content */
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+
+/* Dropdown Content (Hidden by Default) */
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+
+/* Links inside the dropdown */
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+
+/* Change color of dropdown links on hover */
+
+.dropdown-content a:hover {
+    background-color: #ddd
+}
+
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+
+.show {
+    display: block;
 }
 
 
@@ -1340,8 +1424,8 @@ p {
 .editTitleDescription {
     font-size: 13px;
     padding: 5px;
-    width: 100%;
-    margin-top: 0px;
+    width: 80%;
+    margin-left: 10%;
     display: inline-block;
 }
 
