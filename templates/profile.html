@@ -417,12 +417,12 @@
                 console.log("profile ", data2);
                 $("#dispn").text(data2.displayname);
 
-                //if (file.length > 0)
+                if (file.length > 0)
                     if (formdata) {
                         formdata.append("file", file[0]);
                         console.log("formdata", formdata);
                         $.ajax({
-                            url: "http://iitoverflow.herokuapp.com/api/users/20/updateProfile",
+                            url: "http://iitoverflow.herokuapp.com/api/users/{{curuser}}/updateProfile",
                             type: "POST",
                             data: formdata,
                             processData: false,
