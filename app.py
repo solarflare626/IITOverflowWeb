@@ -117,23 +117,26 @@ def profile(id):
         val5 = json_object1['answersCount']
         val6 = json_object1['questionsfollowedCount']
         val7 = json_object1['questionsCount']
-        val8 = json_object1['interestsCount']
+        val8 = json_object1['interests']
 
         url = ('http://iitoverflow.herokuapp.com/api/users/'+user +'/answers?filter[include]=user&filter[include]=question')
-        response = requests.get(url)
+        response = requests.get(url) 
         answered_questions = response.json()
 
         url = ('http://iitoverflow.herokuapp.com/api/users/'+user +
             '/questionsfollowed?filter={"include":{"relation":"user"}}')
         response = requests.get(url)
         followed_questions = response.json()
-
+        
         url = ('http://iitoverflow.herokuapp.com/api/users/'+user +
             '/answers?filter[include]=user&filter[include]=question')
         response = requests.get(url)
         answered_questions = response.json()
 
-        return render_template('profile.html', json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6, questions=val7, interests=val8, answered_questions=answered_questions, curuser=curuser)
+        categories = requests.get('http://iitoverflow.herokuapp.com/api/Categories')
+        categories = categories.json()
+
+        return render_template('profile.html', categories=categories,json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6, questions=val7, interests=val8, answered_questions=answered_questions, curuser=curuser)
     else:
         followurl = ('http://iitoverflow.herokuapp.com/api/users/'+curuser+ '/following/rel/'+user+'')
         response = requests.head(followurl)

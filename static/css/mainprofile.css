@@ -55,6 +55,20 @@ html {
     padding-right: 3px;
 }
 
+.interestbuttons {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 2px;
+    padding: 2px;
+}
+
+.categorybuttons {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 2px;
+    padding: 2px;
+}
+
 .profile-searchbutton:hover {
     background-color: white;
     color: #4AB3F4;

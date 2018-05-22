@@ -66,17 +66,16 @@
                         </div>
                         <div class="CenterLeftRightCont">
                             <div class="profile-contentLeft">
-                                <div class="profile-bioInfo">
 
-                                    <h4 id="dispn"> {{ json_object['displayname'] }} </h4>
-                                    <hr style: "border-width:2px;">
-                                    <a class="profilePostEmail"> {{json_object.email}} </a>
-                                </div>
+                                <h4>Bio info here</h4>
+                                <p id="dispn"> {{ json_object['displayname'] }} </p>
+                                <a class="profilePostEmail"> {{json_object.email}} </a>
+
                                 <div class="profile-linksInterest">
-                                    <h4>Interests</h4>
-                                    <hr style="border-width: 2px;">
+                                    <h4> Interests</h4>
                                     <br> {% for interest in json_object1.interests %}
-                                    <a> {{interest.name}} </a> {% endfor %}
+                                    <h5 id="int"> {{interest.name}} </h5>
+                                    {% endfor %}
 
                                 </div>
 
@@ -291,29 +290,36 @@
 
                 <div class="kv-avatar">
                     <div class="file-loading">
-                        <input id="avatar-1" name="file" type="file" required>
+                        <input id="avatar-1" name="file" type="file">
                     </div>
                 </div>
 
 
 
                 <hr>
-                <input type="text" id="dispName" value="{{ json_object['displayname'] }}" placeholder="Displayname">
+                <label>Display name: </label><input type="text" id="dispName" value="{{ json_object['displayname'] }}" placeholder="Displayname">
+                    <br>
+                <div id="interest-contain" style="width: 47%; float: left; overflow-y: auto; height: 40%;">
+                    <h5>Interests: </h5>
+                    {% for i in interests%}
+                    <button value="{{i.id}}" type="button" class="interestbuttons">{{ i.name }}</button>
+                    {% endfor %}
+                </div>
+                <div id="category-contain" style="width: 47%; float: left; overflow-y: auto; height: 40%;">
+                    <h5>Categories: </h5>
+                    {% for c in categories%} {% if c not in interests %}
+                    <button value="{{c.id}}" type="button" class="categorybuttons">{{ c.name }}</button>
+                    {% endif %}{% endfor %}
+                </div>
 
-
-
-
-                <br>
-                <button type="submit" id="submitProfile" tyle="margin-left: 40%" class="submitEditbutton">Submit</button>
-
-
-
+                <br><br>
+                <button type="submit" id="submitProfile" style="margin-left: -10%" class="submitEditbutton">Submit</button>
 
             </form>
 
         </div>
     </div>
-    <script src="../static/js/app2.js"></script>
+    <!--<script src="../static/js/app2.js"></script>-->
 </body>
 <script type="text/javascript">
     $(document).ready(function() {
@@ -385,21 +391,24 @@
             $(".modal_main").fadeOut();
         });
     });
+    
     $("#submitProfile").on("click", function(e) {
         e.preventDefault();
-        // formdata = new FormData(); 
-        var formdata = new FormData();
-        //var index = 0;
-        //var dispn = document.getElementById('dispn');   
+        var formdata = new FormData(); 
         var file = $('#avatar-1').prop('files');
         console.log(file);
         var name = $("#dispName").val();
+        var names = $("#inter").val();
         var user = {
-            "displayname": name
+            "displayname": name,
+            "interests": names
         };
+
+       
+        
         console.log(JSON.stringify(user));
         $.ajax({
-            url: "http://iitoverflow.herokuapp.com/api/users/1",
+            url: "http://iitoverflow.herokuapp.com/api/users/{{ curuser }}",
             type: "PATCH",
             data: JSON.stringify(user),
             dataType: "JSON",
@@ -407,21 +416,55 @@
             success: function(data2) {
                 console.log("profile ", data2);
                 $("#dispn").text(data2.displayname);
-                if (file.length > 0)
+
+                //if (file.length > 0)
                     if (formdata) {
                         formdata.append("file", file[0]);
-                        console.log(formdata);
+                        console.log("formdata", formdata);
                         $.ajax({
-                            url: "http://iitoverflow.herokuapp.com/api/users/4/updateProfile",
+                            url: "http://iitoverflow.herokuapp.com/api/users/20/updateProfile",
                             type: "POST",
                             data: formdata,
                             processData: false,
                             contentType: false,
                             success: function(data) {
-                                console.log("profile ", data.picture);
-                                console.log("profile ", data.picture);
+                                //console.log("profile ", data.picture);
+                                //console.log("profile ", data.picture);
+                                console.log("TEST 1");
                                 $("#profPic").attr("src", data.picture);
                                 $("#modalProf").hide();
+                            },
+                            error: function(err) {
+                                console.log("profile error :", err);
+                            }
+                        });
+                        var userId = {{curuser}};
+                        console.log("TEST 2: User Id: ", {{curuser}});
+                        $.ajax({
+                            url: "http://iitoverflow.herokuapp.com/api/users/"+userId+"/interests",
+                            type: "DELETE",
+                            data: JSON.stringify(user),
+                            dataType: "json",
+                            success: function (data3) {
+                                console.log("interests are deleted")
+                                interests.forEach(function(cat){
+                                    console.log(cat);
+                                    $.ajax({
+                                    url: "http://iitoverflow.herokuapp.com/api/users/"+userId+"/interests/rel/"+cat,
+                                    type: "PUT",
+                                    data: JSON.stringify(user),
+                                    dataType: "json",
+                                    success: function (data3) {
+                                        console.log("TEST 3");
+                                        console.log("Success!");
+                                        $("#int").text(data3.interests);
+
+                                    },
+                                    error: function(err) {
+                                        console.log("profile error :", err);
+                                    }
+                                    });
+                                });
                             },
                             error: function(err) {
                                 console.log("profile error :", err);
@@ -473,5 +516,48 @@
     });
 </script>
 
+<script type="text/javascript">
+    var interests = [];
+    {% for i in interests %}
+        var id = {{i.id}};
+        id = id.toString();
+        interests.push(id);
+    {% endfor %}
+
+    var interests_contain= document.getElementById("interest-contain");
+    var category_contain = document.getElementById("category-contain");
+    $(document).on('click', '.categorybuttons', function() {
+        var categoryname = $(this).text();
+        var categoryid = $(this).val();
+        var text = document.createTextNode(categoryname);
+        var btn = document.createElement("button");
+        btn.setAttribute("class", "interestbuttons");
+        btn.setAttribute("value", $(this).val());
+        btn.appendChild(text);
+        interests_contain.appendChild(btn);
+        interests.push(categoryid);
+        $(this).remove();
+        console.log(interests);
+    });
+
+    $(document).on('click', '.interestbuttons', function() {
+        var id = $(this).val();
+        var index = interests.indexOf(id);
+        // alert("Index in interests: " + index);
+        if (index > -1) {
+            interests.splice(index, 1);
+        }
+        // alert("List of ids: " + interests);
+        categoryname = $(this).text();
+        categoryid = $(this).val();
+        text = document.createTextNode(categoryname);
+        btn = document.createElement("button");
+        btn.setAttribute("class", "categorybuttons");
+        btn.setAttribute("value", categoryid);
+        btn.appendChild(text);
+        category_contain.appendChild(btn);
+        $(this).remove();
+    });
+</script>
 
 </html>
