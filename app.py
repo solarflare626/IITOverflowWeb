@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request, session, render_template, url_for, redirect
 import flask
 import requests
+import urllib.parse
 from urllib.request import urlopen
 import json
 import os, sys
@@ -21,7 +22,6 @@ def fillup():
     response = requests.get(url)
 
     if response.status_code == 200:
-        print("test")
         return redirect(url_for('question'))
     else:
         if request.method == 'POST':
@@ -79,7 +79,7 @@ def question():
         return render_template('landingpage2.html')
     else:
         curuser = str(session['user'])
-        url = 'http://iitoverflow.herokuapp.com/api/Questions?filter={"include":[{"relation": "user"},{"relation": "answers", "scope":{"include": {"relation": "user"}}}, {"relation":"category"}, {"relation": "tags"}]}'
+        url = 'http://iitoverflow.herokuapp.com/api/Questions?filter={"counts":["upvotes","downvotes"],"include":[{"relation": "user"},{"relation": "answers", "scope":{"include": {"relation": "user"}}}, {"relation":"category"}, {"relation": "tags"}]}'
 
 
         url2 = 'http://iitoverflow.herokuapp.com/api/Categories'
@@ -193,6 +193,15 @@ def tagsQ(id):
 
     return render_template('specifictags.html', questions= categorylist['questions'])
 
+
+@app.route('/search', methods=['POST'])
+def searchres():
+    searchbar = request.form['searchbar']
+    test = urllib.parse.quote_plus(searchbar)
+    url = ("http://iitoverflow.herokuapp.com/api/Questions?filter[where][question][ilike]=%25"+test+"%25")
+    response = requests.get(url)
+    searched = response.json()
+    return render_template('search.html', searched=searched)
 
 
 @app.after_request
