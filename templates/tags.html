@@ -10,6 +10,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
     <link href="../static/css/fontawesome-all.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="../static/css/bootstrap.css" rel="stylesheet">
     <link href="../static/css/tags.css" rel="stylesheet">
     <title>Tags</title>
@@ -18,33 +19,33 @@
 
 <body>
     <div class="tags-fullpage">
-        <div class="tags-section">
-            <div class="tags-landing">
-                <div class="tags-nav">
-                    <input id="autocomplete" class="searchbar" type="text" placeholder="Search..">
-                    <button class="searchbutton" type="submit"><i>Go!</i></button>
-                    <div class="tags-pages">
 
-                        <a href="newsfeed">Home</a>
-                        <a href="profile">Profile</a>
-                        <a href="#">Notifications</a>
-                        <a href="landing">Logout</a>
-                    </div>
-                </div>
-                <div class="tags-alltagscontainer">
-                    {% for c in category %}
-                    <div class="categorytagsCont">
-                        <a type="submit" class="categoryname">{{ c.name }}</a> {% for t in c.tags %}
-                        <a type="submit" href="/tagsQ/{{t.id}}" class="tagsname">{{ t.name }}</a> {% endfor %}
-                    </div>
-                    {% endfor %}
+        <div class="tags-nav">
+            <input id="autocomplete" class="searchbar" type="text" placeholder="Search..">
+            <button class="searchbutton" type="submit"><i>Go!</i></button>
+            <div class="tags-pages">
 
-                </div>
-                <div>
-
-                </div>
+                <a href="" class="homeButton"><span class="glyphicon glyphicon-home"></span>  Home</a>
+                <a href=""><span class="glyphicon glyphicon-user"></span> Profile</a>
+                <a href="tags"><span class="glyphicon glyphicon-tags"> Tags</a>
+                <a class="Notificationbutton"><span class="glyphicon glyphicon-bell"></span> Notifications</a>
+                <a href=""><span class="glyphicon glyphicon-asterisk"></span> Logout</a>
             </div>
         </div>
+        <div class="tags-alltagscontainer">
+            {% for c in category %}
+            <div class="categorytagsCont">
+                <a type="submit" class="categoryname">{{ c.name }}</a> {% for t in c.tags %}
+                <a type="submit" href="/tagsQ/{{t.id}}" class="tagsname">{{ t.name }}</a> {% endfor %}
+            </div>
+            {% endfor %}
+
+        </div>
+        <div>
+
+        </div>
+
+
     </div>
 
 

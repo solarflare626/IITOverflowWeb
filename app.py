@@ -79,7 +79,7 @@ def question():
         return render_template('landingpage2.html')
     else:
         curuser = str(session['user'])
-        url = 'http://iitoverflow.herokuapp.com/api/Questions?filter={"include":[{"relation": "user"},{"relation": "answers", "scope":{"include": {"relation": "user"}}}, {"relation":"category"}, {"relation": "tags"}]}'
+        url = 'http://iitoverflow.herokuapp.com/api/Questions?filter={"include":[{"relation": "user"},{"relation": "answers", "scope":{"include": [{"relation": "user"},{"relation":"comments"}]}}, {"relation":"category"}, {"relation": "tags"}]}'
 
         followable = 'http://iitoverflow.herokuapp.com/api/users/'+curuser+'/followable'
 

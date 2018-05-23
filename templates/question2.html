@@ -48,6 +48,7 @@
 
                 <a href="{{ url_for('.question') }}" class="homeButton"><span class="glyphicon glyphicon-home"></span>  Home</a>
                 <a href="{{ url_for('.profile', id = curuser) }}"><span class="glyphicon glyphicon-user"></span> Profile</a>
+                <a href="tags"><span class="glyphicon glyphicon-tags"></span> Tags</a>
                 <a class="Notificationbutton"><span class="glyphicon glyphicon-bell"></span> Notifications</a>
                 <a href="" onclick="signOut();return false;"><span class="glyphicon glyphicon-asterisk"></span> Logout</a>
 
@@ -73,6 +74,11 @@
                         <h6>{{ user.email }}</h6>
                     </a>
                 </div>
+            </div>
+            <div class="followunfollowCont">
+
+                <a class="newsfeed-followbutton">Followers</a>
+                <a class="newsfeed-followingbutton">Following</a>
             </div>
 
 
@@ -153,9 +159,9 @@
                         <h4 class="titlepostname">{{ i.user.displayname }}</h4>
 
                         <div class=" editanddeleteButtonCont">
-                            <i onclick="showhide( {{i.id}})" class="fa fa-edit Newsfeed-editButton" title="Edit"></i>
-                            <i id={{i.id}} class="fas fa-trash-alt qheart" title="Delete"></i>
-                            <i onclick="showhide1({{i.id}})" class="fas fa-copy duplicate" title="Mark As Duplicate"></i>
+                            <i onclick="showhide('{{i.id}}')" class="fa fa-edit Newsfeed-editButton" title="Edit"></i>
+                            <i onclick="showhide('{{i.id}}')" class="fas fa-trash-alt qheart" title="Delete"></i>
+                            <i onclick="showhide1('{{i.id}}')" class="fas fa-copy duplicate" title="Mark As Duplicate"></i>
 
                         </div>
 
@@ -188,12 +194,12 @@
                         {% for answer in i.answers|reverse %}
 
                         <div class="comments-container">
+                            <hr>
+                            <hr>
                             <ul id="comments-list" class="comments-list">
                                 <li>
                                     <div class="comment-main-level">
-                                        <!-- Avatar 
-                    <div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></div>
-                    Contenedor del Comentario -->
+
                                         <div class="comment-box">
                                             <div class="comment-head">
                                                 <h6 class="comment-name by-author">
@@ -215,55 +221,65 @@
 
                                 </li>
                             </ul>
-                        </div>
 
 
 
 
-                        <!--    <ul class="comments-list reply-list">
 
-    {% for comment in i.answers.comments|reverse %}
-   <li>
+                            <ul class="comments-list reply-list">
 
 
-                   
-                        <div class="comment-avatar"><img src="https://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></div>
-                        <div class="comment-box">
-                            <div class="comment-head">
-                                <h6 class="comment-name by-author"><a href="http://creaticode.com/blog">{{comment.user.name}}</a></h6>
-                                <span>Posted: {{comment.createdAt}} </span>
-                                <i class="fa fa-reply"></i>
-                                <i class="fa fa-heart"></i>
+                                <!-- COMMENT -->
+
+                                {% for comment in answer.comments|reverse %}
+                                <hr>
+                                <li>
+
+
+
+                                    <div class="comment-avatar"></div>
+                                    <div class="comment-box">
+                                        <div class="comment-head">
+                                            <h6 class="comment-name by-author">
+                                                <a href="http://creaticode.com/blog"></a>
+                                            </h6>
+                                            <span>Posted: {{comment.createdAt}} </span>
+                                            <i class="fa fa-reply"></i>
+                                            <i class="fa fa-heart"></i>
+                                        </div>
+                                        <div class="comment-content">
+                                            {{comment.comment}}
+                                        </div>
+                                    </div>
+
+
+
+                                </li>
+
+                                {% endfor %}
+
+
+                            </ul>
+
+
+
+                            <div class="newpostinput" id={{answer.id}}>
+                                <input type='text' class="commenttextarea" id={{ "comment_{0}".format(answer.id) }} placeholder="Write a Comment">
+                                <div>
+                                </div>
                             </div>
-                            <div class="comment-content">
-                                {{comment.comment}}
-                            </div>
-                        </div>
 
-
-
-    </li>
-
-        {% endfor %}
-
-        </ul> -->
-
-
-
-                        <div class="newpostinput" id={{answer.id}}><input class="commenttextarea" placeholder="Write a Comment">
-                            <div></div>
+                            <!-- <h2>   {{answer.answer}} </h2> -->
 
 
                         </div>
-
-                        <!-- <h2>   {{answer.answer}} </h2> -->
-
-
-
                         {% endfor %}
+
+                        <!-- COMMENT -->
 
 
                     </div>
+
 
                     <!-- TOEDIT -->
 
@@ -282,7 +298,7 @@
 
 
 
-                        <div></div>
+
                     </div>
 
 
@@ -292,50 +308,67 @@
 
 
 
+
+
+
                 <!-- EDIT MODE -->
 
                 <div style="display: none;" id={{ "qedit_{0}".format(i.id)}} class="newdivEdit">
 
+                    <div class="form2container">
+                        <form id="form2">
 
-                    <form id="form2">
-
-
-
-
-                        {% for i in questions %}
-                        <h5>Title</h5>
-                        <input class="editQuestionTitle" type="text" id="titleedit" value="{{i.question}}">
-                        <h5>Description</h5>
-                        <textarea style="border: 1px solid black;" class="editTitleDescription" type="text" id="descedit" placeholder="{{i.questiondesc}}"></textarea> {% endfor %}
-
-                        <h5>Tags</h5>
-                        <input id="tagsIDedit" type="text" name="tagsarea" value="{% for tag in i.tags %}{{tag.name+" "}}{% endfor %}" class="tagsarea" />
+                            <i onclick="showhide('{{i.id}}')" class="fa fa-reply"></i>
+                            <i id={{i.id}} class="fa fa-heart qheart"></i>
 
 
 
-                        <div class="newsfeedPopUpButton-Cont">
 
-                            <a id={{i.id}} class="submitbutton5" type="submit">Save</a>
-                            <a onclick="showhide({{i.id}})">Cancel</a>
+                            <h5>Title</h5>
+                            <input class="editQuestionTitle" type="text" id="titleedit" value="{{i.question}}">
+                            <h5>Description</h5>
+                            <textarea style="border: 1px solid black; height:200px; font-size:14pt;" rows="9" type="text" class="editTitleDescription" id="descedit">{{i.questiondesc}}</textarea>
 
-                            <!--                    <a id={{i.id}} class="submitbutton5" type="submit" >Save</a>
-                         <a class="submitbutton5" onclick="showhide({{i.id}})" >Cancel</a> -->
-                        </div>
-                    </form>
 
+                            <h5>Tags</h5>
+                            <input id="tagsIDedit" type="text" name="tagsarea" value=" {% for tag in i.tags %} {{tag.name}} {% endfor %}" class="tagsarea" />
+
+
+
+                            <div class="newsfeedPopUpButton-Cont">
+
+                                <a id={{i.id}} class="submitbutton5" type="submit">Save</a>
+                                <a onclick="showhide({{i.id}})">Cancel</a>
+
+
+                                <!--                    <a id={{i.id}} class="submitbutton5" type="submit" >Save</a>
+                                 <a class="submitbutton5" onclick="showhide({{i.id}})" >Cancel</a> -->
+                            </div>
+                        </form>
+                    </div>
 
 
 
                 </div>
+
 
                 <!-- EDIT MODE END -->
 
 
 
 
-                {% endfor %}
 
+
+
+
+
+
+
+
+                {% endfor %}
             </div>
+
+
 
         </div>
 
@@ -1037,6 +1070,53 @@
 
 
     <script>
+        $('input[type=text]').on('keydown', function(e) {
+
+            if (e.which == 13) {
+                e.preventDefault();
+
+                var a = $(this).attr('id');
+                alert(a)
+                var aid = a.split("_").pop()
+
+                alert(aid);
+                var comment = $('#' + a).val();
+                console.log(comment);
+
+                //COMMENT
+                var data = {
+                    "comment": comment,
+                    "answerId": aid,
+                    "userId": "{{curuser}}"
+                }
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://iitoverflow.herokuapp.com/api/Answers/" + aid + "/comments",
+                    data: JSON.stringify(data),
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function(result) {
+                        alert('ok');
+                        $('#toReload').load(location.href + ' #toReload')
+                            //alert('reloaded');
+                    },
+                    error: function(result) {
+                        alert(result);
+                    }
+                });
+
+                //COMMENT
+
+
+            }
+        });
+
+
+
+
+
         $('.submitanswerbutton').click(function() {
 
             var qid = $(this).attr('id');
@@ -1050,7 +1130,7 @@
             var data = {
                 "answer": answer,
                 "questionId": qid,
-                "userId": 1
+                "userId": "{{curuser}}"
             }
 
             $.ajax({
@@ -1233,6 +1313,7 @@
             if (div.style.display !== "none") {
                 div.style.display = "none";
                 div1.style.display = "block";
+
                 $("#hider").fadeOut("slow");
                 $("#post").fadeOut('slow');
                 $("#form2").css("z-index", "9998");
@@ -1246,6 +1327,7 @@
                 $("#newpost").css("z-index", "9999");
 
             }
+
 
         }
 
@@ -1266,31 +1348,6 @@
 
 
     <script>
-        // Get the modal
-        var modal = document.getElementById('myModal');
-
-        // Get the button that opens the modal
-        var btn = document.getElementById("myBtn");
-
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
-
-        // When the user clicks on the button, open the modal
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
     </script>
     <script>
         $('.answerbutton').click(function() {

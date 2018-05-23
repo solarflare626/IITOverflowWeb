@@ -11,46 +11,132 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
     <link href="../static/css/fontawesome-all.css" rel="stylesheet">
     <link href="../static/css/bootstrap.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="../static/css/tags1.css" rel="stylesheet">
     <title>Tags</title>
 
 </head>
 
 <body>
-    <div class="tags-fullpage">
-        <div class="tags-section">
-            <div class="tags-landing">
-                <div class="tags-nav">
-                    <input id="autocomplete" class="searchbar" type="text" placeholder="Search..">
-                    <button class="searchbutton" type="submit"><i>Go!</i></button>
-                    <div class="tags-pages">
 
-                        <a href="newsfeed">Home</a>
-                        <a href="profile">Profile</a>
-                        <a href="#">Notifications</a>
-                        <a href="landing">Logout</a>
-                    </div>
-                </div>
-                <div class="specificTagQuestions">
 
-                    {% for i in questions %}
-                    <div class="specificTagsDiv">
-                        <h3>Title:{{i.question | safe}}</h3>
-                        <p>Description:{{i.questiondesc |safe}}</p>
-                        {% for x in answers %}
-                        <h4>Answers: {{x.answer | safe}}</h4>
-                        {% endfor %} {% for y in comments %}
-                        <h4> Comments: {{y.comment | safe}} </h4>
-                        {% endfor %}
-                    </div>
-                    {% endfor %}
-                </div>
-                <div>
+    <div class="tags-nav">
+        <input id="autocomplete" class="searchbar" type="text" placeholder="Search..">
+        <button class="searchbutton" type="submit"><i>Go!</i></button>
+        <div class="tags-pages">
 
-                </div>
-            </div>
+            <a href="newsfeed">Home</a>
+            <a href="profile">Profile</a>
+            <a href="#">Notifications</a>
+            <a href="landing">Logout</a>
         </div>
+    </div>
+    <div class="specificTagQuestions">
+
+        {% for i in questions %}
+        <div class="specificTagsDiv">
+
+            <h4>Title:{{i.question | safe}}</h4>
+            <p>Description:{{i.questiondesc |safe}}</p>
+            <div class="specitifictagsButtons">
+                <a type="button">Follow</a>
+                <a type="button" id="myBtn1">Answer</a>
+                <a type="button" id="myBtn">Comment</a>
+                <a type="button">Upvote</a>
+            </div>{% for x in answers %}
+            <h5>Answers: {{x.answer | safe}}</h5>
+            {% endfor %} {% for y in comments %}
+            <h5> Comments: {{y.comment | safe}} </h5>
+            {% endfor %}
+        </div>
+        {% endfor %} {% for i in questions %}
+        <div class="specificTagsDiv">
+            <h4>Title:{{i.question | safe}}</h4>
+            <p>Description:{{i.questiondesc |safe}}</p>
+            <div class="specitifictagsButtons">
+                <a type="button">Follow</a>
+                <a type="button">Answer</a>
+                <a type="button">Comment</a>
+                <a type="button">Upvote</a>
+            </div>
+            {% for x in answers %}
+            <h5>Answers: {{x.answer | safe}}</h5>
+            {% endfor %} {% for y in comments %}
+            <h5> Comments: {{y.comment | safe}} </h5>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+    <div>
+
     </div>
 
 
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+
+        <!-- Modal content -->
+        <div class="modal-content" style="width: 40%; text-align: center;">
+            <span class="close" style="display: none;">&times;</span>
+            <input type="textarea" placeholder="Enter comment here" style="border-radius: 10px; outline: none; height: 30px; margin-bottom: 5px;">
+            <a type="submit" style=" margin-left: 70%; border: 1px solid black; border-radius: 10px; padding:5px 10px 5px 10px; margin-top: 10px; width: 30%; display: inline-block;">Submit</a>
+        </div>
+
+    </div>
+    <!-- The Modal -->
+    <div id="myModal1" class="modal">
+
+
+        <!-- Modal content -->
+        <div class="modal-content1" style="width: 40%; text-align: center;">
+            <span class="close" style="display: none;">&times;</span>
+            <input type="textarea" placeholder="Enter answer here" style="border-radius: 10px; outline: none; height: 30px; margin-bottom: 5px;">
+            <a type="submit" style=" margin-left: 70%; border: 1px solid black; border-radius: 10px; padding:5px 10px 5px 10px; margin-top: 10px; width: 30%; display: inline-block;">Submit</a>
+        </div>
+
+    </div>
+
 </body>
+<script>
+    // Get the modal
+    var modal = document.getElementById('myModal');
+    var modal1 = document.getElementById('myModal1');
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+    var btn1 = document.getElementById("myBtn1");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal 
+    btn.onclick = function() {
+        modal.style.display = "block";
+
+
+    }
+    btn1.onclick = function() {
+
+        modal1.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+        modal1.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+
+
+
+        } else {
+            modal1.style.display = "none";
+        }
+    }
+</script>
