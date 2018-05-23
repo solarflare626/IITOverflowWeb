@@ -6,12 +6,13 @@ $(document).ready(function() {
         $.when(getCurrentUser()).done(function(e) {
             $('.followbutton').each(function() {
                 checker(this.id);
+                checker2(this.id,this.name)
             });
         });
     });
 });
 
-$('button').click(function() {
+$(".follow").on("click", function() {
     var $this = $(this);
     $this.toggleClass('following')
     if ($this.is('.following')) {
@@ -59,10 +60,10 @@ function unfollow(id) {
             console.log("error")
         }
     });
-
 }
 
 function checker(id) {
+
     $.ajax({
         type: "HEAD",
         url: "http://iitoverflow.herokuapp.com/api/users/" + currentUser + "/questionsfollowed/rel/" + id + "",
@@ -83,25 +84,11 @@ function checker(id) {
 
 }
 
-
-$('#autocomplete').autocomplete({
-    source: function(request, response) {
-        $.ajax({
-            url: "http://iitoverflow.herokuapp.com/api/Questions?filter[where][question][ilike]=%" + request.term + "%",
-            type: "GET",
-            dataType: "json",
-            success: function(data) {
-                response($.map(data, function(item) {
-                    return {
-                        label: item.question,
-                        value: item.id
-                    }
-                }));
-            }
-        });
+function checker2(id,u_id){
+        if (currentUser == u_id) {
+        $("#" + id + ".followbutton").prop( "disabled", true );
     }
-
-});
+}
 
 function onSignIn(googleUser) {
     var id_token = googleUser.getAuthResponse().id_token;
@@ -109,11 +96,12 @@ function onSignIn(googleUser) {
 }
 
 
-
 function signOut() {
+
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.disconnect();
     auth2.signOut().then(function() {
+
         $.ajax({
             url: "http://localhost:5000/logout",
             dataType: "json",

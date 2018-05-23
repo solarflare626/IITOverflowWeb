@@ -16,10 +16,21 @@
     <!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">-->
     <link href="../static/css/fontawesome-all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="../static/js/jquery-3.3.1.min.js"></script>
 
+    <!--this script are from the buttom of </body> it fixed minor issues -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../static/js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="../static/js/jquery-3.3.1.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+    <!--this script are need for logout -->
     <meta name="google-signin-scope" content="">
     <meta name="google-signin-client_id" content="976545483152-3u1fctn90tf0qvjevud1hkfu3jdneog0.apps.googleusercontent.com">
     <meta name="google-signin-client_secret" content="dhayVHWZ-OsnjdQO47qZXhOD">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 
     <!--<script src="../static/ckeditor/ckeditor.js"></script>-->
     <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
@@ -28,20 +39,14 @@
 
 
 <body>
-
-
-
-
-
-
     <div class="newsfeed-nav-container">
         <div class="newsfeed-nav">
             <div class="newsfeed-search">
 
                 <button class="newsfeed-searchbutton" type="submit">
-                            <span class="glyphicon glyphicon-search">
+                    <span class="glyphicon glyphicon-search"></span>
                         </button>
-                <input class="newsfeed-searchbar" type="text" placeholder="Search..">
+                <input id="autocomplete" class="newsfeed-searchbar" type="text" placeholder="Search..">
 
             </div>
             <div class="newsfeed-pages">
@@ -165,7 +170,6 @@
 
                         </div>
 
-
                         <h5 class="titlepostTitle">Title: {{i.question|safe}}</h5>
 
 
@@ -179,13 +183,13 @@
                     </div>
                     <div class="tagspost">Tags: {% for tag in i.tags %} {{tag.name}} {% endfor %}
 
-                        <div></div>
-                    </div>
-                    <div class="newpostbuttons"><button id="{{ i.id }}" class="follow followbutton">
+                                    <div></div>
+                                </div>
+                                <div class="newpostbuttons"><button id="{{ i.id }}" name="{{ i.userId }}" class="follow followbutton">
                                     <span class="msg-follow">Follow</span>
                                     <span class="msg-following">Following</span>
                                     <span class="msg-unfollow">Unfollow</span>
-                                  </button><button class="votebutton">Vote</button><button><button class="commentbutton">Comment</button><button class="answerbutton" id="{{i.id}}">Answer</button></div>
+                                  </button><button class="commentbutton">Comment</button><button class="answerbutton" id="{{i.id}}">Answer</button><button onclick="upvote({{ i.id }})" title="Upvote" style="color: #1abc9c;" class="votebutton glyphicon glyphicon-thumbs-up">{{ i.upvotesCount-i.downvotesCount }}</button><button onclick="downvote({{ i.id }})" title="Downvote" style="color: #e74c3c;" class="votebutton glyphicon glyphicon-thumbs-down"></button></div>
 
 
                     <div id={{ "toReloadAnswer_{0}".format(i.id)}}>
@@ -476,12 +480,12 @@
     <div class="hider" id="hider" style="height: 100vh;"> </div>
     <div id="post"></div>
     <script src="../static/js/app2.js"></script>
-    <script src="../static/js/jquery-3.3.1.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="../static/js/app3.js"></script>
+    <script src="../static/js/autocompleteJS.js"></script>
     <script src="../static/js/jQuery-tagEditor-master/jquery.tag-editor.min.js"></script>
     <script src="../static/js/jQuery-tagEditor-master/jquery.caret.min.js"></script>
+</body>
+
 
 
     <script>
@@ -1361,14 +1365,5 @@
             $('.commenttextarea').focus();
         });
     </script>
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="../static/js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-    <script src="../static/js/jQuery-tagEditor-master/jquery.tag-editor.min.js"></script>
-    <script src="../static/js/jQuery-tagEditor-master/jquery.caret.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    <!--<link rel="stylesheet" href="../static/css/new.css">-->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-
-</body>
+  <!--<link rel="stylesheet" href="../static/css/new.css">-->
+</html>
