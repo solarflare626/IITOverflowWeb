@@ -23,17 +23,26 @@
 <body>
 
 
-    <div class="tags-nav">
-        <input id="autocomplete" class="searchbar" type="text" placeholder="Search..">
-        <button class="searchbutton" type="submit"><i>Go!</i></button>
-        <div class="tags-pages">
+    <div class="newsfeed-nav">
+        <div class="newsfeed-search">
 
-            <a href="newsfeed">Home</a>
-            <a href="profile">Profile</a>
-            <a href="#">Notifications</a>
-            <a href="landing">Logout</a>
+            <button class="newsfeed-searchbutton" type="submit">
+                        <span class="glyphicon glyphicon-search"></span>
+                            </button>
+            <input id="autocomplete" class="newsfeed-searchbar" type="text" placeholder="Search..">
+
+        </div>
+        <div class="newsfeed-pages">
+
+            <a href="{{ url_for('.question') }}" class="homeButton"><span class="glyphicon glyphicon-home"></span>  Home</a>
+            <a href="{{ url_for('.profile', id = curuser) }}"><span class="glyphicon glyphicon-user"></span> Profile</a>
+            <a href="tags"><span class="glyphicon glyphicon-tags"></span> Tags</a>
+            <a class="Notificationbutton"><span class="glyphicon glyphicon-bell"></span> Notifications</a>
+            <a href="" onclick="signOut();return false;"><span class="glyphicon glyphicon-asterisk"></span> Logout</a>
+
         </div>
     </div>
+
     <div class="specificTagQuestions">
 
 
@@ -349,7 +358,270 @@
 
 <!-- PHILLIP -->
 
+
+
+
+
 <script>
+    $(".qheart").on('click', function() {
+        console.log($(this));
+        var qdelbutton = $(this).attr('id');
+
+
+
+        //alert(qdelbutton)
+        $.ajax({
+            type: "DELETE",
+            url: "http://iitoverflow.herokuapp.com/api/Questions/" + qdelbutton,
+            success: function(result) {
+                //alert('ok');
+
+
+            },
+            error: function(result) {
+                //alert(result);
+            }
+        });
+
+
+
+
+    })
+
+
+    $(".submitbutton5").click(function() {
+
+
+        var qid = $(this).attr('id');
+        var editorText = CKEDITOR.instances.textarea.getData();
+        var posttitle = document.getElementById('titleedit').value;
+        var gettags = document.getElementById('tagsIDedit').value;
+        var cleartitle = document.getElementById('titleedit');
+        var cleartags = document.getElementsByClassName('tag-editor-tag');
+        console.log(cleartags);
+        // var category = document.getElementsByClassName('categorypopups')[0].id;
+
+
+        var data = {
+            "question": posttitle,
+            "questiondesc": editorText,
+            "userId": 1
+        };
+
+        $.ajax({
+            type: "PUT",
+            url: "https://iitoverflow.herokuapp.com/api/Questions",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json",
+            success: function(result) {
+                console.log(result);
+                //alert('gaga');
+                qid = result.id;
+
+                var tagslength = cleartags.length;
+
+
+
+
+
+                for (i = 0; i < tagslength; i++) {
+
+
+
+                    var data1 = {
+                        "name": cleartags[i].innerText,
+                        "categoryId": category
+                    };
+                    console.log(cleartags[i].innerText);
+
+
+                    // EDIT
+
+                    $.ajax({
+                        type: "POST",
+                        url: "http://iitoverflow.herokuapp.com/api/Questions/" + qid + "/tags",
+                        data: JSON.stringify(data1),
+                        dataType: "json",
+                        contentType: "application/json",
+
+                        success: function(result1) {
+                            // //alert('ok');
+                            console.log(result1);
+
+
+                        },
+                        error: function(result1) {
+                            ////alert(result1);
+                            console.log(JSON.stringify(result1));
+                        }
+                    });
+
+
+
+
+
+                    // EDIT
+
+                }
+
+
+
+
+
+
+
+
+                // $("#newsfeedParent").load(location.href + " #contentCenter");
+
+            },
+            error: function(result) {
+                //alert('error');
+            }
+        });
+
+
+
+
+
+
+    })
+
+
+    //  $('.newpostinput').keydown(function (e){
+    //  if(e.keyCode == 13){
+    //      //alert('you pressed enter ^_^');
+    //      var aid = $(this).attr('id');
+    //      var commentText = document.getElementsByClassName('commenttextarea');
+    //      var data = {
+    //          "answerId": aid,           
+    //          "comment":  commentText
+    //      }
+    //      $.ajax({
+    //                      type: "POST",
+    //                      url: "http://iitoverflow.herokuapp.com/api/Comments",
+    //                      data: JSON.stringify(data),
+    //                      dataType: "json",
+    //                      contentType: "application/json",
+    //                      success: function(result) {
+    //                          //alert('ok');
+
+    //                      },
+    //                      error: function(result) {
+    //                          //alert(result);
+
+    //                      }
+    //                  });
+
+
+
+
+
+    //  }
+    // }
 </script>
+
+
+
+<script>
+    $('input[type=text]').on('keydown', function(e) {
+
+        if (e.which == 13) {
+            e.preventDefault();
+
+            var a = $(this).attr('id');
+            alert(a)
+            var aid = a.split("_").pop()
+
+            alert(aid);
+            var comment = $('#' + a).val();
+            console.log(comment);
+
+            //COMMENT
+            var data = {
+                "comment": comment,
+                "answerId": aid,
+                "userId": "{{curuser}}"
+            }
+
+
+            $.ajax({
+                type: "POST",
+                url: "http://iitoverflow.herokuapp.com/api/Answers/" + aid + "/comments",
+                data: JSON.stringify(data),
+                dataType: "json",
+                contentType: "application/json",
+                success: function(result) {
+                    alert('ok');
+                    $('#newsfeedParent').load(location.href + '#newsfeedParent')
+                        //alert('reloaded');
+                },
+                error: function(result) {
+                    alert(result);
+                }
+            });
+
+            //COMMENT
+
+
+        }
+    });
+
+
+
+
+
+    $('.submitanswerbutton').click(function() {
+
+        var qid = $(this).attr('id');
+        //alert(qid);
+
+        var answer = $("#answer_" + qid).val();
+        // var answer = $('.answertextarea#' + qid ).val();  
+
+        var category = document.getElementById('')
+            //alert(answer);
+        var data = {
+            "answer": answer,
+            "questionId": qid,
+            "userId": "{{curuser}}"
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "https://iitoverflow.herokuapp.com/api/Answers",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json",
+            success: function(result) {
+                //alert(#'ok');
+                $('#newsfeedParent').load(location.href + '#newsfeedParent')
+                    //alert('reloaded');
+            },
+            error: function(result) {
+                //alert(result);
+            }
+        });
+
+    })
+</script>
+
+
+
+
+<script>
+    $('.answerbutton').click(function() {
+        var id = $(this).attr('id');
+        //alert(id);
+        //alert($('.answertextarea').attr('id'));
+        $('.answertextarea#answer_' + id).focus();
+    });
+
+    $('.commentbutton').click(function() {
+        $('.commenttextarea').focus();
+    });
+</script>
+<!--<link rel="stylesheet" href="../static/css/new.css">-->
+
 
 <!-- PHILLIP -->

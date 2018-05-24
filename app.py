@@ -61,6 +61,7 @@ def logout():
 
 @app.route('/tags', methods=['GET','POST'])
 def tagslist():
+    curuser = str(session['user'])
    
     urlCategory = 'http://iitoverflow.herokuapp.com/api/Categories?filter[include]=tags'   
     
@@ -68,7 +69,7 @@ def tagslist():
     categorylist = json.loads(catresponse)
 
 
-    return render_template('tags.html', category=categorylist)
+    return render_template('tags.html', category=categorylist,curuser =curuser)
 
 
 
@@ -79,9 +80,48 @@ def question():
         return render_template('landingpage2.html')
     else:
         curuser = str(session['user'])
-        
-        url = 'http://iitoverflow.herokuapp.com/api/Questions?filter={"counts":["upvotes","downvotes"],"include":[{"relation": "user"},{"relation": "answers", "scope":{"include": {"relation": "user"}}}, {"relation":"category"}, {"relation": "tags"}]}'
 
+        print(curuser)
+        interests = 'http://iitoverflow.herokuapp.com/api/users/' + curuser + '/interests'
+        response = requests.get(interests)
+        interests = response.json()
+        interestsid = []
+
+        questionsid = []
+
+
+        followingid = []
+
+        print(questionsid)
+
+
+        following_questions = 'http://iitoverflow.herokuapp.com/api/users/' + curuser + '/following'
+        response = requests.get(following_questions)
+        following_questions = response.json()
+
+        for following in following_questions:
+            followingid.append(following['id'])
+
+        print(followingid)
+            
+
+
+        for interest in interests:
+            interestsid.append(interest['id'])
+
+        print(interestsid)
+        print(str(interestsid))
+        
+        
+  
+        url = 'http://iitoverflow.herokuapp.com/api/Questions?filter={"where":{"or":[{"userId":'+curuser+'},{"userId":{"inq":'+str(followingid)+'}},{"categoryId":{"inq":'+str(interestsid)+'}}]},"counts":["upvotes","downvotes"],"include":[{"relation": "user"},{"relation": "answers", "scope":{"include": {"relation": "user"}}}, {"relation":"category"}, {"relation": "tags"}]}'
+        print(url)
+        response1 = requests.get(url)
+        questions = response1.json()
+
+
+
+        
         followable = 'http://iitoverflow.herokuapp.com/api/users/'+curuser+'/followable'
 
         response3 =  requests.get(followable)
@@ -97,8 +137,7 @@ def question():
         # html = urlopen(url).read().decode('utf-8')
         # questions = json.loads(html)
 
-        response1 = requests.get(url)
-        questions = response1.json()
+
 
         url1 = 'http://iitoverflow.herokuapp.com/api/Answers?filter[include]=user'
         html1 = urlopen(url1).read().decode('utf-8')
@@ -108,11 +147,16 @@ def question():
         html5 = urlopen(url5).read().decode('utf-8')
         tag_list = json.loads(html5)
 
+        #FollowerFollower = 'http://iitoverflow.herokuapp.com/api/users/'+ user +'?filter[counts]=followers&filter[counts]=following'
+
+        #followresponse = requests.get(FollowerFollower)
+       # followerfollowing = followresponse.json()
+        
         newlist = []
         for i in tag_list:
             newlist.append(i['name'])
         
-      
+        #print(followerfollowing)
 
     return render_template('question2.html', curuser =curuser,user=user, tag_list=newlist, questions=questions, answers=answers, categories=categories, followableusers=followableusers)
 
@@ -191,6 +235,7 @@ def getSession():
 
 @app.route('/tagsQ/<int:id>', methods=['GET','POST'])
 def tagsQ(id):
+    curuser = str(session['user'])
    
     urlCategory = 'http://iitoverflow.herokuapp.com/api/Tags/' +str(id)+'?filter={"include":[{"relation":"questions","scope":{"include":[{"relation":"user"},{"relation":"category"},{"relation":"upvotes"},{"relation":"answers","scope":{"include":"comments"}}]}}]}'
     
@@ -198,7 +243,7 @@ def tagsQ(id):
     categorylist = json.loads(catresponse)
 
 
-    return render_template('specifictags.html', questions= categorylist['questions'])
+    return render_template('specifictags.html', questions= categorylist['questions'], curuser=curuser)
 
 
 @app.route('/search', methods=['POST'])
