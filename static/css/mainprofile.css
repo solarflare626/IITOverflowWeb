@@ -169,7 +169,7 @@ html {
     top: 0;
     height: 400px;
     box-sizing: border-box;
-    position: relative;
+    position: absolute;
 }
 
 .profile-contentTopLinks {
@@ -224,6 +224,26 @@ html {
     color: #4AB3F4;
 }
 
+#followus{
+    background-color: white;
+    border: 2px solid #5F7189;
+    color: #5F7189;
+    width: 12%;
+    height: 35px;
+    border-radius: 30px;
+    outline: none;
+    text-decoration: none;
+    padding: 5px;
+}
+#followus:hover{
+    background-color: white;
+    color: #4AB3F4;
+    border-right: 2px solid #4AB3F4;
+    border-left: 2px solid #4AB3F4;
+    border-top: 2px solid #4AB3F4;
+    border-bottom: 2px solid #4AB3F4;
+
+}
 .editprofilebutton {
     background-color: white;
     border: 2px solid #5F7189;
@@ -349,7 +369,6 @@ html {
     height: 100%;
     margin-top: 10px;
     position: absolute;
-    overflow: scroll;
 }
 
 .profile-contentLeft {
@@ -378,7 +397,10 @@ html {
     color: #4AB3F4; 
     text-decoration: none;
 }
-
+.profilePostButton2 a {
+    color: #4AB3F4; 
+    text-decoration: none;
+}
 .profilePostFollowButton:focus {
     text-decoration: none;
 }

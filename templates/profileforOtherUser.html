@@ -82,26 +82,18 @@
 
 
                 </div>
-                <div class="CenterLeftRightCont">
-
-
-
-
-
+                <div class="CenterLeftRightCont" style="margin-top: 400px;">
                     <div class="profile-contentLeft">
 
                         <h4>Bio info here</h4>
 
                     </div>
                     <div class="profileCenterDiv">
-
-
-
                         <div class="FollowedQuestionsContainer">
                             {% for question in followed_questions|reverse %}
                             <div class="profile-contentCenter">
                                 <div class="profilePostPictureCont">
-                                    <img class="profilePostPicture" src="../static/image/google.png">
+                                    <img class="profilePostPicture" src="{{ question.user.picture}}">
 
                                 </div>
                                 <div class="profileNameEmail">
@@ -120,7 +112,6 @@
                                     <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down"></a>
                                     <a href="#" class="profilePostFollowButton">Unfollow</a>
                                 </div>
-
                             </div>
                             {% endfor %}
                         </div>
@@ -150,7 +141,6 @@
                         </div>
 
 
-
                         {% for i in json_object.questions|reverse %}
 
                         <div class="profile-contentCenter" id="{{i.id}}">
@@ -170,16 +160,16 @@
                             <div class="profilePostButton">
                                 <a href="#" class="glyphicon glyphicon-pencil"></a>
                                 <a href="#" class="glyphicon glyphicon-comment"></a>
-                                <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" ></a>
-                                <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down"></a>
+                                <a onclick="upvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-up" ></a>
+                                <a onclick="downvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-down"></a>
                                 <a href="#" class="profilePostFollowButton">Follow</a>
                             </div>
 
                         </div>
-                        {%endfor%}
-
-
-
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <a href=" "> </a>
                     </div>
                     <div class="FollowersContainer">
                         <div class="FollowersRow">
@@ -250,11 +240,7 @@
                             </div>
                             {% endfor %}
                         </div>
-
-                    </div>
                 </div>
-
-            </div>
         </div>
     </div>
     </div>
