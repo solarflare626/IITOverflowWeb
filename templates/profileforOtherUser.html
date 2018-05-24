@@ -89,32 +89,34 @@
 
                     </div>
                     <div class="profileCenterDiv">
-                        <div class="FollowedQuestionsContainer">
-                            {% for question in followed_questions|reverse %}
-                            <div class="profile-contentCenter">
-                                <div class="profilePostPictureCont">
-                                    <img class="profilePostPicture" src="{{ question.user.picture}}">
+                            <!--<div class="FollowedQuestionsContainer">-->
+                                    {% for question in followed_questions|reverse %}
+                                    <div class="profile-contentCenter">
+                                        <div class="profilePostPictureCont">
+                                            <img class="profilePostPicture" src="{{ question.user.picture }}">
 
-                                </div>
-                                <div class="profileNameEmail">
-                                    <a class="profilePostUsername">{{question.user.displayname}}</a>
-                                    <a class="profilePostEmail">{{question.user.email}}</a>
-                                    <h3 class="profilePostTitle">Title:{{ question.question }}</h3>
-                                </div>
+                                        </div>
+                                        <div class="profileNameEmail">
+                                            <a class="profilePostUsername">{{question.user.displayname}}</a>
+                                            <a class="profilePostEmail">{{question.user.email}}</a>
+                                            <h3 class="profilePostTitle">Title:{{ question.question }}</h3>
+                                        </div>
 
-                                <br>
+                                        <br>
 
-                                <p class="profilePostAnswer">{{ question.questiondesc }}</p>
-                                <div class="profilePostButton">
-                                    <a href="#" class="glyphicon glyphicon-pencil"></a>
-                                    <a href="#" class="glyphicon glyphicon-comment"></a>
-                                    <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" ></a>
-                                    <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down"></a>
-                                    <a href="#" class="profilePostFollowButton">Unfollow</a>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
+                                        <p class="profilePostAnswer">{{ question.questiondesc }}</p>
+                                        <div class="profilePostButton">
+                                            <a href="#" class="glyphicon glyphicon-pencil"></a>
+                                            <a href="#" class="glyphicon glyphicon-comment"></a>
+                                            <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" id="QupVote"> </a>
+                                            <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down" id= "QdownVote"> </a>
+                                            <button  onclick = "followedQuestion('{{question.id}}')" >
+                                                <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                <!--</div>-->
 
                         <div class="AnsweredQuestionsContainer">
                             {% for question in answered_questions|reverse %}
@@ -134,7 +136,9 @@
                                     <a href="#" class="glyphicon glyphicon-comment"></a>
                                     <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" ></a>
                                     <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down"></a>
-                                    <a href="#" class="profilePostFollowButton">Unfollow</a>
+                                    <button  onclick = "followedQuestion('{{question.id}}')" >
+                                        <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
+                                    </button>
                                 </div>
                             </div>
                             {% endfor %}
@@ -162,7 +166,9 @@
                                 <a href="#" class="glyphicon glyphicon-comment"></a>
                                 <a onclick="upvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-up" ></a>
                                 <a onclick="downvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-down"></a>
-                                <a href="#" class="profilePostFollowButton">Follow</a>
+                                <button  onclick = "followedQuestion('{{question.id}}')" >
+                                    <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
+                                </button>
                             </div>
 
                         </div>
@@ -172,9 +178,12 @@
                         <a href=" "> </a>
                     </div>
                     <div class="FollowersContainer">
-                        <div class="FollowersRow">
+                        
                             {% for follower in json_object1.followers %}
+                            <div class="FollowersRow">
+                            
                             <div class="col-md-2 col-sm-6">
+                                    <a href="{{ url_for('.profile', id = follower.id) }}">
                                 <div class="our-team">
                                     <div class="FollowersPic">
                                         <img src="{{ follower.picture }}">
@@ -198,6 +207,7 @@
                                     </ul>
                                 </div>
                             </div>
+                        </a>
                             {% endfor %}
                         </div>
                     </div>
@@ -210,8 +220,9 @@
 
                     <div class="FollowingContainer">
 
-                        <div class="FollowersRow">
                             {% for g in json_object1.following %}
+                            <div class="FollowersRow">
+                            <a href="{{ url_for('.profile', id = g.id) }}">
                             <div class="col-md-2 col-sm-6">
                                 <div class="our-team">
                                     <div class="FollowersPic">
@@ -238,6 +249,7 @@
                                     </ul>
                                 </div>
                             </div>
+                            </a>
                             {% endfor %}
                         </div>
                 </div>
@@ -444,6 +456,44 @@
                 }
             });
         }
+    
+        function followedQuestion(qid){
+            $.ajax({
+                type: "HEAD",
+                async: true,
+                url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsfollowed/rel/'+qid,
+                success: function(message){
+                    $.ajax({
+                        type: 'DELETE',
+                        async: true,
+                        url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsfollowed/rel/'+qid,
+                        success: function(message){
+                            $('#followques_'+qid).text('Follow');
+                            console.log('UNFOLLOWED');
+                        },
+                        error: function(message){
+                            console.log(message);
+                        }
+                    });
+                    $('#followques').text('Follow')
+                },
+                error: function(message){
+                    console.log("FOLLOW QUESTION");
+                        console.log("FOLLOW QUESTION");
+                        $.ajax({
+                            type: "PUT",
+                            async: true,
+                            url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsfollowed/rel/'+qid,
+                            success: function(message){
+                                $('#followques_'+qid).text('Unfollow');
+                                console.log('Followed');
+                            }
+                        });
+                }
+
+            });
+        }
+
     </script>
 
 
