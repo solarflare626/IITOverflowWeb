@@ -102,10 +102,11 @@
                                         <p class="profilePostAnswer">{{ question.questiondesc }}</p>
                                         <div class="profilePostButton">
                                             <a href="#" class="glyphicon glyphicon-pencil"></a>
-                                            <a href="#" class="glyphicon glyphicon-comment"></a>
                                             <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" id="QupVote"> </a>
                                             <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down" id= "QdownVote"> </a>
-                                            <a href="#" class="profilePostFollowButton">Unfollow</a>
+                                            <button  onclick = "followedQuestion('{{question.id}}')" >
+                                            <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
+                                            </button>
                                         </div>
                                     </div>
                                     {% endfor %}
@@ -126,11 +127,11 @@
                                         <div>{{ question.answer }}</div>
                                         <div class="profilePostButton">
                                             <a href="#" class="glyphicon glyphicon-pencil"></a>
-                                            <a href="#" class="glyphicon glyphicon-comment"></a>
                                             <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" </a>
                                                 <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down" </a>
-                                            <a href="#" class="profilePostFollowButton">Unfollow</a>
-                                        </div>
+                                            <button  onclick = "followedQuestion('{{question.id}}')" >
+                                                    <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
+                                            </button>                                        </div>
                                     </div>
                                     {% endfor %}
                                 </div>
@@ -155,10 +156,11 @@
                                     <p class="profilePostAnswer">{{i.questiondesc}}</p>
                                     <div class="profilePostButton">
                                         <a href="#" class="glyphicon glyphicon-pencil"></a>
-                                        <a href="#" class="glyphicon glyphicon-comment"></a>
                                         <a onclick="upvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-up" </a>
                                         <a onclick="downvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-down" </a>
-                                        <a href="#" class="profilePostFollowButton">Follow</a>
+                                        <button  onclick = "followedQuestion('{{question.id}}')" >
+                                            <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
+                                        </button>
                                     </div>
                                 </div>
                                 {%endfor%}
@@ -191,7 +193,7 @@
                                                     </li>
                                                     <li>
                                                         <a href="" class="fa fa-google-plus"></a>
-                                                    </li>
+                                                        </li>
                                                     <li>
                                                         <a href="" class="fa fa-linkedin"></a>
                                                     </li>
@@ -623,6 +625,43 @@
                 }
             });
         }
+        function followedQuestion(qid){
+            $.ajax({
+                type: "HEAD",
+                async: true,
+                url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsfollowed/rel/'+qid,
+                success: function(message){
+                    $.ajax({
+                        type: 'DELETE',
+                        async: true,
+                        url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsfollowed/rel/'+qid,
+                        success: function(message){
+                            $('#followques_'+qid).text('Follow');
+                            console.log('UNFOLLOWED');
+                        },
+                        error: function(message){
+                            console.log(message);
+                        }
+                    });
+                    $('#followques').text('Follow')
+                },
+                error: function(message){
+                    console.log("FOLLOW QUESTION");
+                        console.log("FOLLOW QUESTION");
+                        $.ajax({
+                            type: "PUT",
+                            async: true,
+                            url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsfollowed/rel/'+qid,
+                            success: function(message){
+                                $('#followques_'+qid).text('Unfollow');
+                                console.log('Followed');
+                            }
+                        });
+                }
+
+            });
+        }
+
 </script>
 
 </html>
