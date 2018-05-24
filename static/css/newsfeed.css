@@ -979,7 +979,7 @@ html {
 }
 
 .submitanswerbutton {
-    position: absolute;
+    position: relative;
     bottom: 3px;
     right: 13px;
     background-color: white;
