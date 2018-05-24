@@ -67,14 +67,14 @@
                         <div class="CenterLeftRightCont">
                             <div class="profile-contentLeft">
 
-                                <h4>Bio info here</h4>
-                                <p id="dispn"> {{ json_object['displayname'] }} </p>
+                                <!-- <h4>Bio info here</h4> -->
+                                <p style="font-weight: 1000; font-size: 22px" id="dispn"> {{ json_object['displayname'] }} </p>
                                 <a class="profilePostEmail"> {{json_object.email}} </a>
 
                                 <div class="profile-linksInterest">
                                     <h4> Interests</h4>
                                     <br> {% for interest in json_object1.interests %}
-                                    <h5 id="int"> {{interest.name}} </h5>
+                                    <a style="border:1px solid black" id="int"> {{interest.name}} </a>
                                     {% endfor %}
 
                                 </div>
@@ -84,7 +84,7 @@
 
 
                             <div class="profileCenterDiv">
-                                <div class="FollowedQuestionsContainer">
+                                <div class="FollowedQuestionsContainer" style="display: none;">
                                     {% for question in followed_questions|reverse %}
                                     <div class="profile-contentCenter">
                                         <div class="profilePostPictureCont">
@@ -110,7 +110,6 @@
                                     </div>
                                     {% endfor %}
                                 </div>
-
                                 <div class="AnsweredQuestionsContainer">
                                        {% for question in answered_questions|reverse %}
                                     <div class="profile-contentCenter">
@@ -206,12 +205,31 @@
 
 
 
+                <div class="profile-contentRight">
+                    <h4>Who to Follow</h4>
 
-                            <div class="profile-contentRight">
+                   {% for i in followableusers %}
+                    <div class="whotoFollowss">
+                    <div class="picturess">
+                        <img class="profileimagess" src="{{ i.picture }}">
+                    </div>
 
-                                <h4>Who to Follow</h4>
+                    <a class="whotofollowButtonss">Follow</a>
+                    <div class="whotoFollowNamess">
+                        <a href="{{ url_for('.profile', id = i.id) }}" >{{i.displayname}}</a>
+                        <a>{{i.email}}</a>
+                    </div>
 
-                            </div>
+                </div>
+                {% endfor %}
+
+
+                 <a>
+                    <h4>See all</h4>
+                </a>
+
+        <!-- </div> -->
+        </div>
 
 
                             <div class="FollowingContainer">
@@ -393,6 +411,7 @@
         var formdata = new FormData(); 
         var file = $('#avatar-1').prop('files');
         console.log(file);
+        
         var name = $("#dispName").val();
         var names = $("#inter").val();
         var user = {
@@ -413,7 +432,19 @@
                 console.log("profile ", data2);
                 $("#dispn").text(data2.displayname);
 
-                if (file.length > 0)
+                if (file.length > 0) {
+                    $.ajax({
+                        url: "http://iitoverflow.herokuapp.com/api/users/{{curuser}}/updateProfile",
+                        type: "POST",
+                        data: {"picture": formdata.picture},
+                        success: function() {
+                            $("#profPic").attr("src", data.picture);
+                        },
+                        err: function() {
+                            console.log("Error!");
+                        }
+                    });
+                }
                     if (formdata) {
                         formdata.append("file", file[0]);
                         console.log("formdata", formdata);
@@ -434,6 +465,7 @@
                                 console.log("profile error :", err);
                             }
                         });
+
                         var userId = {{curuser}};
                         console.log("TEST 2: User Id: ", {{curuser}});
                         $.ajax({
@@ -454,7 +486,6 @@
                                         console.log("TEST 3");
                                         console.log("Success!");
                                         $("#int").text(data3.interests);
-
                                     },
                                     error: function(err) {
                                         console.log("profile error :", err);
@@ -467,13 +498,15 @@
                             }
                         });
                     }
-                $("#modalProf").hide();
+                 $("#modalProf").hide();
             },
+
             error: function(err) {
                 console.log("profile error :", err);
             }
-        });
     });
+        });
+
 </script>
 
 <script>
@@ -535,6 +568,7 @@
         $(this).remove();
         console.log(interests);
     });
+
 
     $(document).on('click', '.interestbuttons', function() {
         var id = $(this).val();
