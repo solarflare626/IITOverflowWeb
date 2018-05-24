@@ -16,6 +16,8 @@
     <!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">-->
     <link href="../static/css/fontawesome-all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link href="../static/css/sideChat.css" rel="stylesheet">
     <script src="../static/js/jquery-3.3.1.min.js"></script>
 
     <meta name="google-signin-scope" content="">
@@ -37,6 +39,7 @@
     <!--<script src="../static/ckeditor/ckeditor.js"></script>-->
     <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
 </head>
 
 
@@ -485,8 +488,22 @@
 
 
     </div>
+
     <div class="hider" id="hider" style="height: 100vh;"> </div>
     <div id="post"></div>
+    <!-- Sidechat-->
+    <div id="sideChat"></div>
+    <script>
+    var url = "https://iitoverflow.herokuapp.com/api/";
+    var user = "{{user|safe}}";
+    var socketUser="{{ user.id |safe}}";
+    var socketUrl =  "https://iitoverflow.herokuapp.com";
+
+
+    </script>
+    
+    <script src="../static/js/sideChat.js"></script>
+
     <script src="../static/js/app2.js"></script>
     <script src="../static/js/autocompleteJS.js"></script>
     <script src="../static/js/jQuery-tagEditor-master/jquery.tag-editor.min.js"></script>
