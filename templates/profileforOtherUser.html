@@ -192,18 +192,9 @@
                                         </div>
                                     </div>
                                     <ul class="social">
-                                        <li>
-                                            <a href="" class="fa fa-facebook"></a>
-                                        </li>
-                                        <li>
-                                            <a href="" class="fa fa-twitter"></a>
-                                        </li>
-                                        <li>
-                                            <a href="" class="fa fa-google-plus"></a>
-                                        </li>
-                                        <li>
-                                            <a href="" class="fa fa-linkedin"></a>
-                                        </li>
+                                        <button  onclick = "followedUser('{{follower.id}}')" >
+                                            <a href="#"  id={{"followuser_{0}".format(follower.id)}} class="followerButton">Unfollow</a>
+                                        </button>
                                     </ul>
                                 </div>
                             </div>
@@ -234,18 +225,9 @@
                                         </div>
                                     </div>
                                     <ul class="social">
-                                        <li>
-                                            <a href="" class="fa fa-facebook"></a>
-                                        </li>
-                                        <li>
-                                            <a href="" class="fa fa-twitter"></a>
-                                        </li>
-                                        <li>
-                                            <a href="" class="fa fa-google-plus"></a>
-                                        </li>
-                                        <li>
-                                            <a href="" class="fa fa-linkedin"></a>
-                                        </li>
+                                        <button  onclick = "followedUser('{{g.id}}')" >
+                                            <a href="#"  id={{"followuser_{0}".format(g.id)}} class="followerButton">Unfollow</a>
+                                        </button>  
                                     </ul>
                                 </div>
                             </div>
@@ -493,6 +475,82 @@
 
             });
         }
+
+        function followedUser(uid){
+            $.ajax({
+                type: "HEAD",
+                async: true,
+                url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/following/rel/'+uid,
+                success: function(message){
+                    $.ajax({
+                        type: 'DELETE',
+                        async: true,
+                        url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/following/rel/'+uid,
+                        success: function(message){
+                            $('#followuser_'+uid).text('Follow');
+                            console.log('UNFOLLOWED');
+                        },
+                        error: function(message){
+                            console.log(message);
+                        }
+                    });
+                    $('#followuser_').text('Follow')
+                },
+                error: function(message){
+                    console.log("FOLLOW QUESTION");
+                        console.log("FOLLOW QUESTION");
+                        $.ajax({
+                            type: "PUT",
+                            async: true,
+                            url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/following/rel/'+uid,
+                            success: function(message){
+                                $('#followuser_'+uid).text('Unfollow');
+                                console.log('Followed');
+                            }
+                        });
+                }
+
+            });
+        }
+            
+    function followable(qid){
+        
+        $.ajax({
+            type: "HEAD",
+            async: true,
+            url: 'http://iitoverflow.herokuapp.com/api/users/{{ curuser }}/following/rel/'+qid,
+            success: function(message){
+                $.ajax({
+                    type: 'DELETE',
+                    async: true,
+                    url: 'http://iitoverflow.herokuapp.com/api/users/{{ curuser }}/following/rel/'+qid,
+                    success: function(message){
+                        $('#followa_'+qid).text('Follow');
+                        console.log('UNFOLLOWED');
+                    },
+                    error: function(message){
+                        console.log(message);
+                    }
+                });
+                $('#followa_').text('Follow')
+            },
+            error: function(message){
+                console.log("FOLLOW USER");
+                    console.log("FOLLOW USERRRS");
+                    $.ajax({
+                        type: "PUT",
+                        async: true,
+                        url: 'http://iitoverflow.herokuapp.com/api/users/{{ curuser }}/following/rel/'+qid,
+                        success: function(message){
+                            $('#whotoFollow_'+qid).hide('slow');
+                            $('#whotoFollow_'+qid).remove();
+                            console.log('Followed');
+                        }
+                    });
+            }
+        });
+    }
+
 
     </script>
 
