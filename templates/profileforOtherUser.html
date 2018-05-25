@@ -166,8 +166,8 @@
                                 <a href="#" class="glyphicon glyphicon-comment"></a>
                                 <a onclick="upvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-up" ></a>
                                 <a onclick="downvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-down"></a>
-                                <button  onclick = "followedQuestion('{{question.id}}')" >
-                                    <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
+                                <button  onclick = "followedQuestion('{{i.id}}')" >
+                                    <a href="#"  id={{"followques_{0}".format(i.id)}} class="profilePostFollowButton">Unfollow</a>
                                 </button>
                             </div>
 
