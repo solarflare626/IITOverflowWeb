@@ -11,13 +11,14 @@
     right: 0px;
     max-height: 90%;
     background: #fbfbfb;
-    z-index: 2000;
+    z-index: 200000;
 
 }
 
 #sideChatHeader {
     border-radius: 5px 5px 0 0;
-    background-color: #337ab7;
+    background: linear-gradient(to right, #D46A6A, #801515);
+    
     margin: 0px;
     width: relative;
 }
@@ -47,14 +48,14 @@ div.chatTab button.active {
 }
 
 .chatLabel {
-    style="float:left;
-padding-left: 10px;
+    float:left;
+    padding-left: 10px;
 }
 
 .chatBtn:hover,
 .chatBtn:hover,
 #chatBtn {
-    background-color: #337ab7;
+    background: linear-gradient(to right, #D46A6A, #801515);
     outline: none;
 }
 
@@ -72,7 +73,6 @@ position: absolute;
 z-index: 100 !important;
 }*/
     .chat-popup {
-
         display: none !important;
     }
 }
@@ -128,10 +128,12 @@ z-index: 100 !important;
     background-color: rgb(237, 239, 244);
     width: 270px;
     border: 1px solid rgba(29, 49, 91, .3);
+    
+    z-index: 20000;
 }
 
 .popup-box .popup-head {
-    background-color: #337ab7;
+    background: linear-gradient(to right, #D46A6A, #801515);
     padding: 5px;
     color: white;
     font-weight: bold;
@@ -226,8 +228,6 @@ z-index: 100 !important;
     max-height: 300px;
     overflow-x: hidden;
 }
-</style>
-<style type="text/css">
 .col-md-2,
 .col-md-10 {
     padding: 0;
@@ -369,6 +369,7 @@ z-index: 100 !important;
 
 .msg_container_base::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: #F5F5F5;
 }
 
@@ -379,6 +380,7 @@ z-index: 100 !important;
 
 .msg_container_base::-webkit-scrollbar-thumb {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
     background-color: #555;
 }
 
@@ -387,7 +389,9 @@ z-index: 100 !important;
     left: 0px;
     bottom: 0;
 }
-
+.btn-chat{
+    background: linear-gradient(to right, #D46A6A, #801515);
+}
 .badge {
     padding: 1px 9px 2px;
     font-size: 12.025px;
@@ -431,7 +435,7 @@ width: 10px;
 height: 10px;
 border-radius: 50%;
 background: #95a5a6;
-z-index:2000;
+z-index:200000;
 }
 .wrap span.online {
 background: #2ecc71;
