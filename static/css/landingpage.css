@@ -13,6 +13,19 @@
     color: white;
     font-size: 150%;
     margin-top: 7%;
+    border: 1px solid white;
+    border-color: transparent;
+    padding-bottom: 10px;
+    transition: border-color 0.3s linear;
+    transition: border-width 0.3s linear;
+    transition: font-size 0.3s linear;
+    border-bottom-color: white;
+}
+
+.SignInMessage:hover {
+    border-bottom-color: white;
+    border-width: 3px;
+    font-size: 140%;
 }
 
 html {
@@ -36,7 +49,7 @@ html {
 }
 
 .landing {
-    background: linear-gradient(rgba(57, 96, 196, .8), rgba(93, 236, 252, .7)), url(../image/background1.jpeg);
+    background: linear-gradient(to right, rgb(214, 107, 107, .5), rgb(128, 21, 21, .7)), url(../image/categories.jpeg);
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
@@ -45,7 +58,7 @@ html {
 }
 
 .features {
-    background: linear-gradient(rgba(57, 96, 196, 1.5), rgba(93, 236, 252, .8)), url(../image/categories.jpeg);
+    background: linear-gradient(to right, rgb(128, 21, 21, .7), rgb(214, 107, 107, .8), rgb(128, 21, 21, .7)), url(../image/categories.jpeg);
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
@@ -171,7 +184,8 @@ a {
     float: right;
     text-align: right;
     margin-top: 30px;
-    width: 50%;
+    margin-right: 50px;
+    width: 10%;
 }
 
 .pages a {
@@ -212,7 +226,12 @@ a {
     margin-top: -55px;
 }
 
-.contentLeft p,
+.contentLeft p {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+
 .contentLeft a {
     color: white;
     text-decoration: none;
@@ -222,17 +241,32 @@ a {
     font-size: 30px;
     color: white;
     text-decoration: white;
+    border-bottom: 1px solid white;
+}
+
+.landingmessage {
+    border-radius: 15px;
+    transition: box-shadow 0.3s linear;
+    border: 1px solid white;
 }
 
 .contentLeft p {
     font-size: 18px;
     margin-left: 5%;
+    word-wrap: break-word;
 }
 
+.landingmessage:hover {
+    font-weight: 400;
+    box-shadow: 2px 2px 12px 2px rgba(0, 0, 0, .7);
+    background-color: rgb(128, 21, 21, .5);
+}
+
+
+}
 .contentLeft p:hover {
     font-weight: 1000;
 }
-
 .selected {
     border: 1px solid white;
     font-family: Poppins-Regular;
@@ -241,7 +275,6 @@ a {
     padding: 4px;
     border-radius: 100px;
 }
-
 .categorybuttons {
     border: 1px solid white;
     font-family: Poppins-Regular;

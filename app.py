@@ -92,7 +92,7 @@ def question():
 
         followingid = []
 
-        print(questionsid)
+        #print(questionsid)
 
 
         following_questions = 'http://iitoverflow.herokuapp.com/api/users/' + curuser + '/following'
@@ -102,20 +102,20 @@ def question():
         for following in following_questions:
             followingid.append(following['id'])
 
-        print(followingid)
+        #print(followingid)
             
 
 
         for interest in interests:
             interestsid.append(interest['id'])
 
-        print(interestsid)
-        print(str(interestsid))
+        #print(interestsid)
+        #print(str(interestsid))
         
         
   
         url = 'http://iitoverflow.herokuapp.com/api/Questions?filter={"where":{"or":[{"userId":'+curuser+'},{"userId":{"inq":'+str(followingid)+'}},{"categoryId":{"inq":'+str(interestsid)+'}}]},"counts":["upvotes","downvotes"],"include":[{"relation": "user"},{"relation": "answers", "scope":{"include": {"relation": "user"}}}, {"relation":"category"}, {"relation": "tags"}]}'
-        print(url)
+        #print(url)
         response1 = requests.get(url)
         questions = response1.json()
 
@@ -147,18 +147,22 @@ def question():
         html5 = urlopen(url5).read().decode('utf-8')
         tag_list = json.loads(html5)
 
-        #FollowerFollower = 'http://iitoverflow.herokuapp.com/api/users/'+ user +'?filter[counts]=followers&filter[counts]=following'
+        FollowerFollower = 'http://iitoverflow.herokuapp.com/api/users/' + curuser + '?filter[counts]=followers&filter[counts]=following'
 
-        #followresponse = requests.get(FollowerFollower)
-       # followerfollowing = followresponse.json()
+        followresponse = requests.get(FollowerFollower)
+        followerfollowingcount = followresponse.json()
+
+        leaderurl = 'http://iitoverflow.herokuapp.com/api/' + curuser + '/leaderboard'
+        leaderresponse = requests.get(leaderurl)
+        leaderboard = leaderresponse.json()
         
         newlist = []
         for i in tag_list:
             newlist.append(i['name'])
         
-        #print(followerfollowing)
+        print(str(leaderboard))
 
-    return render_template('question2.html', curuser =curuser,user=user, tag_list=newlist, questions=questions, answers=answers, categories=categories, followableusers=followableusers)
+    return render_template('question2.html', curuser =curuser,user=user, tag_list=newlist, questions=questions, answers=answers, categories=categories, followableusers=followableusers,usercount=followerfollowingcount)
 
 @app.route('/profile/<int:id>', methods=['GET', 'POST'])
 def profile(id):

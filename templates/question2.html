@@ -82,8 +82,8 @@
             </div>
             <div class="followunfollowCont">
 
-                <a class="newsfeed-followbutton">Followers</a>
-                <a class="newsfeed-followingbutton">Following</a>
+                <a class="newsfeed-followbutton">Followers {{usercount.followersCount}}</a>
+                <a class="newsfeed-followingbutton">Following {{usercount.followingCount}}</a>
             </div>
 
 
@@ -160,16 +160,20 @@
                     <button class="duplicatebutton btn btn-danger" id={{ "duplicate_{0}".format(i.id)}} style="display: none;">Mark as Duplicate</button>
 
                     <div class="titlepost">
-
-                        <div class="titlepostpicture"><img src="{{ i.user.picture }}"></div>
-                        <h4 class="titlepostname">{{ i.user.displayname }}</h4>
-
                         <div class=" editanddeleteButtonCont">
                             <i onclick="showhide('{{i.id}}')" class="fa fa-edit Newsfeed-editButton" title="Edit"></i>
                             <i onclick="showhide('{{i.id}}')" class="fas fa-trash-alt qheart" title="Delete"></i>
                             <i onclick="showhide1('{{i.id}}')" class="fas fa-copy duplicate" title="Mark As Duplicate"></i>
 
                         </div>
+
+                        <div class="titlepostpicture"><img src="{{ i.user.picture }}"></div>
+                        <h4 class="titlepostname">{{ i.user.displayname }} <br>
+                            <h6 style="margin: 0;">{{i.user.createdAt}}</h6>
+
+                        </h4>
+
+
 
                         <h5 class="titlepostTitle"><a style="outline: none;">Title:</a> {{i.question|safe}}</h5>
 
@@ -1353,21 +1357,7 @@
                                 Simulation of Slender Marine Structures</a>
 
         </div>
-        <div class="links3">
-            <h3>Related Links</h3>
-            <hr>
-            <a class="links3Linkstitle"><span class="glyphicon glyphicon-link"></span> of Neural Network Error Measures for
-                    Simulation of Slender Marine Structures</a>
-            <a class="links3Linkstitle"><span class="glyphicon glyphicon-link"></span> of Neural Network Error Measures for
-                        Simulation of Slender Marine Structures</a>
-            <a class="links3Linkstitle"><span class="glyphicon glyphicon-link"></span> of Neural Network Error Measures for
-                            Simulation of Slender Marine Structures</a>
-            <a class="links3Linkstitle"><span class="glyphicon glyphicon-link"></span> of Neural Network Error Measures for
-                                Simulation of Slender Marine Structures</a>
 
-
-
-        </div>
     </div>
     <div id="postQuestionModal" class="modal" style="z-index: 2000;">
         <div class="modal-content" style="width: 40%; border-radius: 0px; margin-top: 5%; margin-left: 28.5%; padding: 0px;">
