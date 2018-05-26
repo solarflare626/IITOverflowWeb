@@ -6,7 +6,7 @@ $(document).ready(function() {
         $.when(getCurrentUser()).done(function(e) {
             $('.followbutton').each(function() {
                 checker(this.id);
-                checker2(this.id,this.name)
+                checker2(this.id, this.name)
             });
         });
     });
@@ -80,9 +80,9 @@ function checker(id) {
 
 }
 
-function checker2(id,u_id){
-        if (currentUser == u_id) {
-        $("#" + id + ".followbutton").prop( "disabled", true );
+function checker2(id, u_id) {
+    if (currentUser == u_id) {
+        $("#" + id + ".followbutton").prop("disabled", true);
     }
 }
 
@@ -166,42 +166,40 @@ function upvote(q_id) {
 }
 
 function downvote(q_id) {
-        $.ajax({
-            type: 'HEAD',
-            url: 'http://iitoverflow.herokuapp.com/api/users/'+currentUser+'/questionsdownvoted/rel/'+q_id,
-            statusCode: {
-                200: function() {
-                    $.ajax({
-                        url: 'http://iitoverflow.herokuapp.com/api/users/'+currentUser+'/questionsdownvoted/rel/'+q_id+'',
-                        type: 'DELETE',
-                        dataType: "json",
-                        success: function (data) {
-                            getDownVote(q_id);
-                            console.log("downvote have been removed")
-                        }
+    $.ajax({
+        type: 'HEAD',
+        url: 'http://iitoverflow.herokuapp.com/api/users/' + currentUser + '/questionsdownvoted/rel/' + q_id,
+        statusCode: {
+            200: function () {
+                $.ajax({
+                    url: 'http://iitoverflow.herokuapp.com/api/users/' + currentUser + '/questionsdownvoted/rel/' + q_id + '',
+                    type: 'DELETE',
+                    dataType: "json",
+                    success: function (data) {
+                        getDownVote(q_id);
+                        console.log("downvote have been removed")
+                    }
+                });
+            },
+            404: function () {
+                $.ajax({
+                    type: "PUT",
+                    url: 'http://iitoverflow.herokuapp.com/api/users/' + currentUser + '/questionsdownvoted/rel/' + q_id,
+                    success: function (message) {
+                        $.ajax({
+                            type: "DELETE",
+                            url: 'http://iitoverflow.herokuapp.com/api/users/' + currentUser + '/questionsupvoted/rel/' + q_id,
+                            success: function () {
+                                getDownVote(q_id);
+                                getUpvote(q_id);
+                                console.log("Sucessful deleted upvote after downvote!");
+                            }
                         });
-                },
-                404: function() {
-                    $.ajax({
-                        type: "PUT",
-                        url: 'http://iitoverflow.herokuapp.com/api/users/'+currentUser+'/questionsdownvoted/rel/'+q_id,
-                        success: function(message) {
-                            $.ajax({
-                                type: "DELETE",
-                                url: 'http://iitoverflow.herokuapp.com/api/users/'+currentUser+'/questionsupvoted/rel/'+q_id,
-                                success: function() {
-                                    getDownVote(q_id);
-                                    getUpvote(q_id);
-                                    console.log("Sucessful deleted upvote after downvote!");
-                                }
-                            });
                         console.log("Downvoted question!");
                         getDownVote(q_id);
-                        }
-                        });
-
-                }
-
+                    }
+                });
+            }
         }
     });
 }
@@ -219,15 +217,16 @@ function getUpvote(q_id){
     });
 }
 
-function getDownVote(q_id){
+function getDownVote(q_id) {
 
     $.ajax({
-        url: 'http://iitoverflow.herokuapp.com/api/Questions/'+q_id+'/downvotes/count',
+        url: 'http://iitoverflow.herokuapp.com/api/Questions/' + q_id + '/downvotes/count',
         type: 'GET',
         dataType: "json",
         async: false,
         success: function (data) {
-            $("#"+q_id+".down").text(" "+data.count);
+            $("#" + q_id + ".down").text(" " + data.count);
         }
     });
 }
+

@@ -20,6 +20,8 @@ body {
     overflow-y: scroll;
     font-family: Poppins-Regular, sans-serif;
     background: #E9EBEE;
+    margin: 0;
+    padding: 0;
 }
 .tags-section {
     width: 100%;
@@ -101,6 +103,7 @@ body {
 }
 .tags-alltagscontainer {
     width: 100%;
+    height: 100%;
     margin-top: 40px;
     background: #E9EBEE;
     background-repeat: no-repeat;
