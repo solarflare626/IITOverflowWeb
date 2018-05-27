@@ -42,12 +42,12 @@
     <div class="newsfeed-nav-container">
         <div class="newsfeed-nav">
             <div class="newsfeed-search">
-
+                <form action="/search" method="POST">
                 <button class="newsfeed-searchbutton" type="submit">
                     <span class="glyphicon glyphicon-search"></span>
                         </button>
-                <input id="autocomplete" class="newsfeed-searchbar" type="text" placeholder="Search..">
-
+                <input id="autocomplete" name="searchbar" class="newsfeed-searchbar" type="text" placeholder="Search..">
+                </form>
             </div>
             <div class="newsfeed-pages">
 
@@ -402,7 +402,6 @@
 
             <!-- SCRIPTS HERE -->
             <script src="../static/js/app2.js"></script>
-            <script src="../static/js/app3.js"></script>
             <script src="../static/js/autocompleteJS.js"></script>
             <script src="../static/js/jQuery-tagEditor-master/jquery.tag-editor.min.js"></script>
             <script src="../static/js/jQuery-tagEditor-master/jquery.caret.min.js"></script>
@@ -541,7 +540,7 @@
                     type: "DELETE",
                     url: "http://iitoverflow.herokuapp.com/api/Answers/" + delbutton,
                     success: function(result) {
-                        //alert('ok');
+                        alert('I was the bug');
                         $('#toReload').load(location.href + ' #toReload')
                     },
                     error: function(result) {
@@ -559,7 +558,7 @@
                 type: "DELETE",
                 url: "http://iitoverflow.herokuapp.com/api/Questions/" + qdelbutton,
                 success: function(result) {
-                    //alert('ok');
+                    alert('I was the Bug 2');
                 },
                 error: function(result) {
                     //alert(result);
