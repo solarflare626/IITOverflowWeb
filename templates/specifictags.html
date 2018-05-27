@@ -39,10 +39,12 @@
     <div class="newsfeed-nav">
         <div class="newsfeed-search">
 
-            <button class="newsfeed-searchbutton" type="submit">
-                        <span class="glyphicon glyphicon-search"></span>
-                            </button>
-            <input id="autocomplete" class="newsfeed-searchbar" type="text" placeholder="Search..">
+             <form action="/search" method="POST">
+                <button class="newsfeed-searchbutton" type="submit">
+                    <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                <input id="autocomplete" name="searchbar" class="newsfeed-searchbar" type="text" placeholder="Search..">
+                </form>
 
         </div>
         <div class="newsfeed-pages">
@@ -106,8 +108,8 @@
                                     <span class="msg-follow">Follow</span>
                                     <span class="msg-following">Following</span>
                                     <span class="msg-unfollow">Unfollow</span>
-                                  </button><button class="answerbutton" id="{{i.id}}">Answer</button><button onclick="upvote({{ i.id }})" title="Upvote" style="color: #1abc9c; width: 23%;display: inline-block;" class="votebutton glyphicon glyphicon-thumbs-up"> {{ i.upvotesCount }}</button>
-                        <button onclick="downvote({{ i.id }})" title="Downvote" style="color: #e74c3c; width: 23%; display: inline-block;" class="votebutton glyphicon glyphicon-thumbs-down"> {{i.downvotesCount}}</button>
+                                  </button><button class="answerbutton" id="{{i.id}}">Answer</button><button id="{{ i.id }}" onclick="upvote({{ i.id }})" title="Upvote" style="color: #1abc9c; width: 23%;display: inline-block;" class="votebutton up glyphicon glyphicon-thumbs-up"> {{ i.upvotesCount }}</button>
+                        <button id="{{ i.id }}" onclick="downvote({{ i.id }})" title="Downvote" style="color: #e74c3c; width: 23%; display: inline-block;" class="votebutton down glyphicon glyphicon-thumbs-down"> {{i.downvotesCount}}</button>
                     </div>
 
                 </div>
@@ -388,7 +390,7 @@
             type: "DELETE",
             url: "http://iitoverflow.herokuapp.com/api/Questions/" + qdelbutton,
             success: function(result) {
-                //alert('ok');
+                alert('I was the bug in Spec tags');
 
 
             },
@@ -396,10 +398,6 @@
                 //alert(result);
             }
         });
-
-
-
-
     })
 
 
