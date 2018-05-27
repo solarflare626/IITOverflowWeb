@@ -12,9 +12,9 @@ $(document).ready(function() {
     });
 });
 
-$(".follow").on("click", function() {
+$(".follow").click(function() {
     var $this = $(this);
-    $this.toggleClass('following')
+    $this.toggleClass('following');
     if ($this.is('.following')) {
         id = ($(this).attr('id'));
         follow(id);
@@ -49,11 +49,11 @@ function follow(id) {
 function unfollow(id) {
     $.ajax({
         type: "DELETE",
-        url: "http://iitoverflow.herokuapp.com/api/users/" + currentUser + "/questionsfollowed/" + id + "",
+        url: "http://iitoverflow.herokuapp.com/api/users/"+currentUser+"/questionsfollowed/rel/"+id ,
         dataType: "json",
 
         success: function(resp) {
-            console.log("sucessfuly unFollowed")
+            console.log(resp)
         },
         error: function(e) {
             console.log("error")
