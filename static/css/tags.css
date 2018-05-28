@@ -120,20 +120,22 @@ body {
     padding: 10px;
     text-align: center;
     border-radius: 10px;
-    transition: background-color 0.5s ease;
+    transition: background-color 0.5s linear;
+    border-top: 3px solid transparent;
+    transition: border 0.3s linear;
 }
 .categorytagsCont:hover {
     transition: 0.33s all ease;
-    border: 1px solid #801515;
+    border: 3px solid #801515;
 }
 .categoryname {
-    border: 1px solid white;
     padding: 5px;
     border-radius: 30px;
     margin: 5px;
     display: inline-block;
     width: 100%;
     background-color: #801515;
+    transition: background-color 0.9s ease-out;
 }
 .categoryname:hover {
     background: linear-gradient(to right, #D46A6A, #801515);

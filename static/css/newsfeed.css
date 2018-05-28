@@ -308,7 +308,7 @@ html {
     width: 60px;
     height: 60px;
     background: yellow;
-    border: 2px solid white;
+    transition: border 0.5s ease;
     float: left;
     position: absolute;
     margin-top: -40px;
@@ -316,18 +316,26 @@ html {
     padding: 0;
 }
 
+.picture:hover {
+    border: 3px solid white;
+}
+
 .picture1 {
     border-radius: 50%;
     width: 60px;
     height: 60px;
     background: yellow;
-    border: 2px solid white;
+    transition: border 0.5s ease;
     float: left;
     position: relative;
-    margin-top: 5px;
+    margin-top: 10px;
     margin-left: 7px;
     padding: 0;
     display: inline-block;
+}
+
+.picture1:hover {
+    border: 3px solid white;
 }
 
 .picture2 {
@@ -371,12 +379,14 @@ html {
     display: inline-block;
     float: left;
     margin-top: 8%;
+    text-decoration: none;
 }
 
 .newsfeed-followingbutton {
     margin-top: 8%;
     width: 50%;
     display: inline-block;
+    text-decoration: none;
 }
 
 .namecont {
@@ -463,8 +473,12 @@ html {
     width: 100%;
     height: 30%;
     background-color: white;
-    box-shadow: 0 4px 5px -5px rgba(0, 0, 0, 0.8);
+    transition: box-shadow 0.3s ease;
     font-family: Poppins-Regular, sans-serif;
+}
+
+.links:hover {
+    box-shadow: 0 4px 5px -3px rgba(0, 0, 0, .7);
 }
 
 .whotofollowcont {
@@ -472,11 +486,15 @@ html {
     width: 100%;
     height: 40%;
     background-color: white;
-    box-shadow: 0 4px 5px -5px rgba(0, 0, 0, 0.8);
     font-family: Poppins-Regular, sans-serif;
     text-align: center;
     clear: both;
     overflow-y: scroll;
+    transition: box-shadow 0.3s ease;
+}
+
+.whotofollowcont:hover {
+    box-shadow: 0 4px 5px -3px rgba(0, 0, 0, .7);
 }
 
 .whotofollowcont h4 {
@@ -492,14 +510,17 @@ html {
     padding-bottom: 10px;
     color: #555;
     text-align: center;
+    transition: background-color 0.5s linear;
 }
 
 .whotoFollowName a {
     color: #555;
+    font-weight: 1000px;
+    text-decoration: none;
 }
 
 .whotoFollow:hover {
-    background-color: rgb(221, 109, 109, 0.1);
+    background-color: rgb(221, 109, 109, 0.9);
     color: white;
 }
 
@@ -529,6 +550,7 @@ html {
     position: relative;
     margin-top: 20px;
     float: right;
+    margin-right: 6px;
 }
 
 .whotofollowButton:hover {
@@ -578,7 +600,13 @@ html {
     margin-left: 10px;
     overflow: hidden;
     text-align: left;
+    text-decoration: none;
     text-align: left;
+}
+
+.whotoFollowName1 a {
+    color: #555;
+    font-weight: 1000px;
 }
 
 #tagsID+.tag-editor {
@@ -799,6 +827,7 @@ html {
     display: inline-block;
     float: left;
     margin-right: 2%;
+    transition: border 0.3s ease;
 }
 
 .titlepostpicture img {
@@ -1103,8 +1132,12 @@ html {
     height: 60%;
     float: left;
     background-color: white;
-    box-shadow: 0 4px 5px -5px rgba(0, 0, 0, 0.8);
     font-family: Poppins-Regular, sans-serif;
+    transition: box-shadow 0.3s ease;
+}
+
+.links2:hover {
+    box-shadow: 0 4px 5px -3px rgba(0, 0, 0, .7);
 }
 
 .voteScore {
@@ -1145,10 +1178,13 @@ html {
 .links3 {
     padding: 10px;
     width: 100%;
-    height: 50%;
     float: left;
     background-color: white;
-    box-shadow: 0 4px 5px -5px rgba(0, 0, 0, 0.8);
+    transition: box-shadow 0.3s ease;
+}
+
+.links3:hover {
+    box-shadow: 0 4px 5px -3px rgba(0, 0, 0, .7);
 }
 
 .links3Linkstitle {
@@ -1541,4 +1577,9 @@ button.following:not(.wait):hover .msg-following {
 
 button.following:not(.wait):hover .msg-unfollow {
     display: inline;
+}
+
+categoryEditbutton{
+    border: 1px solid #801515;
+    color: #801515;
 }

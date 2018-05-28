@@ -152,17 +152,32 @@ def question():
         followresponse = requests.get(FollowerFollower)
         followerfollowingcount = followresponse.json()
 
-        leaderurl = 'http://iitoverflow.herokuapp.com/api/' + curuser + '/leaderboard'
+        leaderurl ='http://iitoverflow.herokuapp.com/api/users/leaderboard/?filter={"limit": 3}'
         leaderresponse = requests.get(leaderurl)
         leaderboard = leaderresponse.json()
-        
+
+       
+        leader=[]
+        j = 0
+        for i in leaderboard:
+            data = {}
+            if j < 3:
+                data['displayname'] = i['displayname']
+                data['picture'] = i['picture']
+                data['email'] = i['email']
+                data['points'] = i['points']
+                leader.append(data)
+            else:
+                break
+            j=j+1
+
         newlist = []
         for i in tag_list:
             newlist.append(i['name'])
         
-        print(str(leaderboard))
+        #print(str(leader))
 
-    return render_template('question2.html', curuser =curuser,user=user, tag_list=newlist, questions=questions, answers=answers, categories=categories, followableusers=followableusers,usercount=followerfollowingcount)
+    return render_template('question2.html', leader=leader, curuser =curuser,user=user, tag_list=newlist, questions=questions, answers=answers, categories=categories, followableusers=followableusers,usercount=followerfollowingcount)
 
 @app.route('/profile/<int:id>', methods=['GET', 'POST'])
 def profile(id):
