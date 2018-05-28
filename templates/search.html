@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>IITOverflow</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="../static/js/jQuery-tagEditor-master/jquery.tag-editor.css" />
+    <link rel="stylesheet" href="../static/js/jquery-ui-1.12.1.custom/jquery-ui.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../static/js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="../static/js/jQuery-tagEditor-master/jquery.tag-editor.min.js"></script>
+    <script src="../static/js/jQuery-tagEditor-master/jquery.caret.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="../static/css/newsfeed.css">
+    <link rel="stylesheet" href="../static/css/new.css">
+
+    <script src="../static/ckeditor/ckeditor.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <link href="../static/css/fontawesome-all.css" rel="stylesheet">
+
+
+    <meta name="google-signin-scope" content="">
+    <meta name="google-signin-client_id" content="976545483152-3u1fctn90tf0qvjevud1hkfu3jdneog0.apps.googleusercontent.com">
+    <meta name="google-signin-client_secret" content="dhayVHWZ-OsnjdQO47qZXhOD">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+</head>
+
+
+<body>
+    <div class="hider" id="hider"> </div>
+    <div class="fullpage">
+        <div class="section">
+            <div class="landing">
+                <div class="nav">
+                     <form action="search" method="POST">
+                        <input id="autocomplete" class="searchbar" type="text" name="searchbar" placeholder="Search..">
+                        <button class="searchbutton" type="submit"><i>Go!</i></button>
+                     </form>
+                        <div class="pages">
+
+                        <a href="/newsfeed">Home</a>
+                        <a href="/profile">Profile</a>
+                        <a href="#">Notifications</a>
+                        <a href="" onclick="signOut();return false;">Logout</a>
+
+                    </div>
+                    {% for i in searched %}
+                    <h4>{{ i.question }}</h4>
+                    <h2>{{ i.questiondesc }}</h2>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="../static/js/app.js"></script>
+</body>
+<script src="../static/js/jquery-3.3.1.min.js"></script>
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="../static/js/jQuery-tagEditor-master/jquery.tag-editor.min.js"></script>
+<script src="../static/js/jQuery-tagEditor-master/jquery.caret.min.js"></script>
+

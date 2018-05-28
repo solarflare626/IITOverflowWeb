@@ -12,9 +12,9 @@ $(document).ready(function() {
     });
 });
 
-$(".follow").on("click", function() {
+$(".follow").click(function() {
     var $this = $(this);
-    $this.toggleClass('following')
+    $this.toggleClass('following');
     if ($this.is('.following')) {
         id = ($(this).attr('id'));
         follow(id);
@@ -44,17 +44,16 @@ function follow(id) {
             console.log(e)
         }
     });
-
 }
 
 function unfollow(id) {
     $.ajax({
         type: "DELETE",
-        url: "http://iitoverflow.herokuapp.com/api/users/" + currentUser + "/questionsfollowed/" + id + "",
+        url: "http://iitoverflow.herokuapp.com/api/users/"+currentUser+"/questionsfollowed/rel/"+id ,
         dataType: "json",
 
         success: function(resp) {
-            console.log("sucessfuly unFollowed")
+            console.log(resp)
         },
         error: function(e) {
             console.log("error")
@@ -63,7 +62,6 @@ function unfollow(id) {
 }
 
 function checker(id) {
-
     $.ajax({
         type: "HEAD",
         url: "http://iitoverflow.herokuapp.com/api/users/" + currentUser + "/questionsfollowed/rel/" + id + "",
@@ -78,8 +76,6 @@ function checker(id) {
             },
 
         }
-
-
     })
 
 }
@@ -128,41 +124,45 @@ function getCurrentUser() {
 }
 
 function upvote(q_id) {
-    $.ajax({
-        type: 'HEAD',
-        url: 'http://iitoverflow.herokuapp.com/api/users/' + currentUser + '/questionsupvoted/rel/' + q_id,
-        data: "json",
-        statusCode: {
-            200: function() {
-                $.ajax({
-                    url: 'http://iitoverflow.herokuapp.com/api/users/' + currentUser + '/questionsupvoted/rel/' + q_id + '',
-                    type: 'DELETE',
-                    dataType: "json",
-                    success: function(data) {
-                        console.log("upvote have been removed")
-                    }
-                });
-            },
-            404: function() {
-                $.ajax({
-                    type: "PUT",
-                    url: 'http://iitoverflow.herokuapp.com/api/users/' + currentUser + '/questionsupvoted/rel/' + q_id,
-                    success: function(message) {
+            $.ajax({
+                type: 'HEAD',
+                url: 'http://iitoverflow.herokuapp.com/api/users/'+currentUser+'/questionsupvoted/rel/'+q_id,
+                data: "json",
+                statusCode: {
+                    200: function() {
                         $.ajax({
-                            type: "DELETE",
-                            url: 'http://iitoverflow.herokuapp.com/api/users/' + currentUser + '/questionsdownvoted/rel/' + q_id,
-                            success: function() {
-                                console.log("Sucessful deleted downvote after upvote!");
+                        url: 'http://iitoverflow.herokuapp.com/api/users/'+currentUser+'/questionsupvoted/rel/'+q_id+'',
+                        type: 'DELETE',
+                        dataType: "json",
+                        success: function (data) {
+                            getUpvote(q_id);
+                            console.log("upvote have been removed")
+                        }
+                        });
+                    },
+                    404: function() {
+                        $.ajax({
+                            type: "PUT",
+                            url: 'http://iitoverflow.herokuapp.com/api/users/'+currentUser+'/questionsupvoted/rel/'+q_id,
+                            success: function(message) {
+                               $.ajax({
+                                   type: "DELETE",
+                                   url: 'http://iitoverflow.herokuapp.com/api/users/'+currentUser+'/questionsdownvoted/rel/'+q_id,
+                                   success: function() {
+                                       getUpvote(q_id);
+                                       getDownVote(q_id);
+                                       console.log("Sucessful deleted downvote after upvote!");
+                                   }
+                               });
+                               getUpvote(q_id);
+                               console.log("Upvoted question!");
+
                             }
                         });
-                        console.log("Upvoted question!");
 
-                    }
-                });
-
+                }
             }
-        }
-    });
+      });
 }
 
 function downvote(q_id) {
@@ -170,34 +170,63 @@ function downvote(q_id) {
         type: 'HEAD',
         url: 'http://iitoverflow.herokuapp.com/api/users/' + currentUser + '/questionsdownvoted/rel/' + q_id,
         statusCode: {
-            200: function() {
+            200: function () {
                 $.ajax({
                     url: 'http://iitoverflow.herokuapp.com/api/users/' + currentUser + '/questionsdownvoted/rel/' + q_id + '',
                     type: 'DELETE',
                     dataType: "json",
-                    success: function(data) {
+                    success: function (data) {
+                        getDownVote(q_id);
                         console.log("downvote have been removed")
                     }
                 });
             },
-            404: function() {
+            404: function () {
                 $.ajax({
                     type: "PUT",
                     url: 'http://iitoverflow.herokuapp.com/api/users/' + currentUser + '/questionsdownvoted/rel/' + q_id,
-                    success: function(message) {
+                    success: function (message) {
                         $.ajax({
                             type: "DELETE",
                             url: 'http://iitoverflow.herokuapp.com/api/users/' + currentUser + '/questionsupvoted/rel/' + q_id,
-                            success: function() {
+                            success: function () {
+                                getDownVote(q_id);
+                                getUpvote(q_id);
                                 console.log("Sucessful deleted upvote after downvote!");
                             }
                         });
                         console.log("Downvoted question!");
+                        getDownVote(q_id);
                     }
                 });
-
             }
-
         }
     });
 }
+
+function getUpvote(q_id){
+
+    $.ajax({
+        url: 'http://iitoverflow.herokuapp.com/api/Questions/'+q_id+'/upvotes/count',
+        type: 'GET',
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            $("#"+q_id+".up").text(" "+data.count);
+        }
+    });
+}
+
+function getDownVote(q_id) {
+
+    $.ajax({
+        url: 'http://iitoverflow.herokuapp.com/api/Questions/' + q_id + '/downvotes/count',
+        type: 'GET',
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            $("#" + q_id + ".down").text(" " + data.count);
+        }
+    });
+}
+
