@@ -57,7 +57,7 @@
                 <a href="{{ url_for('.question') }}" class="homeButton"><span class="glyphicon glyphicon-home"></span>  Home</a>
                 <a href="{{ url_for('.profile', id = curuser) }}"><span class="glyphicon glyphicon-user"></span> Profile</a>
                 <a href="tags"><span class="glyphicon glyphicon-tags"></span> Tags</a>
-                <a class="Notificationbutton"><span class="glyphicon glyphicon-bell"></span> Notifications</a>
+                <div class="dropdown"><a class="Notificationbutton  dropdown-toggle" data-toggle="dropdown" href="#" id="btn_notification"><span class="glyphicon glyphicon-bell"></span> Notifications</a><ul id="notification-content" class="dropdown-menu">                                    </ul></div>
                 <a href="" onclick="signOut();return false;"><span class="glyphicon glyphicon-asterisk"></span> Logout</a>
 
             </div>
@@ -109,6 +109,7 @@
         </div>
     </div>
     <div class="contentCenter" id="contentCenter">
+            <div id="toReload">
         <div class="askquestion" id="newpost">
             <div class="askbuttons">
                 <h5 class="Askbutton">Ask Something</h5>
@@ -133,7 +134,6 @@
             </div>
         </div>
 
-        <div id="toReload">
 
             <div id="newsfeedParent">
 
@@ -154,7 +154,7 @@
 
                         <div class="titlepostpicture"><img src="{{ i.user.picture }}"></div>
                         <h4 class="titlepostname">{{ i.user.displayname }} <br>
-                            <h6 style="margin: 0;">{{i.user.createdAt}}</h6>
+                            <h6 style="margin: 0;">{{i.createdAt}}</h6>
 
                         </h4>
                         <h5 class="titlepostTitle"><a style="outline: none;">Title:</a> {{i.question|safe}}</h5>
@@ -252,7 +252,7 @@
 
                     <!-- TOEDIT -->
 
-                    
+
                     <div class="answerdiv" id={{ "answerdiv_{0}".format(i.id)}}>
                         <textarea class="answertextarea" id={{ "answer_{0}".format(i.id) }} placeholder="Write an Answer"> </textarea>
                         <input class="submitanswerbutton" id={{i.id}} value=submit type="button">
@@ -277,7 +277,7 @@
                             <h5>Tags</h5>
                             <input id="tagsIDedit" type="text" name="tagsarea" value=" {% for tag in i.tags %} {{tag.name}} {% endfor %}" class="tagsarea" />
                            
-                            <button id="categoryIDedit" type="button" value="" class="categorybutton">Category</button> 
+                            <button id="categoryIDedit" type="button" value="" class="categorybutton"><b>Category:</b> </button> 
 
 
                             <div class="newsfeedPopUpButton-Cont">
@@ -393,7 +393,7 @@
     <script>
         $(".categorybutton").on("click", function() {
             $("#myModal").show();
-            $("#myModal").css("z-index", "10002");
+            $("#myModal").css("z-index", "10004");
         });
 
         $('.categorypopups').on('click', function() {
@@ -463,7 +463,8 @@
                 contentType: "application/json",
                 success: function(result) {
                     //alert('ok');
-                    $('#toReload').load(location.href + ' #toReload')
+                    //window.location.href += "#toReload";
+                    //location.reload();
                         //alert('reloaded');
                 },
                 error: function(result) {
@@ -482,6 +483,7 @@
             var cleartitle = document.getElementById('title');
             $('#title').val('');
             $('#tagsID').empty();
+            $(".categorybutton").text("<b>Category:</b> ");
             var cleartags = document.getElementsByClassName('tag-editor-tag');
             var category = $('.popup').attr('id');
             $('#post').fadeOut('slow');
@@ -534,59 +536,59 @@
 
                     }
 
-                    var question = '<div id="newqedit_' + result.id + '" style="display: block;" class="newdiv">';
-                    question += '<div class="titlepost">Title: ' + result.question + ' <i onclick="showhide(' + result.id + ')" class="fa fa-reply"></i> <i id="' + result.id + '" class="fa fa-heart qheart" name="mark as duplicate"></i><div></div>';
+                    //var question = '<div id="newqedit_' + result.id + '" style="display: block;" class="newdiv">';
+                    //question += '<div class="titlepost">Title: ' + result.question + ' <i onclick="showhide(' + result.id + ')" class="fa fa-reply"></i> <i id="' + result.id + '" class="fa fa-heart qheart" name="mark as duplicate"></i><div></div>';
 
 
-                    question += '<button class="btn btn-danger" id= "duplicate_' + result.id + '" style="display: none;">DUPLICATE</button>'
+                    //question += '<button class="btn btn-danger" id= "duplicate_' + result.id + '" style="display: none;">DUPLICATE</button>'
 
-                    question += '<div class="titlepost">'
+                    //question += '<div class="titlepost">'
 
-                    question += '<div class="titlepostpicture">{{ user.picture }}</div>'
+                    //question += '<div class="titlepostpicture">{{ user.picture }}</div>'
 
-                    question += '<h4 class="titlepostname">{{ user.displayname }}</h4>'
+                    //question += '<h4 class="titlepostname">{{ user.displayname }}</h4>'
 
-                    question += ' <div class=" editanddeleteButtonCont"><i onclick="showhide(' + result.id + ')" class="fa fa-edit Newsfeed-editButton "></i><i id=' + result.id + 'class="fas fa-trash-alt qheart"></i><i onclick="showhide1(' + result.id + ')" class="fas fa-copy duplicate"></i></div>'
+                    //question += ' <div class=" editanddeleteButtonCont"><i onclick="showhide(' + result.id + ')" class="fa fa-edit Newsfeed-editButton "></i><i id=' + result.id + 'class="fas fa-trash-alt qheart"></i><i onclick="showhide1(' + result.id + ')" class="fas fa-copy duplicate"></i></div>'
 
-                    for (i = 0; i < tagslength; i++) {
-                        question += '<h5 class="titlepostTitle">Title: ' + result.question + '</h5>'
-                        question += ' </div>'
-
-
-                        question += '<div class="categorypost">Category:' + result.question + '<div></div></div>'
-
-                        question += '<div class="tagspost">Tags:' + result.cleartags + ' <div></div></div>'
+                    //for (i = 0; i < tagslength; i++) {
+                    //    question += '<h5 class="titlepostTitle">Title: ' + result.question + '</h5>'
+                    //    question += ' </div>'
 
 
-                        question += '<div class="newpostbuttons"><button class="follow followbutton"><span class="msg-follow">Follow</span><span class="msg-following">Following</span><span class="msg-unfollow">Unfollow</span></button><button class="votebutton">Vote</button><button><button class="commentbutton">Comment</button><button class="answerbutton">Answer</button></div>'
+                    //    question += '<div class="categorypost">Category:' + result.question + '<div></div></div>'
+
+                    //    question += '<div class="tagspost">Tags:' + result.cleartags + ' <div></div></div>'
 
 
-
-                        question += ' <div>'
+                    //    question += '<div class="newpostbuttons"><button class="follow followbutton"><span class="msg-follow">Follow</span><span class="msg-following">Following</span><span class="msg-unfollow">Unfollow</span></button><button class="votebutton">Vote</button><button><button class="commentbutton">Comment</button><button class="answerbutton">Answer</button></div>'
 
 
 
-                        question += '<div class="titlepost">'
-
-                        question += '<div class="answerdiv"><textarea class="answertextarea" id= "result.id" placeholder="Write an Answer"> </textarea><input class="submitanswerbutton" id=' + result.question + ' value=submit type="button"><div></div></div>'
+                    //    question += ' <div>'
 
 
-                        question += '<div class="newpostinput"><input class="commenttextarea" placeholder="Write a Comment"><div></div></div>';
+
+                    //    question += '<div class="titlepost">'
+
+                    //    question += '<div class="answerdiv"><textarea class="answertextarea" id= "result.id" placeholder="Write an Answer"> </textarea><input class="submitanswerbutton" id=' + result.question + ' value=submit type="button"><div></div></div>'
 
 
-                        // question += '<div class="descriptionpost">Description:' + result.questiondesc + '<div></div></div><div class="categorypost">Category: ' + result.categoryId + ' <div></div></div><div class="tagspost">Tags: ' + result.cleartags + '<div></div></div><div class="newpostbuttons"><button class="followbutton">Follow</button><button> </button><button class="votebutton">Vote</button><button></button><button class="commentbutton">Comment</button><button></button><button class="answerbutton">Answer</button><button><div></div></button></div><!-- TOEDIT --><div></div><!-- TOEDIT --><div class="answerdiv"><textarea class="answertextarea" id="answer_5" placeholder="Write an Answer"> </textarea><input class="submitanswerbutton" id="5" value="submit" type="button"><div></div></div><div class="newpostinput"><input class="commenttextarea" placeholder="Write a Comment"><div></div></div>';
-                        $("#newsfeedParent").prepend(question);
+                    //    question += '<div class="newpostinput"><input class="commenttextarea" placeholder="Write a Comment"><div></div></div>';
+
+
+                   // //    // question += '<div class="descriptionpost">Description:' + result.questiondesc + '<div></div></div><div class="categorypost">Category: ' + result.categoryId + ' <div></div></div><div class="tagspost">Tags: ' + result.cleartags + '<div></div></div><div class="newpostbuttons"><button class="followbutton">Follow</button><button> </button><button class="votebutton">Vote</button><button></button><button class="commentbutton">Comment</button><button></button><button class="answerbutton">Answer</button><button><div></div></button></div><!-- TOEDIT --><div></div><!-- TOEDIT --><div class="answerdiv"><textarea class="answertextarea" id="answer_5" placeholder="Write an Answer"> </textarea><input class="submitanswerbutton" id="5" value="submit" type="button"><div></div></div><div class="newpostinput"><input class="commenttextarea" placeholder="Write a Comment"><div></div></div>';
+                    //    $("#newsfeedParent").prepend(question);
 
                         //$("#newsfeedParent").html( question +$("#newsfeedParent").html());
-                        $('#toReload').load(location.href + ' #toReload');
+                        window.location.href += "#toReload";
+                        location.reload();
 
 
                         $('.tag-editor-tag').html("");
 
-                        question += '<div class="answerdiv"><textarea class="answertextarea" id= "result.id" placeholder="Write an Answer"> </textarea><input class="submitanswerbutton" id=' + result.question + ' value=submit type="button"><div></div></div>'
+                    //    question += '<div class="answerdiv"><textarea class="answertextarea" id= "result.id" placeholder="Write an Answer"> </textarea><input class="submitanswerbutton" id=' + result.question + ' value=submit type="button"><div></div></div>'
 
-                    }
-                },
+                    },
                 error: function(result) {
                     //alert('error');
                 }
@@ -657,7 +659,8 @@
                 url: "http://iitoverflow.herokuapp.com/api/Answers/" + delbutton,
                 success: function(result) {
                     //alert('ok');
-                    $('#toReload').load(location.href + ' #toReload')
+                    window.location.href += "#toReload";
+                    location.reload();
 
                 },
                 error: function(result) {
@@ -725,10 +728,6 @@
                                                 alert('gaga');
                                                 qid = result.id;
                                                 $('#qedit_' + qid).modal('toggle');
-<<<<<<< HEAD
-
-=======
->>>>>>> 774b3a82cde34920eebe279983d16b601b15f141
                                                 var tagslength = cleartags.length;
                                                 for (i = 0; i < tagslength; i++) {
                                                     var data1 = {
@@ -867,51 +866,8 @@
 
                                             }
 
-                                            var question = '<div id="newqedit_' + result.id + '" style="display: block;" class="newdiv">';
-                                            question += '<div class="titlepost">Title: ' + result.question + ' <i onclick="showhide(' + result.id + ')" class="fa fa-reply"></i> <i id="' + result.id + '" class="fa fa-heart qheart"></i><div></div>';
-
-
-                                            question += '<button class="btn btn-danger" id= "duplicate_' + result.id + '" style="display: none;">DUPLICATE</button>'
-
-                                            question += '<div class="titlepost">'
-
-                                            question += '<div class="titlepostpicture"><img src="../static/images/phillip.jpg"></div>'
-
-                                            question += '<h4 class="titlepostname">Franco Jigo C. Pacana</h4>'
-
-                                            question += ' <div class=" editanddeleteButtonCont"><i onclick="showhide(' + result.id + ')" class="fa fa-edit Newsfeed-editButton "></i><i id=' + result.id + 'class="fas fa-trash-alt qheart"></i><i onclick="showhide1(' + result.id + ')" class="fas fa-copy duplicate"></i></div>'
-
-                                            question += '<h5 class="titlepostTitle">Title: ' + result.question + '</h5>'
-                                            question += ' </div>'
-
-                                            question += '<h5 class="titlepostTitle">Title: ' + result.question + '</h5>'
-                                            question += ' </div>'
-
-                                            question += ' <div class="descriptionpost">Description: ' + result.questiondesc + '<div></div></div>'
-
-                                            question += '<div class="categorypost">Category:' + result.question + '<div></div></div>'
-
-                                            question += '<div class="tagspost">Tags:' + result.cleartags + ' <div></div></div>'
-
-
-                                            question += '<div class="newpostbuttons"><button class="follow followbutton"><span class="msg-follow">Follow</span><span class="msg-following">Following</span><span class="msg-unfollow">Unfollow</span></button><button class="votebutton">Vote</button><button><button class="commentbutton">Comment</button><button class="answerbutton">Answer</button></div>'
-
-
-
-                                            question += ' <div>'
-
-
-
-
-                                            question += '<div class="answerdiv"><textarea class="answertextarea" id= "result.id" placeholder="Write an Answer"> </textarea><input class="submitanswerbutton" id=' + result.question + ' value=submit type="button"><div></div></div>'
-
-
-                                            question += '<div class="newpostinput"><input class="commenttextarea" placeholder="Write a Comment"><div></div></div>';
-                                            // question += '<div class="descriptionpost">Description:' + result.questiondesc + '<div></div></div><div class="categorypost">Category: ' + result.categoryId + ' <div></div></div><div class="tagspost">Tags: ' + result.cleartags + '<div></div></div><div class="newpostbuttons"><button class="followbutton">Follow</button><button> </button><button class="votebutton">Vote</button><button></button><button class="commentbutton">Comment</button><button></button><button class="answerbutton">Answer</button><button><div></div></button></div><!-- TOEDIT --><div></div><!-- TOEDIT --><div class="answerdiv"><textarea class="answertextarea" id="answer_5" placeholder="Write an Answer"> </textarea><input class="submitanswerbutton" id="5" value="submit" type="button"><div></div></div><div class="newpostinput"><input class="commenttextarea" placeholder="Write a Comment"><div></div></div>';
-                                            // question += '</div>';
-                                            $("#newsfeedParent").prepend(question);
-                                            //$("#newsfeedParent").html( question +$("#newsfeedParent").html());
-                                            $('#toReload').load(location.href + '#toReload')
+                                            window.location.href += "#toReload";
+                                            location.reload();
                                             $('.tag-editor-tag').empty();
                                         },
                                         error: function(result) {
@@ -987,7 +943,8 @@
                     contentType: "application/json",
                     success: function(result) {
                         alert('ok');
-                        $('#toReload').load(location.href + '#toReload')
+                        window.location.href += "#toReload";
+                        location.reload();
                             //alert('reloaded');
                     },
                     error: function(result) {
@@ -1735,7 +1692,7 @@
         }
         //displays the popups. Displays based on the maximum number of popups that can be displayed on the current viewport width
         function display_popups() {
-            var right = 235;
+            var right = 330;
             var iii = 0;
             for (iii; iii < total_popups; iii++) {
                 if (popups[iii] != undefined) {
