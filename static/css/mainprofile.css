@@ -354,7 +354,7 @@ html {
 }
 
 .profile-contentRight {
-    height: 420px;
+    /*height: 420px;*/
     width: 20%;
     min-width: 22%;
     float: right;

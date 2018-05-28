@@ -141,6 +141,21 @@ def profile(id):
         s_code = response.status_code
         response3 =  requests.get(followable)
         followableusers = response3.json()
+        # followableusers1 = response3.json()
+
+        whotofollowusers = []
+        j = 0
+        for r in followableusers:
+            data1 = {} 
+            if j < 3:
+                data1['id'] = r['id']
+                data1['displayname'] = r['displayname']
+                data1['picture'] = r['picture']
+                data1['email'] = r['email']
+                whotofollowusers.append(data1)
+            else:
+                break
+            j=j+1
 
      
         followed = requests.get('http://iitoverflow.herokuapp.com/api/users/'+curuser+'/following')
@@ -155,7 +170,7 @@ def profile(id):
                 notfollowed.append(user)
    
     
-        return render_template('profile.html', categories=categories,json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6, questions=val7, interests=val8, answered_questions=answered_questions, curuser=curuser, followableusers=notfollowed)
+        return render_template('profile.html', whotofollowusers=whotofollowusers, categories=categories,json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6, questions=val7, interests=val8, answered_questions=answered_questions, curuser=curuser, followableusers=notfollowed)
     else:
         followurl = ('http://iitoverflow.herokuapp.com/api/users/'+curuser+ '/following/rel/'+user+'')
         response = requests.head(followurl)

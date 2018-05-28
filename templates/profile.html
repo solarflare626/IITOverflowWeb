@@ -99,7 +99,7 @@
 
                                         <br>
 
-                                        <p class="profilePostAnswer">{{ question.questiondesc }}</p>
+                                        <p class="profilePostAnswer">{{ question.questiondesc | safe }}</p>
                                         <div class="profilePostButton">
                                             <a href="#" class="glyphicon glyphicon-pencil"></a>
                                             <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" id="QupVote"> </a>
@@ -157,8 +157,8 @@
                                         <a href="#" class="glyphicon glyphicon-pencil"></a>
                                         <a onclick="upvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-up" </a>
                                         <a onclick="downvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-down" </a>
-                                        <button  onclick = "followedQuestion('{{question.id}}')" >
-                                            <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
+                                        <button  onclick = "followedQuestion('{{questions.id}}')" >
+                                            <a href="#"  id={{"followques_{0}".format(questions.id)}} class="profilePostFollowButton">Unfollow</a>
                                         </button>
                                     </div>
                                 </div>
@@ -201,8 +201,9 @@
                             <div class="profile-contentRight">
                                 <h4>Who to Follow</h4>
                     
-                                {% for i in followableusers %}
-                                <div class="whotoFollowss" id= {{"whotoFollow_{0}".format(i.id)}}>
+                                {% for i in whotofollowusers %}
+                                 <div class="whotoFollowss" id= {{"whotoFollow_{0}".format(i.id)}}>
+                                    <!-- <div class="whotoFollowss" id= "{{ i.displayname }}"> -->
                                 <div class="picturess">
                                     <img class="profileimagess" src="{{ i.picture }}">
                                 </div>
@@ -211,8 +212,9 @@
                                     <a href="#"  id={{"followa_{0}".format(i.id)}} >Follow</a>
                             </button>
                                 <div class="whotoFollowNamess">
-                                    <a href="{{ url_for('.profile', id = i.id) }}" >{{i.displayname}}</a>
-                                    <a>{{i.email}}</a>
+                                    <a href="{{ url_for('.profile', id = i.id) }}" >{{ i.displayname }}</a>
+
+                                    <a>{{ i.email }}</a>
                                 </div>
             
                             </div>
@@ -490,8 +492,9 @@
             error: function(err) {
                 console.log("profile error :", err);
             }
-    });
         });
+    });
+   
 
 </script>
 
