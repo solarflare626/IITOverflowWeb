@@ -201,22 +201,26 @@
                                             <img src="{{answer.user.picture}}">
                                             
                                         </div>
-                                        <div class="comment-box" style="background-color: white; width: 80%;  border-radius: 30px; padding: 5px 10px 5px 10px; margin-left: 12%;">
-
+                                        <div class="comment-box" style="background-color: white; width: 80%;  border-radius: 30px; padding: 5px 10px 5px 10px; margin-left: 12%; text-align: left;">
+                                            <h5 class="answerdisplayname">{{answer.user.displayname}}</h5>
                                             <div class="comment-head">
-                                                    <h5 class="answerdisplayname">{{answer.user.displayname}}</h5>
+                                                   
                                                
                                                 <div class="answerdivbutton">
                                                 <i id="{{answer.id}}" class="fa fa-edit edit"></i>
                                                 <i id="{{answer.id}}" class="fa fa-trash heart"></i>
                                                 <i id="{{answer.id}}" class="fa fa-reply heart"></i>
-                                                
+                                                  
                                             </div>
-                                            <span>{{ answer.createdAt }}</span>
-                                            </div>
+                                           
+                                            </div> 
+                                            <br style="margin: 0;">
+                                            <h6 style="text-align: left; ">{{ answer.createdAt }}</h6>
+                                            <hr style="margin:0;">
                                             <div class="comment-content">
                                                 {{ answer.answer|safe }}
                                             </div>
+                                            
                                         </div>
                                     </div>
                                 </li>

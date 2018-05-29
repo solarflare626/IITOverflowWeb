@@ -340,9 +340,9 @@ html {
 
 .picture2 {
     border-radius: 50%;
-    width: 10%;
-    height: 10%;
-    padding-bottom: 10%;
+    width: 60px;
+    height: 60px;
+    padding: 0;
     background: #fff;
     position: relative;
     overflow: hidden;
@@ -351,6 +351,12 @@ html {
     float: left;
     margin-left: 4px;
 }
+.picture2 img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
 
 .profileimage {
     width: 100%;
@@ -1594,6 +1600,7 @@ categoryEditbutton{
 }
 .answerdivbutton{
     display: inline-block;
+    float: right;
 }
 .answerdisplayname{
     display: inline-block;
