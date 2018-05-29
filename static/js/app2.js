@@ -27,6 +27,18 @@ $(".follow").click(function() {
     $(this).removeClass('wait');
 });
 
+// function newfollow(id) {
+//         $('#'+id).toggleClass('following');
+//         if ($('#'+id).is('.following')) {
+//             id2 = ($('#'+id).attr('id'));
+//             follow(id2);
+//             $('#'+id).addClass('wait');
+//         } else {
+//             id2 = ($('#'+id).attr('id'));
+//             unfollow(id2);
+//         }
+// }
+
 function follow(id) {
     $.ajax({
         type: "POST",
