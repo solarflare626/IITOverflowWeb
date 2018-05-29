@@ -76,8 +76,7 @@ def question():
         return render_template('landingpage2.html')
     else:
         curuser = str(session['user'])
-
-        print(curuser)
+        print("this is curuser"+curuser)
         interests = 'http://iitoverflow.herokuapp.com/api/users/' + curuser + '/interests'
         response = requests.get(interests)
         interests = response.json()
@@ -115,9 +114,9 @@ def question():
         url2 = 'http://iitoverflow.herokuapp.com/api/Categories'
         response = requests.get(url2)
         categories = response.json()
-
-        user = requests.get('http://iitoverflow.herokuapp.com/api/users/' + curuser)
-        user = user.json()
+        print('CURRENT USER: ' + curuser)
+        user1 = requests.get('http://iitoverflow.herokuapp.com/api/users/'+curuser+'')
+        user = user1.json()
 
         # html = urlopen(url).read().decode('utf-8')
         # questions = json.loads(html)
@@ -171,14 +170,15 @@ def question():
 
     notfollowed = []
 
-    for user in followableusers:
-        print(user)
-        u = requests.head('http://iitoverflow.herokuapp.com/api/users/'+curuser+'/following/rel/'+str(user['id']))
+    for i in followableusers:
+        print(i)
+        u = requests.head('http://iitoverflow.herokuapp.com/api/users/'+curuser+'/following/rel/'+str(i['id']))
         if u.status_code == 404:
-            notfollowed.append(user)
+            notfollowed.append(i)
 
-
-    return render_template('question2.html', leader=leader, curuser =curuser,user=user, tag_list=newlist, questions=questions, answers=answers, categories=categories, followableusers=notfollowed,usercount=followerfollowingcount)
+    print(curuser)
+    print(user)
+    return render_template('question2.html', leader=leader, curuser=curuser, user=user, tag_list=newlist, questions=questions, answers=answers, categories=categories, followableusers=notfollowed,usercount=followerfollowingcount)
 
 @app.route('/profile/<int:id>', methods=['GET', 'POST'])
 def profile(id):
