@@ -144,6 +144,7 @@ def question():
         for i in leaderboard:
             data = {}
             if j < 3:
+                data['id'] = i['id']
                 data['displayname'] = i['displayname']
                 data['picture'] = i['picture']
                 data['email'] = i['email']
