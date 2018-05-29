@@ -467,13 +467,13 @@
             //alert(qid);
             var answer = $("#answer_" + qid).val();
             // var answer = $('.answertextarea#' + qid ).val();  
-            var category = document.getElementById('')
+            var category = document.getElementById('');
                 //alert(answer);
             var data = {
                 "answer": answer,
                 "questionId": qid,
                 "userId": "{{curuser}}"
-            }
+            };
 
             $.ajax({
                 type: "POST",
@@ -498,8 +498,8 @@
     <script>
         $("#submitbutton3").click(function() {
             var editorText = CKEDITOR.instances.textarea.getData();
-            var posttitle = document.getElementById('title').value
-            var gettags = document.getElementById('tagsID').value
+            var posttitle = document.getElementById('title').value;
+            var gettags = document.getElementById('tagsID').value;
             var cleartitle = document.getElementById('title');
             $('#title').val('');
             $('#tagsID').empty();
@@ -774,9 +774,9 @@
                                                 }
                                             });
                                         }
-                                    },
+                                    }
                                 });
-                            },
+                            }
                         });
 
 
@@ -814,8 +814,8 @@
 
 
                             var editorText = CKEDITOR.instances.textarea.getData();
-                            var posttitle = document.getElementById('title').value
-                            var gettags = document.getElementById('tagsID').value
+                            var posttitle = document.getElementById('title').value;
+                            var gettags = document.getElementById('tagsID').value;
                             var cleartitle = document.getElementById('title');
                             var cleartags = document.getElementsByClassName('tag-editor-tag');
                             var category = $('.popup').attr('id');
@@ -831,7 +831,7 @@
                                 "questiondesc": editorText,
                                 "categoryId": category,
                                 "userId": "{{ curuser }}"
-                            }
+                            };
 
                             $.ajax({
                                 type: "POST",
@@ -841,9 +841,9 @@
                                 contentType: "application/json",
                                 success: function (result) {
                                     //alert('ok');
-                                    qid = result.id
+                                    qid = result.id;
 
-                                    var tagslength = cleartags.length
+                                    var tagslength = cleartags.length;
 
 
                                     for (i = 0; i < tagslength; i++) {
@@ -852,7 +852,7 @@
                                         var data1 = {
                                             "name": cleartags[i].innerText,
                                             "categoryId": category
-                                        }
+                                        };
                                         console.log(cleartags[i].innerText);
 
                                         // EDIT
@@ -913,7 +913,7 @@
                             //selectedCategory.text = "";
 
                         });
-                    })
+                    });
 
                                 function CKupdate() {
                                     for (instance in CKEDITOR.instances) {
@@ -921,7 +921,7 @@
                                         CKEDITOR.instances[instance].setData('');
                                     }
                                 }
-                                })
+                                });
     </script>
 
 
