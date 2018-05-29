@@ -91,21 +91,33 @@
         </div>
         <div class="whotofollowcont">
             <h4>Who to Follow</h4>
-            <hr> {% for i in followableusers %}
-            <div class="whotoFollow">
+
+            {% for i in followableusers %}
+
+            <div class="whotoFollow" id = {{"whotoFollow_{0}".format(i.id)}}>
                 <div class="picture1">
                     <img class="profileimage" src="{{ i.picture }}">
                 </div>
-                <a class="whotofollowButton">Follow</a>
+
+                <button  onclick = "followable('{{i.id}}')" >
+                        <a href="#"  id={{"followa_{0}".format(i.id)}} class="whotofollowButton">Follow</a>
+                </button>
                 <div class="whotoFollowName">
-                    <a>{{i.displayname}}</a>
+                        <a href="{{ url_for('.profile', id = i.id) }}">{{i.displayname}}
                     <a>{{i.email}}</a>
+                </a>
                 </div>
+
             </div>
             {% endfor %}
+
+
             <a>
                 <h4>See all</h4>
             </a>
+
+
+
         </div>
     </div>
     <div class="contentCenter" id="contentCenter">
@@ -1836,6 +1848,46 @@
         //recalculate when window is loaded and also when window is resized.
         window.addEventListener("resize", calculate_popups);
         window.addEventListener("load", calculate_popups);
+
+           
+    function followable(qid){
+        
+        $.ajax({
+            type: "HEAD",
+            async: true,
+            url: 'http://iitoverflow.herokuapp.com/api/users/{{ curuser }}/following/rel/'+qid,
+            success: function(message){
+                $.ajax({
+                    type: 'DELETE',
+                    async: true,
+                    url: 'http://iitoverflow.herokuapp.com/api/users/{{ curuser }}/following/rel/'+qid,
+                    success: function(message){
+                        $('#followa_'+qid).text('Follow');
+                        console.log('UNFOLLOWED');
+                    },
+                    error: function(message){
+                        console.log(message);
+                    }
+                });
+                $('#followa_').text('Follow')
+            },
+            error: function(message){
+                console.log("FOLLOW USER");
+                    console.log("FOLLOW USERRRS");
+                    $.ajax({
+                        type: "PUT",
+                        async: true,
+                        url: 'http://iitoverflow.herokuapp.com/api/users/{{ curuser }}/following/rel/'+qid,
+                        success: function(message){
+                            $('#whotoFollow_'+qid).hide('slow');
+                            $('#whotoFollow_'+qid).remove();
+                            console.log('Followed');
+                        }
+                    });
+            }
+        });
+    }
+
     </script>
 </body>
 </html>
