@@ -139,7 +139,7 @@ def question():
         followresponse = requests.get(FollowerFollower)
         followerfollowingcount = followresponse.json()
 
-        leaderurl ='http://iitoverflow.herokuapp.com/api/users/leaderboard/?filter={"limit": 3}'
+        leaderurl ='http://iitoverflow.herokuapp.com/api/users/leaderboard'
         leaderresponse = requests.get(leaderurl)
         leaderboard = leaderresponse.json()
 

@@ -116,9 +116,9 @@
             </div>
             <input placeholder="Add title here..." class="titlearea" type="textarea" name="title" id="title" />
             <form id="form1">
-                <textarea name="textarea" id="textarea" placeholder="Ask Something"></textarea>
+                <div name="textarea2" id="textarea2" placeholder="Ask Something"></div>
                 <script>
-                    CKEDITOR.replace('textarea');
+                    CKEDITOR.replace('textarea2');
                 </script>
             </form>
             <div id="tags-container" style="margin: 20px;">
@@ -145,6 +145,7 @@
                     <button class="duplicatebutton btn btn-danger" id="{{ "duplicate_{0}".format(i.id)}}" style="display: none;">Mark as Duplicate</button>
 
                     <div class="titlepost">
+                  
                         <div class=" editanddeleteButtonCont">
                             <i onclick="showhide('{{i.id}}')" class="fa fa-edit Newsfeed-editButton" title="Edit"></i>
                             <i onclick="confirmDelete('{{i.id}}')" class="fas fa-trash-alt qheart" title="Delete"></i>
@@ -155,6 +156,7 @@
                         <div class="titlepostpicture"><img src="{{ i.user.picture }}"></div>
                         <h4 class="titlepostname">{{ i.user.displayname }} <br>
                             <h6 style="margin: 0;">{{i.createdAt}}</h6>
+                            <hr style="margin:0;">
 
                         </h4>
                         <h5 class="titlepostTitle"><a style="outline: none;">Title:</a> {{i.question|safe}}</h5>
@@ -196,15 +198,21 @@
                                 <li>
                                     <div class="comment-main-level">
                                         <div class="picture2" style="background-color: black;">
-                                            <img src="{{answer.user.displayname}}">
+                                            <img src="{{answer.user.picture}}">
+                                            
                                         </div>
                                         <div class="comment-box" style="background-color: white; width: 80%;  border-radius: 30px; padding: 5px 10px 5px 10px; margin-left: 12%;">
 
                                             <div class="comment-head">
-
-                                                <span>Posted on: {{ answer.createdAt }}</span>
-                                                <i id="{{answer.id}}" class="fa fa-reply edit"></i>
-                                                <i id="{{answer.id}}" class="fa fa-heart heart"></i>
+                                                    <h5 class="answerdisplayname">{{answer.user.displayname}}</h5>
+                                               
+                                                <div class="answerdivbutton">
+                                                <i id="{{answer.id}}" class="fa fa-edit edit"></i>
+                                                <i id="{{answer.id}}" class="fa fa-trash heart"></i>
+                                                <i id="{{answer.id}}" class="fa fa-reply heart"></i>
+                                                
+                                            </div>
+                                            <span>{{ answer.createdAt }}</span>
                                             </div>
                                             <div class="comment-content">
                                                 {{ answer.answer|safe }}
@@ -411,7 +419,7 @@
             modal.style.display = 'none';
             $('.categorybutton').append(text2);
         });
-        $('.answerbutton').click(function() {
+        $(document).on('click','.answerbutton',function(e) {
             var id = $(this).attr('id');
             //alert(id);
             //alert($('.answertextarea').attr('id'));
@@ -441,9 +449,10 @@
                 }
             });
         }
-        $('.submitanswerbutton').click(function() {
+        $(document).on('click','.submitanswerbutton',function(e) {
 
             var qid = $(this).attr('id');
+            console.log("questionid",qid);
             //alert(qid);
             var answer = $("#answer_" + qid).val();
             // var answer = $('.answertextarea#' + qid ).val();  
@@ -1060,7 +1069,7 @@
             $(".categorycontainer").hide();
             $('.tag-editor-tag').html("");
 
-            $("#title").focus(function() {
+            $(document).on('focus','#title',function(e) {
                 $("#post").show();
                 $("#form1").show();
                 $("#submitbutton3").show();
@@ -1423,6 +1432,7 @@
                     }
 
                     $("#convos").html(convoStore);
+                    
                 },
                 error: function(data) {}
             });
@@ -1709,6 +1719,7 @@
         }
         //creates markup for a new popup. Adds the id to popups array.
         function register_popup(id, name) {
+            
 
             for (var iii = 0; iii < popups.length; iii++) {
                 //already registered. Bring it to front.
@@ -1807,7 +1818,6 @@
             document.getElementById(id).style.display = "block";
 
             $("#unread_" + id).html('');
-
 
 
         }

@@ -380,15 +380,20 @@ html {
     float: left;
     margin-top: 8%;
     text-decoration: none;
+    
 }
-
+.newsfeed-followbutton a {
+    text-decoration: none;
+}
 .newsfeed-followingbutton {
     margin-top: 8%;
     width: 50%;
     display: inline-block;
     text-decoration: none;
 }
-
+.newsfeed-followingbutton a{
+    text-decoration: none;
+}
 .namecont {
     width: 80%;
     word-wrap: break-word;
@@ -1582,4 +1587,20 @@ button.following:not(.wait):hover .msg-unfollow {
 categoryEditbutton{
     border: 1px solid #801515;
     color: #801515;
+}
+.comment-head {
+   
+    text-align: center;
+}
+.answerdivbutton{
+    display: inline-block;
+}
+.answerdisplayname{
+    display: inline-block;
+   float: left;
+
+}
+.answerdivbutton i{
+    display: inline-block;
+
 }
