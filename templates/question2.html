@@ -274,7 +274,7 @@
 
 
                     <div class="answerdiv" id={{ "answerdiv_{0}".format(i.id)}}>
-                        <textarea class="answertextarea" id={{ "answer_{0}".format(i.id) }} placeholder="Write an Answer"> </textarea>
+                        <textarea class="answertextarea" id="{{ "answer_{0}".format(i.id) }}" placeholder="Write an Answer"> </textarea>
                         <input class="submitanswerbutton" id={{i.id}} value=submit type="button">
                     </div>
                 </div>
@@ -404,7 +404,6 @@
 
     <!-- SCRIPTS HERE -->
     <script src="../static/js/app2.js"></script>
-    <script src="../static/js/app3.js"></script>
     <script src="../static/js/autocompleteJS.js"></script>
     <script src="../static/js/jQuery-tagEditor-master/jquery.tag-editor.min.js"></script>
     <script src="../static/js/jQuery-tagEditor-master/jquery.caret.min.js"></script>
@@ -516,7 +515,7 @@
                 "questiondesc": editorText,
                 "categoryId": category,
                 "userId": "{{ curuser }}"
-            }
+            };
             $.ajax({
                 type: "POST",
                 url: "https://iitoverflow.herokuapp.com/api/Questions",
@@ -525,14 +524,14 @@
                 contentType: "application/json",
                 success: function(result) {
                     //alert('ok');
-                    let qid = result.id;
+                    var qid = result.id;
                     var tagslength = cleartags.length;
 
                     for (i = 0; i < tagslength; i++) {
                         var data1 = {
                             "name": cleartags[i].innerText,
                             "categoryId": category
-                        }
+                        };
                         console.log(cleartags[i].innerText);
 
                         // EDIT
@@ -601,8 +600,8 @@
                     //    $("#newsfeedParent").prepend(question);
 
                         //$("#newsfeedParent").html( question +$("#newsfeedParent").html());
-                        window.location.href += "#toReload";
-                        location.reload();
+                        //window.location.href += "#toReload";
+                        //location.reload();
 
 
                         $('.tag-editor-tag').html("");
@@ -718,211 +717,203 @@
 
                     $(".submitbutton5").click(function() {
 
-                                var data = {
-                                    "question": posttitle,
-                                    "questiondesc": editorText,
-                                    "userId": "{{ curuser }}"
-                                };
+                        var data = {
+                            "question": posttitle,
+                            "questiondesc": editorText,
+                            "userId": "{{ curuser }}"
+                        };
+                        $.ajax({
+                            type: "PUT",
+                            url: "https://iitoverflow.herokuapp.com/api/Questions",
+                            data: JSON.stringify(data),
+                            dataType: "json",
+                            contentType: "application/json",
+                            success: function (result) {
+                                console.log(result);
+                                alert('gaga');
+                                qid = result.id;
+                                $('#qedit_' + qid).modal('toggle');
+
+                                var tagslength = cleartags.length;
+
+
                                 $.ajax({
                                     type: "PUT",
                                     url: "https://iitoverflow.herokuapp.com/api/Questions",
                                     data: JSON.stringify(data),
                                     dataType: "json",
                                     contentType: "application/json",
-                                    success: function(result) {
+                                    success: function (result) {
                                         console.log(result);
                                         alert('gaga');
                                         qid = result.id;
                                         $('#qedit_' + qid).modal('toggle');
-
                                         var tagslength = cleartags.length;
+                                        for (i = 0; i < tagslength; i++) {
+                                            var data1 = {
+                                                "name": cleartags[i].innerText,
+                                                "categoryId": category
+                                            };
+                                            console.log(cleartags[i].innerText);
+                                            // EDIT
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "http://iitoverflow.herokuapp.com/api/Questions/" + qid + "/tags",
+                                                data: JSON.stringify(data1),
+                                                dataType: "json",
+                                                contentType: "application/json",
 
-
-                                        $.ajax({
-                                            type: "PUT",
-                                            url: "https://iitoverflow.herokuapp.com/api/Questions",
-                                            data: JSON.stringify(data),
-                                            dataType: "json",
-                                            contentType: "application/json",
-                                            success: function(result) {
-                                                console.log(result);
-                                                alert('gaga');
-                                                qid = result.id;
-                                                $('#qedit_' + qid).modal('toggle');
-                                                var tagslength = cleartags.length;
-                                                for (i = 0; i < tagslength; i++) {
-                                                    var data1 = {
-                                                        "name": cleartags[i].innerText,
-                                                        "categoryId": category
-                                                    };
-                                                    console.log(cleartags[i].innerText);
+                                                success: function (result1) {
+                                                    // //alert('ok');
+                                                    console.log(result1);
                                                     // EDIT
-                                                    $.ajax({
-                                                        type: "POST",
-                                                        url: "http://iitoverflow.herokuapp.com/api/Questions/" + qid + "/tags",
-                                                        data: JSON.stringify(data1),
-                                                        dataType: "json",
-                                                        contentType: "application/json",
-
-                                                        success: function(result1) {
-                                                            // //alert('ok');
-                                                            console.log(result1);
-                                                            // EDIT
-                                                        },
-                                                        error: function(result1) {
-                                                            ////alert(result1);
-                                                            console.log(JSON.stringify(result1));
-                                                        }
-                                                    });
+                                                },
+                                                error: function (result1) {
+                                                    ////alert(result1);
+                                                    console.log(JSON.stringify(result1));
                                                 }
-                                            },
-                                        });
+                                            });
+                                        }
                                     },
                                 });
+                            },
+                        });
 
 
-                                //  $('.newpostinput').keydown(function (e){
-                                //  if(e.keyCode == 13){
-                                //      //alert('you pressed enter ^_^');
-                                //      var aid = $(this).attr('id');
-                                //      var commentText = document.getElementsByClassName('commenttextarea');
-                                //      var data = {
-                                //          "answerId": aid,           
-                                //          "comment":  commentText
-                                //      }
-                                //      $.ajax({
-                                //                      type: "POST",
-                                //                      url: "http://iitoverflow.herokuapp.com/api/Comments",
-                                //                      data: JSON.stringify(data),
-                                //                      dataType: "json",
-                                //                      contentType: "application/json",
-                                //                      success: function(result) {
-                                //                          //alert('ok');
+                        //  $('.newpostinput').keydown(function (e){
+                        //  if(e.keyCode == 13){
+                        //      //alert('you pressed enter ^_^');
+                        //      var aid = $(this).attr('id');
+                        //      var commentText = document.getElementsByClassName('commenttextarea');
+                        //      var data = {
+                        //          "answerId": aid,
+                        //          "comment":  commentText
+                        //      }
+                        //      $.ajax({
+                        //                      type: "POST",
+                        //                      url: "http://iitoverflow.herokuapp.com/api/Comments",
+                        //                      data: JSON.stringify(data),
+                        //                      dataType: "json",
+                        //                      contentType: "application/json",
+                        //                      success: function(result) {
+                        //                          //alert('ok');
 
-                                //                      },
-                                //                      error: function(result) {
-                                //                          //alert(result);
+                        //                      },
+                        //                      error: function(result) {
+                        //                          //alert(result);
 
-                                //                      }
-                                //                  });
-
-
+                        //                      }
+                        //                  });
 
 
-
-                                //  }
-                                // }
-
+                        //  }
+                        // }
 
 
-                                $(".submitbutton3").click(function() {
+                        $(".submitbutton3").click(function () {
 
 
-                                    var editorText = CKEDITOR.instances.textarea.getData();
-                                    var posttitle = document.getElementById('title').value
-                                    var gettags = document.getElementById('tagsID').value
-                                    var cleartitle = document.getElementById('title');
-                                    var cleartags = document.getElementsByClassName('tag-editor-tag');
-                                    var category = $('.popup').attr('id');
-                                    //alert(category)
+                            var editorText = CKEDITOR.instances.textarea.getData();
+                            var posttitle = document.getElementById('title').value
+                            var gettags = document.getElementById('tagsID').value
+                            var cleartitle = document.getElementById('title');
+                            var cleartags = document.getElementsByClassName('tag-editor-tag');
+                            var category = $('.popup').attr('id');
+                            //alert(category)
 
-                                    document.getElementById(".titlearea").value = "";
-                                    document.getElementById(".tag-editor").value = "";
-                                    CKEDITOR.instances['#cke_textarea'].setData('');
-
-
+                            document.getElementById(".titlearea").value = "";
+                            document.getElementById(".tag-editor").value = "";
+                            CKEDITOR.instances['#cke_textarea'].setData('');
 
 
-                                    var data = {
-                                        "question": posttitle,
-                                        "questiondesc": editorText,
-                                        "categoryId": category,
-                                        "userId": "{{ curuser }}"
+                            var data = {
+                                "question": posttitle,
+                                "questiondesc": editorText,
+                                "categoryId": category,
+                                "userId": "{{ curuser }}"
+                            }
+
+                            $.ajax({
+                                type: "POST",
+                                url: "https://iitoverflow.herokuapp.com/api/Questions",
+                                data: JSON.stringify(data),
+                                dataType: "json",
+                                contentType: "application/json",
+                                success: function (result) {
+                                    //alert('ok');
+                                    qid = result.id
+
+                                    var tagslength = cleartags.length
+
+
+                                    for (i = 0; i < tagslength; i++) {
+
+
+                                        var data1 = {
+                                            "name": cleartags[i].innerText,
+                                            "categoryId": category
+                                        }
+                                        console.log(cleartags[i].innerText);
+
+                                        // EDIT
+
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "http://iitoverflow.herokuapp.com/api/Questions/" + qid + "/tags",
+                                            data: JSON.stringify(data1),
+                                            dataType: "json",
+                                            contentType: "application/json",
+                                            success: function (result) {
+                                                //alert('ok');
+
+                                            },
+                                            error: function (result) {
+                                                //alert(result);
+                                                console.log(JSON.stringify(result));
+                                            }
+                                        });
+
+                                        // EDIT
+
                                     }
 
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "https://iitoverflow.herokuapp.com/api/Questions",
-                                        data: JSON.stringify(data),
-                                        dataType: "json",
-                                        contentType: "application/json",
-                                        success: function(result) {
-                                            //alert('ok');
-                                            qid = result.id
-
-                                            var tagslength = cleartags.length
+                                    window.location.href += "#toReload";
+                                    location.reload();
+                                    $('.tag-editor-tag').empty();
+                                },
+                                error: function (result) {
+                                    //alert('error');
+                                }
+                            });
 
 
+                            //var displaytitle = document.getElementById('titlebarid');
+                            $("#form1").hide('slow');
+                            $(".submitbutton2").hide('slow');
+                            $(".popupwrapper").hide('slow');
+                            $(".tagsarea").hide('slow');
+                            $("#tagsID+.tag-editor").hide('slow');
+                            $(".submitbutton3").hide('slow');
+                            $("newDivs").show('slow');
+                            $(".titlebar").show('slow');
+                            $("tagsbar").show('slow');
+                            $("categorybar").show('slow');
 
+                            $('#newDivs').append('<div class="titlepost">' + 'Title: ' + posttitle + '<div>');
 
-                                            for (i = 0; i < tagslength; i++) {
+                            $('#newDivs').append('<div class="descriptionpost">' + 'Description: ' + editorText + '<div>');
 
+                            $('#newDivs').append('<div class="categorypost">' + 'Category: ' + catty + '<div>');
+                            $('#newDivs').append('<div class="tagspost">' + 'Tags: ' + gettags + '<div>');
+                            $('#newDivs').append('<div class="newpostbuttons"><button class="followbutton">Follow<button> <button class="votebutton" >Vote<button><button class="commentbutton">Comment<button><button class="answerbutton">Answer<button><div>');
+                            $('#newDivs').append('<div class="answerdiv"><textarea class="answertextarea" placeholder="Write an Answer"></textarea><input class="submitanswerbutton" type="button" value="submit"><div>');
+                            $('#newDivs').append('<div class="newpostinput"><input class="commenttextarea" placeholder="Write a Comment"><div>');
 
+                            //cleartitle.value = "";
+                            //selectedCategory.text = "";
 
-                                                var data1 = {
-                                                    "name": cleartags[i].innerText,
-                                                    "categoryId": category
-                                                }
-                                                console.log(cleartags[i].innerText);
-
-                                                // EDIT
-
-                                                $.ajax({
-                                                    type: "POST",
-                                                    url: "http://iitoverflow.herokuapp.com/api/Questions/" + qid + "/tags",
-                                                    data: JSON.stringify(data1),
-                                                    dataType: "json",
-                                                    contentType: "application/json",
-                                                    success: function(result) {
-                                                        //alert('ok');
-
-                                                    },
-                                                    error: function(result) {
-                                                        //alert(result);
-                                                        console.log(JSON.stringify(result));
-                                                    }
-                                                });
-
-                                                // EDIT
-
-                                            }
-
-                                            window.location.href += "#toReload";
-                                            location.reload();
-                                            $('.tag-editor-tag').empty();
-                                        },
-                                        error: function(result) {
-                                            //alert('error');
-                                        }
-                                    });
-
-
-                                    //var displaytitle = document.getElementById('titlebarid');
-                                    $("#form1").hide('slow');
-                                    $(".submitbutton2").hide('slow');
-                                    $(".popupwrapper").hide('slow');
-                                    $(".tagsarea").hide('slow');
-                                    $("#tagsID+.tag-editor").hide('slow');
-                                    $(".submitbutton3").hide('slow');
-                                    $("newDivs").show('slow');
-                                    $(".titlebar").show('slow');
-                                    $("tagsbar").show('slow');
-                                    $("categorybar").show('slow');
-
-                                    $('#newDivs').append('<div class="titlepost">' + 'Title: ' + posttitle + '<div>');
-
-                                    $('#newDivs').append('<div class="descriptionpost">' + 'Description: ' + editorText + '<div>');
-
-                                    $('#newDivs').append('<div class="categorypost">' + 'Category: ' + catty + '<div>');
-                                    $('#newDivs').append('<div class="tagspost">' + 'Tags: ' + gettags + '<div>');
-                                    $('#newDivs').append('<div class="newpostbuttons"><button class="followbutton">Follow<button> <button class="votebutton" >Vote<button><button class="commentbutton">Comment<button><button class="answerbutton">Answer<button><div>');
-                                    $('#newDivs').append('<div class="answerdiv"><textarea class="answertextarea" placeholder="Write an Answer"></textarea><input class="submitanswerbutton" type="button" value="submit"><div>');
-                                    $('#newDivs').append('<div class="newpostinput"><input class="commenttextarea" placeholder="Write a Comment"><div>');
-
-                                    //cleartitle.value = "";
-                                    //selectedCategory.text = "";
-
-                                });
+                        });
+                    })
 
                                 function CKupdate() {
                                     for (instance in CKEDITOR.instances) {
@@ -930,6 +921,7 @@
                                         CKEDITOR.instances[instance].setData('');
                                     }
                                 }
+                                })
     </script>
 
 
@@ -964,8 +956,8 @@
                     contentType: "application/json",
                     success: function(result) {
                         alert('ok');
-                        window.location.href += "#toReload";
-                        location.reload();
+                        //window.location.href += "#toReload";
+                        //location.reload();
                             //alert('reloaded');
                     },
                     error: function(result) {

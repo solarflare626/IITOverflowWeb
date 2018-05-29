@@ -94,7 +94,11 @@ function checker(id) {
 
 function checker2(id, u_id) {
     if (currentUser == u_id) {
-        $("#" + id + ".followbutton").prop("disabled", true);
+        // $("#" + id + ".followbutton").prop("disabled", true);
+        $("#" + id + ".followbutton").hide();
+        $("#" + id + ".answerbutton").css("width", "33.3%");
+        $("#" + id + ".up").css("width", "30%");
+        $("#" + id + ".down").css("width", "33.3%");
     }
 }
 
