@@ -6,7 +6,7 @@ $('#autocomplete').autocomplete({
                         type: "GET",
                         dataType: "json",
                         success: function (data) {
-                            response($.map(data, function (item) {
+                            response($.map(data.slice(0,5), function (item) {
                                 return {
                                     label: item.question,
                                     value: item.question
