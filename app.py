@@ -284,12 +284,13 @@ def tagsQ(id):
 
 @app.route('/search', methods=['POST'])
 def searchres():
+    curuser = str(session['user'])
     searchbar = request.form['searchbar']
     test = urllib.parse.quote_plus(searchbar)
-    url = (baseUrl + "Questions?filter[where][question][ilike]=%25" + test + "%25")
+    url = (baseUrl + 'Questions?filter={"where":{"question":{"ilike":"%25'+test+'%25"}},"include":[{"relation": "user"},{"relation": "tags"},{"relation": "category"},{"relation": "answers", "scope":{"include": [{"relation": "user"},{"relation": "comments", "scope":{"include":{"relation":"user"}}}]}}]}')
     response = requests.get(url)
     searched = response.json()
-    return render_template('search.html', searched=searched)
+    return render_template('search.html', searched=searched, curuser=curuser)
 
 
 @app.after_request

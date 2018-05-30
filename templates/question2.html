@@ -46,10 +46,11 @@
         <div class="newsfeed-nav">
             <div class="newsfeed-search">
                 <form action="/search" method="POST">
-                <button class="newsfeed-searchbutton" type="submit">
-                    <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                <input id="autocomplete" name="searchbar" class="newsfeed-searchbar" type="text" placeholder="Search..">
+                    <button id="autocom" class="newsfeed-searchbutton" type="submit">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                    <input id="autocomplete" name="searchbar" class="newsfeed-searchbar" type="text" placeholder="Search..">
+                    <input type="submit" style="position: absolute; left: -9999px"/>
                 </form>
             </div>
             <div class="newsfeed-pages">

@@ -17,3 +17,15 @@ $('#autocomplete').autocomplete({
                 }
 
             });
+
+alert = function() {
+    // console.trace(alert)
+};
+
+var input = document.getElementById("autocomplete");
+input.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("autocom").click();
+    }
+});
