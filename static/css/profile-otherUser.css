@@ -716,3 +716,19 @@ html {
     border: 1px solid #4AB3F4;
     margin-right: 5px;
 }
+.showallButton{
+    position: relative;
+    float: right;
+   
+    font-size: 80%;
+    border: 1px solid #5F7189;
+    border-radius: 30px;
+    padding: 5px;
+    font-family: Poppins-Regular, sans-serif;
+    text-decoration: none;
+
+}
+.showallButton a:hover{
+    text-decoration: none;
+}
+

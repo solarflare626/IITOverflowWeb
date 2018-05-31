@@ -70,7 +70,7 @@
                             <a type="submit" id="profile-FollowersButton">{{followers}} Followers</a>
                             <a type="submit" id="profile-FollowingButton">{{following}} Following</a>
                             <a type="submit" id="profile-FollowedQuestionButton">{{questionsfollowed}} Followed Questions</a>
-                            <a type="submit" id="profile-AnsweredQuestionButton">{{answers}} Answered Questions</a> 
+                            <!-- <a type="submit" id="profile-AnsweredQuestionButton">{{answers}} Answered Questions</a>  -->
                             {% if s_code == 404%}
                             <button id="followus" class="unfollow">
                                 <a class="msg-follow followbutton" id ="followusText" >Follow</a>
@@ -93,17 +93,19 @@
                                 <p style="font-weight: 1000; font-size: 22px" id="dispn"> {{ json_object['displayname'] }} </p>
                                 <a class="profilePostEmail"> {{json_object.email}} </a>
                                 <div class="profile-linksInterest" id="interestscontainer">
+                                   <div  style="background-color: white; padding: 10px; color:#801515;">
                                     <h4> Interests</h4>
                                     <br> {% for interest in json_object.interests %}
                                     <a style="border:1px solid black" id="int"> {{interest.name}} </a>
                                     {% endfor %}
 
+                                   </div>
                                 </div>
                             </div>
 
 
                     <div class="profileCenterDiv">
-                            <!--<div class="FollowedQuestionsContainer">-->
+                            <div class="FollowedQuestionsContainer">
                                     {% for question in followed_questions|reverse %}
                                     <div class="profile-contentCenter">
                                         <div class="profilePostPictureCont">
@@ -113,12 +115,14 @@
                                         <div class="profileNameEmail">
                                             <a class="profilePostUsername">{{question.user.displayname}}</a>
                                             <a class="profilePostEmail">{{question.user.email}}</a>
-                                            <h3 class="profilePostTitle">Title:{{ question.question }}</h3>
+                                            <h3 class="profilePostTitle">Title:{{ question.question|safe }} <a class="showallButton" type="button" title="Show all"  id="{{question.id}}">Show description</a></h3>
                                         </div>
 
                                         <br>
 
-                                        <p class="profilePostAnswer">{{ question.questiondesc }}</p>
+                                        <div class="profilePostAnswer" id={{"show_{0}".format(question.id)}}>{{ question.questiondesc|safe }}</div>
+                                       
+                                        <hr>                                        
                                         <div class="profilePostButton">
                                             <a href="#" class="glyphicon glyphicon-pencil"></a>
                                             <a href="#" class="glyphicon glyphicon-comment"></a>
@@ -130,7 +134,7 @@
                                         </div>
                                     </div>
                                     {% endfor %}
-                                <!--</div>-->
+                                </div>
 
                         <div class="AnsweredQuestionsContainer">
                             {% for question in answered_questions|reverse %}
@@ -141,10 +145,10 @@
                                 <div class="profileNameEmail">
                                     <a class="profilePostUsername">{{question.user.displayname}}</a>
                                     <a class="profilePostEmail">{{question.user.email}}</a>
-                                    <h3 class="profilePostTitle">Title:{{ question.question.question }}</h3>
+                                    <h3 class="profilePostTitle">Title:{{ question.question | safe}}<a class="showallButton" type="button" title="Show all"  id="{{question.id}}">Show description</a></h3>
                                 </div>
-                                <p class="profilePostAnswer">Description:{{ question.question.questiondesc }}</p>
-                                <div class="profile-questionAnswer">Answer: {{ question.answer }}</div>
+                                <div class="profilePostAnswer" id={{"show_{0}".format(question.id)}}>{{ question.questiondesc | safe }}</div>
+                                <div>{{ question.answer }}</div>
                                 <div class="profilePostButton">
                                     <a href="#" class="glyphicon glyphicon-pencil"></a>
                                     <a href="#" class="glyphicon glyphicon-comment"></a>
@@ -169,7 +173,7 @@
                             <div class="profileNameEmail">
                                 <a class="profilePostUsername">{{json_object.displayname}}</a>
                                 <a class="profilePostEmail">{{json_object.email}}</a>
-                                <h3 class="profilePostTitle">Title:{{i.question}}</h3>
+                                <h3 class="profilePostTitle">Title:{{i.question | safe}} <a class="showallButton" type="button" title="Show all"  id="{{json_object.id}}">Show description</a> </h3>
                             </div>
 
                             <br>
@@ -206,9 +210,9 @@
                                         </div>
                                     </div>
                                     <ul class="social">
-                                        <button  onclick = "followedUser('{{follower.id}}')" >
-                                            <a href="#"  id={{"followuser_{0}".format(follower.id)}} class="followerButton">Unfollow</a>
-                                        </button>
+                                            <button  onclick = "followedUser('{{follower.id}}')" >
+                                                    <a style="color: white;" href="#"  id={{"followuser_{0}".format(follower.id)}} class="followerButton">Unfollow</a>
+                                                </button>
                                     </ul>
                                 </div>
                             </div>
@@ -218,9 +222,9 @@
                     </div>
 
 
-                   <div class="profile-contentRight">
-                                <h4>Who to Follow</h4>
-                    
+                    <div class="profile-contentRight">
+                            <div style="background-color: white; padding: 10px;">
+                            <h4 style="text-align: left; color: #801515">Who to Follow</h4>
                                 {% for i in whotofollowusers %}
                                  <div class="whotoFollowss" id= {{"whotoFollow_{0}".format(i.id)}}>
                                     <!-- <div class="whotoFollowss" id= "{{ i.displayname }}"> -->
@@ -609,6 +613,20 @@ function signOut() {
         });
     });
 }
+
+
+$(".showallButton").click(function(){
+        var id = $(this).attr("id");
+        if($(this).text()=== "Show description"){
+            $(this).text("Hide description");
+            $("#show_"+id).show('slow');
+        }
+        else{
+            $(this).text("Show description");
+            $("#show_"+id).hide('slow');
+        }
+       
+    });
 
 
     </script>
