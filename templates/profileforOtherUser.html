@@ -16,6 +16,10 @@
     <script src="../static/js/mainprofile.js"></script>
 
 
+    <meta name="google-signin-scope" content="">
+    <meta name="google-signin-client_id" content="976545483152-3u1fctn90tf0qvjevud1hkfu3jdneog0.apps.googleusercontent.com">
+    <meta name="google-signin-client_secret" content="dhayVHWZ-OsnjdQO47qZXhOD">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 
 <body>
@@ -48,7 +52,7 @@
                         <a href="{{ url_for('.question') }}"><span class="glyphicon glyphicon-home"></span>  Home</a>
                         <a href="{{ url_for('.profile', id=curuser)}}"><span class="glyphicon glyphicon-user"></span>  Profile</a>
                         <a href="#"><span class="glyphicon glyphicon-bell"></span>  Notifications</a>
-                        <a href="" onclick="signOut();"><span class="glyphicon glyphicon-asterisk"></span> Logout</a>
+                        <a href="" onclick="signOut();return false;"><span class="glyphicon glyphicon-asterisk"></span> Logout</a>
 
                     </div>
                 </div>
@@ -62,7 +66,7 @@
                     <div class="profile-contentTopLinks">
                         <div class="profile-contentTopNav">
                             {% block body %}
-                            <a type="submit" id="profile-PostButton">{{questions}} Posts</a>
+                            <a type="submit" id="profile-PostButton">Posts</a>
                             <a type="submit" id="profile-FollowersButton">{{followers}} Followers</a>
                             <a type="submit" id="profile-FollowingButton">{{following}} Following</a>
                             <a type="submit" id="profile-FollowedQuestionButton">{{questionsfollowed}} Followed Questions</a>
@@ -85,6 +89,7 @@
                 <div class="CenterLeftRightCont" style="margin-top: 400px;">
                    <div class="profile-contentLeft">
 
+<<<<<<< HEAD
                                 <!-- <h4>Bio info here</h4> -->
                                 <p style="font-weight: 1000; font-size: 22px" id="dispn"> {{ json_object['displayname'] }} </p>
                                 <a class="profilePostEmail"> {{json_object.email}} </a>
@@ -97,12 +102,17 @@
                                 </div>
                             </div>
 
+=======
+                        <h4>Bio info here</h4>
+
+                    </div>
+>>>>>>> cf0335a7e747a1a6b2b29ce005ea623386968d62
                     <div class="profileCenterDiv">
                             <!--<div class="FollowedQuestionsContainer">-->
                                     {% for question in followed_questions|reverse %}
                                     <div class="profile-contentCenter">
                                         <div class="profilePostPictureCont">
-                                            <img class="profilePostPicture" src="{{ json_object.picture }}">
+                                            <img class="profilePostPicture" src="{{ question.user.picture }}">
 
                                         </div>
                                         <div class="profileNameEmail">
@@ -212,6 +222,7 @@
                         </div>
                     </div>
 
+
                    <div class="profile-contentRight">
                                 <h4>Who to Follow</h4>
                     
@@ -239,6 +250,13 @@
                                 <h4>See all</h4>
                             </a>
                     
+<!-- =======
+                    <div class="profile-contentRight">
+
+                        <h4>Who to Follow</h4>
+
+                    </div>
+>>>>>>> cf0335a7e747a1a6b2b29ce005ea623386968d62 -->
 
                     <div class="FollowingContainer">
 
@@ -581,6 +599,28 @@
             }
         });
     }
+
+    
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function() {
+        $.ajax({
+            url: "http://localhost:5000/logout",
+            dataType: "json",
+            success: function(resp) {
+                if (resp.message = "okay") {
+                    window.location.replace('/');
+                } else {
+                    console.log("Something went wrong")
+                }
+            },
+            error: function(e) {
+                console.log('ERROR')
+            }
+        });
+    });
+}
 
 
     </script>
