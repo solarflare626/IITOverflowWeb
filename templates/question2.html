@@ -269,7 +269,7 @@
                                 {% endfor %}
                             </ul>
                             <div class="newpostinput" id={{answer.id}}>
-                                <input type='text' class="commenttextarea" id="{{ " comment_{0} ".format(answer.id) }}" placeholder="Write a Comment">
+                                <input type='text' class="commenttextarea" id={{ "comment_{0}".format(answer.id) }} placeholder="Write a Comment">
                                 <div>
                                 </div>
                             </div>
@@ -298,7 +298,7 @@
                     <div class="form2container">
 
 
-                        <form id="form2">
+                        <form id="form2" style="box-shadow: 15px;">
 
                             <h5>Title</h5>
                             <input class="editQuestionTitle" type="text" id="titleedit" value="{{i.question}}">
@@ -310,10 +310,15 @@
                             <h5>Tags</h5>
                             <input id="tagsIDedit" type="text" name="tagsarea" value=" {% for tag in i.tags %} {{tag.name}} {% endfor %}" class="tagsarea"
                             />
-
-                            <button id="categoryIDedit" type="button" value="" class="categorybutton">
-                                <b>Category:</b>
-                            </button>
+                            <div class="popupedit">
+                                <button id="categoryIDedit" type="button" value="" class="categorybuttonedit">
+                                    <b>Category:</b>
+                                </button>
+                                <button class="selectedcategorybuttonedit">
+                                    {{ i.category.name }}
+                                </button>
+                            </div>
+                            
 
 
                             <div class="newsfeedPopUpButton-Cont">
@@ -441,15 +446,22 @@
             $("#myModal").css("z-index", "10004");
         });
         ///////////////////////////////////////////////////////////////////////////////////
+        $(document).on('click', '.categorybuttonedit', function () {
+            $("#myModal").show();
+            $("#myModal").css("z-index", "11001");
+        });
+        ///////////////////////////////////////////////////////////////////////////////////
         $(document).on('click', '.categorypopups', function () {
             var catty, cattyid, selectedCategory, btn, text2;
             catty = this.text;
             cattyid = $(this).attr('id');
             text2 = document.createTextNode(catty);
-            $('.popup').attr('id', cattyid);
             var modal = document.getElementById('myModal');
             modal.style.display = 'none';
+            $('.popup').attr('id', cattyid);
             $('.selectedcategorybutton').text(catty);
+            $('.popupedit').attr('id', cattyid);
+            $('.selectedcategorybuttonedit').text(catty);
         });
         ///////////////////////////////////////////////////////////////////////////////////
         $(document).on('click', '.answerbutton', function (e) {
@@ -866,7 +878,7 @@
                 div1.style.display = "block";
                 $("#hider").fadeOut("slow");
                 $("#post").fadeOut('slow');
-                $("#form2").css("z-index", "9998");
+                $("#form2").css("z-index", "11000");
                 $("#newpost").css("z-index", "10001");
             } else {
                 div.style.display = "block";
