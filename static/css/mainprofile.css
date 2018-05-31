@@ -55,13 +55,27 @@ html {
     padding-right: 3px;
 }
 
+.interestbuttons {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 2px;
+    padding: 2px;
+}
+
+.categorybuttons {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 2px;
+    padding: 2px;
+}
+
 .profile-searchbutton:hover {
     background-color: white;
-    color: #4AB3F4;
-    border-right: 2px solid #4AB3F4;
-    border-left: 2px solid #4AB3F4;
-    border-top: 2px solid #4AB3F4;
-    border-bottom: 2px solid #4AB3F4;
+    color: #801515;
+    border-right: 2px solid #801515;
+    border-left: 2px solid #801515;
+    border-top: 2px solid #801515;
+    border-bottom: 2px solid #801515;
 }
 
 .profile-search {
@@ -87,7 +101,7 @@ html {
 }
 
 .profile-searchbar:focus {
-    border: 2px solid #4AB3F4;
+    border: 2px solid #801515;
     background-color: white;
 }
 
@@ -129,7 +143,7 @@ html {
 }
 
 .profile-nav a:hover {
-    color: #4AB3F4;
+    color: #801515;
     text-decoration: none;
 }
 
@@ -155,7 +169,7 @@ html {
     top: 0;
     height: 400px;
     box-sizing: border-box;
-    position: relative;
+    position: absolute;
 }
 
 .profile-contentTopLinks {
@@ -207,9 +221,29 @@ html {
 
 .profile-contentTopNav a:hover {
     text-decoration: none;
-    color: #4AB3F4;
+    color: #801515;
 }
 
+#followus{
+    background-color: white;
+    border: 2px solid #5F7189;
+    color: #801515;
+    width: 12%;
+    height: 35px;
+    border-radius: 30px;
+    outline: none;
+    text-decoration: none;
+    padding: 5px;
+}
+#followus:hover{
+    background-color: white;
+    color: #801515;
+    border-right: 2px solid #801515;
+    border-left: 2px solid #801515;
+    border-top: 2px solid #801515;
+    border-bottom: 2px solid #801515;
+
+}
 .editprofilebutton {
     background-color: white;
     border: 2px solid #5F7189;
@@ -224,15 +258,36 @@ html {
 
 .editprofilebutton:hover {
     background-color: white;
+    color: #801515;
+    border-right: 2px solid #801515;
+    border-left: 2px solid #801515;
+    border-top: 2px solid #801515;
+    border-bottom: 2px solid #801515;
+}
+
+.messageprofile {
+    background-color: white;
+    border: 2px solid #5F7189;
+    color: #5F7189;
+    width: 12%;
+    height: 35px;
+    border-radius: 30px;
+    outline: none;
+    text-decoration: none;
+    padding: 5px;
+}
+
+.messageprofile:hover {
+    background-color: white;
     color: #4AB3F4;
-    border-right: 2px solid #4AB3F4;
-    border-left: 2px solid #4AB3F4;
-    border-top: 2px solid #4AB3F4;
-    border-bottom: 2px solid #4AB3F4;
+    border-right: 2px solid #801515;
+    border-left: 2px solid #801515;
+    border-top: 2px solid #801515;
+    border-bottom: 2px solid #801515;
 }
 
 .profilepictureContainer {
-    margin-top: 100px;
+    margin-top: 67px;
     width: 220px;
     height: 52%;
     border: 8px solid white;
@@ -274,7 +329,7 @@ html {
     text-decoration: none;
     color: #5F7189;
     padding: 15px;
-    width: 100%;
+    width: 95%;
     font-size: 18px;
     float: left;
     text-align: left;
@@ -282,13 +337,29 @@ html {
     margin-bottom: 10px;
     clear: both;
 }
+.showallButton{
+    position: relative;
+    float: right;
+   
+    font-size: 80%;
+    border: 1px solid #5F7189;
+    border-radius: 30px;
+    padding: 5px;
+    font-family: Poppins-Regular, sans-serif;
+    text-decoration: none;
+
+}
+.showallButton a:hover{
+    text-decoration: none;
+}
 
 .profileCenterDiv {
     float: left;
     height: 100%;
-    width: 50%;
+    width: 47%;
     margin: 10px auto;
     margin-right: 10px;
+    background-color: #E6ECF0;
 }
 
 .profile-fullpage {
@@ -299,12 +370,16 @@ html {
 }
 
 .profile-contentRight {
-    float: left;
+    /*height: 420px;*/
     width: 20%;
-    height: 40%;
-    margin-left: 1px;
+    min-width: 22%;
+    float: right;
     margin-top: 10px;
-    background-color: white;
+    display: inline-block;
+    margin-right: 4%;
+    padding: 3px;
+    background-color: #801515;
+    text-align: center;
 }
 
 .CenterLeftRightCont {
@@ -312,21 +387,18 @@ html {
     min-width: 1000px;
     text-align: center;
     height: 100%;
+    margin-top: 10px;
     position: absolute;
-    overflow: scroll;
 }
 
 .profile-contentLeft {
     float: left;
-    padding-left: 5%;
-    padding-right: 5%;
-    height: 40%;
+    height: 100%;
     width: 20%;
-    margin: auto;
-    margin-top: 10px;
+    padding: 10px 0 0 0 ;
     margin-left: 5%;
     margin-right: 10px;
-    background-color: white;
+
 }
 
 .profilePostButton {
@@ -343,16 +415,19 @@ html {
 }
 
 .profilePostButton a:hover {
-    color: #4AB3F4;
+    color: #801515; 
     text-decoration: none;
 }
-
+.profilePostButton2 a {
+    color: #801515; 
+    text-decoration: none;
+}
 .profilePostFollowButton:focus {
     text-decoration: none;
 }
 
 .profilePostFollowButton:hover {
-    border-color: #4AB3F4;
+    border-color: #801515;
 }
 
 .profilePostFollowButton {
@@ -366,13 +441,11 @@ html {
     width: 95%;
     text-align: left;
     border-top: 1px solid #E9EBEE;
-    overflow-x: hidden;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;
     padding: 15px;
     word-wrap: break-word;
 }
+
 
 .profilePostAnswerFollowedQuestions {
     margin: 0 0 0 2.5%;
@@ -410,8 +483,13 @@ html {
 
 .profilePostEmail {
     width: 60%;
-    font-size: 10px;
+    font-size: 15px;
+    color: #5F7189;
     display: block;
+}
+
+.profilePostEmail:hover {
+    color: #4AB3F4
 }
 
 .profilePostUsername {
@@ -453,12 +531,12 @@ html {
 .FollowedQuestionsContainer {
     width: 100%;
     height: inherit;
-    background-color: white;
+    background-color: #E6ECF0;
 }
 
 .AnsweredQuestionsContainer {
     width: 100%;
-    background-color: white;
+    background-color: #E6ECF0;
 }
 
 .profile-questionAnswer {
@@ -494,7 +572,7 @@ html {
 .our-team .FollowersPic::before {
     content: "";
     width: 100%;
-    background: #4AB3F4;
+   background: linear-gradient(to right, #D46A6A, #801515);
     position: absolute;
     bottom: 135%;
     right: 0;
@@ -513,7 +591,7 @@ html {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: #4AB3F4;
+    background: linear-gradient(to right, #D46A6A, #801515);
     position: absolute;
     top: 0;
     left: 0;
@@ -522,6 +600,7 @@ html {
 
 .our-team .FollowersPic img {
     width: 100%;
+    height: 100%;
     height: auto;
     border-radius: 50%;
     transform: scale(1);
@@ -557,9 +636,10 @@ html {
 
 .our-team .social {
     width: 100%;
-    padding: 0;
+    padding: 10px;
+    color: white;
     margin: 0;
-    background: #4AB3F4;
+    background: #801515;
     position: absolute;
     bottom: -100px;
     left: 0;
@@ -778,5 +858,127 @@ button.following:not(.wait):hover .msg-unfollow {
 }
 
 .profile-linksInterest {
-    border: 1px solid black;
+    margin-top: 5px;
+    background: linear-gradient(to right, #D46A6A, #801515);
+    width: 100%;
+    text-align: left;
+    padding: 3px;
+    color: #801515;
+    
+    border: 1px solid transparent;
 }
+
+.profile-linksInterest:hover {
+    box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgb(222, 226, 233);
+}
+
+.profile-linksInterest a {
+    border: 1px solid #801515;
+    padding: 5px;
+    color: #5F7189;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 30px;
+    display: inline-block;
+}
+
+.profile-linksInterest a:hover {
+    text-decoration: none;
+    color: #801515;
+    border: 1px solid #801515;
+    margin-right: 5px;
+}
+
+.profile-bioInfo {
+    background-color: white;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    text-align: left;
+    color: #5F7189;
+    padding-bottom: 15px;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+}
+
+.profile-bioInfo:hover {
+    box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgb(222, 226, 233);
+}
+
+.whotoFollowss {
+    width: 100%;
+    height: 15%;
+    border-bottom: 1px solid #D1D1D1;
+    text-overflow: ellipsis;
+    padding-bottom: 10px;
+    color: #555;
+    text-align: center;
+}
+
+.picturess {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    background: yellow;
+    border: 2px solid white;
+    float: left;
+    position: relative;
+    margin-left: 5px;
+    padding: 0;
+    display: inline-block;
+}
+
+.whotofollowButtonss {
+    border: 1px solid white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-radius: 35px;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    margin-top: 20px;
+    float: right;
+}
+
+.whotofollowButtonss:hover {
+    background-color: white;
+    color: #801515;
+    border: 1px solid #801515;
+    text-decoration: none;
+}
+
+.whotoFollowNamess {
+    margin-top: 15px;
+    display: inline-block;
+    width: 30%;
+    font-size: 80%;
+    overflow: hidden;
+    text-align: left;
+    text-align: left;
+    display: inline-block;
+}
+
+.profileimagess {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+
+/*.whotoFollowss {
+    width: 100%;
+    height: 15%;
+    border-bottom: 1px solid #D1D1D1;
+    text-overflow: ellipsis;
+    padding-bottom: 10px;
+    color: #555;
+    text-align: center;
+}
+*/
+
+
