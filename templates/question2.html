@@ -211,7 +211,7 @@
 
                         {% for answer in i.answers|reverse %}
 
-                        <div class="comments-container {{ " comments-container_{0} ".format(i.id)}}" id={{ "comments-container_{0}".format(i.id)}}>
+                        <div class="comments-container {{ "comments-container_{0}".format(i.id)}}">
                             <hr>
                             <ul id="comments-list" class="comments-list" style="margin: 0;">
                                 <li>
@@ -248,14 +248,13 @@
                                     </div>
                                 </li>
                             </ul>
-                            <ul class="comments-list reply-list">
+                            <ul class="comments-list reply-list" style="border: 1px solid black; height: 20px;">
                                 <!-- COMMENT -->
-
                                 {% for comment in answer.comments|reverse %}
                                 <hr>
-                                <li>
+                                <li style="border: 1px solid black;">
                                     <div class="comment-avatar"></div>
-                                    <div class="comment-box">
+                                    <div class="comment-box" style="background-color: white; width: 80%;  border-radius: 10px; padding: 10px 10px 20px 10px; margin-left: 13%; text-align: left;">
                                         <div class="comment-head">
                                             <h6 class="comment-name by-author">
                                                 <a href="http://creaticode.com/blog"></a>
@@ -269,6 +268,7 @@
                                         </div>
                                     </div>
                                 </li>
+                                <hr>
                                 {% endfor %}
                             </ul>
                             <div class="newpostinput" id={{answer.id}}>
@@ -756,7 +756,7 @@
             }
         });
         ///////////////////////////////////////////////////////////////////////////////////
-        /*$('input[type=text]').on('keydown', function(e) {
+        $('input[type=text]').on('keydown', function(e) {
             if (e.which == 13) {
                 e.preventDefault();
                 var a = $(this).attr('id');
@@ -789,7 +789,7 @@
                 });
                 //COMMENT
             }
-        });*/
+        });
 
         /*
         $(document).ready(function () {
