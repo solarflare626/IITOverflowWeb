@@ -77,7 +77,7 @@
                                 <a class="profilePostEmail"> {{json_object.email}} </a>
 
                                 <div class="profile-linksInterest" id="interestscontainer">
-                                    <div style="background-color: white; padding: 10px; color:#801515;">
+                                    <div style="background-color: white; padding: 10px;">
                                     <h4> Interests</h4>
                                     <hr>
                                     <br> {% for interest in json_object1.interests %}
@@ -85,9 +85,7 @@
                                     {% endfor %}
                                 </div>
                                 </div>
-
                             </div>
-                        </div>
 
 
                             <div class="profileCenterDiv">
@@ -115,6 +113,7 @@
                                             <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" id="QupVote"> </a>
                                             <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down" id= "QdownVote"> </a>
                                             <button  onclick = "followedQuestion('{{question.id}}')" >
+                                           
                                             </button>
                                         </div>
                                     </div>
@@ -210,8 +209,8 @@
 
                             <div class="profile-contentRight">
                                 <div style="background-color: white; padding: 10px;">
-                                <h4 style="text-align: left; color: #801515">Who to Follow</h4>
-                                <hr>
+                                <h4>Who to Follow</h4>
+                    
                                 {% for i in whotofollowusers %}
                                  <div class="whotoFollowss" id= {{"whotoFollow_{0}".format(i.id)}}>
                                     <!-- <div class="whotoFollowss" id= "{{ i.displayname }}"> -->
