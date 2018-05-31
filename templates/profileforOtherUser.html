@@ -83,19 +83,19 @@
 
                 </div>
                 <div class="CenterLeftRightCont" style="margin-top: 400px;">
-                    <div class="profile-contentLeft">
+                   <div class="profile-contentLeft">
 
-                        <!-- <h4>Bio info here</h4> -->
-                          <p style="font-weight: 1000; font-size: 22px" id="dispn"> {{ json_object['displayname'] }} </p>
-                            <a class="profilePostEmail"> {{json_object.email}} </a>
-
-                                <div class="profile-linksInterests" id="interestscontainer">
+                                <!-- <h4>Bio info here</h4> -->
+                                <p style="font-weight: 1000; font-size: 22px" id="dispn"> {{ json_object['displayname'] }} </p>
+                                <a class="profilePostEmail"> {{json_object.email}} </a>
+                                <div class="profile-linksInterest" id="interestscontainer">
                                     <h4> Interests</h4>
-                                    <br> {% for interest in json_object1.interests %}
+                                    <br> {% for interest in json_object.interests %}
                                     <a style="border:1px solid black" id="int"> {{interest.name}} </a>
                                     {% endfor %}
+
                                 </div>
-                    </div>
+                            </div>
 
                     <div class="profileCenterDiv">
                             <!--<div class="FollowedQuestionsContainer">-->
@@ -212,20 +212,20 @@
                         </div>
                     </div>
 
-                    <div class="profile-contentRight">
-                        <h4>Who to Follow</h4>
-                        
-                       {% for i in whotofollowusers %}
-                                <div class="whotoFollowss1" id= {{"whotoFollow_{0}".format(i.id)}}>
-                                <div class="picturess1">
-                                    <img class="profileimagess1" src="{{ i.picture }}">
+                   <div class="profile-contentRight">
+                                <h4>Who to Follow</h4>
+                    
+                                {% for i in whotofollowusers %}
+                                 <div class="whotoFollowss" id= {{"whotoFollow_{0}".format(i.id)}}>
+                                    <!-- <div class="whotoFollowss" id= "{{ i.displayname }}"> -->
+                                <div class="picturess">
+                                    <img class="profileimagess" src="{{ i.picture }}">
                                 </div>
             
-                                <button  onclick = "followable('{{i.id}}')" class="whotofollowButtonss1">
+                                <button  onclick = "followable('{{i.id}}')" class="whotofollowButtonss">
                                     <a href="#"  id={{"followa_{0}".format(i.id)}} >Follow</a>
-                                </button>
-
-                                <div class="whotoFollowNamess1">
+                            </button>
+                                <div class="whotoFollowNamess">
                                     <a href="{{ url_for('.profile', id = i.id) }}" >{{ i.displayname }}</a>
 
                                     <a>{{ i.email }}</a>
@@ -238,7 +238,7 @@
                              <a>
                                 <h4>See all</h4>
                             </a>
-                    </div>
+                    
 
                     <div class="FollowingContainer">
 

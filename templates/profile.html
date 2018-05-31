@@ -92,12 +92,12 @@
                                         <div class="profileNameEmail">
                                             <a class="profilePostUsername">{{question.user.displayname}}</a>
                                             <a class="profilePostEmail">{{question.user.email}}</a>
-                                            <h3 class="profilePostTitle">Title:{{ question.question }}</h3>
+                                            <h3 class="profilePostTitle">Title:{{ question.question|safe }}</h3>
                                         </div>
 
                                         <br>
 
-                                        <p class="profilePostAnswer">{{ question.questiondesc | safe }}</p>
+                                        <div class="profilePostAnswer">{{ question.questiondesc|safe }}</div>
                                         <div class="profilePostButton">
                                             <a href="#" class="glyphicon glyphicon-pencil"></a>
                                             <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" id="QupVote"> </a>
@@ -132,8 +132,6 @@
                                     </div>
                                     {% endfor %}
                                 </div>
-
-
 
                                 {% for i in json_object.questions|reverse %}
 
@@ -182,9 +180,10 @@
                                                     </div>
                                                 </div>
                                                 <ul class="social">
-                                                    <button  onclick = "followedUser('{{follower.id}}')" >
-                                                        <a href="#"  id={{"followuser_{0}".format(follower.id)}} class="followerButton">Unfollow</a>
-                                                    </button>
+                                                <button  onclick = "followedUser('{{follower.id}}')" >
+                                                    <a href="#"  id={{"followuser_{0}".format(follower.id)}} class="followerButton">Unfollow</a>
+                                                </button>
+
                                                 </ul>
                                             </div>
                                         </div>
