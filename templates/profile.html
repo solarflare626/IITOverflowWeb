@@ -2,9 +2,11 @@
 <html>
 
 <head>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Profile</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="../static/css/mainprofile.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -12,21 +14,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="/static/js/jquery-3.3.1.min.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../static/js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="../static/js/jquery-3.3.1.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+    <meta name="google-signin-scope" content="">
+    <meta name="google-signin-client_id" content="976545483152-3u1fctn90tf0qvjevud1hkfu3jdneog0.apps.googleusercontent.com">
+    <meta name="google-signin-client_secret" content="dhayVHWZ-OsnjdQO47qZXhOD">
 
     <script src="../static/js/mainprofile.js"></script>
 
-    <meta name="google-signin-scope" content="">
-    <meta name="google-signin-client_id" content="976545483152-3u1fctn90tf0qvjevud1hkfu3jdneog0.apps.googleusercontent.com">
-    <meta name="google-signin-client_secret" content="dhayVHWZ-OsnjdQO47qZXhOD">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-
-
-
-    <meta name="google-signin-scope" content="">
-    <meta name="google-signin-client_id" content="976545483152-3u1fctn90tf0qvjevud1hkfu3jdneog0.apps.googleusercontent.com">
-    <meta name="google-signin-client_secret" content="dhayVHWZ-OsnjdQO47qZXhOD">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 
 <body>
@@ -330,8 +331,37 @@
         </div>
     </div>
     <!--<script src="../static/js/app2.js"></script>-->
+<script>
+
+    function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function() {
+        $.ajax({
+            url: "http://localhost:5000/logout",
+            dataType: "json",
+            success: function(resp) {
+                if (resp.message = "okay") {
+                    window.location.replace('/');
+                } else {
+                    console.log("Something went wrong")
+                }
+            },
+            error: function(e) {
+                console.log('ERROR')
+            }
+        });
+    });
+}
+</script>
 </body>
 <script type="text/javascript">
+        $(document).ready(function() {
+        gapi.load('auth2', function () {
+            gapi.auth2.init();
+        });
+    });
+
+
     $(document).ready(function() {
         $(".profile-contentCenter").show('slow');
         $(".FollowersContainer").hide();
@@ -751,25 +781,7 @@
             }
         });
     }
-function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function() {
-        $.ajax({
-            url: "http://localhost:5000/logout",
-            dataType: "json",
-            success: function(resp) {
-                if (resp.message = "okay") {
-                    window.location.replace('/');
-                } else {
-                    console.log("Something went wrong")
-                }
-            },
-            error: function(e) {
-                console.log('ERROR')
-            }
-        });
-    });
-}
+
 $(".showallButton").click(function(){
         var id = $(this).attr("id");
         if($(this).text()=== "Show description"){
@@ -783,5 +795,4 @@ $(".showallButton").click(function(){
 
     });
 </script>
-
 </html>

@@ -2,9 +2,11 @@
 <html>
 
 <head>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Profile</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="../static/css/mainprofile.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -12,14 +14,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 
-    <script src="../static/js/mainprofile.js"></script>
-
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../static/js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="../static/js/jquery-3.3.1.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
     <meta name="google-signin-scope" content="">
     <meta name="google-signin-client_id" content="976545483152-3u1fctn90tf0qvjevud1hkfu3jdneog0.apps.googleusercontent.com">
     <meta name="google-signin-client_secret" content="dhayVHWZ-OsnjdQO47qZXhOD">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <script src="../static/js/mainprofile.js"></script>
+
 </head>
 
 <body>
@@ -41,7 +51,7 @@
                     <div class="profile-search">
 
                         <button class="profile-searchbutton" type="submit">
-                            <span class="glyphicon glyphicon-search">
+                            <span class="glyphicon glyphicon-search"></span>
                         </button>
                         <input class="profile-searchbar" type="text" placeholder="Search..">
 
@@ -301,6 +311,12 @@
     </div>
 
     <script type="text/javascript">
+            $(document).ready(function() {
+        gapi.load('auth2', function () {
+            gapi.auth2.init();
+        });
+    });
+
         $(document).ready(function() {
             $(".profile-contentCenter").show('slow');
             $(".FollowersContainer").hide();
@@ -583,7 +599,23 @@
         });
     }
 
-function signOut() {
+$(".showallButton").click(function(){
+        var id = $(this).attr("id");
+        if($(this).text()=== "Show description"){
+            $(this).text("Hide description");
+            $("#show_"+id).show('slow');
+        }
+        else{
+            $(this).text("Show description");
+            $("#show_"+id).hide('slow');
+        }
+
+    });
+    </script>
+
+<script>
+
+    function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function() {
         $.ajax({
@@ -602,19 +634,8 @@ function signOut() {
         });
     });
 }
-$(".showallButton").click(function(){
-        var id = $(this).attr("id");
-        if($(this).text()=== "Show description"){
-            $(this).text("Hide description");
-            $("#show_"+id).show('slow');
-        }
-        else{
-            $(this).text("Show description");
-            $("#show_"+id).hide('slow');
-        }
-
-    });
-    </script>
+</script>
 
 
 </body>
+</html>
