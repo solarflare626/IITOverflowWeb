@@ -1477,11 +1477,11 @@ p {
     left: 50%;
     width: 50%;
     min-width: 20%;
-    margin-top: -15.5%;
+    margin-top: -25%;
     /*set to a negative number 1/2 of your height*/
     margin-left: -25%;
     /*set to a negative number 1/2 of your width*/
-    z-index: 100;
+    z-index: 11000;
     border-radius: 10px;
     box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.5);
     padding: 20px;
