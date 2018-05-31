@@ -74,6 +74,7 @@
     </div>
     <div class="contentLeft">
         <div class="links">
+            <div style="background: linear-gradient(to right, #D46A6A, #801515); padding-bottom: 10px;  color: white;  overflow: hidden">
             <div class="profilepicture">
                 <img class="backgroundpic" src="../static/image/background1.jpg">
                 <div class="picture">
@@ -81,14 +82,14 @@
             </div>
             <div class="emailinfo">
                 <div class="namecont">
-                    <a href="#">
-                        <h3>{{ user.displayname }}
+                    <a href="profile">
+                        <h3 style="color: white;">{{ user.displayname }}
                             <br> </h3>
                     </a>
                 </div>
                 <div class="emailcont">
                     <a>
-                        <h6>{{ user.email }}</h6>
+                        <h6 style="color: white;">{{ user.email }}</h6>
                     </a>
                 </div>
             </div>
@@ -97,25 +98,37 @@
                 <a class="newsfeed-followbutton">Followers {{usercount.followersCount}}</a>
                 <a class="newsfeed-followingbutton">Following {{usercount.followingCount}}</a>
             </div>
+            </div>
         </div>
         <div class="whotofollowcont">
-            <h4>Who to Follow</h4>
+            <div style="background-color: white; padding: 10px">
+            <h4 style="text-align: left; margin: 0; padding: 0;">Who to Follow</h4>
             <hr> {% for i in followableusers %}
             <div class="whotoFollow">
+                <div style="width: 30%;display: inline-block; ">
                 <div class="picture1">
                     <img class="profileimage" src="{{ i.picture }}">
                 </div>
+                </div>
+
+                <div style="width: 30%;  display: inline-block;">
                 <a class="whotofollowButton">Follow</a>
+                </div>
+
+                <div style="width: 30%;  display: inline-block;">
                 <div class="whotoFollowName">
                     <a>{{i.displayname}}</a>
                     <a>{{i.email}}</a>
+                </div>
                 </div>
             </div>
             {% endfor %}
             <a>
                 <h4>See all</h4>
             </a>
+            </div>
         </div>
+
     </div>
     <div class="contentCenter" id="contentCenter">
         <div id="toReload">
@@ -178,12 +191,12 @@
 
                         </h4>
                         <h5 class="titlepostTitle">
-                            <a style="outline: none;">Title:</a> {{i.question|safe}}</h5>
+                            <a style="outline: none; text-decoration: none;">Title:</a> {{i.question|safe}} <a class="showallButton" type="button" title="Show all"  id="{{i.id}}">Show description</a></h5>
                     </div>
 
                     <div style="padding: 10px; border-bottom: 1px solid #D1D1D1; ">
-                        <div class="descriptionpost">Description: {{i.questiondesc|safe}}
-                            <div></div>
+                        <div class="descriptionpost" id={{"show_{0}".format(i.id)}}>Description: {{i.questiondesc|safe}}
+
                         </div>
                         <div class="categorypost">Category: {{i.category.name}}
                             <div></div>
@@ -192,15 +205,14 @@
 
                             <div></div>
                         </div>
-                        <div class="newpostbuttons">
-                            <button id="{{ i.id }}" name="{{ i.userId }}" class="follow followbutton">
-                                <span class="msg-follow">Follow</span>
-                                <span class="msg-following">Following</span>
-                                <span class="msg-unfollow">Unfollow</span>
-                            </button>
+                        <div class="newpostbuttons"><button id="{{ i.id }}" name="{{ i.userId }}" class="follow followbutton">
+                                    <span class="msg-follow">Follow</span>
+                                    <span class="msg-following">Following</span>
+                                    <span class="msg-unfollow">Unfollow</span>
+                                </button>
                             <button class="answerbutton" id="{{i.id}}">Answer</button>
-                            <button onclick="upvote('{{i.id}}')" title="Upvote" style="color: #1abc9c; width: 23%;display: inline-block;" class="votebutton glyphicon glyphicon-thumbs-up">{{ i.upvotesCount}}</button>
-                            <button onclick="downvote('{{i.id}}')" title="Downvote" style="color: #e74c3c; width: 23%; display: inline-block;" class="votebutton glyphicon glyphicon-thumbs-down">{{i.downvotesCount}}</button>
+                            <button id="{{ i.id }}" onclick="upvote('{{i.id}}')" title="Upvote" style="color: #1abc9c; width: 23%;display: inline-block;" class="votebutton up glyphicon glyphicon-thumbs-up"> {{ i.upvotesCount}}</button>
+                            <button id="{{ i.id }}" onclick="downvote('{{i.id}}')" title="Downvote" style="color: #e74c3c; width: 23%; display: inline-block;" class="votebutton down glyphicon glyphicon-thumbs-down"> {{i.downvotesCount}}</button>
                         </div>
 
                     </div>
@@ -216,7 +228,7 @@
                             <ul id="comments-list" class="comments-list" style="margin: 0;">
                                 <li>
                                     <div class="comment-main-level">
-                                        <div class="picture2" style="background-color: black; width: 10%; height: auto;">
+                                        <div class="picture2">
                                             <img src="{{answer.user.picture}}">
                                         </div>
                                         <div class="comment-box" style="background-color: white; width: 80%;  border-radius: 10px; padding: 5px; margin-left: 13%; text-align: left;">
@@ -345,6 +357,7 @@
 
 
         <div class="links2">
+         <div style="padding: 10px; background-color: white; overflow: hidden">
             <h3>LeaderBoard</h3>
             <hr> {% for i in leader %}
             <div class="whotoFollow1">
@@ -361,14 +374,15 @@
             </div>
 
             {% endfor %}
-
+         </div>
         </div>
         <div class="links3">
+         <div style="padding: 10px; background-color: white; overflow: hidden">
             <h3>Related Links</h3>
             <hr> {% for i in questions %}
             <a class="links3Linkstitle">
                 <span class="glyphicon glyphicon-link"></span> {{i.question}} </a> {% endfor %}
-
+         </div>
         </div>
 
     </div>
@@ -808,6 +822,7 @@
         ///////////////////////////////////////////////////////////////////////////////////
         $(document).ready(function () {
             $(".comments-container").hide();
+            $(".descriptionpost").hide();
             $(".answerdiv").hide();
             $("#post").hide();
             $("#submitbutton3").hide();
@@ -1505,7 +1520,20 @@
             });
         }
     ///////////////////////////////////////////////////////////////////////////////////
+        $(".showallButton").click(function() {
+            var id = $(this).attr("id");
+            if ($(this).text() === "Show description") {
+                $(this).text("Hide description");
+                $("#show_" + id).show('slow');
+            }
+            else {
+                $(this).text("Show description");
+                $("#show_" + id).hide('slow');
+            }
+
+        });
     </script>
+
 </body>
 
 </html>

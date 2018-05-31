@@ -167,7 +167,6 @@ function upvote(q_id) {
                                    success: function() {
                                        getUpvote(q_id);
                                        getDownVote(q_id);
-                                        location.reload();
                                        console.log("Sucessful deleted downvote after upvote!");
                                    }
                                });
@@ -207,7 +206,6 @@ function downvote(q_id) {
                             type: "DELETE",
                             url: 'http://iitoverflow.herokuapp.com/api/users/' + currentUser + '/questionsupvoted/rel/' + q_id,
                             success: function () {
-                                location.reload();
                                 getDownVote(q_id);
                                 getUpvote(q_id);
                                 console.log("Sucessful deleted upvote after downvote!");
