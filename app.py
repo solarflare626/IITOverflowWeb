@@ -163,8 +163,10 @@ def question():
             newlist.append(i['name'])
         
         #print(str(leader))
-
-    return render_template('question2.html', leader=leader, curuser =curuser,user=user, tag_list=newlist, questions=questions, answers=answers, categories=categories, followableusers=followableusers,usercount=followerfollowingcount)
+        tags = requests.get('http://iitoverflow.herokuapp.com/api/tags')
+        tags = tags.json()
+        print(curuser)
+    return render_template('question2.html',tags = tags, leader=leader, curuser =curuser,user=user, tag_list=newlist, questions=questions, answers=answers, categories=categories, followableusers=followableusers,usercount=followerfollowingcount)
 
 @app.route('/profile/<int:id>', methods=['GET', 'POST'])
 def profile(id):
@@ -246,7 +248,7 @@ def profile(id):
         return render_template('profileforOtherUser.html', curr=curr, curuser=curuser, user=str(id), s_code=s_code,
                                json_object=json_object, json_object1=json_object1, followers=val3, following=val4,
                                followed_questions=followed_questions, answers=val5, questionsfollowed=val6,
-                               questions=val7, nswered_questions=answered_questions)
+                               questions=val7, answered_questions=answered_questions)
 
 
 @app.route('/getCurrentUser', methods=['POST'])
