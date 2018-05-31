@@ -23,6 +23,10 @@
 
 
 
+    <meta name="google-signin-scope" content="">
+    <meta name="google-signin-client_id" content="976545483152-3u1fctn90tf0qvjevud1hkfu3jdneog0.apps.googleusercontent.com">
+    <meta name="google-signin-client_secret" content="dhayVHWZ-OsnjdQO47qZXhOD">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 
 <body>
@@ -43,7 +47,7 @@
                         <a href="{{ url_for('.question') }}"><span class="glyphicon glyphicon-home"></span>  Home</a>
                         <a href=""><span class="glyphicon glyphicon-user"></span>  Profile</a>
                         <a href="#"><span class="glyphicon glyphicon-bell"></span>  Notifications</a>
-                        <a href="" onclick="signOut();"><span class="glyphicon glyphicon-asterisk"></span> Logout</a>
+                        <a href="" onclick="signOut(); return false;"><span class="glyphicon glyphicon-asterisk"></span>Logout</a>
 
                     </div>
                 </div>
@@ -61,7 +65,8 @@
                             <a type="submit" id="profile-FollowersButton">{{followers}} Followers</a>
                             <a type="submit" id="profile-FollowingButton">{{following}} Following</a>
                             <a type="submit" id="profile-FollowedQuestionButton">{{questionsfollowed}} Followed Questions</a>
-                            <a type="submit" id="profile-AnsweredQuestionButton">{{answers}} Answered Questions</a> {% endblock %}
+                            <!-- <a type="submit" id="profile-AnsweredQuestionButton">{{answers}} Answered Questions</a>  -->
+                            {% endblock %}
                             <a class="editprofilebutton" style="cursor:pointer;">Edit Profile</a>
                         </div>
                         <div class="CenterLeftRightCont">
@@ -71,16 +76,18 @@
                                 <p style="font-weight: 1000; font-size: 22px" id="dispn"> {{ json_object['displayname'] }} </p>
                                 <a class="profilePostEmail"> {{json_object.email}} </a>
 
-                                <div class="profile-linksInterest">
+                                <div class="profile-linksInterest" id="interestscontainer">
+                                    <div style="background-color: white; padding: 10px; color:#801515;">
                                     <h4> Interests</h4>
+                                    <hr>
                                     <br> {% for interest in json_object1.interests %}
                                     <a style="border:1px solid black" id="int"> {{interest.name}} </a>
                                     {% endfor %}
-
+                                </div>
                                 </div>
 
                             </div>
-
+                        </div>
 
 
                             <div class="profileCenterDiv">
@@ -94,18 +101,20 @@
                                         <div class="profileNameEmail">
                                             <a class="profilePostUsername">{{question.user.displayname}}</a>
                                             <a class="profilePostEmail">{{question.user.email}}</a>
-                                            <h3 class="profilePostTitle">Title:{{ question.question }}</h3>
+                                            <h3 class="profilePostTitle">Title:{{ question.question|safe }} <a class="showallButton" type="button" title="Show all"  id="{{question.id}}">Show description</a></h3>
                                         </div>
 
                                         <br>
 
-                                        <p class="profilePostAnswer">{{ question.questiondesc | safe }}</p>
+                                        <div class="profilePostAnswer" id={{"show_{0}".format(question.id)}}>{{ question.questiondesc|safe }}</div>
+                                       
+                                        <hr>
                                         <div class="profilePostButton">
+                                                <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
                                             <a href="#" class="glyphicon glyphicon-pencil"></a>
                                             <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" id="QupVote"> </a>
                                             <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down" id= "QdownVote"> </a>
                                             <button  onclick = "followedQuestion('{{question.id}}')" >
-                                            <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
                                             </button>
                                         </div>
                                     </div>
@@ -120,22 +129,21 @@
                                         <div class="profileNameEmail">
                                             <a class="profilePostUsername">{{question.user.displayname}}</a>
                                             <a class="profilePostEmail">{{question.user.email}}</a>
-                                            <h3 class="profilePostTitle">Title:{{ question.question.question }}</h3>
+                                            <h3 class="profilePostTitle">Title:{{ question.question | safe}}<a class="showallButton" type="button" title="Show all"  id="{{question.id}}">Show description</a></h3>
                                         </div>
-                                        <p class="profilePostAnswer">{{ question.question.questiondesc }}</p>
+                                        <div class="profilePostAnswer" id={{"show_{0}".format(question.id)}}>{{ question.questiondesc | safe }}</div>
                                         <div>{{ question.answer }}</div>
                                         <div class="profilePostButton">
+                                                <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
                                             <a href="#" class="glyphicon glyphicon-pencil"></a>
                                             <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" </a>
-                                                <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down" </a>
+                                            <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down" </a>
                                             <button  onclick = "followedQuestion('{{question.id}}')" >
-                                                    <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
+                                                   
                                             </button>                                        </div>
                                     </div>
                                     {% endfor %}
                                 </div>
-
-
 
                                 {% for i in json_object.questions|reverse %}
 
@@ -147,18 +155,19 @@
                                     <div class="profileNameEmail">
                                         <a class="profilePostUsername">{{json_object.displayname}}</a>
                                         <a class="profilePostEmail">{{json_object.email}}</a>
-                                        <h3 class="profilePostTitle">Title:{{i.question}}</h3>
+                                        <h3 class="profilePostTitle">Title:{{i.question | safe}} <a class="showallButton" type="button" title="Show all"  id="{{json_object.id}}">Show description</a> </h3>
                                     </div>
 
                                     <br>
 
-                                    <p class="profilePostAnswer">{{i.questiondesc}}</p>
+                                    <div class="profilePostAnswer" id={{"show_{0}".format(json_object.id)}} >{{i.questiondesc | safe}}</div>
                                     <div class="profilePostButton">
-                                        <a href="#" class="glyphicon glyphicon-pencil"></a>
-                                        <a onclick="upvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-up" </a>
-                                        <a onclick="downvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-down" </a>
-                                        <button  onclick = "followedQuestion('{{questions.id}}')" >
                                             <a href="#"  id={{"followques_{0}".format(questions.id)}} class="profilePostFollowButton">Unfollow</a>
+                                        <a href="#" class="glyphicon glyphicon-pencil"></a>
+                                        <a onclick="upvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-up"> </a>
+                                        <a onclick="downvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-down" ></a>
+                                        <button  onclick = "followedQuestion('{{questions.id}}')" >
+                                            
                                         </button>
                                     </div>
                                 </div>
@@ -177,16 +186,17 @@
                                         <div class="col-md-3 col-sm-6">
                                             <div class="our-team">
                                                 <div class="FollowersPic">
-                                                    <img src="{{ follower.picture }}">
+                                                    <img style="width: 100%; height: 100%;" src="{{ follower.picture }}">
                                                     <div class="team-content">
                                                         <h3 class="FollowersTitle">{{ follower.displayname }}</h3>
-                                                        <span class="FollowersPost">Web Developer</span>
+                                                       
                                                     </div>
                                                 </div>
                                                 <ul class="social">
-                                                    <button  onclick = "followedUser('{{follower.id}}')" >
-                                                        <a href="#"  id={{"followuser_{0}".format(follower.id)}} class="followerButton">Unfollow</a>
-                                                    </button>
+                                                <button  onclick = "followedUser('{{follower.id}}')" >
+                                                    <a style="color: white;" href="#"  id={{"followuser_{0}".format(follower.id)}} class="followerButton">Unfollow</a>
+                                                </button>
+
                                                 </ul>
                                             </div>
                                         </div>
@@ -199,8 +209,9 @@
 
 
                             <div class="profile-contentRight">
-                                <h4>Who to Follow</h4>
-                    
+                                <div style="background-color: white; padding: 10px;">
+                                <h4 style="text-align: left; color: #801515">Who to Follow</h4>
+                                <hr>
                                 {% for i in whotofollowusers %}
                                  <div class="whotoFollowss" id= {{"whotoFollow_{0}".format(i.id)}}>
                                     <!-- <div class="whotoFollowss" id= "{{ i.displayname }}"> -->
@@ -224,10 +235,8 @@
                              <a>
                                 <h4>See all</h4>
                             </a>
-                    
-                    
-                    
-                            </div>
+                        </div>
+                    </div>
 
                             <div class="FollowingContainer">
                                 {% for g in json_object1.following %}
@@ -237,18 +246,19 @@
                                         <div class="col-md-3 col-sm-6">
                                             <div class="our-team">
                                                 <div class="FollowersPic">
-                                                    <img src="{{ g.picture }}">
+                                                    <img style="width: 100%; height: 100%;" src="{{ g.picture }}">
                                                     <div class="team-content">
                                                         <h3 class="FollowersTitle">{{ g.displayname }}</h3>
-                                                        <span class="FollowersPost">Web Developer</span>
+                                                       
                                                     </div>
                                                 </div>
                                                 <ul class="social">                                                  
                                                         <button  onclick = "followedUser('{{g.id}}')" >
-                                                            <a href="#"  id={{"followuser_{0}".format(g.id)}} class="followerButton">Unfollow</a>
+                                                            <a style="color: white;" href="#"  id={{"followuser_{0}".format(g.id)}} class="followerButton">Unfollow</a>
                                                         </button>                                                  
                                                 </ul>
                                             </div>
+                                            <br>
                                         </div>
                                     </a>
 
@@ -330,6 +340,7 @@
         $(".FollowingContainer").hide();
         $(".FollowedQuestionsContainer").hide();
         $(".AnsweredQuestionsContainer").hide();
+        $(".profilePostAnswer").hide();
     })
     $("#profile-PostButton").click(function() {
         $(".profile-contentCenter").show('slow');
@@ -362,6 +373,7 @@
         $(".profileCenterDiv").hide();
     })
     $("#profile-FollowedQuestionButton").click(function() {
+        $(".profilePostAnswer").hide();
         $(".profile-contentCenter").show();
         $(".FollowersContainer").hide();
         $(".FollowingContainer").hide();
@@ -399,16 +411,12 @@
         var formdata = new FormData(); 
         var file = $('#avatar-1').prop('files');
         console.log(file);
-        
         var name = $("#dispName").val();
         var names = $("#inter").val();
         var user = {
             "displayname": name,
             "interests": names
-        };
-
-       
-        
+        };  
         console.log(JSON.stringify(user));
         $.ajax({
             url: "http://iitoverflow.herokuapp.com/api/users/{{ curuser }}",
@@ -419,7 +427,6 @@
             success: function(data2) {
                 console.log("profile ", data2);
                 $("#dispn").text(data2.displayname);
-
                 if (file.length > 0) {
                     $.ajax({
                         url: "http://iitoverflow.herokuapp.com/api/users/{{curuser}}/updateProfile",
@@ -433,66 +440,63 @@
                         }
                     });
                 }
-                    if (formdata) {
-                        formdata.append("file", file[0]);
-                        console.log("formdata", formdata);
-                        $.ajax({
-                            url: "http://iitoverflow.herokuapp.com/api/users/{{curuser}}/updateProfile",
-                            type: "POST",
-                            data: formdata,
-                            processData: false,
-                            contentType: false,
-                            success: function(data) {
-                                //console.log("profile ", data.picture);
-                                //console.log("profile ", data.picture);
-                                console.log("TEST 1");
-                                $("#profPic").attr("src", data.picture);
-                                $("#modalProf").hide();
-                            },
-                            error: function(err) {
-                                console.log("profile error :", err);
-                            }
-                        });
-
-                        var userId = {{curuser}};
-                        console.log("TEST 2: User Id: ", {{curuser}});
-                        $.ajax({
-                            url: "http://iitoverflow.herokuapp.com/api/users/"+userId+"/interests",
-                            type: "DELETE",
-                            data: JSON.stringify(user),
-                            dataType: "json",
-                            success: function (data3) {
-                                console.log("interests are deleted")
-                                interests.forEach(function(cat){
-                                    console.log(cat);
-                                    $.ajax({
-                                    url: "http://iitoverflow.herokuapp.com/api/users/"+userId+"/interests/rel/"+cat,
-                                    type: "PUT",
-                                    data: JSON.stringify(user),
-                                    dataType: "json",
-                                    success: function (data3) {
-                                        console.log("TEST 3");
-                                        console.log("Success!");
-                                        $("#int").text(data3.interests);
-                                    },
-                                    error: function(err) {
-                                        console.log("profile error :", err);
-                                    }
-                                    });
+                if (formdata) {
+                    formdata.append("file", file[0]);
+                    console.log("formdata", formdata);
+                    $.ajax({
+                        url: "http://iitoverflow.herokuapp.com/api/users/{{curuser}}/updateProfile",
+                        type: "POST",
+                        data: formdata,
+                        processData: false,
+                        contentType: false,
+                        success: function(data) {
+                            //console.log("profile ", data.picture);
+                            //console.log("profile ", data.picture);
+                            console.log("TEST 1");
+                            $("#profPic").attr("src", data.picture);
+                            $("#modalProf").hide();
+                        },
+                        error: function(err) {
+                            console.log("profile error :", err);
+                        }
+                    });
+                    var userId = {{curuser}};
+                    console.log("TEST 2: User Id: ", {{curuser}});
+                    $.ajax({
+                        url: "http://iitoverflow.herokuapp.com/api/users/"+userId+"/interests",
+                        type: "DELETE",
+                        data: JSON.stringify(user),
+                        dataType: "json",
+                        success: function (data3) {
+                            console.log("interests are deleted")
+                            interests.forEach(function(cat){
+                                console.log(cat);
+                                $.ajax({
+                                url: "http://iitoverflow.herokuapp.com/api/users/"+userId+"/interests/rel/"+cat,
+                                type: "PUT",
+                                data: JSON.stringify(user),
+                                dataType: "json",
+                                success: function (data3) {
+                                    console.log("TEST 3");
+                                    console.log("Success!");
+                                    $("#int").text(data3.interests);
+                                    console.log("Reload Interests");
+                                    $("#interestscontainer").load(location.href + " #interestscontainer");
+                                },
+                                error: function(err) {
+                                    console.log("profile error :", err);
+                                }
                                 });
-                            },
-                            error: function(err) {
-                                console.log("profile error :", err);
-                            }
-                        });
-                    }
-                 $("#modalProf").hide();
-            },
-
-            error: function(err) {
-                console.log("profile error :", err);
+                            });
+                        },
+                        error: function(err) {
+                            console.log("profile error :", err);
+                        }
+                    });
+                }
             }
         });
+        $("#modalProf").hide();
     });
    
 
@@ -757,6 +761,39 @@
         });
     }
 
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function() {
+        $.ajax({
+            url: "http://localhost:5000/logout",
+            dataType: "json",
+            success: function(resp) {
+                if (resp.message = "okay") {
+                    window.location.replace('/');
+                } else {
+                    console.log("Something went wrong")
+                }
+            },
+            error: function(e) {
+                console.log('ERROR')
+            }
+        });
+    });
+}
+
+$(".showallButton").click(function(){
+        var id = $(this).attr("id");
+        if($(this).text()=== "Show description"){
+            $(this).text("Hide description");
+            $("#show_"+id).show('slow');
+        }
+        else{
+            $(this).text("Show description");
+            $("#show_"+id).hide('slow');
+        }
+       
+    });
 
 </script>
 

@@ -201,7 +201,7 @@ def profile(id):
         response = requests.get(curl)
         json_object1 = response.json()
         val3 = json_object1['followersCount']
-        val4 = json_object1['followingCount']
+        val4 = json_object1['followingCount']   
         val5 = json_object1['answersCount']
         val6 = json_object1['questionsfollowedCount']
         val7 = json_object1['questionsCount']

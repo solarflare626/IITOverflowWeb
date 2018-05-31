@@ -157,7 +157,7 @@
                     <button class="duplicatebutton btn btn-danger" id="{{ "duplicate_{0}".format(i.id)}}" style="display: none;">Mark as Duplicate</button>
 
                     <div class="titlepost">
-                  
+
                         <div class=" editanddeleteButtonCont">
                             {% if user.id == i.user.id %}
                             <i onclick="showhide('{{i.id}}')" class="fa fa-edit Newsfeed-editButton" title="Edit"></i>
@@ -213,18 +213,18 @@
                                     <div class="comment-main-level">
                                         <div class="picture2" style="background-color: black;">
                                             <img src="{{answer.user.picture}}">
-                                            
+
                                         </div>
                                         <div class="comment-box" style="background-color: white; width: 80%;  border-radius: 30px; padding: 5px 10px 5px 10px; margin-left: 12%;">
 
                                             <div class="comment-head">
                                                     <h5 class="answerdisplayname">{{answer.user.displayname}}</h5>
-                                               
+
                                                 <div class="answerdivbutton">
                                                 <i id="{{answer.id}}" class="fa fa-edit edit"></i>
                                                 <i id="{{answer.id}}" class="fa fa-trash heart"></i>
                                                 <i id="{{answer.id}}" class="fa fa-reply heart"></i>
-                                                
+
                                             </div>
                                             <span>{{ answer.createdAt }}</span>
                                             </div>
@@ -298,8 +298,8 @@
 
                             <h5>Tags</h5>
                             <input id="tagsIDedit" type="text" name="tagsarea" value=" {% for tag in i.tags %} {{tag.name}} {% endfor %}" class="tagsarea" />
-                           
-                            <button id="categoryIDedit" type="button" value="" class="categorybutton"><b>Category:</b> </button> 
+
+                            <button id="categoryIDedit" type="button" value="" class="categorybutton"><b>Category:</b> </button>
 
 
                             <div class="newsfeedPopUpButton-Cont">
@@ -421,7 +421,6 @@
             $("#myModal").show();
             $("#myModal").css("z-index", "10004");
         });
-
         $('.categorypopups').on('click', function() {
             var catty, cattyid, selectedCategory, btn;
             selectedCategory = document.getElementsByClassName('popup');
@@ -431,9 +430,7 @@
             var text2 = document.createTextNode(catty);
             //selectedCategory.setAttribute('id', cattyid)
             $('.popup').attr('id', cattyid);
-
             var modal = document.getElementById('myModal');
-
             modal.style.display = 'none';
             $('.categorybutton').append(text2);
         });
@@ -444,7 +441,6 @@
             if ($("#comments-container_" + id).is(":visible") || $("#answerdiv_" + id).is(":visible")) {
                 $("#comments-container_" + id).hide();
                 $("#answerdiv_" + id).hide();
-
             } else {
                 $("#comments-container_" + id).show();
                 //alert("#comments-container_" + id);
@@ -453,7 +449,6 @@
             //alert("#comments-container_" + id);
             //$('.answertextarea#answer_' + id).focus();
         });
-
         function confirmDelete(id) {
             alert('Delete question?');
             $.ajax({
@@ -468,12 +463,11 @@
             });
         }
         $(document).on('click','.submitanswerbutton',function(e) {
-
             var qid = $(this).attr('id');
             console.log("questionid",qid);
             //alert(qid);
             var answer = $("#answer_" + qid).val();
-            // var answer = $('.answertextarea#' + qid ).val();  
+            // var answer = $('.answertextarea#' + qid ).val();
             var category = document.getElementById('');
                 //alert(answer);
             var data = {
@@ -481,7 +475,6 @@
                 "questionId": qid,
                 "userId": "{{curuser}}"
             };
-
             $.ajax({
                 type: "POST",
                 url: "https://iitoverflow.herokuapp.com/api/Answers",
@@ -498,7 +491,6 @@
                     //alert(result);
                 }
             });
-
         });
     </script>
 
@@ -516,7 +508,6 @@
             $('#post').fadeOut('slow');
             $(this).fadeOut('slow');
             //alert(category)
-
             var data = {
                 "question": posttitle,
                 "questiondesc": editorText,
@@ -533,16 +524,13 @@
                     //alert('ok');
                     var qid = result.id;
                     var tagslength = cleartags.length;
-
                     for (i = 0; i < tagslength; i++) {
                         var data1 = {
                             "name": cleartags[i].innerText,
                             "categoryId": category
                         };
                         console.log(cleartags[i].innerText);
-
                         // EDIT
-
                         $.ajax({
                             type: "POST",
                             url: "http://iitoverflow.herokuapp.com/api/Questions/" + qid + "/tags",
@@ -551,78 +539,44 @@
                             contentType: "application/json",
                             success: function(result) {
                                 //alert('ok');
-
                             },
                             error: function(result) {
                                 //alert(result);
                                 console.log(JSON.stringify(result));
                             }
                         });
-
                         // EDIT
-
                     }
-
                     //var question = '<div id="newqedit_' + result.id + '" style="display: block;" class="newdiv">';
                     //question += '<div class="titlepost">Title: ' + result.question + ' <i onclick="showhide(' + result.id + ')" class="fa fa-reply"></i> <i id="' + result.id + '" class="fa fa-heart qheart" name="mark as duplicate"></i><div></div>';
-
-
                     //question += '<button class="btn btn-danger" id= "duplicate_' + result.id + '" style="display: none;">DUPLICATE</button>'
-
                     //question += '<div class="titlepost">'
-
                     //question += '<div class="titlepostpicture">{{ user.picture }}</div>'
-
                     //question += '<h4 class="titlepostname">{{ user.displayname }}</h4>'
-
                     //question += ' <div class=" editanddeleteButtonCont"><i onclick="showhide(' + result.id + ')" class="fa fa-edit Newsfeed-editButton "></i><i id=' + result.id + 'class="fas fa-trash-alt qheart"></i><i onclick="showhide1(' + result.id + ')" class="fas fa-copy duplicate"></i></div>'
-
                     //for (i = 0; i < tagslength; i++) {
                     //    question += '<h5 class="titlepostTitle">Title: ' + result.question + '</h5>'
                     //    question += ' </div>'
-
-
                     //    question += '<div class="categorypost">Category:' + result.question + '<div></div></div>'
-
                     //    question += '<div class="tagspost">Tags:' + result.cleartags + ' <div></div></div>'
-
-
                     //    question += '<div class="newpostbuttons"><button class="follow followbutton"><span class="msg-follow">Follow</span><span class="msg-following">Following</span><span class="msg-unfollow">Unfollow</span></button><button class="votebutton">Vote</button><button><button class="commentbutton">Comment</button><button class="answerbutton">Answer</button></div>'
-
-
-
                     //    question += ' <div>'
-
-
-
                     //    question += '<div class="titlepost">'
-
                     //    question += '<div class="answerdiv"><textarea class="answertextarea" id= "result.id" placeholder="Write an Answer"> </textarea><input class="submitanswerbutton" id=' + result.question + ' value=submit type="button"><div></div></div>'
-
-
                     //    question += '<div class="newpostinput"><input class="commenttextarea" placeholder="Write a Comment"><div></div></div>';
-
-
                    // //    // question += '<div class="descriptionpost">Description:' + result.questiondesc + '<div></div></div><div class="categorypost">Category: ' + result.categoryId + ' <div></div></div><div class="tagspost">Tags: ' + result.cleartags + '<div></div></div><div class="newpostbuttons"><button class="followbutton">Follow</button><button> </button><button class="votebutton">Vote</button><button></button><button class="commentbutton">Comment</button><button></button><button class="answerbutton">Answer</button><button><div></div></button></div><!-- TOEDIT --><div></div><!-- TOEDIT --><div class="answerdiv"><textarea class="answertextarea" id="answer_5" placeholder="Write an Answer"> </textarea><input class="submitanswerbutton" id="5" value="submit" type="button"><div></div></div><div class="newpostinput"><input class="commenttextarea" placeholder="Write a Comment"><div></div></div>';
                     //    $("#newsfeedParent").prepend(question);
-
                         //$("#newsfeedParent").html( question +$("#newsfeedParent").html());
                         //window.location.href += "#toReload";
                         //location.reload();
-
-
                         $('.tag-editor-tag').html("");
-
                     //    question += '<div class="answerdiv"><textarea class="answertextarea" id= "result.id" placeholder="Write an Answer"> </textarea><input class="submitanswerbutton" id=' + result.question + ' value=submit type="button"><div></div></div>'
-
                     },
                 error: function(result) {
                     //alert('error');
                 }
             });
-
             // question += '</div>';
-
             //var displaytitle = document.getElementById('titlebarid');
             $("#form1").hide('slow');
             $(".submitbutton2").hide('slow');
@@ -634,22 +588,14 @@
             $(".titlebar").show('slow');
             $("tagsbar").show('slow');
             $("categorybar").show('slow');
-
             $('#newDivs').append('<div class="titlepost">' + 'Title: ' + posttitle + '<div>');
-
             $('#newDivs').append('<div class="descriptionpost">' + 'Description: ' + editorText + '<div>');
-
             $('#newDivs').append('<div class="categorypost">' + 'Category: ' + catty + '<div>');
             $('#newDivs').append('<div class="tagspost">' + 'Tags: ' + gettags + '<div>');
             $('#newDivs').append('<div class="newpostbuttons"><button class="followbutton">Follow<button> <button class="votebutton" >Vote<button><button class="commentbutton">Comment<button><button class="answerbutton">Answer<button><div>');
             $('#newDivs').append('<div class="answerdiv"><textarea class="answertextarea" placeholder="Write an Answer"></textarea><input class="submitanswerbutton" type="button" value="submit"><div>');
             $('#newDivs').append('<div class="newpostinput"><input class="commenttextarea" placeholder="Write a Comment"><div>');
-
-
-
         })
-
-
         function CKupdate() {
             for (instance in CKEDITOR.instances) {
                 CKEDITOR.instances[instance].updateElement();
@@ -660,18 +606,14 @@
 
     <script>
         $('#tagsID').tagEditor({
-
             autocomplete: {
                 delay: 0, // show suggestions immediately
                 position: {
                     collision: 'flip'
                 }, // automatic menu position up/down
                 source: ['notch', 'qb', 'daku']
-
-
             },
             forceLowercase: false,
-
         });
     </script>
 
@@ -688,31 +630,18 @@
                     //alert('ok');
                     window.location.href += "#toReload";
                     location.reload();
-
                 },
                 error: function(result) {
                     //alert(result);
                 }
             });
-
-
-
         });
-
         $(".qheart").on('click', function() {
             console.log($(this));
             var qdelbutton = $(this).attr('id');
-
-
         });
-
-
         //alert(qdelbutton)
-
-
         $(".submitbutton5").click(function() {
-
-
                     var qid = $(this).attr('id');
                     var editorText = CKEDITOR.instances.textarea.getData();
                     var posttitle = document.getElementById('titleedit').value;
@@ -721,9 +650,7 @@
                     var cleartags = document.getElementsByClassName('tag-editor-tag');
                     console.log(cleartags);
                     // var category = document.getElementsByClassName('categorypopups')[0].id;
-
                     $(".submitbutton5").click(function() {
-
                         var data = {
                             "question": posttitle,
                             "questiondesc": editorText,
@@ -740,10 +667,7 @@
                                 alert('gaga');
                                 qid = result.id;
                                 $('#qedit_' + qid).modal('toggle');
-
                                 var tagslength = cleartags.length;
-
-
                                 $.ajax({
                                     type: "PUT",
                                     url: "https://iitoverflow.herokuapp.com/api/Questions",
@@ -769,7 +693,6 @@
                                                 data: JSON.stringify(data1),
                                                 dataType: "json",
                                                 contentType: "application/json",
-
                                                 success: function (result1) {
                                                     // //alert('ok');
                                                     console.log(result1);
@@ -785,8 +708,6 @@
                                 });
                             }
                         });
-
-
                         //  $('.newpostinput').keydown(function (e){
                         //  if(e.keyCode == 13){
                         //      //alert('you pressed enter ^_^');
@@ -804,22 +725,14 @@
                         //                      contentType: "application/json",
                         //                      success: function(result) {
                         //                          //alert('ok');
-
                         //                      },
                         //                      error: function(result) {
                         //                          //alert(result);
-
                         //                      }
                         //                  });
-
-
                         //  }
                         // }
-
-
                         $(".submitbutton3").click(function () {
-
-
                             var editorText = CKEDITOR.instances.textarea.getData();
                             var posttitle = document.getElementById('title').value;
                             var gettags = document.getElementById('tagsID').value;
@@ -827,19 +740,15 @@
                             var cleartags = document.getElementsByClassName('tag-editor-tag');
                             var category = $('.popup').attr('id');
                             //alert(category)
-
                             document.getElementById(".titlearea").value = "";
                             document.getElementById(".tag-editor").value = "";
                             CKEDITOR.instances['#cke_textarea'].setData('');
-
-
                             var data = {
                                 "question": posttitle,
                                 "questiondesc": editorText,
                                 "categoryId": category,
                                 "userId": "{{ curuser }}"
                             };
-
                             $.ajax({
                                 type: "POST",
                                 url: "https://iitoverflow.herokuapp.com/api/Questions",
@@ -849,21 +758,14 @@
                                 success: function (result) {
                                     //alert('ok');
                                     qid = result.id;
-
                                     var tagslength = cleartags.length;
-
-
                                     for (i = 0; i < tagslength; i++) {
-
-
                                         var data1 = {
                                             "name": cleartags[i].innerText,
                                             "categoryId": category
                                         };
                                         console.log(cleartags[i].innerText);
-
                                         // EDIT
-
                                         $.ajax({
                                             type: "POST",
                                             url: "http://iitoverflow.herokuapp.com/api/Questions/" + qid + "/tags",
@@ -872,18 +774,14 @@
                                             contentType: "application/json",
                                             success: function (result) {
                                                 //alert('ok');
-
                                             },
                                             error: function (result) {
                                                 //alert(result);
                                                 console.log(JSON.stringify(result));
                                             }
                                         });
-
                                         // EDIT
-
                                     }
-
                                     window.location.href += "#toReload";
                                     location.reload();
                                     $('.tag-editor-tag').empty();
@@ -892,8 +790,6 @@
                                     //alert('error');
                                 }
                             });
-
-
                             //var displaytitle = document.getElementById('titlebarid');
                             $("#form1").hide('slow');
                             $(".submitbutton2").hide('slow');
@@ -905,23 +801,17 @@
                             $(".titlebar").show('slow');
                             $("tagsbar").show('slow');
                             $("categorybar").show('slow');
-
                             $('#newDivs').append('<div class="titlepost">' + 'Title: ' + posttitle + '<div>');
-
                             $('#newDivs').append('<div class="descriptionpost">' + 'Description: ' + editorText + '<div>');
-
                             $('#newDivs').append('<div class="categorypost">' + 'Category: ' + catty + '<div>');
                             $('#newDivs').append('<div class="tagspost">' + 'Tags: ' + gettags + '<div>');
                             $('#newDivs').append('<div class="newpostbuttons"><button class="followbutton">Follow<button> <button class="votebutton" >Vote<button><button class="commentbutton">Comment<button><button class="answerbutton">Answer<button><div>');
                             $('#newDivs').append('<div class="answerdiv"><textarea class="answertextarea" placeholder="Write an Answer"></textarea><input class="submitanswerbutton" type="button" value="submit"><div>');
                             $('#newDivs').append('<div class="newpostinput"><input class="commenttextarea" placeholder="Write a Comment"><div>');
-
                             //cleartitle.value = "";
                             //selectedCategory.text = "";
-
                         });
                     });
-
                                 function CKupdate() {
                                     for (instance in CKEDITOR.instances) {
                                         CKEDITOR.instances[instance].updateElement();
@@ -935,26 +825,20 @@
 
     <script>
         $('input[type=text]').on('keydown', function(e) {
-
             if (e.which == 13) {
                 e.preventDefault();
-
                 var a = $(this).attr('id');
                 alert(a)
                 var aid = a.split("_").pop()
-
                 alert(aid);
                 var comment = $('#' + a).val();
                 console.log(comment);
-
                 //COMMENT
                 var data = {
                     "comment": comment,
                     "answerId": aid,
                     "userId": "{{curuser}}"
                 }
-
-
                 $.ajax({
                     type: "POST",
                     url: "http://iitoverflow.herokuapp.com/api/Answers/" + aid + "/comments",
@@ -971,10 +855,7 @@
                         alert(result);
                     }
                 });
-
                 //COMMENT
-
-
             }
         });
     </script>
@@ -987,20 +868,13 @@
 
     <script>
         $(document).ready(function() {
-
             $(".submitbutton2").on('click', function() {
                 $("#form1").hide('slow');
-
             })
-
             $(".submitbutton4").on('click', function() {
                 $("#form2").hide('slow');
-
             })
-
-
             $(".submitanswerbutton").on('click', function() {
-
             })
         })
     </script>
@@ -1031,9 +905,6 @@
             $(".submitbutton2").on('click', function() {
                 $(this).hide('slow');
             })
-
-
-
         })
     </script>
 
@@ -1042,19 +913,19 @@
             var category = $(this).val();
             var txt = $(this).text();
             var id = $(this).attr('id');
-    
-    
-    
-    
+
+
+
+
             var text = document.createTextNode(txt);
             var popup = document.getElementsByClassName('popup');
             $('#myModal').hide('slow');
             popup.appendChild(text);
-    
+
             popup.setAttribute("id", id);
-           
+
             $(".categorycontainer").show();
-    
+
         });
     </script>
      -->
@@ -1079,7 +950,6 @@
             $("categorybar").hide();
             $(".categorycontainer").hide();
             $('.tag-editor-tag').html("");
-
             $(document).on('focus','#title',function(e) {
                 $("#post").show();
                 $("#form1").show();
@@ -1096,7 +966,6 @@
                 $("categorybar").show();
                 $(".categorycontainer").show();
                 //$("#postQuestionModal").fadeIn();
-
                 // $('#tagsID').tagEditor({
                 //      initialTags: ['Hello', 'World', 'Example', 'Tags'],
                 //    delimiter: ', ', /* space and comma */
@@ -1138,18 +1007,15 @@
 
     <script>
         $("#hider").click(function() {
-
             $("#hider").fadeOut("slow");
             $("#form2").hide("slow");
         });
-
         function showhide(id) {
             var div = document.getElementById("qedit_" + id);
             var div1 = document.getElementById("newqedit_" + id);
             if (div.style.display !== "none") {
                 div.style.display = "none";
                 div1.style.display = "block";
-
                 $("#hider").fadeOut("slow");
                 $("#post").fadeOut('slow');
                 $("#form2").css("z-index", "9998");
@@ -1161,14 +1027,9 @@
                 $("#post").fadeIn('slow');
                 $("#form2").css("z-index", "10003");
                 $("#newpost").css("z-index", "9999");
-
             }
-
-
         }
-
         function showhide1(id) {
-
             var x = document.getElementById("duplicate_" + id);
             if (x.style.display === "none") {
                 x.style.display = "block";
@@ -1225,28 +1086,20 @@
     <script>
         const chatSocket = io(socketUrl + '/chat');
         const notificationSocket = io(socketUrl + '/notification');
-
-
         chatSocket.on('connection', function(socket) {
-
-
             console.log("connected");
-
         });
         chatSocket.on('wentOffline', function(data) {
             $("#user_" + data.user + "_status").attr("class", "");
-
             console.log(data.user, " is now offline");
         });
         chatSocket.on('wentOnline', function(data) {
             $("#user_" + data.user + "_status").attr("class", "contact-status online");
-
             console.log(data.user, " is now online");
         });
         notificationSocket.on('newQuestion', function(data) {
             console.log("New Question");
             console.log(data);
-
             if (!data.user.picture) {
                 data.user.picture =
                     "http://128.199.115.0:9000/profile/1525848116220_11_660d3813f01744a62ed30efef4db4b8483480ac4_1525848129695.jpg";
@@ -1267,7 +1120,6 @@
                         '<div><small class="text-warning">' + getDate(data.question.createdAt) +
                         '</small> </div></div> </div></a></li>';
                     $("#notification-content").append(holdNewQuestionHtml);
-
                 }
         });
         notificationSocket.on('newAnswer', function(data) {
@@ -1286,7 +1138,6 @@
                     data.user.displayname + '</strong> answered your question: ' + data.answer.answer +
                     '<div><small class="text-warning">' + getDate(data.answer.createdAt) +
                     '</small> </div></div> </div></a></li>';
-
                 $("#notification-content").append(holdNewAnswerHtml);
             } else if ($.grep(questionFollowing, function(obj) {
                     return obj.id === data.question.id;
@@ -1299,10 +1150,8 @@
                     data.user.displayname + '</strong> answered a question you\'re following: ' + data.answer.answer +
                     '<div><small class="text-warning">' + getDate(data.answer.createdAt) +
                     '</small> </div></div> </div></a></li>';
-
                 $("#notification-content").append(holdNewAnswerHtml);
             }
-
             console.log("New Answer");
             console.log(data);
         });
@@ -1321,21 +1170,15 @@
                     data.user.displayname + '</strong> commented on your answer: ' + data.comment.comment +
                     '<div><small class="text-warning">' + getDate(data.comment.createdAt) +
                     '</small> </div></div> </div></a></li>';
-
                 $("#notification-content").append(holdNewAnswerHtml);
             }
             console.log("New Comment");
             console.log(data);
         });
         chatSocket.on('message', function(data) {
-
             console.log(data);
-
             m_pic = data.user.picture;
-
             if (popups.indexOf("solo_" + data.message.conversationId) > -1) {
-
-
                 var m_element =
                     '<div class="row msg_container base_receive"><div class="col-md-2 col-xs-2 avatar"><img src="' +
                     m_pic +
@@ -1344,11 +1187,7 @@
                     '</p><time style ="text-align:left;" datetime="2009-11-13T20:00">' +
                     data.user.displayname +
                     '</time></div></div></div>';
-
                 $("#m_solo_" + data.message.conversationId).append(m_element);
-
-
-
                 var panel = $("#m_solo_" + data.message.conversationId);
                 //$('#m_'+id).animate({scrollTop: $('#m_'+id).get(0).scrollHeight}, 700);
                 $("#m_solo_" + data.message.conversationId).scrollTop($(
@@ -1370,34 +1209,21 @@
         sendMessage2 = function() {
             //console.log($("#message").val());
             chatSocket.emit("messageSent", $("#message").val());
-
         }
-
         getDate = function(date) {
-
             var date2 = new Date().getTime() - new Date(date).getTime();
-
             var seconds = Math.floor(date2 / 1000);
-
             if (Math.floor(seconds / 3600) >= 24)
                 return new Date(date).toUTCString();
-
             if (Math.floor(seconds / 3600))
                 return "" + Math.floor(seconds / 3600) + " hours ago";
-
             if (Math.floor(seconds / 60))
                 return "" + Math.floor(seconds / 60) + " minutes ago";
-
             if (Math.floor(seconds / 1))
                 return "" + Math.floor(seconds / 1) + " seconds ago";
-
             return "Just now";
             return new Date(date).toUTCString();
-
-
-
         }
-
         hello = function() {
             console.log("hello");
         }
@@ -1409,7 +1235,6 @@
             console.log("online: ", online);
             return (online ? '<span id="user_' + id + '_status" class="contact-status online"></span>' : '<span id="user_' + id + '_status"></span>');
         }
-
         function reloadchatlist() {
             $.ajax({
                 url: url + "users/" + socketUser + "/chatlist",
@@ -1424,30 +1249,23 @@
                     var convoStore = "";
                     var profilepic;
                     for (var i = 0; i < convolist.length; i++) {
-
-
                         profilepic = convolist[i].profilepic;
                         convoStore += '<div class="sidebar-name " onclick="javascript:register_popup( \'' +
                             convolist[i].id + '\',\'' + convolist[i].displayname +
                             '\');"> <div class="convoName"><a class="wrap"style="position: relative;">' + isOnline(convolist[i].online, convolist[i].userid) + '<img class="img-circle" width="30" height="30" src="' +
                             profilepic + '" /><span>' + convolist[i].displayname + '</span>';
-
                         // if (convolist[i].unread > 0) {
                         convoStore += '<span id="unread_' + convolist[i].id +
                             '" style="position: absolute;bottom: -2px;left: -2px;"  class="label label-danger">' +
                             (convolist[i].unread == 0 ? '' : convolist[i].unread) + '</span>';
                         //}
-
-
                         convoStore += '</a></div></div>';
                     }
-
                     $("#convos").html(convoStore);
-                    
+
                 },
                 error: function(data) {}
             });
-
             return true;
         }
     </script>
@@ -1462,19 +1280,13 @@
                 '<div >' +
                 '<!--<a  id = "optionBtn" role="button" class="glyphicon glyphicon-cog button" data-target="Options" data-toggle="collapse2" data-hover="tooltip" data-tooltip-content="Options" data-tooltip-position="below" style="font-size: 15px;text-decoration: none;"></a>-->' +
                 '</div>' +
-
                 '</div>' +
                 '<div id="chatBody" class="collapse">' +
-
                 '<div id="convos" class="chat-sidebar tabcontent convos" style="padding-top: 2px;overflow-y: scroll;">' +
-
                 '</div> </div></div></div>';
             $("#sideChat").replaceWith(chatHtml);
             $('.chatBody').collapse();
-
             reloadchatlist();
-
-
         });
     </script>
 
@@ -1482,7 +1294,6 @@
         $('#optionBtn').click(function(e) {
             e.stopPropagation();
         });
-
         function openTab(evt, tabName) {
             // Declare all variables
             var i, tabcontent, tablinks;
@@ -1500,10 +1311,8 @@
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
         }
-
         $(document).ready(function() {
             $('.chatBody').collapse();
-
         });
     </script>
 
@@ -1512,8 +1321,6 @@
         var m_id;
         var m_element
         $(document).ready(function() {
-
-
             if (popups.length > 0) {
                 $.ajax({
                     url: "/updateChat",
@@ -1526,26 +1333,18 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-
                         //console.log(data);
                         if (data.length != 0) {
                             //console.log(popups);
                             //console.log(data[0].id)
-
-
                             for (var i = 0; i < data.length; i++) {
-
-
                                 if (data[i].profilePic != null) {
                                     m_pic = "/avatar/" + data[i].profilePic;
                                 } else {
                                     m_pic =
                                         "http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg";
                                 }
-
                                 if (popups.indexOf("solo_" + data[i].conversationId) > -1) {
-
-
                                     m_element =
                                         '<div class="row msg_container base_receive"><div class="col-md-2 col-xs-2 avatar"><img src="' +
                                         m_pic +
@@ -1554,11 +1353,7 @@
                                         '</p><time style ="text-align:left;" datetime="2009-11-13T20:00">' +
                                         data[i].firstname + ' ' + data[i].lastname +
                                         '</time></div></div></div>';
-
                                     $("#m_solo_" + data[i].conversationId).append(m_element);
-
-
-
                                     var panel = $("#m_solo_" + data[i].conversationId);
                                     //$('#m_'+id).animate({scrollTop: $('#m_'+id).get(0).scrollHeight}, 700);
                                     $("#m_solo_" + data[i].conversationId).scrollTop($(
@@ -1566,22 +1361,13 @@
                                         .scrollHeight);
                                 }
                             }
-
                         }
-
-
                     },
                     error: function(data) {
-
-
                     }
-
                 });
             }
-            //code goes here that will be run every 5 seconds.    
-
-
-
+            //code goes here that will be run every 5 seconds.
         });
     </script>
     <script type="text/javascript">
@@ -1593,14 +1379,9 @@
                 return '<a href="' + url2 + '" target="_blank">' + url + '</a>';
             })
         }
-
         function sendMessage($id, $message, $this, $message_panel) {
-
-
             if ($message != '') {
                 $this.parents('.popup-box').find('.chat_input').val('');
-
-
                 $.ajax({
                     url: url + "users/" + socketUser + "/conversation/" + $id.split("_")[1],
                     method: "POST",
@@ -1614,9 +1395,7 @@
                     success: function(data) {
                         var $element = '';
                         var profilepic;
-
                         profilepic = user.picture;
-
                         $element += '<div id="' + data.id +
                             '"  class="row msg_container base_sent"><div class="col-md-10 col-xs-10"><div class="messages msg_sent"><p>';
                         $element += $message;
@@ -1629,22 +1408,11 @@
                         $message_panel.animate({
                             scrollTop: $message_panel.get(0).scrollHeight
                         }, 700);
-
-
-
-
                     },
                     error: function(data) {
-
-
                     }
                 });
-
-
-
-
             }
-
         }
         $(document).on('keyup', '.chat_input', function(e) {
             if (e.which === 13) {
@@ -1653,25 +1421,16 @@
                 var $message = urlify($this.parents('.popup-box').find('.chat_input').val().trim());
                 var $message_panel = $this.parents('.popup-box').find('.popup-messages');
                 var $id = $this.parents('.popup-box').attr('id');
-
                 sendMessage($id, $message, $this, $message_panel)
             }
         });
         $(document).on('click', '.popup-box button.btn-chat', function(e) {
-
             var $this = $(this);
             var $message = urlify($this.parents('.popup-box').find('.chat_input').val().trim());
             var $message_panel = $this.parents('.popup-box').find('.popup-messages');
             var $id = $this.parents('.popup-box').attr('id');
-
-
             sendMessage($id, $message, $this, $message_panel);
-
         });
-
-
-
-
         $(document).on('click', '.panel-heading span.icon_minim', function(e) {
             var $this = $(this);
             if (!$this.hasClass('panel-collapsed')) {
@@ -1684,7 +1443,6 @@
                 $this.removeClass('glyphicon-plus').addClass('glyphicon-minus');
             }
         });
-
         //this function can remove a array element.
         Array.remove = function(array, from, to) {
             var rest = array.slice((to || from) + 1 || array.length);
@@ -1697,7 +1455,6 @@
         var popups = [];
         //this is used to close a popup
         function close_popup(id) {
-
             for (var iii = 0; iii < popups.length; iii++) {
                 if (id == popups[iii]) {
                     Array.remove(popups, iii);
@@ -1705,7 +1462,6 @@
                     document.getElementById(id).style.display = "none";
                     //$("#"+id).remove();
                     $("#" + id + " span.icon_minim").removeClass('glyphicon-plus').addClass('glyphicon-minus');
-
                     calculate_popups();
                     return;
                 }
@@ -1730,19 +1486,16 @@
         }
         //creates markup for a new popup. Adds the id to popups array.
         function register_popup(id, name) {
-            
 
             for (var iii = 0; iii < popups.length; iii++) {
                 //already registered. Bring it to front.
                 if (id == popups[iii]) {
                     Array.remove(popups, iii);
-
                     popups.unshift(id);
                     calculate_popups();
                     return;
                 }
             }
-
             var element = '<div class="popup-box chat-popup" id="' + id + '" > ';
             element = element + '<div class="panel-heading popup-head" >';
             element = element + '<div class="popup-head-left">' + name + '</div>';
@@ -1751,17 +1504,11 @@
                 id + '\');">&#10005;</a></div>';
             element = element + '<div style="clear: both"></div></div><div id="b_' + id + '" class="message_body ' + id +
                 '" ><div id="m_' + id + '" class="popup-messages">';
-
-
             element +=
                 '</div><div class="input-group" style="padding-top:4px;padding-bottom:4px;"><input id="btn-input" class="form-control input-sm chat_input" placeholder="Write your message here..." type="text" style="float:bottom"><span class="input-group-btn"><button class="btn-chat btn btn-primary btn-sm">Send</button> </span></div></div></div>';
-
-
             // Insert msg body
-
             document.getElementsByTagName("body")[0].innerHTML = document.getElementsByTagName("body")[0].innerHTML +
                 element;
-
             popups.unshift(id);
             calculate_popups();
             $.ajax({
@@ -1774,63 +1521,37 @@
                     var element = '';
                     data = data;
                     var pic;
-
                     for (var i = 0; i < data.length; i++) {
-
                         var $messageData = data[i];
                         pic = $messageData.picture;
-
                         console.log("message", $messageData);
-
-
                         console.log("sender: ", $messageData.senderid, " user: ", socketUser);
                         if ($messageData.senderid == socketUser) {
-
                             element +=
                                 '<div class="row msg_container base_sent"><div class="col-md-10 col-xs-10"><div class="messages msg_sent"><p>' +
                                 $messageData.message +
                                 '</p><time datetime="2009-11-13T20:00">You</time></div></div><div class="col-md-2 col-xs-2 avatar"><img class="chatvatar" src="' +
                                 pic + '" class=" img-responsive "></div></div>';
-
-
-
-
                         } else {
-
                             element +=
                                 '<div class="row msg_container base_receive"><div class="col-md-2 col-xs-2 avatar"><img src="' +
                                 pic +
                                 '" class=" img-responsive "></div><div class="col-md-10 col-xs-10"><div class="messages msg_receive"><p>' +
                                 $messageData.message +
                                 '</p><time style ="text-align:left;" datetime="2009-11-13T20:00">' + $messageData.displayname + '</time></div></div></div>';
-
                         }
-
-
-
                     }
                     $("#m_" + id).empty();
                     $("#m_" + id).append(element);
-
-
                     var panel = $('#m_' + id);
                     //$('#m_'+id).animate({scrollTop: $('#m_'+id).get(0).scrollHeight}, 700);
                     $('#m_' + id).scrollTop($('#m_' + id).get(0).scrollHeight);
-
-
-
-
                 },
                 error: function(data) {
-
-
                 }
             });
             document.getElementById(id).style.display = "block";
-
             $("#unread_" + id).html('');
-
-
         }
         //calculate the total number of popups suitable and then populate the toatal_popups variable.
         function calculate_popups() {
@@ -1848,9 +1569,8 @@
         window.addEventListener("resize", calculate_popups);
         window.addEventListener("load", calculate_popups);
 
-           
     function followable(qid){
-        
+
         $.ajax({
             type: "HEAD",
             async: true,
@@ -1886,7 +1606,6 @@
             }
         });
     }
-
     </script>
 </body>
 </html>

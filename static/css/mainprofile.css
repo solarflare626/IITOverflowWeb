@@ -71,11 +71,11 @@ html {
 
 .profile-searchbutton:hover {
     background-color: white;
-    color: #4AB3F4;
-    border-right: 2px solid #4AB3F4;
-    border-left: 2px solid #4AB3F4;
-    border-top: 2px solid #4AB3F4;
-    border-bottom: 2px solid #4AB3F4;
+    color: #801515;
+    border-right: 2px solid #801515;
+    border-left: 2px solid #801515;
+    border-top: 2px solid #801515;
+    border-bottom: 2px solid #801515;
 }
 
 .profile-search {
@@ -101,7 +101,7 @@ html {
 }
 
 .profile-searchbar:focus {
-    border: 2px solid #4AB3F4;
+    border: 2px solid #801515;
     background-color: white;
 }
 
@@ -143,7 +143,7 @@ html {
 }
 
 .profile-nav a:hover {
-    color: #4AB3F4;
+    color: #801515;
     text-decoration: none;
 }
 
@@ -221,13 +221,13 @@ html {
 
 .profile-contentTopNav a:hover {
     text-decoration: none;
-    color: #4AB3F4;
+    color: #801515;
 }
 
 #followus{
     background-color: white;
     border: 2px solid #5F7189;
-    color: #5F7189;
+    color: #801515;
     width: 12%;
     height: 35px;
     border-radius: 30px;
@@ -237,11 +237,11 @@ html {
 }
 #followus:hover{
     background-color: white;
-    color: #4AB3F4;
-    border-right: 2px solid #4AB3F4;
-    border-left: 2px solid #4AB3F4;
-    border-top: 2px solid #4AB3F4;
-    border-bottom: 2px solid #4AB3F4;
+    color: #801515;
+    border-right: 2px solid #801515;
+    border-left: 2px solid #801515;
+    border-top: 2px solid #801515;
+    border-bottom: 2px solid #801515;
 
 }
 .editprofilebutton {
@@ -258,11 +258,11 @@ html {
 
 .editprofilebutton:hover {
     background-color: white;
-    color: #4AB3F4;
-    border-right: 2px solid #4AB3F4;
-    border-left: 2px solid #4AB3F4;
-    border-top: 2px solid #4AB3F4;
-    border-bottom: 2px solid #4AB3F4;
+    color: #801515;
+    border-right: 2px solid #801515;
+    border-left: 2px solid #801515;
+    border-top: 2px solid #801515;
+    border-bottom: 2px solid #801515;
 }
 
 .messageprofile {
@@ -280,10 +280,10 @@ html {
 .messageprofile:hover {
     background-color: white;
     color: #4AB3F4;
-    border-right: 2px solid #4AB3F4;
-    border-left: 2px solid #4AB3F4;
-    border-top: 2px solid #4AB3F4;
-    border-bottom: 2px solid #4AB3F4;
+    border-right: 2px solid #801515;
+    border-left: 2px solid #801515;
+    border-top: 2px solid #801515;
+    border-bottom: 2px solid #801515;
 }
 
 .profilepictureContainer {
@@ -329,13 +329,28 @@ html {
     text-decoration: none;
     color: #5F7189;
     padding: 15px;
-    width: 100%;
+    width: 95%;
     font-size: 18px;
     float: left;
     text-align: left;
     margin: 0 0 0 2.5%;
     margin-bottom: 10px;
     clear: both;
+}
+.showallButton{
+    position: relative;
+    float: right;
+   
+    font-size: 80%;
+    border: 1px solid #5F7189;
+    border-radius: 30px;
+    padding: 5px;
+    font-family: Poppins-Regular, sans-serif;
+    text-decoration: none;
+
+}
+.showallButton a:hover{
+    text-decoration: none;
 }
 
 .profileCenterDiv {
@@ -344,6 +359,7 @@ html {
     width: 47%;
     margin: 10px auto;
     margin-right: 10px;
+    background-color: #E6ECF0;
 }
 
 .profile-fullpage {
@@ -358,10 +374,11 @@ html {
     width: 20%;
     min-width: 22%;
     float: right;
+    margin-top: 10px;
     display: inline-block;
     margin-right: 4%;
-    padding: 0;
-    background-color: white;
+    padding: 3px;
+    background-color: #801515;
     text-align: center;
 }
 
@@ -398,11 +415,11 @@ html {
 }
 
 .profilePostButton a:hover {
-    color: #4AB3F4; 
+    color: #801515; 
     text-decoration: none;
 }
 .profilePostButton2 a {
-    color: #4AB3F4; 
+    color: #801515; 
     text-decoration: none;
 }
 .profilePostFollowButton:focus {
@@ -410,7 +427,7 @@ html {
 }
 
 .profilePostFollowButton:hover {
-    border-color: #4AB3F4;
+    border-color: #801515;
 }
 
 .profilePostFollowButton {
@@ -424,13 +441,11 @@ html {
     width: 95%;
     text-align: left;
     border-top: 1px solid #E9EBEE;
-    overflow-x: hidden;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;
     padding: 15px;
     word-wrap: break-word;
 }
+
 
 .profilePostAnswerFollowedQuestions {
     margin: 0 0 0 2.5%;
@@ -516,12 +531,12 @@ html {
 .FollowedQuestionsContainer {
     width: 100%;
     height: inherit;
-    background-color: white;
+    background-color: #E6ECF0;
 }
 
 .AnsweredQuestionsContainer {
     width: 100%;
-    background-color: white;
+    background-color: #E6ECF0;
 }
 
 .profile-questionAnswer {
@@ -557,7 +572,7 @@ html {
 .our-team .FollowersPic::before {
     content: "";
     width: 100%;
-    background: #4AB3F4;
+   background: linear-gradient(to right, #D46A6A, #801515);
     position: absolute;
     bottom: 135%;
     right: 0;
@@ -576,7 +591,7 @@ html {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: #4AB3F4;
+    background: linear-gradient(to right, #D46A6A, #801515);
     position: absolute;
     top: 0;
     left: 0;
@@ -585,6 +600,7 @@ html {
 
 .our-team .FollowersPic img {
     width: 100%;
+    height: 100%;
     height: auto;
     border-radius: 50%;
     transform: scale(1);
@@ -620,9 +636,10 @@ html {
 
 .our-team .social {
     width: 100%;
-    padding: 0;
+    padding: 10px;
+    color: white;
     margin: 0;
-    background: #4AB3F4;
+    background: #801515;
     position: absolute;
     bottom: -100px;
     left: 0;
@@ -841,13 +858,13 @@ button.following:not(.wait):hover .msg-unfollow {
 }
 
 .profile-linksInterest {
-    margin-top: 8px;
-    background-color: white;
+    margin-top: 5px;
+    background: linear-gradient(to right, #D46A6A, #801515);
     width: 100%;
     text-align: left;
-    padding: 10px;
-    color: #5F7189;
-    padding-bottom: 15px;
+    padding: 3px;
+    color: #801515;
+    
     border: 1px solid transparent;
 }
 
@@ -857,7 +874,7 @@ button.following:not(.wait):hover .msg-unfollow {
 }
 
 .profile-linksInterest a {
-    border: 1px solid #E9EBEE;
+    border: 1px solid #801515;
     padding: 5px;
     color: #5F7189;
     margin-right: 5px;
@@ -869,8 +886,8 @@ button.following:not(.wait):hover .msg-unfollow {
 
 .profile-linksInterest a:hover {
     text-decoration: none;
-    color: #4AB3F4;
-    border: 1px solid #4AB3F4;
+    color: #801515;
+    border: 1px solid #801515;
     margin-right: 5px;
 }
 
@@ -953,7 +970,7 @@ button.following:not(.wait):hover .msg-unfollow {
 }
 
 
-.whotoFollowss {
+/*.whotoFollowss {
     width: 100%;
     height: 15%;
     border-bottom: 1px solid #D1D1D1;
@@ -962,5 +979,6 @@ button.following:not(.wait):hover .msg-unfollow {
     color: #555;
     text-align: center;
 }
+*/
 
 
