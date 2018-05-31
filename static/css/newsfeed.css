@@ -94,25 +94,6 @@ ul {
     border-radius: 20px;
 }
 
-#tagsID+.tag-editor {
-    background: #fafafa;
-    font-size: 12px;
-}
-
-#tagsID+.tag-editor .tag-editor-tag {
-    color: #fff;
-    background: #555;
-    border-radius: 2px;
-}
-
-#tagsID+.tag-editor .tag-editor-spacer {
-    width: 7px;
-}
-
-#tagsID+.tag-editor .tag-editor-delete {
-    display: none;
-}
-
 .title {
     display: block;
 }
