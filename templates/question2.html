@@ -159,8 +159,10 @@
                     <div class="titlepost">
                   
                         <div class=" editanddeleteButtonCont">
+                            {% if user.id == i.user.id %}
                             <i onclick="showhide('{{i.id}}')" class="fa fa-edit Newsfeed-editButton" title="Edit"></i>
                             <i onclick="confirmDelete('{{i.id}}')" class="fas fa-trash-alt qheart" title="Delete"></i>
+                            {% endif %}
                             <i onclick="showhide1('{{i.id}}')" class="fas fa-copy duplicate" title="Mark As Duplicate"></i>
 
                         </div>
@@ -353,8 +355,9 @@
                     <span class="msg-follow">Follow</span>
                     <span class="msg-following">Following</span>
                     <span class="msg-unfollow">Unfollow</span>
-                </button>                
+                </button>
                 <a class="voteScore">{{i.points}}</a>
+
             </div>
 
             {% endfor %}
@@ -501,7 +504,7 @@
 
     <script>
         $("#submitbutton3").click(function() {
-            var editorText = CKEDITOR.instances.textarea.getData();
+            var editorText = CKEDITOR.instances.textarea2.getData();
             var posttitle = document.getElementById('title').value;
             var gettags = document.getElementById('tagsID').value;
             var cleartitle = document.getElementById('title');

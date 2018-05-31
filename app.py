@@ -76,7 +76,6 @@ def question():
         return render_template('landingpage2.html')
     else:
         curuser = str(session['user'])
-        print("this is curuser"+curuser)
         interests = baseUrl + 'users/' + curuser + '/interests'
         response = requests.get(interests)
         interests = response.json()
@@ -109,12 +108,13 @@ def question():
         # print(url)
         response1 = requests.get(url)
         questions = response1.json()
+        print(questions)
+        print(response1)
 
 
         url2 = baseUrl + 'Categories'
         response = requests.get(url2)
         categories = response.json()
-        print('CURRENT USER: ' + curuser)
         user1 = requests.get(baseUrl + 'users/'+curuser+'')
         user = user1.json()
 
@@ -172,13 +172,10 @@ def question():
     notfollowed = []
 
     for i in followableusers:
-        print(i)
         u = requests.head(baseUrl + 'users/'+curuser+'/following/rel/'+str(i['id']))
         if u.status_code == 404:
             notfollowed.append(i)
 
-    print(curuser)
-    print(user)
     return render_template('question2.html', leader=leader, curuser=curuser, user=user, tag_list=newlist, questions=questions, answers=answers, categories=categories, followableusers=notfollowed,usercount=followerfollowingcount)
 
 @app.route('/profile/<int:id>', methods=['GET', 'POST'])
@@ -282,15 +279,22 @@ def tagsQ(id):
     return render_template('specifictags.html', questions=categorylist['questions'], curuser=curuser)
 
 
-@app.route('/search', methods=['POST'])
+@app.route('/search', methods=['POST','GET'])
 def searchres():
     curuser = str(session['user'])
     searchbar = request.form['searchbar']
     test = urllib.parse.quote_plus(searchbar)
-    url = (baseUrl + 'Questions?filter={"where":{"question":{"ilike":"%25'+test+'%25"}},"include":[{"relation": "user"},{"relation": "tags"},{"relation": "category"},{"relation": "answers", "scope":{"include": [{"relation": "user"},{"relation": "comments", "scope":{"include":{"relation":"user"}}}]}}]}')
-    response = requests.get(url)
-    searched = response.json()
-    return render_template('search.html', searched=searched, curuser=curuser)
+    if test == "":
+        searched = []
+        return render_template('search.html', searched=searched, curuser=curuser)
+    else:
+        user1 = requests.get(baseUrl + 'users/' + curuser + '')
+        user = user1.json()
+
+        url = (baseUrl + 'Questions?filter={"where":{"question":{"ilike":"%25' + test + '%25"}},"include":[{"relation": "user"},{"relation": "tags"},{"relation": "category"},{"relation": "answers", "scope":{"include": [{"relation": "user"},{"relation": "comments", "scope":{"include":{"relation":"user"}}}]}}]}')
+        response = requests.get(url)
+        searched = response.json()
+        return render_template('search.html', searched=searched, curuser=curuser, user=user)
 
 
 @app.after_request

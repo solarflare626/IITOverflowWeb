@@ -80,10 +80,11 @@
                     <hr style="margin:0;">
 
                     <div class=" editanddeleteButtonCont">
+                        {% if user.id == i.user.id %}
                         <i onclick="showhide('{{i.id}}')" class="fa fa-edit Newsfeed-editButton" title="Edit"></i>
                         <i onclick="showhide('{{i.id}}')" class="fas fa-trash-alt qheart" title="Delete"></i>
+                        {% endif %}
                         <i onclick="showhide1('{{i.id}}')" class="fas fa-copy duplicate" title="Mark As Duplicate"></i>
-
                     </div>
 
                     <h5 class="titlepostTitle"><a style="outline: none;">Title:</a> {{i.question|safe}}</h5>
