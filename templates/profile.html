@@ -67,14 +67,14 @@
                         <div class="CenterLeftRightCont">
                             <div class="profile-contentLeft">
 
-                                <h4>Bio info here</h4>
-                                <p id="dispn"> {{ json_object['displayname'] }} </p>
+                                <!-- <h4>Bio info here</h4> -->
+                                <p style="font-weight: 1000; font-size: 22px" id="dispn"> {{ json_object['displayname'] }} </p>
                                 <a class="profilePostEmail"> {{json_object.email}} </a>
 
                                 <div class="profile-linksInterest">
-                                    <h4>{{interests}} Interests</h4>
+                                    <h4> Interests</h4>
                                     <br> {% for interest in json_object1.interests %}
-                                    <h5> {{interest.name}} </h5>
+                                    <a style="border:1px solid black" id="int"> {{interest.name}} </a>
                                     {% endfor %}
 
                                 </div>
@@ -84,14 +84,11 @@
 
 
                             <div class="profileCenterDiv">
-
-
-
-                                <div class="FollowedQuestionsContainer">
-                                    {% for question in followed_questions %}
+                                <div class="FollowedQuestionsContainer" style="display: none;">
+                                    {% for question in followed_questions|reverse %}
                                     <div class="profile-contentCenter">
                                         <div class="profilePostPictureCont">
-                                            <img class="profilePostPicture" src="../static/image/google.png">
+                                            <img class="profilePostPicture" src="{{ question.user.picture }}">
 
                                         </div>
                                         <div class="profileNameEmail">
@@ -102,21 +99,20 @@
 
                                         <br>
 
-                                        <p class="profilePostAnswer">{{ question.questiondesc }}</p>
+                                        <p class="profilePostAnswer">{{ question.questiondesc | safe }}</p>
                                         <div class="profilePostButton">
                                             <a href="#" class="glyphicon glyphicon-pencil"></a>
-                                            <a href="#" class="glyphicon glyphicon-comment"></a>
-                                            <a href="#" class="glyphicon glyphicon-thumbs-up"></a>
-                                            <a href="#" class="glyphicon glyphicon-thumbs-down"></a>
-                                            <a href="#" class="profilePostFollowButton">Unfollow</a>
+                                            <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" id="QupVote"> </a>
+                                            <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down" id= "QdownVote"> </a>
+                                            <button  onclick = "followedQuestion('{{question.id}}')" >
+                                            <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
+                                            </button>
                                         </div>
-
                                     </div>
                                     {% endfor %}
                                 </div>
-
                                 <div class="AnsweredQuestionsContainer">
-                                    {% for question in answered_questions %}
+                                       {% for question in answered_questions|reverse %}
                                     <div class="profile-contentCenter">
                                         <div class="profilePostPictureCont">
                                             <img class="profilePostPicture" src="{{ question.user.picture }}">
@@ -130,18 +126,18 @@
                                         <div>{{ question.answer }}</div>
                                         <div class="profilePostButton">
                                             <a href="#" class="glyphicon glyphicon-pencil"></a>
-                                            <a href="#" class="glyphicon glyphicon-comment"></a>
-                                            <a href="#" class="glyphicon glyphicon-thumbs-up"></a>
-                                            <a href="#" class="glyphicon glyphicon-thumbs-down"></a>
-                                            <a href="#" class="profilePostFollowButton">Unfollow</a>
-                                        </div>
+                                            <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" </a>
+                                                <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down" </a>
+                                            <button  onclick = "followedQuestion('{{question.id}}')" >
+                                                    <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
+                                            </button>                                        </div>
                                     </div>
                                     {% endfor %}
                                 </div>
 
 
 
-                                {% for i in json_object.questions %}
+                                {% for i in json_object.questions|reverse %}
 
                                 <div class="profile-contentCenter">
                                     <div class="profilePostPictureCont">
@@ -159,12 +155,12 @@
                                     <p class="profilePostAnswer">{{i.questiondesc}}</p>
                                     <div class="profilePostButton">
                                         <a href="#" class="glyphicon glyphicon-pencil"></a>
-                                        <a href="#" class="glyphicon glyphicon-comment"></a>
-                                        <a href="#" class="glyphicon glyphicon-thumbs-up"></a>
-                                        <a href="#" class="glyphicon glyphicon-thumbs-down"></a>
-                                        <a href="#" class="profilePostFollowButton">Follow</a>
+                                        <a onclick="upvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-up" </a>
+                                        <a onclick="downvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-down" </a>
+                                        <button  onclick = "followedQuestion('{{questions.id}}')" >
+                                            <a href="#"  id={{"followques_{0}".format(questions.id)}} class="profilePostFollowButton">Unfollow</a>
+                                        </button>
                                     </div>
-
                                 </div>
                                 {%endfor%}
                             </div>
@@ -188,18 +184,9 @@
                                                     </div>
                                                 </div>
                                                 <ul class="social">
-                                                    <li>
-                                                        <a href="" class="fa fa-facebook"></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="" class="fa fa-twitter"></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="" class="fa fa-google-plus"></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="" class="fa fa-linkedin"></a>
-                                                    </li>
+                                                    <button  onclick = "followedUser('{{follower.id}}')" >
+                                                        <a href="#"  id={{"followuser_{0}".format(follower.id)}} class="followerButton">Unfollow</a>
+                                                    </button>
                                                 </ul>
                                             </div>
                                         </div>
@@ -211,13 +198,36 @@
 
 
 
-
                             <div class="profile-contentRight">
-
                                 <h4>Who to Follow</h4>
+                    
+                                {% for i in whotofollowusers %}
+                                 <div class="whotoFollowss" id= {{"whotoFollow_{0}".format(i.id)}}>
+                                    <!-- <div class="whotoFollowss" id= "{{ i.displayname }}"> -->
+                                <div class="picturess">
+                                    <img class="profileimagess" src="{{ i.picture }}">
+                                </div>
+            
+                                <button  onclick = "followable('{{i.id}}')" class="whotofollowButtonss">
+                                    <a href="#"  id={{"followa_{0}".format(i.id)}} >Follow</a>
+                            </button>
+                                <div class="whotoFollowNamess">
+                                    <a href="{{ url_for('.profile', id = i.id) }}" >{{ i.displayname }}</a>
 
+                                    <a>{{ i.email }}</a>
+                                </div>
+            
                             </div>
-
+                            {% endfor %}
+            
+            
+                             <a>
+                                <h4>See all</h4>
+                            </a>
+                    
+                    
+                    
+                            </div>
 
                             <div class="FollowingContainer">
                                 {% for g in json_object1.following %}
@@ -233,19 +243,10 @@
                                                         <span class="FollowersPost">Web Developer</span>
                                                     </div>
                                                 </div>
-                                                <ul class="social">
-                                                    <li>
-                                                        <a href="" class="fa fa-facebook"></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="" class="fa fa-twitter"></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="" class="fa fa-google-plus"></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="" class="fa fa-linkedin"></a>
-                                                    </li>
+                                                <ul class="social">                                                  
+                                                        <button  onclick = "followedUser('{{g.id}}')" >
+                                                            <a href="#"  id={{"followuser_{0}".format(g.id)}} class="followerButton">Unfollow</a>
+                                                        </button>                                                  
                                                 </ul>
                                             </div>
                                         </div>
@@ -254,7 +255,7 @@
                                 </div>
                                 {% endfor %}
                             </div>
-
+                            </div>
                         </div>
 
                     </div>
@@ -285,36 +286,44 @@
         <div class="modal_close close"></div>
         <div class="modal_main">
             <img src="/static/images/ic.png" class="close" style="height: 20px; width: 20px; margin-top:13px;left:96%;position:fixed;">
-            <form class="form form-vertical" action="http://iitoverflow.herokuapp.com/api/users/4/updatePofile" method="post" enctype="multipart/form-data">
+            <form class="form form-vertical" action="http://iitoverflow.herokuapp.com/api/users/{{curuser}}/updatePofile" method="post" enctype="multipart/form-data">
 
 
                 <div class="kv-avatar">
                     <div class="file-loading">
-                        <input id="avatar-1" name="file" type="file" required>
+                        <input id="avatar-1" name="file" type="file">
                     </div>
                 </div>
 
 
 
                 <hr>
-                <input type="text" id="dispName" value="{{ json_object['displayname'] }}" placeholder="Displayname">
+                <label>Display name: </label><input type="text" id="dispName" value="{{ json_object['displayname'] }}" placeholder="Displayname">
+                    <br>
+                <div id="interest-contain" style="width: 47%; float: left; overflow-y: auto; height: 40%;">
+                    <h5>Interests: </h5>
+                    {% for i in interests%}
+                    <button value="{{i.id}}" type="button" class="interestbuttons">{{ i.name }}</button>
+                    {% endfor %}
+                </div>
+                <div id="category-contain" style="width: 47%; float: left; overflow-y: auto; height: 40%;">
+                    <h5>Categories: </h5>
+                    {% for c in categories%} {% if c not in interests %}
+                    <button value="{{c.id}}" type="button" class="categorybuttons">{{ c.name }}</button>
+                    {% endif %}{% endfor %}
+                </div>
 
-
-
-
-                <br>
-                <button type="submit" id="submitProfile" tyle="margin-left: 40%" class="submitEditbutton">Submit</button>
-
-
-
+                <br><br>
+                <button type="submit" id="submitProfile" style="margin-left: -10%" class="submitEditbutton">Submit</button>
 
             </form>
 
         </div>
     </div>
-    <script src="../static/js/app2.js"></script>
+    <!--<script src="../static/js/app2.js"></script>-->
 </body>
 <script type="text/javascript">
+
     $(document).ready(function() {
         $(".profile-contentCenter").show('slow');
         $(".FollowersContainer").hide();
@@ -384,21 +393,25 @@
             $(".modal_main").fadeOut();
         });
     });
+    
     $("#submitProfile").on("click", function(e) {
         e.preventDefault();
-        // formdata = new FormData(); 
-        var formdata = new FormData();
-        //var index = 0;
-        //var dispn = document.getElementById('dispn');   
+        var formdata = new FormData(); 
         var file = $('#avatar-1').prop('files');
         console.log(file);
+        
         var name = $("#dispName").val();
+        var names = $("#inter").val();
         var user = {
-            "displayname": name
+            "displayname": name,
+            "interests": names
         };
+
+       
+        
         console.log(JSON.stringify(user));
         $.ajax({
-            url: "http://iitoverflow.herokuapp.com/api/users/1",
+            url: "http://iitoverflow.herokuapp.com/api/users/{{ curuser }}",
             type: "PATCH",
             data: JSON.stringify(user),
             dataType: "JSON",
@@ -406,19 +419,33 @@
             success: function(data2) {
                 console.log("profile ", data2);
                 $("#dispn").text(data2.displayname);
-                if (file.length > 0)
+
+                if (file.length > 0) {
+                    $.ajax({
+                        url: "http://iitoverflow.herokuapp.com/api/users/{{curuser}}/updateProfile",
+                        type: "POST",
+                        data: {"picture": formdata.picture},
+                        success: function() {
+                            $("#profPic").attr("src", data.picture);
+                        },
+                        err: function() {
+                            console.log("Error!");
+                        }
+                    });
+                }
                     if (formdata) {
                         formdata.append("file", file[0]);
-                        console.log(formdata);
+                        console.log("formdata", formdata);
                         $.ajax({
-                            url: "http://iitoverflow.herokuapp.com/api/users/4/updateProfile",
+                            url: "http://iitoverflow.herokuapp.com/api/users/{{curuser}}/updateProfile",
                             type: "POST",
                             data: formdata,
                             processData: false,
                             contentType: false,
                             success: function(data) {
-                                console.log("profile ", data.picture);
-                                console.log("profile ", data.picture);
+                                //console.log("profile ", data.picture);
+                                //console.log("profile ", data.picture);
+                                console.log("TEST 1");
                                 $("#profPic").attr("src", data.picture);
                                 $("#modalProf").hide();
                             },
@@ -426,14 +453,49 @@
                                 console.log("profile error :", err);
                             }
                         });
+
+                        var userId = {{curuser}};
+                        console.log("TEST 2: User Id: ", {{curuser}});
+                        $.ajax({
+                            url: "http://iitoverflow.herokuapp.com/api/users/"+userId+"/interests",
+                            type: "DELETE",
+                            data: JSON.stringify(user),
+                            dataType: "json",
+                            success: function (data3) {
+                                console.log("interests are deleted")
+                                interests.forEach(function(cat){
+                                    console.log(cat);
+                                    $.ajax({
+                                    url: "http://iitoverflow.herokuapp.com/api/users/"+userId+"/interests/rel/"+cat,
+                                    type: "PUT",
+                                    data: JSON.stringify(user),
+                                    dataType: "json",
+                                    success: function (data3) {
+                                        console.log("TEST 3");
+                                        console.log("Success!");
+                                        $("#int").text(data3.interests);
+                                    },
+                                    error: function(err) {
+                                        console.log("profile error :", err);
+                                    }
+                                    });
+                                });
+                            },
+                            error: function(err) {
+                                console.log("profile error :", err);
+                            }
+                        });
                     }
-                $("#modalProf").hide();
+                 $("#modalProf").hide();
             },
+
             error: function(err) {
                 console.log("profile error :", err);
             }
         });
     });
+   
+
 </script>
 
 <script>
@@ -472,5 +534,230 @@
     });
 </script>
 
+<script type="text/javascript">
+    var interests = [];
+    {% for i in interests %}
+        var id = {{i.id}};
+        id = id.toString();
+        interests.push(id);
+    {% endfor %}
+
+    var interests_contain= document.getElementById("interest-contain");
+    var category_contain = document.getElementById("category-contain");
+    $(document).on('click', '.categorybuttons', function() {
+        var categoryname = $(this).text();
+        var categoryid = $(this).val();
+        var text = document.createTextNode(categoryname);
+        var btn = document.createElement("button");
+        btn.setAttribute("class", "interestbuttons");
+        btn.setAttribute("value", $(this).val());
+        btn.appendChild(text);
+        interests_contain.appendChild(btn);
+        interests.push(categoryid);
+        $(this).remove();
+        console.log(interests);
+    });
+
+
+    $(document).on('click', '.interestbuttons', function() {
+        var id = $(this).val();
+        var index = interests.indexOf(id);
+        // alert("Index in interests: " + index);
+        if (index > -1) {
+            interests.splice(index, 1);
+        }
+        // alert("List of ids: " + interests);
+        categoryname = $(this).text();
+        categoryid = $(this).val();
+        text = document.createTextNode(categoryname);
+        btn = document.createElement("button");
+        btn.setAttribute("class", "categorybuttons");
+        btn.setAttribute("value", categoryid);
+        btn.appendChild(text);
+        category_contain.appendChild(btn);
+        $(this).remove();
+    });
+</script>
+
+<script>
+     function upvote(qid) {
+            console.log(qid);
+            $.ajax({
+                type: 'HEAD',
+                async: true,
+                url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsupvoted/rel/'+qid,
+                success: function(message) {
+                    console.log("Already upvoted!");
+                },
+                error: function(message) {
+                    if (message.status == 404) {
+                        $.ajax({
+                            type: "PUT",
+                            async: true,
+                            url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsupvoted/rel/'+qid,
+                            success: function(message) {
+                               $.ajax({
+                                   type: "DELETE",
+                                   async: true,
+                                   url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsdownvoted/rel/'+qid,
+                                   success: function() {
+                                       console.log("Sucessful deleted downvote after upvote!");
+                                       console.log(".glyphicon glyphicon-thumbs-up#"+qid);
+                                       
+                                   }
+                               });
+                               console.log("Upvoted question!")
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        function downvote(qid) {
+            console.log(qid);
+            $.ajax({
+                type: 'HEAD',
+                async: true,
+                url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsdownvoted/rel/'+qid,
+                success: function(message) {
+                    console.log("Already downvoted!");
+                },
+                error: function(message) {
+                    if (message.status == 404) {
+                        $.ajax({
+                            type: "PUT",
+                            async: true,
+                            url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsdownvoted/rel/'+qid,
+                            success: function(message) {
+                                $.ajax({
+                                   type: "DELETE",
+                                   async: true,
+                                   url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsupvoted/rel/'+qid,
+                                   success: function() {
+                                       console.log("Sucessful deleted upvote after downvote!");
+                                       console.log(".glyphicon glyphicon-thumbs-down#"+qid);
+                                   }
+                               });
+                                console.log("Downvoted question!");
+
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        function followedQuestion(qid){
+            $.ajax({
+                type: "HEAD",
+                async: true,
+                url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsfollowed/rel/'+qid,
+                success: function(message){
+                    $.ajax({
+                        type: 'DELETE',
+                        async: true,
+                        url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsfollowed/rel/'+qid,
+                        success: function(message){
+                            $('#followques_'+qid).text('Follow');
+                            console.log('UNFOLLOWED');
+                        },
+                        error: function(message){
+                            console.log(message);
+                        }
+                    });
+                    $('#followques').text('Follow')
+                },
+                error: function(message){
+                    console.log("FOLLOW QUESTION");
+                        console.log("FOLLOW QUESTION");
+                        $.ajax({
+                            type: "PUT",
+                            async: true,
+                            url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsfollowed/rel/'+qid,
+                            success: function(message){
+                                $('#followques_'+qid).text('Unfollow');
+                                console.log('Followed');
+                            }
+                        });
+                }
+
+            });
+        }
+    function followedUser(uid){
+            $.ajax({
+                type: "HEAD",
+                async: true,
+                url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/following/rel/'+uid,
+                success: function(message){
+                    $.ajax({
+                        type: 'DELETE',
+                        async: true,
+                        url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/following/rel/'+uid,
+                        success: function(message){
+                            $('#followuser_'+uid).text('Follow');
+                            console.log('UNFOLLOWED');
+                        },
+                        error: function(message){
+                            console.log(message);
+                        }
+                    });
+                    $('#followuser_').text('Follow')
+                },
+                error: function(message){
+                    console.log("FOLLOW QUESTION");
+                        console.log("FOLLOW QUESTION");
+                        $.ajax({
+                            type: "PUT",
+                            async: true,
+                            url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/following/rel/'+uid,
+                            success: function(message){
+                                $('#followuser_'+uid).text('Unfollow');
+                                console.log('Followed');
+                            }
+                        });
+                }
+
+            });
+        }
+            
+    function followable(qid){
+        
+        $.ajax({
+            type: "HEAD",
+            async: true,
+            url: 'http://iitoverflow.herokuapp.com/api/users/{{ curuser }}/following/rel/'+qid,
+            success: function(message){
+                $.ajax({
+                    type: 'DELETE',
+                    async: true,
+                    url: 'http://iitoverflow.herokuapp.com/api/users/{{ curuser }}/following/rel/'+qid,
+                    success: function(message){
+                        $('#followa_'+qid).text('Follow');
+                        console.log('UNFOLLOWED');
+                    },
+                    error: function(message){
+                        console.log(message);
+                    }
+                });
+                $('#followa_').text('Follow')
+            },
+            error: function(message){
+                console.log("FOLLOW USER");
+                    console.log("FOLLOW USERRRS");
+                    $.ajax({
+                        type: "PUT",
+                        async: true,
+                        url: 'http://iitoverflow.herokuapp.com/api/users/{{ curuser }}/following/rel/'+qid,
+                        success: function(message){
+                            $('#whotoFollow_'+qid).hide('slow');
+                            $('#whotoFollow_'+qid).remove();
+                            console.log('Followed');
+                        }
+                    });
+            }
+        });
+    }
+
+
+</script>
 
 </html>
