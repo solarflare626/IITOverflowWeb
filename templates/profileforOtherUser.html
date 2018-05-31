@@ -24,7 +24,6 @@
 
 <body>
     <!-- <div class="Profile-hider" id="hider">
-
     </div> -->
     <div class="profile-fullpage">
 
@@ -42,7 +41,7 @@
                     <div class="profile-search">
 
                         <button class="profile-searchbutton" type="submit">
-                            <span class="glyphicon glyphicon-search"> </span>
+                            <span class="glyphicon glyphicon-search">
                         </button>
                         <input class="profile-searchbar" type="text" placeholder="Search..">
 
@@ -121,8 +120,8 @@
                                         <br>
 
                                         <div class="profilePostAnswer" id={{"show_{0}".format(question.id)}}>{{ question.questiondesc|safe }}</div>
-                                       
-                                        <hr>                                        
+
+                                        <hr>
                                         <div class="profilePostButton">
                                                 <button  onclick = "followedQuestion('{{question.id}}')" >
                                                         <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
@@ -131,7 +130,7 @@
                                             <a href="#" class="glyphicon glyphicon-comment"></a>
                                             <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" id="QupVote"> </a>
                                             <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down" id= "QdownVote"> </a>
-                                            
+
                                         </div>
                                     </div>
                                     {% endfor %}
@@ -158,7 +157,7 @@
                                     <a href="#" class="glyphicon glyphicon-comment"></a>
                                     <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" ></a>
                                     <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down"></a>
-                                   
+
                                 </div>
                             </div>
                             {% endfor %}
@@ -188,7 +187,7 @@
                                 <a href="#" class="glyphicon glyphicon-comment"></a>
                                 <a onclick="upvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-up" ></a>
                                 <a onclick="downvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-down"></a>
-                               
+
                             </div>
 
                         </div>
@@ -198,10 +197,10 @@
                         <a href=" "> </a>
                     </div>
                     <div class="FollowersContainer">
-                        
+
                             {% for follower in json_object1.followers %}
                             <div class="FollowersRow">
-                            
+
                             <div class="col-md-2 col-sm-6">
                                     <a href="{{ url_for('.profile', id = follower.id) }}">
                                 <div class="our-team">
@@ -233,7 +232,7 @@
                                 <div class="picturess">
                                     <img class="profileimagess" src="{{ i.picture }}">
                                 </div>
-            
+
                                 <button  onclick = "followable('{{i.id}}')" class="whotofollowButtonss">
                                     <a href="#"  id={{"followa_{0}".format(i.id)}} >Follow</a>
                             </button>
@@ -242,15 +241,15 @@
 
                                     <a>{{ i.email }}</a>
                                 </div>
-            
+
                             </div>
                             {% endfor %}
-            
-            
+
+
                              <a>
                                 <h4>See all</h4>
                             </a>
-                    
+
 
                     <div class="FollowingContainer">
 
@@ -270,7 +269,7 @@
                                     <ul class="social">
                                         <button  onclick = "followedUser('{{g.id}}')" >
                                             <a href="#"  id={{"followuser_{0}".format(g.id)}} class="followerButton">Unfollow</a>
-                                        </button>  
+                                        </button>
                                     </ul>
                                 </div>
                             </div>
@@ -314,7 +313,6 @@
         $(".profile-contentCenter").click(function() {
             $("#hider").fadeIn("slow");
             $('#popup_box1').fadeIn("slow");
-
             $("#buttonClose").click(function() {
                 $("#hider").fadeOut("slow");
                 $('#popup_box1').fadeOut("slow");
@@ -374,7 +372,6 @@
             $(".profile-contentLeft").show('slow');
             $(".profileCenterDiv").show('slow');
         });
-
         $('#followus').on('click', function() {
             $.ajax({
                 type: 'HEAD',
@@ -404,14 +401,12 @@
                             success: function(message) {
                                 $("#followusText").text("Unfollow");
                                 console.log("Followed");
-
                             }
                         });
                     }
                 }
             });
         });
-
       function upvote(qid) {
             console.log(qid);
             $.ajax({
@@ -420,7 +415,7 @@
                 url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsupvoted/rel/'+qid,
                 success: function(message) {
                     console.log("Already upvoted!");
-                    
+
                 },
                 error: function(message) {
                     if (message.status == 404) {
@@ -440,14 +435,12 @@
                                    }
                                });
                                console.log("Upvoted question!");
-
                             }
                         });
                     }
                 }
             });
         }
-
         function downvote(qid) {
             console.log(qid);
             $.ajax({
@@ -474,14 +467,13 @@
                                    }
                                });
                                 console.log("Downvoted question!");
-
                             }
                         });
                     }
                 }
             });
         }
-    
+
         function followedQuestion(qid){
             $.ajax({
                 type: "HEAD",
@@ -515,10 +507,8 @@
                             }
                         });
                 }
-
             });
         }
-
         function followedUser(uid){
             $.ajax({
                 type: "HEAD",
@@ -552,12 +542,11 @@
                             }
                         });
                 }
-
             });
         }
-            
+
     function followable(qid){
-        
+
         $.ajax({
             type: "HEAD",
             async: true,
@@ -594,8 +583,6 @@
         });
     }
 
-    
-
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function() {
@@ -615,8 +602,6 @@ function signOut() {
         });
     });
 }
-
-
 $(".showallButton").click(function(){
         var id = $(this).attr("id");
         if($(this).text()=== "Show description"){
@@ -627,10 +612,8 @@ $(".showallButton").click(function(){
             $(this).text("Show description");
             $("#show_"+id).hide('slow');
         }
-       
+
     });
-
-
     </script>
 
 
