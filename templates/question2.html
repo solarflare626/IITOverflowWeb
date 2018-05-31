@@ -682,7 +682,11 @@
         }
         ///////////////////////////////////////////////////////////////////////////////////
         $(document).on('click', '.submitbutton3', function () {
-            var editorText = CKEDITOR.instances.textarea2.getData();
+            if ($('.selectedcategorybutton').text() == '') {
+                console.log('Category must not be empty!');
+            }
+            else {
+                var editorText = CKEDITOR.instances.textarea2.getData();
             alert(editorText);
             var posttitle = document.getElementById('title').value;
             $('#title').val('');
@@ -741,6 +745,7 @@
             $("tagsbar").show('slow');
             $("categorybar").show('slow');
             $("#post").hide();
+            }
         });
         ///////////////////////////////////////////////////////////////////////////////////
         /*$('input[type=text]').on('keydown', function(e) {
