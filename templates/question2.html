@@ -294,19 +294,15 @@
                 <!-- EDIT MODE -->
 
                 <div style="display: none;" id={{ "qedit_{0}".format(i.id)}} class="newdivEdit">
-
                     <div class="form2container">
-
-
                         <form id="form2" style="box-shadow: 15px;">
-
                             <h5>Title</h5>
                             <input class="editQuestionTitle" type="text" id="titleedit" value="{{i.question}}">
                             <h5>Description</h5>
-                            <textarea style="border: 1px solid black; height:200px; font-size:14pt;" rows="9" type="text" class="editTitleDescription"
-                                id="descedit">{{i.questiondesc}}</textarea>
-
-
+                            <textarea name={{ "textareaedit_".format(i.id) }}>{{i.questiondesc}}</textarea>
+                            <script>
+                                CKEDITOR.replace('{{ "textareaedit_".format(i.id) }}');
+                            </script>
                             <h5>Tags</h5>
                             <input id="tagsIDedit" type="text" name="tagsarea" value=" {% for tag in i.tags %} {{tag.name}} {% endfor %}" class="tagsarea"
                             />
@@ -431,6 +427,17 @@
     <script>
         ///////////////////////////////////////////////////////////////////////////////////
         $('#tagsID').tagEditor({
+            autocomplete: {
+                delay: 0, // show suggestions immediately
+                position: {
+                    collision: 'flip'
+                }, // automatic menu position up/down
+                source: ['haha']
+            },
+            forceLowercase: false,
+        });
+        ///////////////////////////////////////////////////////////////////////////////////
+        $('#tagsIDedit').tagEditor({
             autocomplete: {
                 delay: 0, // show suggestions immediately
                 position: {
