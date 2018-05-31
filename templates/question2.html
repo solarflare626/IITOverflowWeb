@@ -299,26 +299,22 @@
                             <h5>Title</h5>
                             <input class="editQuestionTitle" type="text" id="titleedit" value="{{i.question}}">
                             <h5>Description</h5>
-                            <textarea name={{ "textareaedit_".format(i.id) }}>{{i.questiondesc}}</textarea>
+                            <textarea name={{ "textareaedit_{0}".format(i.id) }}>{{i.questiondesc}}</textarea>
                             <script>
-                                CKEDITOR.replace('{{ "textareaedit_".format(i.id) }}');
+                                CKEDITOR.replace('{{ "textareaedit_{0}".format(i.id) }}');
                             </script>
                             <h5>Tags</h5>
                             <input id="tagsIDedit" type="text" name="tagsarea" value=" {% for tag in i.tags %} {{tag.name}} {% endfor %}" class="tagsarea"
                             />
-                            <div class="popupedit">
+                            <div class="popupedit" id="{{i.category.id}}">
                                 <button id="categoryIDedit" type="button" value="" class="categorybuttonedit">
                                     <b>Category:</b>
                                 </button>
-                                <button class="selectedcategorybuttonedit">
+                                <button class="selectedcategorybuttonedit" type="button">
                                     {{ i.category.name }}
                                 </button>
                             </div>
-                            
-
-
                             <div class="newsfeedPopUpButton-Cont">
-
                                 <a id={{i.id}} class="submitbutton5" type="submit">Save</a>
                                 <a onclick="showhide({{ i.id }})">Cancel</a>
                             </div>
@@ -537,20 +533,22 @@
         ///////////////////////////////////////////////////////////////////////////////////
         $(document).on('click', '.submitbutton5', function () {
             var qid = $(this).attr('id');
-            var editorText = CKEDITOR.instances.textarea.getData();
+            var editorText = CKEDITOR.instances['textareaedit_'+qid].getData();
             var posttitle = document.getElementById('titleedit').value;
             var gettags = document.getElementById('tagsIDedit').value;
             var cleartitle = document.getElementById('titleedit');
+            var category = $('.popupedit').attr('id');
             var cleartags = document.getElementsByClassName('tag-editor-tag');
             console.log(cleartags);
             var data = {
                 "question": posttitle,
                 "questiondesc": editorText,
-                "userId": "{{ curuser }}"
+                "userId": "{{ curuser }}",
+                "categoryId": category
             };
             $.ajax({
                 type: "PUT",
-                url: "https://iitoverflow.herokuapp.com/api/Questions",
+                url: "https://iitoverflow.herokuapp.com/api/Questions/"+qid,
                 data: JSON.stringify(data),
                 dataType: "json",
                 contentType: "application/json",
@@ -562,7 +560,7 @@
                     var tagslength = cleartags.length;
                     $.ajax({
                         type: "PUT",
-                        url: "https://iitoverflow.herokuapp.com/api/Questions",
+                        url: "https://iitoverflow.herokuapp.com/api/Questions/",
                         data: JSON.stringify(data),
                         dataType: "json",
                         contentType: "application/json",
