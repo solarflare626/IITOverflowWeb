@@ -690,6 +690,7 @@
             $('#tagsID').empty();
             var category = $('.popup').attr('id');
             $('.selectedcategorybutton').text('');
+            var cleartags = document.getElementsByClassName('tag-editor-tag');
             CKEDITOR.instances.textarea.setData('');
             var data = {
                 "question": posttitle,
