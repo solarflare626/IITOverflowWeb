@@ -110,7 +110,7 @@ def profile(id):
         followed_questions = response.json()
 
         curl = ('http://iitoverflow.herokuapp.com/api/users/'+user +'?filter[counts]=followers&filter[counts]=following&filter[counts]=answers&filter[counts]=questionsfollowed&filter[counts]=questions&filter[counts]=interests&filter[include]=interests&filter[include]=followers&filter[include]=following&filter[include]=answers&filter[include]=questionsfollowed&filter[include]=questions')
-        response = requests.get(curl)
+        response = requests.get(curl)   
         json_object1 = response.json()
         val3 = json_object1['followersCount']
         val4 = json_object1['followingCount']   
@@ -263,3 +263,4 @@ def add_cors(resp):
 if __name__ == '__main__':
     app.run(host='localhost', debug=True)
 
+ 

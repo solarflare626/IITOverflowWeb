@@ -865,7 +865,7 @@ button.following:not(.wait):hover .msg-unfollow {
     padding: 3px;
     color: #801515;
     
-    border: 1px solid transparent;
+Sh    border: 1px solid transparent;
 }
 
 .profile-linksInterest:hover {

@@ -135,8 +135,8 @@
                                         <div class="profilePostButton">
                                                 <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
                                             <a href="#" class="glyphicon glyphicon-pencil"></a>
-                                            <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" </a>
-                                            <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down" </a>
+                                            <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up"> </a>
+                                            <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down"> </a>
                                             <button  onclick = "followedQuestion('{{question.id}}')" >
                                                    
                                             </button>                                        </div>
@@ -210,6 +210,7 @@
                             <div class="profile-contentRight">
                                 <div style="background-color: white; padding: 10px;">
                                 <h4>Who to Follow</h4>
+                                <hr>
                     
                                 {% for i in whotofollowusers %}
                                  <div class="whotoFollowss" id= {{"whotoFollow_{0}".format(i.id)}}>
