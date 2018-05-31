@@ -219,7 +219,7 @@
                                         <div class="picture2" style="background-color: black; width: 10%; height: auto;">
                                             <img src="{{answer.user.picture}}">
                                         </div>
-                                        <div class="comment-box" style="background-color: white; width: 80%;  border-radius: 10px; padding: 5px; margin-left: 13%; text-align: left;">
+                                        <div class="comment-box" style="background-color: white; width: 80%;  border-radius: 10px; padding: 10px 10px 20px 10px; margin-left: 13%; text-align: left;">
                                             <div>
                                                 <h5 class="answerdisplayname">{{answer.user.displayname}}
                                                     <p style="margin: 0px; font-size: 10px;">{{i.createdAt}}</p>
@@ -228,10 +228,13 @@
                                             <div class="comment-head">
                                                 <div class="answerdivbutton">
                                                     {% if user.id == answer.user.id%}
+
                                                     <i id="{{answer.id}}" class="fa fa-edit edit" title="Edit" style="margin: 5px;"></i>
                                                     <i id="{{answer.id}}" class="fa fa-trash heart" title="Delete" style="margin: 5px;"></i>
                                                     {% endif %}
-                                                    <i id="{{answer.id}}" class="fa fa-reply heart" style="margin: 5px;"></i>
+                                                    
+                                                    <i id="{{answer.id}}" class="fa fa-thumbs-up thumbs-up" title="Edit" style="margin: 5px;"></i>
+                                                    <i id="{{answer.id}}" class="fa fa-thumbs-down thumbs-down" title="Edit" style="margin: 5px;"></i>
                                                 </div>
                                             </div>
                                             <br>
