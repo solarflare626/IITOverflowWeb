@@ -210,7 +210,7 @@ html {
 
 .profile-contentTopNav a:hover {
     text-decoration: none;
-    color: #4AB3F4;
+    color: #801515;
 }
 
 .editprofilebutton {
@@ -288,10 +288,12 @@ html {
 .profileCenterDiv {
     float: left;
     height: 100%;
-    width: 50%;
+    width: 47%;
     margin: 10px auto;
     margin-right: 10px;
+    background-color: #E6ECF0;
 }
+
 
 .profile-fullpage {
     overflow: scroll;

@@ -58,7 +58,7 @@
                 </div>
                 <div class="profile-contentTop">
                     <div class="profile-contentTopCover">
-                        <img src="../static/image/background1.jpg" alt="profilecover">
+                        <img src="../static/image/background1.jpg" alt="    over">
                         <div class="profilepictureContainer">
                             <img id="profPic" src="{{ json_object.picture }}" alt="Profilepic">
                         </div>
@@ -66,7 +66,7 @@
                     <div class="profile-contentTopLinks">
                         <div class="profile-contentTopNav">
                             {% block body %}
-                            <a type="submit" id="profile-PostButton">Posts</a>
+                            <a type="submit" id="profile-PostButton"> {{questions}} Posts</a>
                             <a type="submit" id="profile-FollowersButton">{{followers}} Followers</a>
                             <a type="submit" id="profile-FollowingButton">{{following}} Following</a>
                             <a type="submit" id="profile-FollowedQuestionButton">{{questionsfollowed}} Followed Questions</a>
@@ -124,13 +124,14 @@
                                        
                                         <hr>                                        
                                         <div class="profilePostButton">
+                                                <button  onclick = "followedQuestion('{{question.id}}')" >
+                                                        <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
+                                                    </button>
                                             <a href="#" class="glyphicon glyphicon-pencil"></a>
                                             <a href="#" class="glyphicon glyphicon-comment"></a>
                                             <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" id="QupVote"> </a>
                                             <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down" id= "QdownVote"> </a>
-                                            <button  onclick = "followedQuestion('{{question.id}}')" >
-                                                <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
-                                            </button>
+                                            
                                         </div>
                                     </div>
                                     {% endfor %}
@@ -150,13 +151,14 @@
                                 <div class="profilePostAnswer" id={{"show_{0}".format(question.id)}}>{{ question.questiondesc | safe }}</div>
                                 <div>{{ question.answer }}</div>
                                 <div class="profilePostButton">
+                                        <button  onclick = "followedQuestion('{{question.id}}')" >
+                                                <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
+                                            </button>
                                     <a href="#" class="glyphicon glyphicon-pencil"></a>
                                     <a href="#" class="glyphicon glyphicon-comment"></a>
                                     <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" ></a>
                                     <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down"></a>
-                                    <button  onclick = "followedQuestion('{{question.id}}')" >
-                                        <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
-                                    </button>
+                                   
                                 </div>
                             </div>
                             {% endfor %}
@@ -167,7 +169,7 @@
 
                         <div class="profile-contentCenter" id="{{i.id}}">
                             <div class="profilePostPictureCont">
-                                <img class="profilePostPicture" src="../static/image/google.png">
+                                <img class="profilePostPicture" src="{{json_object.picture}}">
 
                             </div>
                             <div class="profileNameEmail">
@@ -180,13 +182,13 @@
 
                             <p class="profilePostAnswer" [innerHTML] = "i.questiondesc"></p>
                             <div class="profilePostButton">
-                                <a href="#" class="glyphicon glyphicon-pencil"></a>
+                                    <button  onclick = "followedQuestion('{{i.id}}')" >
+                                            <a href="#"  id={{"followques_{0}".format(i.id)}} class="profilePostFollowButton">Unfollow</a>
+                                        </button>
                                 <a href="#" class="glyphicon glyphicon-comment"></a>
                                 <a onclick="upvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-up" ></a>
                                 <a onclick="downvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-down"></a>
-                                <button  onclick = "followedQuestion('{{i.id}}')" >
-                                    <a href="#"  id={{"followques_{0}".format(i.id)}} class="profilePostFollowButton">Unfollow</a>
-                                </button>
+                               
                             </div>
 
                         </div>
