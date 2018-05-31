@@ -953,7 +953,7 @@ button.following:not(.wait):hover .msg-unfollow {
 }
 
 
-.whotoFollowss {
+/*.whotoFollowss {
     width: 100%;
     height: 15%;
     border-bottom: 1px solid #D1D1D1;
@@ -962,5 +962,6 @@ button.following:not(.wait):hover .msg-unfollow {
     color: #555;
     text-align: center;
 }
+*/
 
 

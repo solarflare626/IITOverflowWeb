@@ -71,16 +71,14 @@
                                 <p style="font-weight: 1000; font-size: 22px" id="dispn"> {{ json_object['displayname'] }} </p>
                                 <a class="profilePostEmail"> {{json_object.email}} </a>
 
-                                <div class="profile-linksInterest">
+                                <div class="profile-linksInterest" id="interestscontainer">
                                     <h4> Interests</h4>
                                     <br> {% for interest in json_object1.interests %}
                                     <a style="border:1px solid black" id="int"> {{interest.name}} </a>
                                     {% endfor %}
 
                                 </div>
-
                             </div>
-
 
 
                             <div class="profileCenterDiv">
@@ -225,9 +223,7 @@
                                 <h4>See all</h4>
                             </a>
                     
-                    
-                    
-                            </div>
+                    </div>
 
                             <div class="FollowingContainer">
                                 {% for g in json_object1.following %}
@@ -249,6 +245,7 @@
                                                         </button>                                                  
                                                 </ul>
                                             </div>
+                                            <br>
                                         </div>
                                     </a>
 
@@ -399,16 +396,12 @@
         var formdata = new FormData(); 
         var file = $('#avatar-1').prop('files');
         console.log(file);
-        
         var name = $("#dispName").val();
         var names = $("#inter").val();
         var user = {
             "displayname": name,
             "interests": names
-        };
-
-       
-        
+        };  
         console.log(JSON.stringify(user));
         $.ajax({
             url: "http://iitoverflow.herokuapp.com/api/users/{{ curuser }}",
@@ -419,7 +412,6 @@
             success: function(data2) {
                 console.log("profile ", data2);
                 $("#dispn").text(data2.displayname);
-
                 if (file.length > 0) {
                     $.ajax({
                         url: "http://iitoverflow.herokuapp.com/api/users/{{curuser}}/updateProfile",
@@ -433,66 +425,63 @@
                         }
                     });
                 }
-                    if (formdata) {
-                        formdata.append("file", file[0]);
-                        console.log("formdata", formdata);
-                        $.ajax({
-                            url: "http://iitoverflow.herokuapp.com/api/users/{{curuser}}/updateProfile",
-                            type: "POST",
-                            data: formdata,
-                            processData: false,
-                            contentType: false,
-                            success: function(data) {
-                                //console.log("profile ", data.picture);
-                                //console.log("profile ", data.picture);
-                                console.log("TEST 1");
-                                $("#profPic").attr("src", data.picture);
-                                $("#modalProf").hide();
-                            },
-                            error: function(err) {
-                                console.log("profile error :", err);
-                            }
-                        });
-
-                        var userId = {{curuser}};
-                        console.log("TEST 2: User Id: ", {{curuser}});
-                        $.ajax({
-                            url: "http://iitoverflow.herokuapp.com/api/users/"+userId+"/interests",
-                            type: "DELETE",
-                            data: JSON.stringify(user),
-                            dataType: "json",
-                            success: function (data3) {
-                                console.log("interests are deleted")
-                                interests.forEach(function(cat){
-                                    console.log(cat);
-                                    $.ajax({
-                                    url: "http://iitoverflow.herokuapp.com/api/users/"+userId+"/interests/rel/"+cat,
-                                    type: "PUT",
-                                    data: JSON.stringify(user),
-                                    dataType: "json",
-                                    success: function (data3) {
-                                        console.log("TEST 3");
-                                        console.log("Success!");
-                                        $("#int").text(data3.interests);
-                                    },
-                                    error: function(err) {
-                                        console.log("profile error :", err);
-                                    }
-                                    });
+                if (formdata) {
+                    formdata.append("file", file[0]);
+                    console.log("formdata", formdata);
+                    $.ajax({
+                        url: "http://iitoverflow.herokuapp.com/api/users/{{curuser}}/updateProfile",
+                        type: "POST",
+                        data: formdata,
+                        processData: false,
+                        contentType: false,
+                        success: function(data) {
+                            //console.log("profile ", data.picture);
+                            //console.log("profile ", data.picture);
+                            console.log("TEST 1");
+                            $("#profPic").attr("src", data.picture);
+                            $("#modalProf").hide();
+                        },
+                        error: function(err) {
+                            console.log("profile error :", err);
+                        }
+                    });
+                    var userId = {{curuser}};
+                    console.log("TEST 2: User Id: ", {{curuser}});
+                    $.ajax({
+                        url: "http://iitoverflow.herokuapp.com/api/users/"+userId+"/interests",
+                        type: "DELETE",
+                        data: JSON.stringify(user),
+                        dataType: "json",
+                        success: function (data3) {
+                            console.log("interests are deleted")
+                            interests.forEach(function(cat){
+                                console.log(cat);
+                                $.ajax({
+                                url: "http://iitoverflow.herokuapp.com/api/users/"+userId+"/interests/rel/"+cat,
+                                type: "PUT",
+                                data: JSON.stringify(user),
+                                dataType: "json",
+                                success: function (data3) {
+                                    console.log("TEST 3");
+                                    console.log("Success!");
+                                    $("#int").text(data3.interests);
+                                    console.log("Reload Interests");
+                                    $("#interestscontainer").load(location.href + " #interestscontainer");
+                                },
+                                error: function(err) {
+                                    console.log("profile error :", err);
+                                }
                                 });
-                            },
-                            error: function(err) {
-                                console.log("profile error :", err);
-                            }
-                        });
-                    }
-                 $("#modalProf").hide();
-            },
-
-            error: function(err) {
-                console.log("profile error :", err);
+                            });
+                        },
+                        error: function(err) {
+                            console.log("profile error :", err);
+                        }
+                    });
+                }
             }
         });
+        $("#modalProf").hide();
     });
    
 

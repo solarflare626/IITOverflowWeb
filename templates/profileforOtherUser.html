@@ -62,7 +62,7 @@
                     <div class="profile-contentTopLinks">
                         <div class="profile-contentTopNav">
                             {% block body %}
-                            <a type="submit" id="profile-PostButton">Posts</a>
+                            <a type="submit" id="profile-PostButton">{{questions}} Posts</a>
                             <a type="submit" id="profile-FollowersButton">{{followers}} Followers</a>
                             <a type="submit" id="profile-FollowingButton">{{following}} Following</a>
                             <a type="submit" id="profile-FollowedQuestionButton">{{questionsfollowed}} Followed Questions</a>
@@ -85,15 +85,24 @@
                 <div class="CenterLeftRightCont" style="margin-top: 400px;">
                     <div class="profile-contentLeft">
 
-                        <h4>Bio info here</h4>
+                        <!-- <h4>Bio info here</h4> -->
+                          <p style="font-weight: 1000; font-size: 22px" id="dispn"> {{ json_object['displayname'] }} </p>
+                            <a class="profilePostEmail"> {{json_object.email}} </a>
 
+                                <div class="profile-linksInterests" id="interestscontainer">
+                                    <h4> Interests</h4>
+                                    <br> {% for interest in json_object1.interests %}
+                                    <a style="border:1px solid black" id="int"> {{interest.name}} </a>
+                                    {% endfor %}
+                                </div>
                     </div>
+
                     <div class="profileCenterDiv">
                             <!--<div class="FollowedQuestionsContainer">-->
                                     {% for question in followed_questions|reverse %}
                                     <div class="profile-contentCenter">
                                         <div class="profilePostPictureCont">
-                                            <img class="profilePostPicture" src="{{ question.user.picture }}">
+                                            <img class="profilePostPicture" src="{{ json_object.picture }}">
 
                                         </div>
                                         <div class="profileNameEmail">
@@ -204,9 +213,31 @@
                     </div>
 
                     <div class="profile-contentRight">
-
                         <h4>Who to Follow</h4>
+                        
+                       {% for i in whotofollowusers %}
+                                <div class="whotoFollowss1" id= {{"whotoFollow_{0}".format(i.id)}}>
+                                <div class="picturess1">
+                                    <img class="profileimagess1" src="{{ i.picture }}">
+                                </div>
+            
+                                <button  onclick = "followable('{{i.id}}')" class="whotofollowButtonss1">
+                                    <a href="#"  id={{"followa_{0}".format(i.id)}} >Follow</a>
+                                </button>
 
+                                <div class="whotoFollowNamess1">
+                                    <a href="{{ url_for('.profile', id = i.id) }}" >{{ i.displayname }}</a>
+
+                                    <a>{{ i.email }}</a>
+                                </div>
+            
+                            </div>
+                            {% endfor %}
+            
+            
+                             <a>
+                                <h4>See all</h4>
+                            </a>
                     </div>
 
                     <div class="FollowingContainer">
