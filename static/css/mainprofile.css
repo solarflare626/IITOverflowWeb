@@ -1002,5 +1002,121 @@ Sh    border: 1px solid transparent;
     padding: 20px;
 }
 
+.submitbutton5 {
+    border: 1px solid #4AB3F4;
+    background-color: white;
+    color: #66757F;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 30px;
+    bottom: 10px;
+    display: inline-block;
+}
+
+.submitbutton5:hover {
+    border: 1px solid white;
+    background-color: #4AB3F4;
+    color: white;
+    text-decoration: none;
+}
+
+.editQuestionTitle {
+    margin-left: 4%;
+    padding: 15px;
+    width: 93%;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    height: 5px;
+    color: black;
+    border: 1px solid #D1D1D1;
+    display: block;
+    border-radius: 20px;
+}
+
+.editTitleDescription {
+    font-size: 13px;
+    padding: 5px;
+    width: 100%;
+    margin-top: 0px;
+    display: inline-block;
+}
+
+.tagsarea {
+    margin-left: 4%;
+    padding: 15px;
+    width: 86%;
+    height: 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    color: black;
+    border: 1px solid #D1D1D1;
+    display: block;
+    border-radius: 20px;
+}
+
+.categorybutton {
+    color: #777777;
+    outline: none;
+}
+
+.newsfeedPopUpButton-Cont {
+    width: 100%;
+    text-align: center;
+}
+
+.categorybutton {
+    color: #777777;
+    outline: none;
+}
+
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    height: 20%;
+    margin-top: 0;
+    margin-left: 4%;
+    border: 1px solid #D1D1D1;
+    font-family: Poppins-Regular;
+    color: black;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 7px;
+    padding-right: 7px;
+    border-radius: 100px;
+}
+
+.popup .popuptext {
+    visibility: hidden;
+    height: 400px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    bottom: 125%;
+    overflow-y: scroll;
+}
 
 
+/* Popup arrow */
+
+.popup .popuptext::after {
+    width: 100%;
+    content: "";
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+
+.popup .show {
+    width: 100%;
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+}
