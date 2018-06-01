@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/png" href="../static/image/favicon.ico" />
     <link rel="stylesheet" href="../static/js/jQuery-tagEditor-master/jquery.tag-editor.css" />
     <link rel="stylesheet" href="../static/js/jquery-ui-1.12.1.custom/jquery-ui.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -218,13 +219,13 @@
                     </div>
 
 
-                    <div style="background-color: #F2F3F5; text-align: left;" id={{ "toReloadAnswer_{0}".format(i.id)}}>
+                    <div style="background-color: #dcd8d8; text-align: left; padding:0 5px 0 5px; width: 100%;" id={{ "toReloadAnswer_{0}".format(i.id)}}>
 
 
                         {% for answer in i.answers|reverse %}
 
                         <div class="comments-container {{ "comments-container_{0}".format(i.id)}}" id={{ "comments-container_{0}".format(i.id)}}>
-                            <hr>
+                           <br>
                             <ul id="comments-list" class="comments-list" style="margin: 0;">
                                 <li>
                                     <div class="comment-main-level">
@@ -244,12 +245,14 @@
                                                     <i id="{{answer.id}}" class="fa fa-trash heart" title="Delete" style="margin: 5px;"></i>
                                                     {% endif %}
                                                     <i id="{{answer.id}}" class="fa fa-reply heart" style="margin: 5px;"></i>
+                                                    <i id="{{answer.id}}" class="fa fa-thumbs-up thumbs-up" style="margin: 5px;"></i>
+                                                    <i id="{{answer.id}}" class="fa fa-thumbs-down thumbs-down" style="margin: 5px;"></i>
                                                 </div>
                                             </div>
                                             <br style="margin: 0;">
                                             <br style="margin: 0;">
                                             <br style="margin: 0;">
-                                            <hr style="margin: 0;">
+                                            <hr style="margin: 5px;">
                                             <div class="comment-content">
                                                 {{ answer.answer|safe }}
                                             </div>
@@ -261,7 +264,7 @@
                             <ul class="comments-list reply-list">
                                 <!-- COMMENT -->
                                 {% for comment in answer.comments|reverse %}
-                                <hr>
+                             
                                 <li>
                                     <div class="comment-box" style="background-color: white; width: 70%; margin: 0; margin-left: 25%; border-radius: 5px;">
                                         <div class="comment-head">
@@ -269,20 +272,26 @@
                                                 <a href="http://creaticode.com/blog"></a>
                                             </h6>
                                             <span>Posted: {{comment.createdAt}} by {{comment.user.displayname}}</span>
+
                                         </div>
-                                        <div class="comment-content">
+                                        <hr>
+                                        <br>
+                                        <div class="comment-content" style="padding: 10px; margin-bottom: 10px;">
                                             {{comment.comment}}
                                         </div>
                                     </div>
                                 </li>
                                 {% endfor %}
                             </ul>
-                        </div>
                             <div class="newpostinput" id={{answer.id}}>
                                 <input type='text' class="commenttextarea" id={{ "comment_{0}".format(answer.id) }} placeholder="Write a Comment">
+                                <br>
+                                <br>
                                 <div>
                                 </div>
                             </div>
+                        </div>
+                           
                             <!-- <h2>   {{answer.answer}} </h2> -->
                         </div>
 

@@ -108,8 +108,8 @@ def question():
         # print(url)
         response1 = requests.get(url)
         questions = response1.json()
-        print(questions)
-        print(response1)
+        # print(questions)
+        # print(response1)
 
 
         url2 = baseUrl + 'Categories'

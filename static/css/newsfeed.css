@@ -14,7 +14,7 @@ body {
     overflow-x: hidden;
     min-width: 800px;
     min-height: 100%;
-    background-color: #EAEBEF;
+    background-color:#63605F;
     font-family: Poppins-Regular, sans-serif;
 }
 
@@ -143,7 +143,7 @@ ul {
     border-radius: 30px;
     outline: none;
     text-decoration: none;
-    color: rgb(133, 152, 165);
+    color: white;
     border: 2px solid #66757F;
 }
 
@@ -166,7 +166,7 @@ ul {
     left: 0;
     z-index: 9999;
     width: 100%;
-    background: white;
+    background:linear-gradient(to right,#90001f,rgb(118, 2, 28));
     height: 6%;
     box-shadow: 0 2px 6px -4px rgba(0, 0, 0, 0.8);
 }
@@ -182,7 +182,7 @@ ul {
     z-index: 10002;
     width: 100%;
     min-width: 1000px;
-    background: white;
+    background:linear-gradient(to right,#90001f,rgb(118, 2, 28));
     height: 45px;
     box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.5);
 }
@@ -204,7 +204,7 @@ ul {
     font-size: 20px;
     padding: 8px;
     text-decoration: none;
-    color: #5F7189;
+    color:white;
     margin: 2px 8px 10px 10px;
     position: relative;
     display: inline-block;
@@ -218,9 +218,9 @@ ul {
 }
 
 .newsfeed-searchbutton {
-    background-color: white;
-    border: 1px solid #DFE2E4;
-    color: #5F7189;
+    background-color: rgb(83, 3, 20);
+    border: 2px solid white;
+    color: white;
     margin-top: 5px;
     margin-left: 5px;
     width: 40px;
@@ -236,11 +236,11 @@ ul {
 
 .newsfeed-searchbutton:hover {
     background-color: white;
-    color: #AA3939;
-    border-right: 2px solid #AA3939;
-    border-left: 2px solid #AA3939;
-    border-top: 2px solid #AA3939;
-    border-bottom: 2px solid #AA3939;
+    color: rgb(83, 3, 20);
+    border-right: 2px solid rgb(83, 3, 20);
+    border-left: 2px solid rgb(83, 3, 20);
+    border-top: 2px solid rgb(83, 3, 20);
+    border-bottom: 2px solid rgb(83, 3, 20);
 }
 
 .newsfeed-search {
@@ -252,10 +252,10 @@ ul {
 
 .newsfeed-searchbar {
     height: 30px;
-    background-color: #F5F8FA;
-    color: #5F7189;
+    background-color: rgb(83, 3, 20);
+    color: black;
     font-size: 15px;
-    border: 1px solid #DFE2E4;
+    border: 2px solid white;
     border-radius: 100px;
     width: 60%;
     padding: 10px;
@@ -266,7 +266,7 @@ ul {
 }
 
 .newsfeed-searchbar:focus {
-    border: 2px solid #AA3939;
+    border: 2px solid rgb(83, 3, 20);
     background-color: white;
 }
 
@@ -887,9 +887,12 @@ ul {
     font-size: 13px;
     padding: 7px;
     box-sizing: border-box;
+  
     color: black;
-    margin-left: 16%;
+    margin-left: 15%;
+    float: left;
 }
+
 
 .commenttextarea:focus {
     border: 1px solid #801515;
@@ -1622,9 +1625,12 @@ categoryEditbutton{
 .comment-head {
    
     text-align: center;
+   
 }
+
 .answerdivbutton{
     display: inline-block;
+    margin-right: 5px;
 }
 .answerdisplayname{
     display: inline-block;
@@ -1633,5 +1639,6 @@ categoryEditbutton{
 }
 .answerdivbutton i{
     display: inline-block;
+    margin: 0 5px 0 5px;
 
 }
