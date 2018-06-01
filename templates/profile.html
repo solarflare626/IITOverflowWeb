@@ -162,13 +162,42 @@
                                     <div class="profilePostAnswer" id={{"show_{0}".format(json_object.id)}} >{{i.questiondesc | safe}}</div>
                                     <div class="profilePostButton">
                                             <a href="#"  id={{"followques_{0}".format(questions.id)}} class="profilePostFollowButton">Unfollow</a>
-                                        <a href="#" class="glyphicon glyphicon-pencil"></a>
+                                        <a href="" title ="Edit" class=" pencileditbutton"  id="{{i.id}}">Edit</a>
                                         <a onclick="upvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-up"> </a>
                                         <a onclick="downvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-down" ></a>
                                         <button  onclick = "followedQuestion('{{questions.id}}')" >
                                             
                                         </button>
                                     </div>
+                                    
+                    <div class="form2container"  id={{"edit_{0}".format(i.id)}} style="z-index: 10003;">    
+
+
+                            <form class = "form2" >
+    
+                                <h5>Title</h5>
+                                <input class="editQuestionTitle" type="text" id="titleedit" value="{{i.question}}">
+                                <h5>Description</h5>
+                                <textarea style="border: 1px solid black; height:200px; font-size:14pt;" rows="9" type="text" class="editTitleDescription" id="descedit">{{i.questiondesc}}</textarea>
+    
+    
+                                <h5>Tags</h5>
+                                <input id="tagsIDedit" type="text" name="tagsarea" value=" {% for tag in i.tags %} {{tag.name}} {% endfor %}" class="tagsarea" />
+                               
+                                <button id="categoryIDedit" type="button" value="" class="categorybutton"><b>Category:</b> </button> 
+    
+    
+                                <div class="newsfeedPopUpButton-Cont">
+    
+                                    <a id={{i.id}} class="submitbutton5" type="submit">Save</a>
+                                    <a onclick="showhide({{ i.id }})">Cancel</a>
+    
+    
+                                    <!--                    <a id={{i.id}} class="submitbutton5" type="submit" >Save</a>
+                                     <a class="submitbutton5" onclick="showhide({{i.id}})" >Cancel</a> -->
+                                </div>
+                            </form>
+    </div>
                                 </div>
                                 {%endfor%}
                             </div>
@@ -335,6 +364,7 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
+        $(".form2container").hide();
         $(".profile-contentCenter").show('slow');
         $(".FollowersContainer").hide();
         $(".FollowingContainer").hide();
@@ -795,6 +825,86 @@ $(".showallButton").click(function(){
        
     });
 
+
+        $(".pencileditbutton").click(function() {
+            var id = $(this).attr("id");
+            if ($(this).text() === "Edit") {
+                $("#edit_" + id).show('slow');
+                $(".form2container").css("z-index", "11000");
+                $(this).text("Close")
+            }
+            else {
+                $(this).text("Edit");
+                $("#edit_" + id).hide('slow');  
+            }
+        });
+
+        
+        $(document).on('click', '.submitbutton5', function () {
+            var qid = $(this).attr('id');
+            var editorText = CKEDITOR.instances['textareaedit_'+qid].getData();
+            var posttitle = document.getElementById('titleedit').value;
+            var gettags = document.getElementById('tagsIDedit').value;
+            var cleartitle = document.getElementById('titleedit');
+            var category = $('.popupedit').attr('id');
+            var cleartags = document.getElementsByClassName('tag-editor-tag');
+            console.log(cleartags);
+            var data = {
+                "question": posttitle,
+                "questiondesc": editorText,
+                "userId": "{{ curuser }}",
+                "categoryId": category
+            };
+            $.ajax({
+                type: "PUT",
+                url: "https://iitoverflow.herokuapp.com/api/Questions/"+qid,
+                data: JSON.stringify(data),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (result) {
+                    console.log(result);
+                    alert('gaga');
+                    qid = result.id;
+                    $('#qedit_' + qid).modal('toggle');
+                    var tagslength = cleartags.length;
+                    $.ajax({ 
+                        type: "PUT",
+                        url: "https://iitoverflow.herokuapp.com/api/Questions/",
+                        data: JSON.stringify(data),
+                        dataType: "json",
+                        contentType: "application/json",
+                        success: function (result) {
+                            console.log(result);
+                            alert('gaga');
+                            qid = result.id;
+                            $('#qedit_' + qid).modal('toggle');
+                            var tagslength = cleartags.length;
+                            for (i = 0; i < tagslength; i++) {
+                                var data1 = {
+                                    "name": cleartags[i].innerText,
+                                    "categoryId": category
+                                };
+                                console.log(cleartags[i].innerText);
+                                // EDIT
+                                $.ajax({
+                                    type: "POST",
+                                    url: "http://iitoverflow.herokuapp.com/api/Questions/" + qid + "/tags",
+                                    data: JSON.stringify(data1),
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    success: function (result1) {
+                                        console.log(result1);
+                                    },
+                                    error: function (result1) {
+                                        console.log(JSON.stringify(result1));
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
 </script>
 
 </html>

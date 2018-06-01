@@ -165,7 +165,7 @@ def profile(id):
                 break
             j=j+1    
     
-        return render_template('profile.html', whotofollowusers=whotofollowusers, categories=categories,json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6, questions=val7, interests=val8, answered_questions=answered_questions, curuser=curuser, followableusers=notfollowed)
+        return render_template('profile.html', whotofollowusers=whotofollowusers, categories=categories,json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6, questions=val7, interests=val8, answered_questions=answered_questions, curuser=curuser, followableusers=notfollowed, user= user)
     else:
         followurl = ('http://iitoverflow.herokuapp.com/api/users/'+curuser+ '/following/rel/'+user+'')
         response = requests.head(followurl)
