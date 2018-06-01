@@ -83,7 +83,7 @@
             </div>
             <div class="emailinfo">
                 <div class="namecont">
-                    <a href="profile">
+                    <a href="{{ url_for('.profile', id = curuser) }}">
                         <h3 style="color: white;">{{ user.displayname }}
                             <br> </h3>
                     </a>
@@ -176,10 +176,10 @@
                         <div class=" editanddeleteButtonCont">
 
                             {% if user.id == i.user.id %}
-                            <i onclick="showhide('{{i.id}}')" class="fa fa-edit Newsfeed-editButton" title="Edit"></i>
-                            <i onclick="confirmDelete('{{i.id}}')" class="fas fa-trash-alt qheart" title="Delete"></i>
+                            <i onclick="showhide('{{i.id}}')" style="cursor: pointer" class="fa fa-edit Newsfeed-editButton" title="Edit"></i>
+                            <i onclick="confirmDelete('{{i.id}}')" style="cursor: pointer" class="fas fa-trash-alt qheart" title="Delete"></i>
                             {% endif %}
-                            <i onclick="showhide1('{{i.id}}')" class="fas fa-copy duplicate" title="Mark As Duplicate"></i>
+                            <i onclick="showhide1('{{i.id}}')" style="cursor: pointer" class="fas fa-copy duplicate" title="Mark As Duplicate"></i>
                         </div>
 
                         <div class="titlepostpicture">
@@ -192,7 +192,7 @@
 
                         </h4>
                         <h5 class="titlepostTitle">
-                            <a style="outline: none; text-decoration: none;">Title:</a> {{i.question|safe}} <a class="showallButton" type="button" title="Show all"  id="{{i.id}}">Show description</a></h5>
+                            <div style="cursor: pointer" onclick="thisonclick({{ i.id }})"><a style="outline: none; text-decoration: none;">Title:</a> {{i.question|safe}} </div> <a style="cursor: pointer" class="showallButton" type="button" title="Show all"  id="{{i.id}}">Show description</a></h5>
                     </div>
 
                     <div style="padding: 10px; border-bottom: 1px solid #D1D1D1; ">
@@ -289,7 +289,7 @@
                               
                             </ul>
                             <div class="newpostinput" id={{answer.id}}>
-                                <input type='text' class="commenttextarea" id={{ "comment_{0}".format(answer.id) }} placeholder="Write a Comment">
+                                <input type='text' class="commenttextarea" id="{{ "comment_{0}".format(answer.id) }}" placeholder="Write a Comment">
                                
                                 <br>
                                 <br>
@@ -313,7 +313,7 @@
 
 
                     <div class="answerdiv" id={{ "answerdiv_{0}".format(i.id)}}>
-                        <textarea class="answertextarea" id={{ "answer_{0}".format(i.id) }} placeholder="Write an Answer"> </textarea>
+                        <textarea class="answertextarea" id="{{ "answer_{0}".format(i.id) }}" placeholder="Write an Answer"> </textarea>
                         <input class="submitanswerbutton" id={{i.id}} value=submit type="button">
                     </div>
                 </div>
@@ -326,7 +326,7 @@
                             <h5>Title</h5>
                             <input class="editQuestionTitle" type="text" id="titleedit" value="{{i.question}}">
                             <h5>Description</h5>
-                            <textarea name={{ "textareaedit_{0}".format(i.id) }}>{{i.questiondesc}}</textarea>
+                            <textarea name="{{ "textareaedit_{0}".format(i.id) }}">{{i.questiondesc}}</textarea>
                             <script>
                                 CKEDITOR.replace('{{ "textareaedit_{0}".format(i.id) }}');
                             </script>
@@ -373,19 +373,23 @@
 
         <div class="links2">
          <div style="padding: 10px; background-color: white; overflow: hidden">
-            <h3>LeaderBoard</h3>
+            <h3>LeaderBoard Top 3</h3>
             <hr> {% for i in leader %}
             <div class="whotoFollow1">
                 <div class="picture1">
-                    <img class="profileimage" src="{{ i.picture }}">
+                    <img style="cursor: pointer" href="{{ url_for('.profile', id = i.id) }}" class="profileimage" src="{{ i.picture }}">
                 </div>
                 <div class="whotoFollowName1">
-                    <a>{{i.displayname}}</a>
+                    <a style="cursor: pointer" href="{{ url_for('.profile', id = i.id) }}">{{i.displayname}}</a>
                     <a>{{i.email}}</a>
 
                 </div>
-                <a class="whotofollowButton1">Follow</a>
-                <a class="voteScore">{{i.points}}</a>
+                <button style="cursor: pointer" id="{{ i.id }}" name="{{ i.userId }}" class=" follow2 whotofollowButton1">
+                    <span class="msg-follow">Follow</span>
+                    <span class="msg-following">Following</span>
+                    <span class="msg-unfollow">Unfollow</span>
+                </button>
+                <a class="voteScore">Points: {{i.points}}</a>
             </div>
 
             {% endfor %}
