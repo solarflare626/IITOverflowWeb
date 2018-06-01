@@ -155,12 +155,12 @@
                                     </div>
                                     <div class="profileNameEmail">
                                         <a class="profilePostUsername">{{json_object.displayname}}</a>
-                                        <h3 class="profilePostTitle">Title:{{i.question | safe}} <a class="showallButton" type="button" title="Show all"  id="{{json_object.id}}">Show description</a> </h3>
+                                        <h3 class="profilePostTitle">Title:{{i.question | safe}} <a class="showallButton" type="button" title="Show all"  id="{{ i.id }}">Show description</a> </h3>
                                     </div>
 
                                     <br>
 
-                                    <div class="profilePostAnswer" id={{"show_{0}".format(json_object.id)}} >{{i.questiondesc | safe}}</div>
+                                    <div class="profilePostAnswer" id={{"show_{0}".format(i.id)}} >{{i.questiondesc | safe}}</div>
                                     <div class="profilePostButton">
                                         <a href="#" class="glyphicon glyphicon-pencil"></a>
                                         <a id="{{ i.id }}" onclick="upvote('{{i.id}}')" title="Upvote" class="glyphicon glyphicon-thumbs-up" > {{ i.upvotesCount}}</a>
