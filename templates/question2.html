@@ -104,7 +104,7 @@
             <div style="background-color: white; padding: 10px">
             <h4 style="text-align: left; margin: 0; padding: 10px 0 0 0;">Who to Follow</h4>
             <hr> {% for i in followableusers %}
-            <div class="whotoFollow">
+            <div class="whotoFollow" id = {{"whotoFollow_{0}".format(i.id)}}>
                 <div style="width: 30%;display: inline-block; ">
                 <div class="picture1">
                     <img class="profileimage" src="{{ i.picture }}">
@@ -112,12 +112,12 @@
                 </div>
 
                 <div style="width: 30%;  display: inline-block;">
-                <a class="whotofollowButton">Follow</a>
+                <button id="{{"followa_{0}".format(i.id)}}" onclick = "followable('{{i.id}}')"  class="whotofollowButton">Follow</button>
                 </div>
 
                 <div style="width: 30%;  display: inline-block;">
                 <div class="whotoFollowName">
-                    <a>{{i.displayname}}</a>
+                    <a href="{{ url_for('.profile', id = i.id) }}">{{i.displayname}}</a>
                     <a>{{i.email}}</a>
                 </div>
                 </div>
@@ -1482,6 +1482,7 @@
         window.addEventListener("load", calculate_popups);
         ///////////////////////////////////////////////////////////////////////////////////
         function followable(qid) {
+            $('#whotoFollow_' + qid).hide('slow');
             $.ajax({
                 type: "HEAD",
                 async: true,
@@ -1509,7 +1510,6 @@
                         async: true,
                         url: 'http://iitoverflow.herokuapp.com/api/users/{{ curuser }}/following/rel/' + qid,
                         success: function (message) {
-                            $('#whotoFollow_' + qid).hide('slow');
                             $('#whotoFollow_' + qid).remove();
                             console.log('Followed');
                         }
