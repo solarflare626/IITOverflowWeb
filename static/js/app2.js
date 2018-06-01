@@ -4,6 +4,9 @@ $(document).ready(function() {
     gapi.load('auth2', function() {
         gapi.auth2.init();
         $.when(getCurrentUser()).done(function(e) {
+              $('.follow2').each(function() {
+                checker3(this.id)
+            });
             $('.followbutton').each(function() {
                 checker(this.id);
                 checker2(this.id, this.name)
@@ -28,6 +31,22 @@ $(".follow").click(function() {
     } else {
         id = ($(this).attr('id'));
         unfollow(id);
+    }
+}).on('mouseleave', function() {
+    $(this).removeClass('wait');
+});
+
+$(".follow2").click(function() {
+    var $this = $(this);
+    $this.toggleClass('following');
+    if ($this.is('.following')) {
+        id = ($(this).attr('id'));
+
+        //console.log("follow user");
+        $this.addClass('wait');
+    } else {
+        id = ($(this).attr('id'));
+        //console.log("unfollow user");
     }
 }).on('mouseleave', function() {
     $(this).removeClass('wait');
@@ -85,7 +104,7 @@ function checker(id) {
         url: "http://iitoverflow.herokuapp.com/api/users/" + currentUser + "/questionsfollowed/rel/" + id + "",
         dataType: "json",
         success: function(resp) {
-            console.log('Found some')
+            //console.log('Found some')
         },
 
         statusCode: {
@@ -359,4 +378,25 @@ function answerGetDownVote(a_id) {
     });
 }
 
+function thisonclick(id){
+    var url ='/question/'+id;
+    window.location.assign(url)
+}
+
+function checker3(id){
+     $.ajax({
+        url: 'http://iitoverflow.herokuapp.com/api/users/'+currentUser+'/following/'+id,
+        type: 'GET',
+        dataType: "json",
+        async: false,
+        statusCode: {
+            200: function () {
+                $("#" + id + ".follow2").toggleClass('following')
+            },
+            404: function () {
+                console.clear()
+            }
+        }
+    });
+}
 

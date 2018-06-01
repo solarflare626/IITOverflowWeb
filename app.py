@@ -363,6 +363,15 @@ def searchres():
         searched = response.json()
         return render_template('search.html', searched=searched, curuser=curuser, user=user)
 
+@app.route('/question/<string:id>', methods=['GET'])
+def viewQuestion(id):
+    curuser = str(session['user'])
+    user1 = requests.get(baseUrl + 'users/' + curuser)
+    user = user1.json()
+    url = (baseUrl + 'Questions/'+id+'?filter={"include":[{"relation": "user"},{"relation": "tags"},{"relation": "category"},{"relation": "answers", "scope":{"include": [{"relation": "user"},{"relation": "comments", "scope":{"include":{"relation":"user"}}}]}}]}')
+    response = requests.get(url)
+    i = response.json()
+    return render_template('viewSpesific.html', i=i, curuser=curuser, user=user)
 
 @app.after_request
 def add_cors(resp):
