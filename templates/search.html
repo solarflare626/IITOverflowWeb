@@ -29,7 +29,7 @@
     <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
-    <title>Tags</title>
+    <title>Question</title>
 
 </head>
 
@@ -77,7 +77,7 @@
                     <div class="titlepostpicture"><img src="{{ i.user.picture }}"></div>
                     <h4 class="titlepostname">{{ i.user.displayname }}</h4>
                     <h6 style="margin: 0;">{{i.createdAt}}</h6>
-                    <hr style="margin:0;">
+                    <hr style="margin:10px 10px 10px 80px;">
 
                     <div class=" editanddeleteButtonCont">
                         {% if user.id == i.user.id %}
@@ -87,7 +87,7 @@
                         <i onclick="showhide1('{{i.id}}')" class="fas fa-copy duplicate" title="Mark As Duplicate"></i>
                     </div>
 
-                    <h5 class="titlepostTitle"><a style="outline: none;">Title:</a> {{i.question|safe}}</h5>
+                    <h5 class="titlepostTitle"><a style="outline: none;">Title:</a> {{i.question|safe}}<a class="showallButton" type="button" title="Show all"  id="{{i.id}}">Show description</a></h5>
 
 
 
@@ -95,7 +95,7 @@
                 </div>
 
                 <div style="padding: 10px; border-bottom: 1px solid #D1D1D1; ">
-                    <div class="descriptionpost">Description: {{i.questiondesc|safe}}
+                    <div class="descriptionpost" id={{"show_{0}".format(i.id)}}>Description: {{i.questiondesc|safe}}
                         <div></div>
                     </div>
                     <div class="categorypost">Category: {{i.category.name}}
@@ -116,90 +116,54 @@
                 </div>
 
 
-                <div style="background-color: #F2F3F5; text-align: left;" id={{ "toReloadAnswer_{0}".format(i.id)}}>
+                <div class="answerAndcommentsCont" style="background-color: #F2F3F5; text-align: left;" id={{ "toReloadAnswer_{0}".format(i.id)}}>
 
+                        {% for answer in i.answers|reverse %}
 
-                    {% for answer in i.answers|reverse %}
-
-                    <div class="comments-container">
-                        <hr>
-
-                        <ul id="comments-list" class="comments-list" style="margin: 0;">
-                            <li>
-                                <div class="comment-main-level">
-                                    <div class="picture2" style="background-color: black;"></div>
-                                    <div class="comment-box" style="background-color: white; width: 80%;  border-radius: 30px; padding: 5px 10px 5px 10px; margin-left: 12%;">
-
-                                        <div class="comment-head">
-
-                                            <span>Posted on: {{ answer.createdAt }}</span>
-                                            <i id="{{answer.id}}" class="fa fa-reply edit"></i>
-                                            <i id="{{answer.id}}" class="fa fa-heart heart"></i>
-                                        </div>
-                                        <div class="comment-content">
-                                            {{ answer.answer|safe }}
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </li>
-
-
-                        </ul>
-
-
-
-
-
-                        <ul class="comments-list reply-list">
-
-
-                            <!-- COMMENT -->
-
-                            {% for comment in answer.comments|reverse %}
+                        <div class="comments-container {{ " comments-container_{0} ".format(i.id)}}" id={{ "comments-container_{0}".format(i.id)}}>
                             <hr>
-                            <li>
-
-
-
-                                <div class="comment-avatar"></div>
-                                <div class="comment-box">
-                                    <div class="comment-head">
-                                        <h6 class="comment-name by-author">
-                                            <a href="http://creaticode.com/blog"></a>
-                                        </h6>
-                                        <span>Posted: {{comment.createdAt}} </span>
-                                        <i class="fa fa-reply"></i>
-                                        <i class="fa fa-heart"></i>
+                            <ul id="comments-list" class="comments-list" style="margin: 0;">
+                                <li>
+                                    <div class="comment-main-level">
+                                        <div class="picture2">
+                                            <img src="{{answer.user.picture}}">
+                                        </div>
+                                        <div class="comment-box" style="background-color: white; width: 80%;  border-radius: 10px; padding: 5px; margin-left: 13%; text-align: left;">
+                                            <div>
+                                                <h5 class="answerdisplayname">{{answer.user.displayname}}
+                                                    <p style="margin: 0px; font-size: 10px;">{{i.createdAt}}</p>
+                                                </h5>
+                                            </div>
+                                            <div class="comment-head">
+                                                <div class="answerdivbutton">
+                                                    {% if user.id == answer.user.id%}
+                                                    <i id="{{answer.id}}" class="fa fa-edit edit" title="Edit" style="margin: 5px;"></i>
+                                                    <i id="{{answer.id}}" class="fa fa-trash heart" title="Delete" style="margin: 5px;"></i>
+                                                    {% endif %}
+                                                    <i id="{{answer.id}}" class="fa fa-reply heart" style="margin: 5px;"></i>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <hr>
+                                            <div class="comment-content">
+                                                {{ answer.answer|safe }}
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="comment-content">
-                                        {{comment.comment}}
-                                    </div>
+                                </li>
+                            </ul>
+                            
+                            <div class="newpostinput" id={{answer.id}}>
+                                <input type='text' class="commenttextarea" id={{ "comment_{0}".format(answer.id) }} placeholder="Write a Comment">
+                                <div>
                                 </div>
-
-
-
-                            </li>
-
-                            {% endfor %}
-
-
-                        </ul>
-
-
-
-                        <div class="newpostinput" id={{answer.id}}>
-                            <input type='text' class="commenttextarea" id="{{ "comment_{0}".format(answer.id) }}" placeholder="Write a Comment">
-                            <div>
                             </div>
+                            <!-- <h2>   {{answer.answer}} </h2> -->
                         </div>
 
-                        <!-- <h2>   {{answer.answer}} </h2> -->
-
-
-                    </div>
-
-                    {% endfor %}
+                        {% endfor %}
 
                     <!-- COMMENT -->
 
@@ -624,20 +588,40 @@
 
 
 <script>
-    $('.answerbutton').click(function() {
-        var id = $(this).attr('id');
-        //alert(id);
-        //alert($('.answertextarea').attr('id'));
-        $('.answertextarea#answer_' + id).focus();
+    $(document).on('click', '.answerbutton', function () {
+        if ($('.answerAndcommentsCont').is(':visible')) {
+            $(".answerAndcommentsCont").hide('slow');
+        } else {
+            $(".answerAndcommentsCont").show('slow');
+        }
     });
 
     $('.commentbutton').click(function() {
         $('.commenttextarea').focus();
     });
+
+     $(".showallButton").click(function() {
+            var id = $(this).attr("id");
+            if ($(this).text() === "Show description") {
+                $(this).text("Hide description");
+                $("#show_" + id).show('slow');
+            }
+            else {
+                $(this).text("Show description");
+                $("#show_" + id).hide('slow');
+            }
+
+        });
+        $( document ).ready(function() {
+            $(".descriptionpost").hide();
+            $(".answerAndcommentsCont").hide();
+    
+});
 </script>
 <!--<link rel="stylesheet" href="../static/css/new.css">-->
 
 
 <!-- PHILLIP -->
+
 </html>
 

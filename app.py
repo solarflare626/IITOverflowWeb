@@ -104,7 +104,7 @@ def question():
 
         url = baseUrl + 'Questions?filter={"where":{"or":[{"userId":' + curuser + '},{"userId":{"inq":' + str(
             followingid) + '}},{"categoryId":{"inq":' + str(
-            interestsid) + '}}]},"counts":["upvotes","downvotes"],"include":[{"relation": "user"},{"relation": "answers", "scope":{"include": {"relation": "user"}}}, {"relation":"category"}, {"relation": "tags"}]}'
+            interestsid) + '}}]},"counts":["upvotes","downvotes"],"include":[{"relation": "user"},{"relation": "answers", "scope":{"include": [{"relation": "user"}, {"relation": "comments", "scope":{"include":{"relation":"user"}}}]}}, {"relation":"category"}, {"relation": "tags"}]}'
         # print(url)
         response1 = requests.get(url)
         questions = response1.json()

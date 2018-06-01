@@ -102,7 +102,7 @@
         </div>
         <div class="whotofollowcont">
             <div style="background-color: white; padding: 10px">
-            <h4 style="text-align: left; margin: 0; padding: 0;">Who to Follow</h4>
+            <h4 style="text-align: left; margin: 0; padding: 10px 0 0 0;">Who to Follow</h4>
             <hr> {% for i in followableusers %}
             <div class="whotoFollow">
                 <div style="width: 30%;display: inline-block; ">
@@ -223,22 +223,22 @@
 
                         {% for answer in i.answers|reverse %}
 
-                        <div class="comments-container {{ " comments-container_{0} ".format(i.id)}}" id={{ "comments-container_{0}".format(i.id)}}>
+                        <div class="comments-container {{ "comments-container_{0}".format(i.id)}}" id={{ "comments-container_{0}".format(i.id)}}>
                             <hr>
                             <ul id="comments-list" class="comments-list" style="margin: 0;">
                                 <li>
                                     <div class="comment-main-level">
                                         <div class="picture2">
-                                            <img src="{{answer.user.picture}}">
+                                            <img src="{{answer.user.picture}}" style="width: 100%; height: 100%;">
                                         </div>
-                                        <div class="comment-box" style="background-color: white; width: 80%;  border-radius: 10px; padding: 5px; margin-left: 13%; text-align: left;">
+                                        <div class="comment-box" style="background-color: white; width: 80%;  border-radius: 10px; padding: 5px; margin-left: 15%; text-align: left;">
                                             <div>
                                                 <h5 class="answerdisplayname">{{answer.user.displayname}}
                                                     <p style="margin: 0px; font-size: 10px;">{{i.createdAt}}</p>
                                                 </h5>
                                             </div>
                                             <div class="comment-head">
-                                                <div class="answerdivbutton">
+                                                <div class="answerdivbutton" style="margin-left: 30%;">
                                                     {% if user.id == answer.user.id%}
                                                     <i id="{{answer.id}}" class="fa fa-edit edit" title="Edit" style="margin: 5px;"></i>
                                                     <i id="{{answer.id}}" class="fa fa-trash heart" title="Delete" style="margin: 5px;"></i>
@@ -246,10 +246,10 @@
                                                     <i id="{{answer.id}}" class="fa fa-reply heart" style="margin: 5px;"></i>
                                                 </div>
                                             </div>
-                                            <br>
-                                            <br>
-                                            <br>
-                                            <hr>
+                                            <br style="margin: 0;">
+                                            <br style="margin: 0;">
+                                            <br style="margin: 0;">
+                                            <hr style="margin: 0;">
                                             <div class="comment-content">
                                                 {{ answer.answer|safe }}
                                             </div>
@@ -257,21 +257,18 @@
                                     </div>
                                 </li>
                             </ul>
+                            <div>
                             <ul class="comments-list reply-list">
                                 <!-- COMMENT -->
-
                                 {% for comment in answer.comments|reverse %}
                                 <hr>
                                 <li>
-                                    <div class="comment-avatar"></div>
-                                    <div class="comment-box">
+                                    <div class="comment-box" style="background-color: white; width: 70%; margin: 0; margin-left: 25%; border-radius: 5px;">
                                         <div class="comment-head">
                                             <h6 class="comment-name by-author">
                                                 <a href="http://creaticode.com/blog"></a>
                                             </h6>
-                                            <span>Posted: {{comment.createdAt}} </span>
-                                            <i class="fa fa-reply"></i>
-                                            <i class="fa fa-heart"></i>
+                                            <span>Posted: {{comment.createdAt}} by {{comment.user.displayname}}</span>
                                         </div>
                                         <div class="comment-content">
                                             {{comment.comment}}
@@ -280,6 +277,7 @@
                                 </li>
                                 {% endfor %}
                             </ul>
+                        </div>
                             <div class="newpostinput" id={{answer.id}}>
                                 <input type='text' class="commenttextarea" id={{ "comment_{0}".format(answer.id) }} placeholder="Write a Comment">
                                 <div>
@@ -484,11 +482,11 @@
         $(document).on('click', '.answerbutton', function (e) {
             var id = $(this).attr('id');
             if ($(".comments-container_" + id).is(":visible") || $("#answerdiv_" + id).is(":visible")) {
-                $(".comments-container_" + id).hide();
+                $(".comments-container_" + id).hide('slow');
                 $("#answerdiv_" + id).hide();
             } else {
-                $(".comments-container_" + id).show();
-                $("#answerdiv_" + id).show();
+                $(".comments-container_" + id).show('slow');
+                $("#answerdiv_" + id).show('slow');
             }
         });
         ///////////////////////////////////////////////////////////////////////////////////
@@ -766,7 +764,7 @@
             }
         });
         ///////////////////////////////////////////////////////////////////////////////////
-        /*$('input[type=text]').on('keydown', function(e) {
+        $('input[type=text]').on('keydown', function(e) {
             if (e.which == 13) {
                 e.preventDefault();
                 var a = $(this).attr('id');
@@ -799,7 +797,7 @@
                 });
                 //COMMENT
             }
-        });*/
+        });
         /*
         $(document).ready(function () {
             $(".submitbutton2").on('click', function () {
