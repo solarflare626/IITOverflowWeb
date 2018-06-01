@@ -187,17 +187,17 @@ def profile(id):
     print(curr)
     if id == curr:
         url = (
-                    'http://iitoverflow.herokuapp.com/api/users/' + user + '?filter[include]=questions&filter[include]=interests')
+                'http://iitoverflow.herokuapp.com/api/users/' + user + '?filter[include]=questions&filter[include]=interests')
         print(user)
         response = requests.get(url)
         json_object = response.json()
         url = (
-                    'http://iitoverflow.herokuapp.com/api/users/' + user + '/questionsfollowed?filter={"include":{"relation":"user"}}')
+                'http://iitoverflow.herokuapp.com/api/users/' + user + '/questionsfollowed?filter={"include":{"relation":"user"}}')
         response = requests.get(url)
         followed_questions = response.json()
 
         curl = (
-                    'http://iitoverflow.herokuapp.com/api/users/' + user + '?filter[counts]=followers&filter[counts]=following&filter[counts]=answers&filter[counts]=questionsfollowed&filter[counts]=questions&filter[counts]=interests&filter[include]=interests&filter[include]=followers&filter[include]=following&filter[include]=answers&filter[include]=questionsfollowed&filter[include]=questions')
+                'http://iitoverflow.herokuapp.com/api/users/' + user + '?filter[counts]=followers&filter[counts]=following&filter[counts]=answers&filter[counts]=questionsfollowed&filter[counts]=questions&filter[counts]=interests&filter[include]=interests&filter[include]=followers&filter[include]=following&filter[include]=answers&filter[include]=questionsfollowed&filter[include]=questions')
         response = requests.get(curl)
         json_object1 = response.json()
         val3 = json_object1['followersCount']
@@ -208,7 +208,7 @@ def profile(id):
         val8 = json_object1['interests']
 
         url = (
-                    'http://iitoverflow.herokuapp.com/api/users/' + user + '/answers?filter[include]=user&filter[include]=question')
+                'http://iitoverflow.herokuapp.com/api/users/' + user + '/answers?filter[include]=user&filter[include]=question')
         response = requests.get(url)
         answered_questions = response.json()
 
@@ -267,17 +267,17 @@ def profile(id):
         s_code = response.status_code
 
         url = (
-                    'http://iitoverflow.herokuapp.com/api/users/' + user + '?filter[include]=questions&filter[include]=interests')
+                'http://iitoverflow.herokuapp.com/api/users/' + user + '?filter[include]=questions&filter[include]=interests')
         print(user)
         response = requests.get(url)
         json_object = response.json()
         url = (
-                    'http://iitoverflow.herokuapp.com/api/users/' + user + '/questionsfollowed?filter={"include":{"relation":"user"}}')
+                'http://iitoverflow.herokuapp.com/api/users/' + user + '/questionsfollowed?filter={"include":{"relation":"user"}}')
         response = requests.get(url)
         followed_questions = response.json()
 
         curl = (
-                    'http://iitoverflow.herokuapp.com/api/users/' + user + '?filter[counts]=followers&filter[counts]=following&filter[counts]=answers&filter[counts]=questionsfollowed&filter[counts]=questions&filter[include]=followers&filter[include]=following&filter[include]=answers&filter[include]=questionsfollowed&filter[include]=questions')
+                'http://iitoverflow.herokuapp.com/api/users/' + user + '?filter[counts]=followers&filter[counts]=following&filter[counts]=answers&filter[counts]=questionsfollowed&filter[counts]=questions&filter[include]=followers&filter[include]=following&filter[include]=answers&filter[include]=questionsfollowed&filter[include]=questions')
         response = requests.get(curl)
         json_object1 = response.json()
         val3 = json_object1['followersCount']
@@ -287,7 +287,7 @@ def profile(id):
         val7 = json_object1['questionsCount']
 
         url = (
-                    'http://iitoverflow.herokuapp.com/api/users/' + user + '/answers?filter[include]=user&filter[include]=question')
+                'http://iitoverflow.herokuapp.com/api/users/' + user + '/answers?filter[include]=user&filter[include]=question')
         response = requests.get(url)
         answered_questions = response.json()
 

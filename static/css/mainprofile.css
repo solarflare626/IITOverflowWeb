@@ -864,8 +864,7 @@ button.following:not(.wait):hover .msg-unfollow {
     text-align: left;
     padding: 3px;
     color: #801515;
-    
-Sh    border: 1px solid transparent;
+    border: 1px solid transparent;
 }
 
 .profile-linksInterest:hover {
@@ -980,3 +979,24 @@ Sh    border: 1px solid transparent;
     text-align: center;
 }
 */
+
+.form2 {
+    border: 1px solid #D1D1D1;
+    width: 98%;
+    background-color: white;
+    margin: 5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    min-width: 20%;
+    margin-top: -15.5%;
+    /*set to a negative number 1/2 of your height*/
+    margin-left: -25%;
+    /*set to a negative number 1/2 of your width*/
+    z-index: 100;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+}
+
