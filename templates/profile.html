@@ -145,6 +145,7 @@
                                     {% endfor %}
                                 </div>
 
+                                <div class="postscont">
                                 {% for i in json_object.questions|reverse %}
 
                                 <div class="profile-contentCenter">
@@ -154,7 +155,6 @@
                                     </div>
                                     <div class="profileNameEmail">
                                         <a class="profilePostUsername">{{json_object.displayname}}</a>
-                                        <a class="profilePostEmail">{{json_object.email}}</a>
                                         <h3 class="profilePostTitle">Title:{{i.question | safe}} <a class="showallButton" type="button" title="Show all"  id="{{json_object.id}}">Show description</a> </h3>
                                     </div>
 
@@ -162,16 +162,14 @@
 
                                     <div class="profilePostAnswer" id={{"show_{0}".format(json_object.id)}} >{{i.questiondesc | safe}}</div>
                                     <div class="profilePostButton">
-                                            <a href="#"  id={{"followques_{0}".format(questions.id)}} class="profilePostFollowButton">Unfollow</a>
                                         <a href="#" class="glyphicon glyphicon-pencil"></a>
-                                        <a onclick="upvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-up"> </a>
-                                        <a onclick="downvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-down" ></a>
+                                        <a id="{{ i.id }}" onclick="upvote('{{i.id}}')" title="Upvote" class="glyphicon glyphicon-thumbs-up" > {{ i.upvotesCount}}</a>
+                                        <a id="{{ i.id }}" onclick="downvote('{{i.id}}')" title="Downvote" class="glyphicon glyphicon-thumbs-down" > {{ i.downvotesCount}}</a>
                                         <button  onclick = "followedQuestion('{{questions.id}}')" >
-                                            
                                         </button>
                                     </div>
                                 </div>
-                                {%endfor%}
+                                {%endfor%}</div>
                             </div>
 
 
@@ -370,6 +368,7 @@
         $(".FollowedQuestionsContainer").hide();
         $(".AnsweredQuestionsContainer").hide();
         $(".profilePostAnswer").hide();
+
     })
     $("#profile-PostButton").click(function() {
         $(".profile-contentCenter").show('slow');
@@ -380,6 +379,7 @@
         $(".profile-contentRight").show('slow');
         $(".profile-contentLeft").show('slow');
         $(".profileCenterDiv").show('slow');
+        $(".postscont").show('slow');
     })
     $("#profile-FollowersButton").click(function() {
         $(".profile-contentCenter").hide();
@@ -411,6 +411,7 @@
         $(".profile-contentRight").show('slow');
         $(".profile-contentLeft").show('slow');
         $(".profileCenterDiv").show('slow');
+        $(".postscont").hide('slow');
     })
     $("#profile-AnsweredQuestionButton").click(function() {
         $(".profile-contentCenter").show('slow');
