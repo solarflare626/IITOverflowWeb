@@ -147,7 +147,7 @@ function upvote(q_id) {
                 statusCode: {
                     200: function() {
                         $.ajax({
-                        url: 'http://iitoverflow.herokuapp.com/api/users/'+currentUser+'/questionsupvoted/rel/'+q_id+'',
+                        url: 'http://iitoverflow.herokuapp.com/api/users/'+currentUser+'/questionsupvoted/rel/'+q_id,
                         type: 'DELETE',
                         dataType: "json",
                         success: function (data) {
@@ -188,7 +188,7 @@ function downvote(q_id) {
         statusCode: {
             200: function () {
                 $.ajax({
-                    url: 'http://iitoverflow.herokuapp.com/api/users/' + currentUser + '/questionsdownvoted/rel/' + q_id + '',
+                    url: 'http://iitoverflow.herokuapp.com/api/users/' + currentUser + '/questionsdownvoted/rel/' + q_id,
                     type: 'DELETE',
                     dataType: "json",
                     success: function (data) {
