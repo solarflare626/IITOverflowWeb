@@ -14,7 +14,7 @@ body {
     overflow-x: hidden;
     min-width: 800px;
     min-height: 100%;
-    background-color:#63605F;
+    background-color:rgb(181, 177, 175);
     font-family: Poppins-Regular, sans-serif;
 }
 
@@ -881,7 +881,7 @@ ul {
 .commenttextarea {
     background-color: white;
     border: 1px solid #E1E2E3;
-    width: 70%;
+    width: 80%;
     height: 10%;
     border-radius: 100px;
     font-size: 13px;
@@ -976,6 +976,8 @@ ul {
     font-size: 13px;
     height: 100%;
     display: inline-block;
+    text-decoration: none;
+    outline: none;
 }
 
 .answerbutton:hover {
@@ -986,6 +988,8 @@ ul {
     padding-top: 0;
     color: white;
     border: 1px solid #801515;
+    text-decoration: none;
+    outline: none;
 }
 
 .votebutton {
@@ -994,6 +998,7 @@ ul {
     margin-left: 0;
     font-size: 13px;
     height: 100%;
+    font-weight: 600;
 }
 
 .votebutton:hover {
@@ -1102,8 +1107,8 @@ ul {
 
 .answertextarea:focus {
     height: 100px;
-    border-bottom: 1px solid #4AB3F4;
-    border-top: 1px solid #4AB3F4;
+    border-bottom: 1px solid #801515;
+    border-top: 1px solid #801515;
 }
 
 .newdiv p {
@@ -1624,13 +1629,28 @@ categoryEditbutton{
 }
 .comment-head {
    
-    text-align: center;
+    text-align: left;
+    padding: 5px;
    
+}
+.comment-head span {
+    padding-left: 3px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+}
+.comment-head p {
+    text-align: left;
+    margin-top: 0;
+    padding: 0;
+    margin-bottom: 0;
 }
 
 .answerdivbutton{
-    display: inline-block;
-    margin-right: 5px;
+   
+
+   margin-right: 0;
+   float: right;
 }
 .answerdisplayname{
     display: inline-block;
@@ -1639,6 +1659,7 @@ categoryEditbutton{
 }
 .answerdivbutton i{
     display: inline-block;
-    margin: 0 5px 0 5px;
+    position: relative;
+    margin: 0 10px 0 10px;
 
 }

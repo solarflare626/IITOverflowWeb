@@ -15,7 +15,7 @@
 
 #sideChatHeader {
     border-radius: 5px 5px 0 0;
-    background: linear-gradient(to right, #D46A6A, #801515);
+    background:linear-gradient(to right,#90001f,rgb(118, 2, 28));
     margin: 0px;
     width: relative;
 }
