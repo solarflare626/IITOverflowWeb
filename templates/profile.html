@@ -40,7 +40,7 @@
                     <div class="profile-search">
 
                         <button class="profile-searchbutton" type="submit">
-                            <span class="glyphicon glyphicon-search">
+                            <span class="glyphicon glyphicon-search"></span>
                         </button>
                         <input class="profile-searchbar" type="text" placeholder="Search..">
 
@@ -76,7 +76,7 @@
                             <div class="profile-contentLeft">
 
                                 <!-- <h4>Bio info here</h4> -->
-                                <p style="font-weight: 1000; font-size: 22px" id="dispn"> {{ json_object['displayname'] }} </p>
+                                <p style="font-weight: 900; font-size: 22px" id="dispn"> {{ json_object['displayname'] }} </p>
                                 <a class="profilePostEmail"> {{json_object.email}} </a>
 
                                 <div class="profile-linksInterest" id="interestscontainer">
@@ -138,8 +138,8 @@
                                         <div class="profilePostButton">
                                                 <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
                                             <a href="#" class="glyphicon glyphicon-pencil"></a>
-                                            <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" </a>
-                                            <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down" </a>
+                                            <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up"> </a>
+                                            <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down"> </a>
                                             <button  onclick = "followedQuestion('{{question.id}}')" >
                                                    
                                             </button>                                        </div>
@@ -147,6 +147,7 @@
                                     {% endfor %}
                                 </div>
 
+                                <div class="postscont">
                                 {% for i in json_object.questions|reverse %}
 
                                 <div class="profile-contentCenter">
@@ -156,24 +157,50 @@
                                     </div>
                                     <div class="profileNameEmail">
                                         <a class="profilePostUsername">{{json_object.displayname}}</a>
-                                        <a class="profilePostEmail">{{json_object.email}}</a>
-                                        <h3 class="profilePostTitle">Title:{{i.question | safe}} <a class="showallButton" type="button" title="Show all"  id="{{json_object.id}}">Show description</a> </h3>
+                                        <h3 class="profilePostTitle">Title:{{i.question | safe}} <a class="showallButton" type="button" title="Show all"  id="{{ i.id }}">Show description</a> </h3>
                                     </div>
 
                                     <br>
 
-                                    <div class="profilePostAnswer" id={{"show_{0}".format(json_object.id)}} >{{i.questiondesc | safe}}</div>
+                                    <div class="profilePostAnswer" id={{"show_{0}".format(i.id)}} >{{i.questiondesc | safe}}</div>
                                     <div class="profilePostButton">
-                                            <a href="#"  id={{"followques_{0}".format(questions.id)}} class="profilePostFollowButton">Unfollow</a>
                                         <a href="#" class="glyphicon glyphicon-pencil"></a>
-                                        <a onclick="upvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-up"> </a>
-                                        <a onclick="downvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-down" ></a>
+                                        <a id="{{ i.id }}" onclick="upvote('{{i.id}}')" title="Upvote" class="glyphicon glyphicon-thumbs-up" > {{ i.upvotesCount}}</a>
+                                        <a id="{{ i.id }}" onclick="downvote('{{i.id}}')" title="Downvote" class="glyphicon glyphicon-thumbs-down" > {{ i.downvotesCount}}</a>
                                         <button  onclick = "followedQuestion('{{questions.id}}')" >
-                                            
                                         </button>
                                     </div>
+                                    
+                    <div class="form2container"  id="{{"edit_{0}".format(i.id)}}" style="z-index: 10003;">
+
+
+                            <form class = "form2" >
+    
+                                <h5>Title</h5>
+                                <input class="editQuestionTitle" type="text" id="titleedit" value="{{i.question}}">
+                                <h5>Description</h5>
+                                <textarea style="border: 1px solid black; height:200px; font-size:14pt;" rows="9" type="text" class="editTitleDescription" id="descedit">{{i.questiondesc}}</textarea>
+    
+    
+                                <h5>Tags</h5>
+                                <input id="tagsIDedit" type="text" name="tagsarea" value=" {% for tag in i.tags %} {{tag.name}} {% endfor %}" class="tagsarea" />
+                               
+                                <button id="categoryIDedit" type="button" value="" class="categorybutton"><b>Category:</b> </button> 
+    
+    
+                                <div class="newsfeedPopUpButton-Cont">
+    
+                                    <a id={{i.id}} class="submitbutton5" type="submit">Save</a>
+                                    <a onclick="showhide({{ i.id }})">Cancel</a>
+    
+    
+                                    <!--                    <a id={{i.id}} class="submitbutton5" type="submit" >Save</a>
+                                     <a class="submitbutton5" onclick="showhide({{i.id}})" >Cancel</a> -->
                                 </div>
-                                {%endfor%}
+                            </form>
+    </div>
+                                </div>
+                                {%endfor%}</div>
                             </div>
 
 
@@ -213,6 +240,7 @@
                             <div class="profile-contentRight">
                                 <div style="background-color: white; padding: 10px;">
                                 <h4>Who to Follow</h4>
+                                <hr>
                     
                                 {% for i in whotofollowusers %}
                                  <div class="whotoFollowss" id= {{"whotoFollow_{0}".format(i.id)}}>
@@ -365,12 +393,14 @@
 
 
     $(document).ready(function() {
+        $(".form2container").hide();
         $(".profile-contentCenter").show('slow');
         $(".FollowersContainer").hide();
         $(".FollowingContainer").hide();
         $(".FollowedQuestionsContainer").hide();
         $(".AnsweredQuestionsContainer").hide();
         $(".profilePostAnswer").hide();
+
     })
     $("#profile-PostButton").click(function() {
         $(".profile-contentCenter").show('slow');
@@ -381,6 +411,7 @@
         $(".profile-contentRight").show('slow');
         $(".profile-contentLeft").show('slow');
         $(".profileCenterDiv").show('slow');
+        $(".postscont").show('slow');
     })
     $("#profile-FollowersButton").click(function() {
         $(".profile-contentCenter").hide();
@@ -412,6 +443,7 @@
         $(".profile-contentRight").show('slow');
         $(".profile-contentLeft").show('slow');
         $(".profileCenterDiv").show('slow');
+        $(".postscont").hide('slow');
     })
     $("#profile-AnsweredQuestionButton").click(function() {
         $(".profile-contentCenter").show('slow');
@@ -796,5 +828,85 @@ $(".showallButton").click(function(){
         }
 
     });
+
+        $(".pencileditbutton").click(function() {
+            var id = $(this).attr("id");
+            if ($(this).text() === "Edit") {
+                $("#edit_" + id).show('slow');
+                $(".form2container").css("z-index", "11000");
+                $(this).text("Close")
+            }
+            else {
+                $(this).text("Edit");
+                $("#edit_" + id).hide('slow');  
+            }
+        });
+
+        
+        $(document).on('click', '.submitbutton5', function () {
+            var qid = $(this).attr('id');
+            var editorText = CKEDITOR.instances['textareaedit_'+qid].getData();
+            var posttitle = document.getElementById('titleedit').value;
+            var gettags = document.getElementById('tagsIDedit').value;
+            var cleartitle = document.getElementById('titleedit');
+            var category = $('.popupedit').attr('id');
+            var cleartags = document.getElementsByClassName('tag-editor-tag');
+            console.log(cleartags);
+            var data = {
+                "question": posttitle,
+                "questiondesc": editorText,
+                "userId": "{{ curuser }}",
+                "categoryId": category
+            };
+            $.ajax({
+                type: "PUT",
+                url: "https://iitoverflow.herokuapp.com/api/Questions/"+qid,
+                data: JSON.stringify(data),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (result) {
+                    console.log(result);
+                    alert('gaga');
+                    qid = result.id;
+                    $('#qedit_' + qid).modal('toggle');
+                    var tagslength = cleartags.length;
+                    $.ajax({ 
+                        type: "PUT",
+                        url: "https://iitoverflow.herokuapp.com/api/Questions/",
+                        data: JSON.stringify(data),
+                        dataType: "json",
+                        contentType: "application/json",
+                        success: function (result) {
+                            console.log(result);
+                            alert('gaga');
+                            qid = result.id;
+                            $('#qedit_' + qid).modal('toggle');
+                            var tagslength = cleartags.length;
+                            for (i = 0; i < tagslength; i++) {
+                                var data1 = {
+                                    "name": cleartags[i].innerText,
+                                    "categoryId": category
+                                };
+                                console.log(cleartags[i].innerText);
+                                // EDIT
+                                $.ajax({
+                                    type: "POST",
+                                    url: "http://iitoverflow.herokuapp.com/api/Questions/" + qid + "/tags",
+                                    data: JSON.stringify(data1),
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    success: function (result1) {
+                                        console.log(result1);
+                                    },
+                                    error: function (result1) {
+                                        console.log(JSON.stringify(result1));
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
 </script>
 </html>
