@@ -18,6 +18,7 @@
     background:linear-gradient(to right,#90001f,rgb(118, 2, 28));
     margin: 0px;
     width: relative;
+    z-index: 2000000;
 }
 
 div.chatTab {
