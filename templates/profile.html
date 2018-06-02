@@ -2,34 +2,31 @@
 <html>
 
 <head>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Profile</title>
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="icon" type="image/png" href="../static/image/favicon.ico" />
     <link rel="stylesheet" type="text/css" media="screen" href="../static/css/mainprofile.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="../static/js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-    <script src="../static/js/jquery-3.3.1.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="../static/js/mainprofile.js"></script>
 
     <meta name="google-signin-scope" content="">
     <meta name="google-signin-client_id" content="976545483152-3u1fctn90tf0qvjevud1hkfu3jdneog0.apps.googleusercontent.com">
     <meta name="google-signin-client_secret" content="dhayVHWZ-OsnjdQO47qZXhOD">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 
-    <script src="../static/js/mainprofile.js"></script>
 
+
+    <meta name="google-signin-scope" content="">
+    <meta name="google-signin-client_id" content="976545483152-3u1fctn90tf0qvjevud1hkfu3jdneog0.apps.googleusercontent.com">
+    <meta name="google-signin-client_secret" content="dhayVHWZ-OsnjdQO47qZXhOD">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 
 <body>
@@ -40,7 +37,7 @@
                     <div class="profile-search">
 
                         <button class="profile-searchbutton" type="submit">
-                            <span class="glyphicon glyphicon-search"></span>
+                            <span class="glyphicon glyphicon-search">
                         </button>
                         <input class="profile-searchbar" type="text" placeholder="Search..">
 
@@ -76,7 +73,7 @@
                             <div class="profile-contentLeft">
 
                                 <!-- <h4>Bio info here</h4> -->
-                                <p style="font-weight: 900; font-size: 22px" id="dispn"> {{ json_object['displayname'] }} </p>
+                                <p style="font-weight: 1000; font-size: 22px" id="dispn"> {{ json_object['displayname'] }} </p>
                                 <a class="profilePostEmail"> {{json_object.email}} </a>
 
                                 <div class="profile-linksInterest" id="interestscontainer">
@@ -147,7 +144,6 @@
                                     {% endfor %}
                                 </div>
 
-                                <div class="postscont">
                                 {% for i in json_object.questions|reverse %}
 
                                 <div class="profile-contentCenter">
@@ -157,21 +153,24 @@
                                     </div>
                                     <div class="profileNameEmail">
                                         <a class="profilePostUsername">{{json_object.displayname}}</a>
-                                        <h3 class="profilePostTitle">Title:{{i.question | safe}} <a class="showallButton" type="button" title="Show all"  id="{{ i.id }}">Show description</a> </h3>
+                                        <a class="profilePostEmail">{{json_object.email}}</a>
+                                        <h3 class="profilePostTitle">Title:{{i.question | safe}} <a class="showallButton" type="button" title="Show all"  id="{{json_object.id}}">Show description</a> </h3>
                                     </div>
 
                                     <br>
 
-                                    <div class="profilePostAnswer" id={{"show_{0}".format(i.id)}} >{{i.questiondesc | safe}}</div>
+                                    <div class="profilePostAnswer" id={{"show_{0}".format(json_object.id)}} >{{i.questiondesc | safe}}</div>
                                     <div class="profilePostButton">
-                                        <a href="#" class="glyphicon glyphicon-pencil"></a>
-                                        <a id="{{ i.id }}" onclick="upvote('{{i.id}}')" title="Upvote" class="glyphicon glyphicon-thumbs-up" > {{ i.upvotesCount}}</a>
-                                        <a id="{{ i.id }}" onclick="downvote('{{i.id}}')" title="Downvote" class="glyphicon glyphicon-thumbs-down" > {{ i.downvotesCount}}</a>
+                                            <a href="#"  id={{"followques_{0}".format(questions.id)}} class="profilePostFollowButton">Unfollow</a>
+                                        <a href="" title ="Edit" class=" pencileditbutton"  id="{{i.id}}">Edit</a>
+                                        <a onclick="upvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-up"> </a>
+                                        <a onclick="downvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-down" ></a>
                                         <button  onclick = "followedQuestion('{{questions.id}}')" >
+                                            
                                         </button>
                                     </div>
                                     
-                    <div class="form2container"  id="{{"edit_{0}".format(i.id)}}" style="z-index: 10003;">
+                    <div class="form2container"  id={{"edit_{0}".format(i.id)}} style="z-index: 10003;">    
 
 
                             <form class = "form2" >
@@ -189,7 +188,7 @@
     
     
                                 <div class="newsfeedPopUpButton-Cont">
-    
+                                    <!-- <button type="submit" id="{{i.id}}" style="margin-left: -10%" class="submitbutton5">Submit</button> -->
                                     <a id={{i.id}} class="submitbutton5" type="submit">Save</a>
                                     <a onclick="showhide({{ i.id }})">Cancel</a>
     
@@ -198,9 +197,9 @@
                                      <a class="submitbutton5" onclick="showhide({{i.id}})" >Cancel</a> -->
                                 </div>
                             </form>
-    </div>
+                          </div>
                                 </div>
-                                {%endfor%}</div>
+                                {%endfor%}
                             </div>
 
 
@@ -361,36 +360,8 @@
         </div>
     </div>
     <!--<script src="../static/js/app2.js"></script>-->
-<script>
-
-    function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function() {
-        $.ajax({
-            url: "http://localhost:5000/logout",
-            dataType: "json",
-            success: function(resp) {
-                if (resp.message = "okay") {
-                    window.location.replace('/');
-                } else {
-                    console.log("Something went wrong")
-                }
-            },
-            error: function(e) {
-                console.log('ERROR')
-            }
-        });
-    });
-}
-</script>
 </body>
 <script type="text/javascript">
-        $(document).ready(function() {
-        gapi.load('auth2', function () {
-            gapi.auth2.init();
-        });
-    });
-
 
     $(document).ready(function() {
         $(".form2container").hide();
@@ -400,7 +371,6 @@
         $(".FollowedQuestionsContainer").hide();
         $(".AnsweredQuestionsContainer").hide();
         $(".profilePostAnswer").hide();
-
     })
     $("#profile-PostButton").click(function() {
         $(".profile-contentCenter").show('slow');
@@ -411,7 +381,6 @@
         $(".profile-contentRight").show('slow');
         $(".profile-contentLeft").show('slow');
         $(".profileCenterDiv").show('slow');
-        $(".postscont").show('slow');
     })
     $("#profile-FollowersButton").click(function() {
         $(".profile-contentCenter").hide();
@@ -443,7 +412,6 @@
         $(".profile-contentRight").show('slow');
         $(".profile-contentLeft").show('slow');
         $(".profileCenterDiv").show('slow');
-        $(".postscont").hide('slow');
     })
     $("#profile-AnsweredQuestionButton").click(function() {
         $(".profile-contentCenter").show('slow');
@@ -467,10 +435,10 @@
             $(".modal_main").fadeOut();
         });
     });
-
+    
     $("#submitProfile").on("click", function(e) {
         e.preventDefault();
-        var formdata = new FormData();
+        var formdata = new FormData(); 
         var file = $('#avatar-1').prop('files');
         console.log(file);
         var name = $("#dispName").val();
@@ -478,7 +446,7 @@
         var user = {
             "displayname": name,
             "interests": names
-        };
+        };  
         console.log(JSON.stringify(user));
         $.ajax({
             url: "http://iitoverflow.herokuapp.com/api/users/{{ curuser }}",
@@ -560,6 +528,7 @@
         });
         $("#modalProf").hide();
     });
+   
 
 </script>
 
@@ -606,6 +575,7 @@
         id = id.toString();
         interests.push(id);
     {% endfor %}
+
     var interests_contain= document.getElementById("interest-contain");
     var category_contain = document.getElementById("category-contain");
     $(document).on('click', '.categorybuttons', function() {
@@ -621,6 +591,8 @@
         $(this).remove();
         console.log(interests);
     });
+
+
     $(document).on('click', '.interestbuttons', function() {
         var id = $(this).val();
         var index = interests.indexOf(id);
@@ -665,7 +637,7 @@
                                    success: function() {
                                        console.log("Sucessful deleted downvote after upvote!");
                                        console.log(".glyphicon glyphicon-thumbs-up#"+qid);
-
+                                       
                                    }
                                });
                                console.log("Upvoted question!")
@@ -701,6 +673,7 @@
                                    }
                                });
                                 console.log("Downvoted question!");
+
                             }
                         });
                     }
@@ -740,6 +713,7 @@
                             }
                         });
                 }
+
             });
         }
     function followedUser(uid){
@@ -775,11 +749,12 @@
                             }
                         });
                 }
+
             });
         }
-
+            
     function followable(qid){
-
+        
         $.ajax({
             type: "HEAD",
             async: true,
@@ -816,6 +791,29 @@
         });
     }
 
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function() {
+        $.ajax({
+            url: "http://localhost:5000/logout",
+            dataType: "json",
+            success: function(resp) {
+                if (resp.message = "okay") {
+                    window.location.replace('/');
+                } else {
+                    console.log("Something went wrong")
+                }
+            },
+            error: function(e) {
+                console.log('ERROR')
+            }
+        });
+    });
+}
+
+
+
 $(".showallButton").click(function(){
         var id = $(this).attr("id");
         if($(this).text()=== "Show description"){
@@ -826,8 +824,9 @@ $(".showallButton").click(function(){
             $(this).text("Show description");
             $("#show_"+id).hide('slow');
         }
-
+       
     });
+
 
         $(".pencileditbutton").click(function() {
             var id = $(this).attr("id");
@@ -866,7 +865,7 @@ $(".showallButton").click(function(){
                 contentType: "application/json",
                 success: function (result) {
                     console.log(result);
-                    alert('gaga');
+                    // alert('gaga');
                     qid = result.id;
                     $('#qedit_' + qid).modal('toggle');
                     var tagslength = cleartags.length;
@@ -878,7 +877,7 @@ $(".showallButton").click(function(){
                         contentType: "application/json",
                         success: function (result) {
                             console.log(result);
-                            alert('gaga');
+                            // alert('gaga');
                             qid = result.id;
                             $('#qedit_' + qid).modal('toggle');
                             var tagslength = cleartags.length;
@@ -909,4 +908,5 @@ $(".showallButton").click(function(){
             });
         });
 </script>
+
 </html>

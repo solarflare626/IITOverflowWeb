@@ -2,6 +2,7 @@
 <html>
 
 <head>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
     <title>IITOverflow</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -34,7 +35,7 @@
     <meta name="google-signin-scope" content="">
     <meta name="google-signin-client_id" content="976545483152-3u1fctn90tf0qvjevud1hkfu3jdneog0.apps.googleusercontent.com">
     <meta name="google-signin-client_secret" content="dhayVHWZ-OsnjdQO47qZXhOD">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+   
     <!--<script src="../static/ckeditor/ckeditor.js"></script>-->
     <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
@@ -62,11 +63,9 @@
                     <span class="glyphicon glyphicon-user"></span> Profile</a>
                 <a href="tags">
                     <span class="glyphicon glyphicon-tags"></span> Tags</a>
-                <div class="dropdown">
-                    <a class="Notificationbutton  dropdown-toggle" data-toggle="dropdown" href="#" id="btn_notification">
-                        <span class="glyphicon glyphicon-bell"></span> Notifications</a>
-                    <ul id="notification-content" class="dropdown-menu"> </ul>
-                </div>
+                    <div class="dropdown"><a class="Notificationbutton  dropdown-toggle" data-toggle="dropdown" href="#" id="btn_notification"><span class="glyphicon glyphicon-bell"></span> Notifications</a><ul  style=" text-overflow:ellipsis;min-height: 200px; max-height: 500px;min-width:500px; overflow-y: auto;overflow-x: hidden" id="notification-content" class="dropdown-menu pull-right">
+                        
+                        </ul></div>
                 <a href="" onclick="signOut();return false;">
                     <span class="glyphicon glyphicon-asterisk"></span> Logout</a>
 
@@ -113,8 +112,10 @@
                 </div>
 
                 <div style="width: 30%;  display: inline-block;">
+                    {% if i.id != user.id %}
                 <button id="{{"followa_{0}".format(i.id)}}" onclick = "followable('{{i.id}}')"  class="whotofollowButton">Follow</button>
-                </div>
+                    {% endif %}
+            </div>
 
                 <div style="width: 30%;  display: inline-block;">
                 <div class="whotoFollowName">
@@ -236,14 +237,13 @@
                                                 <div class="comment-head">
                                                     
                                                         <div class="answerdivbutton" style="margin-left: 30%;">
-                                                               
-                                                            {% if user.id == answer.user.id%}
-                                                            <i id="{{answer.id}}" class="fa fa-edit edit" title="Edit" ></i>
-                                                            <i id="{{answer.id}}" class="fa fa-trash heart" title="Delete" ></i>
-                                                            {% endif %}
-                                                            <i id="{{answer.id}}" class="fa fa-reply heart"></i>
-                                                            <i id="{{answer.id}}" class="fa fa-thumbs-up thumbs-up"></i>
-                                                            <i id="{{answer.id}}" class="fa fa-thumbs-down thumbs-down"></i>
+                                                                {% if user.id == answer.user.id%}
+                                                                <button id="{{answer.id}}" class="fa fa-edit edit" title="Edit" style="margin: 5px;"></button>
+                                                                <button id="{{answer.id}}" class="fa fa-trash heart" title="Delete" style="margin: 5px;"></button>
+                                                                {% endif %}
+                                                                <button id="{{answer.id}}" class="fa fa-reply heart" style="margin: 5px;"></button>
+                                                                <button id="{{answer.id}}" onclick="answerUpvote({{ answer.id }})" class="workround1 fa fa-thumbs-up up thumbs-up" style="margin: 5px;"> 0</button>
+                                                                <button id="{{answer.id}}" onclick="answerDownvote({{ answer.id }})" class="workround2 fa fa-thumbs-down down thumbs-down" style="margin: 5px;"> 0</button>
                                                         </div>
                                                         <div>
                                                          <h5 class="answerdisplayname">{{answer.user.displayname}} 
@@ -273,7 +273,10 @@
                                 <li>
                                     <div class="comment-box" style=" border: 1px solid #801515; background-color: white; width: 70%; margin: 0; margin-left: 25%; margin-top: 5px; border-radius: 5px; padding: 5px;">
                                         <div class="comment-head">
-                                            <span>{{comment.user.displayname}}<i id="{{comment.id}}" class="fa fa-trash heart"  style="float: right;" title="Delete" ></i></span>
+                                            <span>{{comment.user.displayname}}
+                                                {% if user.id == comment.user.id %}
+                                                    <i id="{{comment.id}}" style="cursor: pointer" onclick="deleteCom({{ comment.id }},{{ answer.id }})" class="fa fa-trash heart"  style="float: right;" title="Delete" ></i></span>
+                                                {% endif %}
                                            <p>{{comment.createdAt}} </p> 
 
                                         </div>
@@ -965,76 +968,126 @@
         var socketUser = "{{ user.id |safe}}";
         ///////////////////////////////////////////////////////////////////////////////////
         //var socketUser =2;
-        var questionFollowing = [{
-            "id": 1,
-            "question": "What is C++",
-            "questiondesc": "hahAHaha",
-            "createdAt": "2018-05-19T09:35:27.000Z",
-            "updatedAt": "2018-05-19T09:35:27.000Z",
-            "deletedAt": null,
-            "userId": 1,
-            "categoryId": 1
-        }];
-        var userFollowing = [{
-            "id": 1
-        }];
-        var interests = [{
-            "id": 1
-        }];
+        var questionFollowing = {{following_questions |tojson}};
+        var userFollowing = {{followed | tojson}};
+        var interests = {{interests | tojson}};
     ///////////////////////////////////////////////////////////////////////////////////
+    $(document).ready(function() {
+
+            
+        
+        var oldnotifs = {{notifications|tojson}};
+        oldnotifs.forEach(element => {
+        if(element.type == 'newQuestion'){
+            
+            var holdNewQuestionHtml =
+                '<li><a href="/Question/' + element.question.id +
+                '" class="notification-box"><div class="row"><div class="col-lg-3 col-sm-3 col-3 text-center"><img src="' +
+                    element.user.picture +
+                '" class="w-50 img-circle" width="30" height="30" ></div><div class="col-lg-8 col-sm-8 col-8" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><strong class="text-info">' +
+                        element.user.displayname + '</strong> posted a new Question: ' + element.question.question +
+                '<div><small class="text-warning">' + getDate(element.question.createdAt) +
+                '</small> </div></div> </div></a></li>';
+            $("#notification-content").append(holdNewQuestionHtml);
+
+        }else if(element.type == 'newAnswer'){
+
+            var holdNewAnswerHtml = "";
+            if (element.question.userId == socketUser) {
+                holdNewAnswerHtml +=
+                    '<li><a href="/Question/' + element.question.id +
+                    '" class="notification-box"><div class="row"><div class="col-lg-3 col-sm-3 col-3 text-center"><img src="' +
+                        element.user.picture +
+                    '" class="w-50 img-circle" width="30" height="30" ></div><div class="col-lg-8 col-sm-8 col-8"><strong class="text-info">' +
+                        element.user.displayname + '</strong> answered your question: ' + element.answer.answer +
+                    '<div><small class="text-warning">' + getDate(element.answer.createdAt) +
+                    '</small> </div></div> </div></a></li>';
+
+                $("#notification-content").append(holdNewAnswerHtml);
+            } else if ($.grep(questionFollowing, function(obj) {
+                    return obj.id === element.question.id;
+                })[0]) {
+                holdNewAnswerHtml +=
+                    '<li><a href="/Question/' + element.question.id +
+                    '" class="notification-box"><div class="row"><div class="col-lg-3 col-sm-3 col-3 text-center"><img src="' +
+                        element.user.picture +
+                    '" class="w-50 img-circle" width="30" height="30" ></div><div class="col-lg-8 col-sm-8 col-8"><strong class="text-info">' +
+                        element.user.displayname + '</strong> answered a question you\'re following: ' + element.answer.answer +
+                    '<div><small class="text-warning">' + getDate(element.answer.createdAt) +
+                    '</small> </div></div> </div></a></li>';
+
+                $("#notification-content").append(holdNewAnswerHtml);
+            }
+
+        }else if(element.type == 'newComment'){
+            holdNewAnswerHtml +=
+                    '<li><a href="/Question/' + element.question.id +
+                    '" class="notification-box"><div class="row"><div class="col-lg-3 col-sm-3 col-3 text-center"><img src="' +
+                        element.user.picture +
+                    '" class="w-50 img-circle" width="30" height="30" ></div><div class="col-lg-8 col-sm-8 col-8"><strong class="text-info">' +
+                        element.user.displayname + '</strong> commented on your answer: ' + element.comment.comment +
+                    '<div><small class="text-warning">' + getDate(element.comment.createdAt) +
+                    '</small> </div></div> </div></a></li>';
+
+                $("#notification-content").append(holdNewAnswerHtml);
+
+
+        }
+        
+        });
+        reloadchatlist();
+    });
     </script>
 
     <script>
-        ///////////////////////////////////////////////////////////////////////////////////
-        const chatSocket = io(socketUrl + '/chat');
+    ///////////////////////////////////////////////////////////////////////////////////
+    const chatSocket = io(socketUrl + '/chat');
         const notificationSocket = io(socketUrl + '/notification');
-        chatSocket.on('connection', function (socket) {
-            console.log("connected");
+
+
+        chatSocket.on('connection', function(socket) {
+
+
+            //console.log("connected");
+
         });
-        ///////////////////////////////////////////////////////////////////////////////////
-        chatSocket.on('wentOffline', function (data) {
+        chatSocket.on('wentOffline', function(data) {
             $("#user_" + data.user + "_status").attr("class", "");
-            console.log(data.user, " is now offline");
+
+            //console.log(data.user, " is now offline");
         });
-        ///////////////////////////////////////////////////////////////////////////////////
-        chatSocket.on('wentOnline', function (data) {
+        chatSocket.on('wentOnline', function(data) {
             $("#user_" + data.user + "_status").attr("class", "contact-status online");
-            console.log(data.user, " is now online");
+
+            //console.log(data.user, " is now online");
         });
-        ///////////////////////////////////////////////////////////////////////////////////
-        notificationSocket.on('newQuestion', function (data) {
-            console.log("New Question");
-            console.log(data);
-            if (!data.user.picture) {
-                data.user.picture =
-                    "http://128.199.115.0:9000/profile/1525848116220_11_660d3813f01744a62ed30efef4db4b8483480ac4_1525848129695.jpg";
-            }
+        notificationSocket.on('newQuestion', function(data) {
+            //console.log("New Question");
+            //console.log(data);
+            console.log("NewQuestion",data);
             var holdNewQuestionHtml = "";
             if (data.question.userId != socketUser)
-                if ($.grep(userFollowing, function (obj) {
-                    return obj.id === data.question.userId;
-                })[0] || $.grep(interests, function (obj) {
-                    return obj.id === data.question.categoryId;
-                })[0]) {
+                if ($.grep(userFollowing, function(obj) {
+                        return obj.id === data.question.userId;
+                    })[0] || $.grep(interests, function(obj) {
+                        return obj.id === data.question.categoryId;
+                    })[0]) {
                     holdNewQuestionHtml +=
                         '<li><a href="/Question/' + data.question.id +
                         '" class="notification-box"><div class="row"><div class="col-lg-3 col-sm-3 col-3 text-center"><img src="' +
                         data.user.picture +
                         '" class="w-50 img-circle" width="30" height="30" ></div><div class="col-lg-8 col-sm-8 col-8"><strong class="text-info">' +
                         data.user.displayname + '</strong> posted a new Question: ' + data.question.question +
-                        '<div><small class="text-warning">' + getDate(data.question.createdAt) +
+                        '<div><small class="text-warning">' + "Just now" +
                         '</small> </div></div> </div></a></li>';
-                    $("#notification-content").append(holdNewQuestionHtml);
+                    $("#notification-content").prepend(holdNewQuestionHtml);
+
                 }
         });
-        ///////////////////////////////////////////////////////////////////////////////////
-        notificationSocket.on('newAnswer', function (data) {
-            if (!data.user.picture) {
-                data.user.picture =
-                    "http://128.199.115.0:9000/profile/1525848116220_11_660d3813f01744a62ed30efef4db4b8483480ac4_1525848129695.jpg";
-            }
+        notificationSocket.on('newAnswer', function(data) {
+            console.log("NewAnswer",data);
             var holdNewAnswerHtml = "";
-            if (data.answer.userId != socketUser);
+            if (data.answer.userId != socketUser)
             if (data.question.userId == socketUser) {
                 holdNewAnswerHtml +=
                     '<li><a href="/Question/' + data.question.id +
@@ -1042,31 +1095,30 @@
                     data.user.picture +
                     '" class="w-50 img-circle" width="30" height="30" ></div><div class="col-lg-8 col-sm-8 col-8"><strong class="text-info">' +
                     data.user.displayname + '</strong> answered your question: ' + data.answer.answer +
-                    '<div><small class="text-warning">' + getDate(data.answer.createdAt) +
+                    '<div><small class="text-warning">' +"Just now"+
                     '</small> </div></div> </div></a></li>';
-                $("#notification-content").append(holdNewAnswerHtml);
-            } else if ($.grep(questionFollowing, function (obj) {
-                return obj.id === data.question.id;
-            })[0]) {
+
+                $("#notification-content").prepend(holdNewAnswerHtml);
+            } else if ($.grep(questionFollowing, function(obj) {
+                    return obj.id === data.question.id;
+                })[0]) {
                 holdNewAnswerHtml +=
                     '<li><a href="/Question/' + data.question.id +
                     '" class="notification-box"><div class="row"><div class="col-lg-3 col-sm-3 col-3 text-center"><img src="' +
                     data.user.picture +
                     '" class="w-50 img-circle" width="30" height="30" ></div><div class="col-lg-8 col-sm-8 col-8"><strong class="text-info">' +
                     data.user.displayname + '</strong> answered a question you\'re following: ' + data.answer.answer +
-                    '<div><small class="text-warning">' + getDate(data.answer.createdAt) +
+                    '<div><small class="text-warning">' + "Just now" +
                     '</small> </div></div> </div></a></li>';
-                $("#notification-content").append(holdNewAnswerHtml);
+
+                $("#notification-content").prepend(holdNewAnswerHtml);
             }
-            console.log("New Answer");
-            console.log(data);
+
+            //console.log("New Answer");
+            //console.log(data);
         });
-        ///////////////////////////////////////////////////////////////////////////////////
-        notificationSocket.on('newComment', function (data) {
-            if (!data.user.picture) {
-                data.user.picture =
-                    "http://128.199.115.0:9000/profile/1525848116220_11_660d3813f01744a62ed30efef4db4b8483480ac4_1525848129695.jpg";
-            }
+        notificationSocket.on('newComment', function(data) {
+            console.log("NewComment",data);
             var holdNewAnswerHtml = "";
             if (data.answer.userId == socketUser && data.comment.userId != socketUser) {
                 holdNewAnswerHtml +=
@@ -1075,18 +1127,25 @@
                     data.user.picture +
                     '" class="w-50 img-circle" width="30" height="30" ></div><div class="col-lg-8 col-sm-8 col-8"><strong class="text-info">' +
                     data.user.displayname + '</strong> commented on your answer: ' + data.comment.comment +
-                    '<div><small class="text-warning">' + getDate(data.comment.createdAt) +
+                    '<div><small class="text-warning">' + "Just now" +
                     '</small> </div></div> </div></a></li>';
-                $("#notification-content").append(holdNewAnswerHtml);
+
+                $("#notification-content").prepend(holdNewAnswerHtml);
             }
-            console.log("New Comment");
-            console.log(data);
+            //console.log("New Comment");
+            //console.log(data);
         });
-        ///////////////////////////////////////////////////////////////////////////////////
-        chatSocket.on('message', function (data) {
-            console.log(data);
+        chatSocket.on('message', function(data) {
+            
+            console.log("newMessage",data);
+
             m_pic = data.user.picture;
-            if (popups.indexOf("solo_" + data.message.conversationId) > -1) {
+            if(!($("#unread_solo_" + data.message.conversationId).length)){
+                openConversation(data.message.senderId);
+
+            }else if (popups.indexOf("solo_" + data.message.conversationId) > -1) {
+
+
                 var m_element =
                     '<div class="row msg_container base_receive"><div class="col-md-2 col-xs-2 avatar"><img src="' +
                     m_pic +
@@ -1095,50 +1154,60 @@
                     '</p><time style ="text-align:left;" datetime="2009-11-13T20:00">' +
                     data.user.displayname +
                     '</time></div></div></div>';
+
                 $("#m_solo_" + data.message.conversationId).append(m_element);
+
+
+
                 var panel = $("#m_solo_" + data.message.conversationId);
                 //$('#m_'+id).animate({scrollTop: $('#m_'+id).get(0).scrollHeight}, 700);
                 $("#m_solo_" + data.message.conversationId).scrollTop($(
-                    "#m_solo_" + data.message.conversationId).get(0)
+                        "#m_solo_" + data.message.conversationId).get(0)
                     .scrollHeight);
             } else if ($("#unread_solo_" + data.message.conversationId).length) {
                 if ($("#unread_solo_" + data.message.conversationId).html() == '') {
                     $("#unread_solo_" + data.message.conversationId).html("1");
                 } else {
                     var holdValue = parseInt($("#unread_solo_" + data.message.conversationId).html());
-                    console.log(holdValue++);
+                    //console.log(holdValue++);
                     $("#unread_solo_" + data.message.conversationId).html(holdValue);
                 }
             }
         });
-        ///////////////////////////////////////////////////////////////////////////////////
         chatSocket.emit("connected", {
             id: socketUser
         });
-        ///////////////////////////////////////////////////////////////////////////////////
-        sendMessage2 = function () {
-            //console.log($("#message").val());
+        sendMessage2 = function() {
+            ////console.log($("#message").val());
             chatSocket.emit("messageSent", $("#message").val());
+
         }
-        ///////////////////////////////////////////////////////////////////////////////////
-        getDate = function (date) {
+
+        getDate = function(date) {
+
             var date2 = new Date().getTime() - new Date(date).getTime();
+
             var seconds = Math.floor(date2 / 1000);
+
             if (Math.floor(seconds / 3600) >= 24)
                 return new Date(date).toUTCString();
+
             if (Math.floor(seconds / 3600))
                 return "" + Math.floor(seconds / 3600) + " hours ago";
+
             if (Math.floor(seconds / 60))
                 return "" + Math.floor(seconds / 60) + " minutes ago";
+
             if (Math.floor(seconds / 1))
                 return "" + Math.floor(seconds / 1) + " seconds ago";
+
             return "Just now";
             return new Date(date).toUTCString();
+
+
+
         }
-        ///////////////////////////////////////////////////////////////////////////////////
-        hello = function () {
-            console.log("hello");
-        }
+
     ///////////////////////////////////////////////////////////////////////////////////
     </script>
 
@@ -1148,6 +1217,51 @@
         function isOnline(online, id) {
             console.log("online: ", online);
             return (online ? '<span id="user_' + id + '_status" class="contact-status online"></span>' : '<span id="user_' + id + '_status"></span>');
+        }
+        ///////////////////////////////////////////////////////////////////////////////////
+        function openConversation(id){
+            $.ajax({
+                url: url + "users/" + socketUser + "/getconversation/"+id,
+                method: 'get',
+                dataType: "JSON",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    //console.log(data);
+                    var convolist = data;
+                    var convoStore = "";
+                    var profilepic;
+                    if($("#unread_"+convolist.id).length){
+                        register_popup(convolist.id,convolist.displayname);
+                    }else{
+                        profilepic = convolist.profilepic;
+                        convoStore += '<div class="sidebar-name " onclick="javascript:register_popup( \'' +
+                            convolist.id + '\',\'' + convolist.displayname +
+                            '\');"> <div class="convoName"><a class="wrap"style="position: relative;">' + isOnline(convolist.online, convolist.userid) + '<img class="img-circle" width="30" height="30" src="' +
+                            profilepic + '" /><span>' + convolist.displayname + '</span>';
+
+                        // if (convolist[i].unread > 0) {
+                        convoStore += '<span id="unread_' + convolist.id +
+                            '" style="position: absolute;bottom: -2px;left: -2px;"  class="label label-danger">' +
+                            (convolist.unread == 0 ? '' : convolist.unread) + '</span>';
+                        //}
+
+
+                        convoStore += '</a></div></div>';
+                    
+
+                        $("#convos").prepend(convoStore);
+                        register_popup(convolist.id,convolist.displayname);
+                    }
+
+
+                        
+                    
+                },
+                error: function(data) {}
+            });
+
         }
         ///////////////////////////////////////////////////////////////////////////////////
         function reloadchatlist() {
@@ -1175,14 +1289,20 @@
                             (convolist[i].unread == 0 ? '' : convolist[i].unread) + '</span>';
                         //}
                         convoStore += '</a></div></div>';
+                        
                     }
                     $("#convos").html(convoStore);
+                    return true;
                 },
-                error: function (data) { }
+                error: function (data) { 
+                    return false;
+                }
+
             });
-            return true;
+            
         }
     ///////////////////////////////////////////////////////////////////////////////////
+
     </script>
 
     <script type="text/javascript" charset="utf-8" async defer>
@@ -1206,6 +1326,9 @@
             reloadchatlist();
         });
     ///////////////////////////////////////////////////////////////////////////////////
+    $(document).on('click','#sideChatHeader', function(e){
+        reloadchatlist();
+    });
     </script>
 
     <script type="text/javascript">

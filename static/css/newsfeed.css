@@ -213,7 +213,9 @@ ul {
 }
 
 .newsfeed-nav a:hover {
-    color: #AA3939;
+    color: white;
+    background-color: #555;
+    opacity: 0.8;
     text-decoration: none;
 }
 

@@ -41,11 +41,12 @@ $(".follow2").click(function() {
     $this.toggleClass('following');
     if ($this.is('.following')) {
         id = ($(this).attr('id'));
-
+        follow2(id);
         //console.log("follow user");
         $this.addClass('wait');
     } else {
         id = ($(this).attr('id'));
+        unfollow2(id);
         //console.log("unfollow user");
     }
 }).on('mouseleave', function() {
@@ -119,7 +120,7 @@ function checker(id) {
 
 function checker2(id, u_id) {
     if (currentUser == u_id) {
-        // $("#" + id + ".followbutton").prop("disabled", true);
+        $("#" + id + ".followbutton").prop("disabled", true);
         $("#" + id + ".followbutton").hide();
         $("#" + id + ".answerbutton").css("width", "33.3%");
         $("#" + id + ".up").css("width", "30%");
@@ -396,6 +397,40 @@ function checker3(id){
             404: function () {
                 console.clear()
             }
+        }
+    });
+}
+
+function follow2(id) {
+    $.ajax({
+        type: "POST",
+        contentType: 'application/json; charset=utf-8',
+        url: "http://iitoverflow.herokuapp.com/api/following",
+        dataType: "json",
+        data: JSON.stringify({
+            'id': id,
+            'userId': currentUser
+        }),
+        success: function(resp) {
+            console.log(resp);
+        },
+        error: function(e) {
+            console.log(e)
+        }
+    });
+}
+
+function unfollow2(id) {
+    $.ajax({
+        type: "DELETE",
+        url: "http://iitoverflow.herokuapp.com/api/users/"+currentUser+"/following/rel/"+id ,
+        dataType: "json",
+
+        success: function(resp) {
+            console.log(resp)
+        },
+        error: function(e) {
+            console.log("error")
         }
     });
 }

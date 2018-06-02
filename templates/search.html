@@ -137,14 +137,13 @@
                                             <div class="comment-head">
                                                     
                                                 <div class="answerdivbutton" style="margin-left: 30%;">
-                                                       
-                                                    {% if user.id == answer.user.id%}
-                                                    <i id="{{answer.id}}" class="fa fa-edit edit" title="Edit" ></i>
-                                                    <i id="{{answer.id}}" class="fa fa-trash heart" title="Delete" ></i>
-                                                    {% endif %}
-                                                    <i id="{{answer.id}}" class="fa fa-reply heart"></i>
-                                                    <i id="{{answer.id}}" class="fa fa-thumbs-up thumbs-up"></i>
-                                                    <i id="{{answer.id}}" class="fa fa-thumbs-down thumbs-down"></i>
+                                                        {% if user.id == answer.user.id%}
+                                                        <button id="{{answer.id}}" class="fa fa-edit edit" title="Edit" style="margin: 5px;"></button>
+                                                        <button id="{{answer.id}}" class="fa fa-trash heart" title="Delete" style="margin: 5px;"></button>
+                                                        {% endif %}
+                                                        <button id="{{answer.id}}" class="fa fa-reply heart" style="margin: 5px;"></button>
+                                                        <button id="{{answer.id}}" onclick="answerUpvote({{ answer.id }})" class="workround1 fa fa-thumbs-up up thumbs-up" style="margin: 5px;"> 0</button>
+                                                        <button id="{{answer.id}}" onclick="answerDownvote({{ answer.id }})" class="workround2 fa fa-thumbs-down down thumbs-down" style="margin: 5px;"> 0</button>
                                                 </div>
                                                 <div>
                                                  <h5 class="answerdisplayname">{{answer.user.displayname}} 
