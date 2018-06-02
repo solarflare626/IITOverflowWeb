@@ -270,8 +270,19 @@ def profile(id):
         # url = ('http://iitoverflow.herokuapp.com/api/users/' + user + '/questionsfollowed?filter={"include":{"relation":"user"}}')
         # response = requests.get(url)
         # followed_questions = response.json()
-    
-        return render_template('profile.html', whotofollowusers=whotofollowusers, categories=categories,json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6, questions=val7, interests=val8, answered_questions=answered_questions, curuser=curuser, followableusers=notfollowed, user= user)
+        me_interests = baseUrl + 'users/' + curuser + '/interests'
+        response = requests.get(me_interests)
+        me_interests = response.json()
+        me_notifications = baseUrl + 'users/' + curuser + '/notifications'
+        me_notifications = requests.get(me_notifications).json()
+        me_following_questions = baseUrl + 'users/' + curuser + '/questionsfollowed'
+        response = requests.get(me_following_questions)
+        me_following_questions = response.json()
+        me_followed = requests.get(baseUrl + 'users/'+curuser+'/following')
+        me_followed = me_followed.json()
+        me_user1 = requests.get(baseUrl + 'users/'+curuser+'')
+        me_user = me_user1.json()
+        return render_template('profile.html',me_user=me_user, me_notifications=me_notifications,me_followed=me_followed,me_following_questions=me_following_questions,me_interests=me_interests,whotofollowusers=whotofollowusers, categories=categories,json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6, questions=val7, interests=val8, answered_questions=answered_questions, curuser=curuser, followableusers=notfollowed, user= user)
     else:
         followurl = ('http://iitoverflow.herokuapp.com/api/users/'+curuser+ '/following/rel/'+user+'')
         response = requests.head(followurl)
@@ -329,8 +340,19 @@ def profile(id):
                 break
             j=j+1    
     
-
-        return render_template('profileforOtherUser.html',whotofollowusers= whotofollowusers, followableusers= notfollowed, curr= curr, curuser= curuser, user=str(id), s_code= s_code, json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6, questions=val7, nswered_questions=answered_questions)
+        me_interests = baseUrl + 'users/' + curuser + '/interests'
+        response = requests.get(me_interests)
+        me_interests = response.json()
+        me_notifications = baseUrl + 'users/' + curuser + '/notifications'
+        me_notifications = requests.get(me_notifications).json()
+        me_following_questions = baseUrl + 'users/' + curuser + '/questionsfollowed'
+        response = requests.get(me_following_questions)
+        me_following_questions = response.json()
+        me_followed = requests.get(baseUrl + 'users/'+curuser+'/following')
+        me_followed = me_followed.json()
+        me_user1 = requests.get(baseUrl + 'users/'+curuser+'')
+        me_user = me_user1.json()
+        return render_template('profileforOtherUser.html',me_user=me_user, me_notifications=me_notifications,me_followed=me_followed,me_following_questions=me_following_questions,me_interests=me_interests,whotofollowusers= whotofollowusers, followableusers= notfollowed, curr= curr, curuser= curuser, user=str(id), s_code= s_code, json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6, questions=val7, nswered_questions=answered_questions)
 @app.route('/getCurrentUser', methods=['POST'])
 def getSession():
     return jsonify({"message": str(session['user'])})

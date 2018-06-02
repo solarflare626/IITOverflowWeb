@@ -435,3 +435,17 @@ function unfollow2(id) {
     });
 }
 
+function deleteCom(c_id,a_id){
+    $.ajax({
+        type: "DELETE",
+        url: "http://iitoverflow.herokuapp.com/api/Answers/"+a_id+"/comments/"+c_id ,
+        dataType: "json",
+
+        success: function(resp) {
+            console.log(resp)
+        },
+        error: function(e) {
+            console.log("error")
+        }
+    });
+}
