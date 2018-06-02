@@ -66,9 +66,19 @@ def tagslist():
 
     catresponse = urlopen(urlCategory).read().decode('utf-8')
     categorylist = json.loads(catresponse)
-
+ 
     return render_template('tags.html', category=categorylist, curuser=curuser)
 
+@app.route('/related/<int:qid>', methods=['GET', 'POST'])
+def viewRelated(qid):
+    curuser = str(session['user'])
+
+    url = (baseUrl + 'Questions/'+str(qid)+'?filter={"include":[{"relation": "user"},{"relation": "tags"},{"relation": "category"},{"relation": "answers", "scope":{"include": [{"relation": "user"},{"relation": "comments", "scope":{"include":{"relation":"user"}}}]}}]}')
+    question = requests.get(url)
+    question = question.json()
+    user = requests.get(baseUrl+'users/'+curuser)
+    user = user.json()
+    return render_template('related.html', question=question, user=user, curuser=curuser)
 
 @app.route('/newsfeed', methods=['GET', 'POST'])
 def question():

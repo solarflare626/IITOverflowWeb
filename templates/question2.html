@@ -399,7 +399,7 @@
          <div style="padding: 10px; background-color: white; overflow: hidden">
             <h3>Related Links</h3>
             <hr> {% for i in questions %}
-            <a class="links3Linkstitle">
+            <a class="links3Linkstitle" href="/related/{{i.id}}">
                 <span class="glyphicon glyphicon-link"></span> {{i.question}} </a> {% endfor %}
          </div>
         </div>
