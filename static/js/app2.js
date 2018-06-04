@@ -21,8 +21,9 @@ $(document).ready(function() {
     });
 });
 
-$(".follow").click(function() {
+$(document).on('click', '.follow', function() {
     var $this = $(this);
+    console.log('test1');
     $this.toggleClass('following');
     if ($this.is('.following')) {
         id = ($(this).attr('id'));
@@ -36,7 +37,7 @@ $(".follow").click(function() {
     $(this).removeClass('wait');
 });
 
-$(".follow2").click(function() {
+$(document).on('click', '.follow2', function() {
     var $this = $(this);
     $this.toggleClass('following');
     if ($this.is('.following')) {
@@ -51,6 +52,28 @@ $(".follow2").click(function() {
     }
 }).on('mouseleave', function() {
     $(this).removeClass('wait');
+});
+
+$(document).on('click', '#signout', function() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.disconnect();
+    auth2.signOut().then(function() {
+
+        $.ajax({
+            url: "http://localhost:5000/logout",
+            dataType: "json",
+            success: function(resp) {
+                if (resp.message = "okay") {
+                    window.location.replace('/');
+                } else {
+                    console.log("Something went wrong")
+                }
+            },
+            error: function(e) {
+                console.log('ERROR')
+            }
+        });
+    });
 });
 
 // function newfollow(id) {
@@ -128,28 +151,28 @@ function checker2(id, u_id) {
     }
 }
 
-function signOut() {
-
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.disconnect();
-    auth2.signOut().then(function() {
-
-        $.ajax({
-            url: "http://localhost:5000/logout",
-            dataType: "json",
-            success: function(resp) {
-                if (resp.message = "okay") {
-                    window.location.replace('/');
-                } else {
-                    console.log("Something went wrong")
-                }
-            },
-            error: function(e) {
-                console.log('ERROR')
-            }
-        });
-    });
-}
+// function signOut() {
+//
+//     var auth2 = gapi.auth2.getAuthInstance();
+//     auth2.disconnect();
+//     auth2.signOut().then(function() {
+//
+//         $.ajax({
+//             url: "http://localhost:5000/logout",
+//             dataType: "json",
+//             success: function(resp) {
+//                 if (resp.message = "okay") {
+//                     window.location.replace('/');
+//                 } else {
+//                     console.log("Something went wrong")
+//                 }
+//             },
+//             error: function(e) {
+//                 console.log('ERROR')
+//             }
+//         });
+//     });
+// }
 
 function getCurrentUser() {
     return $.ajax({

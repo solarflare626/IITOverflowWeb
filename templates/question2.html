@@ -66,7 +66,7 @@
                     <div class="dropdown"><a class="Notificationbutton  dropdown-toggle" data-toggle="dropdown" href="#" id="btn_notification"><span class="glyphicon glyphicon-bell"></span> Notifications</a><ul  style=" text-overflow:ellipsis;min-height: 200px; max-height: 500px;min-width:500px; overflow-y: auto;overflow-x: hidden" id="notification-content" class="dropdown-menu pull-right">
                         
                         </ul></div>
-                <a href="" onclick="signOut();return false;">
+                <a style="cursor: pointer" id="signout">
                     <span class="glyphicon glyphicon-asterisk"></span> Logout</a>
 
             </div>
@@ -78,7 +78,10 @@
             <div class="profilepicture">
                 <img class="backgroundpic" src="../static/image/background1.jpg">
                 <div class="picture">
-                    <img class="profileimage" src="{{ user.picture }}"> </div>
+                    <a>
+                    <img style="cursor: pointer" class="profileimage" src="{{ user.picture }}">
+                    </a>
+                </div>
             </div>
             <div class="emailinfo">
                 <div class="namecont">
@@ -108,7 +111,9 @@
                 <div style="display: flex; flex-direction: row; text-align: left;">
                 <div  class="whotofollowPicture" style="margin-left:5%; width: 40%;display: inline-block; text-align: left;  position: relative;  ">
                 <div class="picture1">
-                    <img class="profileimage" src="{{ i.picture }}">
+                    <a href="{{ url_for('.profile', id = i.id) }}">
+                    <img style="cursor: pointer" class="profileimage" src="{{ i.picture }}">
+                    </a>
                 </div>
                 </div>
                 <div class="whotofollowNamediv" id="{{"whotoFollow_{0}".format(i.id)}}" style="width: 40%;  display: inline-block; text-align: left;">
@@ -170,7 +175,7 @@
                 {% for i in questions|reverse %}
 
 
-                <div id="{{ " newqedit_{0} ".format(i.id)}}" style="display: block;" class="newdiv">
+                <div id="{{ "newqedit_{0}".format(i.id)}}" style="display: block;" class="newdiv">
 
                     <button class="duplicatebutton btn btn-danger" id="{{ " duplicate_{0} ".format(i.id)}}" style="display: none;">Mark as Duplicate</button>
 
@@ -186,14 +191,18 @@
                         </div>
 
                         <div class="titlepostpicture">
-                            <img src="{{ i.user.picture }}">
+                            <a href="{{ url_for('.profile', id = i.id) }}">
+                            <img style="cursor: pointer" src="{{ i.user.picture }}">
+                            </a>
                         </div>
-                        <h4 class="titlepostname">{{ i.user.displayname }}
+                        <a href="{{ url_for('.profile', id = i.id) }}">
+                        <h4  class="titlepostname">{{ i.user.displayname }}
                             <br>
+
                             <h6 style="margin: 0;">{{i.createdAt}}</h6>
                             <hr style="margin:0;">
-
                         </h4>
+                        </a>
                         <h5 class="titlepostTitle">
                             <div style="cursor: pointer" onclick="thisonclick({{ i.id }})"><a style="outline: none; text-decoration: none;">Title:</a> {{i.question|safe}} </div> <a style="cursor: pointer" class="showallButton" type="button" title="Show all"  id="{{i.id}}">Show description</a></h5>
                     </div>
@@ -227,13 +236,15 @@
 
                         {% for answer in i.answers|reverse %}
 
-                        <div class="comments-container {{ "comments-container_{0}".format(i.id)}}" id={{ "comments-container_{0}".format(i.id)}}>
+                        <div class="comments-container {{ "comments-container_{0}".format(i.id)}} delme{{ answer.id }}" id="{{"comments-container_{0}".format(i.id)}}">
                            <br>
                             <ul id="comments-list" class="comments-list" style="margin: 0;">
                                 <li>
                                     <div class="comment-main-level">
-                                        <div class="picture2">
-                                            <img src="{{answer.user.picture}}" style="width: 100%; height: 100%;">
+                                        <div class="picture2" id="{{ answer.id }}">
+                                            <a href="{{ url_for('.profile', id = i.id) }}">
+                                            <img style="cursor: pointer" src="{{answer.user.picture}}" style="width: 100%; height: 100%;">
+                                            </a>
                                         </div>
                                         <div class="comment-box" style="  border: 1px solid #801515; background-color: white; width: 80%;  border-radius: 10px; padding: 10px; margin-left: 15%; text-align: left;">
                                                 <div class="comment-head">
@@ -241,7 +252,7 @@
                                                         <div class="answerdivbutton" style="margin-left: 30%;">
                                                                 {% if user.id == answer.user.id%}
                                                                 <button id="{{answer.id}}" class="fa fa-edit edit" title="Edit" style="margin: 5px;"></button>
-                                                                <button id="{{answer.id}}" class="fa fa-trash heart" title="Delete" style="margin: 5px;"></button>
+                                                                <button id="{{answer.id}}" class="fa fa-trash heart forDEL" title="Delete" style="margin: 5px;"></button>
                                                                 {% endif %}
                                                                 <button id="{{answer.id}}" class="fa fa-reply heart" style="margin: 5px;"></button>
                                                                 <button id="{{answer.id}}" onclick="answerUpvote({{ answer.id }})" class="workround1 fa fa-thumbs-up up thumbs-up" style="margin: 5px;"> 0</button>
@@ -382,7 +393,9 @@
             <hr> {% for i in leader %}
             <div class="whotoFollow1">
                 <div class="picture1">
-                    <img style="cursor: pointer" href="{{ url_for('.profile', id = i.id) }}" class="profileimage" src="{{ i.picture }}">
+                    <a href="{{ url_for('.profile', id = i.id) }}">
+                    <img style="cursor: pointer"  class="profileimage" src="{{ i.picture }}">
+                    </a>
                 </div>
                 <div class="whotoFollowName1">
                     <a style="cursor: pointer" href="{{ url_for('.profile', id = i.id) }}">{{i.displayname}}</a>
@@ -517,7 +530,7 @@
         });
         ///////////////////////////////////////////////////////////////////////////////////
         function confirmDelete(id) {
-            alert('Delete question?');
+            $('#newqedit_'+id).hide('slow', function(){ $('#newqedit_'+id).remove(); });
             $.ajax({
                 type: "DELETE",
                 url: "http://iitoverflow.herokuapp.com/api/Questions/" + id,
@@ -554,8 +567,9 @@
             });
         });
         ///////////////////////////////////////////////////////////////////////////////////
-        $(document).on('click', '.heart', function () {
-            console.log($(this));
+        $(document).on('click', '.forDEL', function () {
+            var id = $(this).attr('id');
+            $('.delme'+id).hide('slow', function(){ $('.delme'+id).remove(); });
             var delbutton = $(this).attr('id');
             $.ajax({
                 type: "DELETE",
