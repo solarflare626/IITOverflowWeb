@@ -104,21 +104,21 @@
             <div style="background-color: white; padding: 10px; text-align: center;" >
             <h4 style="text-align: left; margin: 0; padding: 10px 0 0 0;">Who to Follow</h4>
             <hr> {% for i in followableusers %}
-            <div class="whotoFollow" id = {{"whotoFollow_{0}".format(i.id)}}>
+            <div class="whotoFollow" id="{{"whotoFollow_{0}".format(i.id)}}">
                 <div style="display: flex; flex-direction: row; text-align: left;">
                 <div  class="whotofollowPicture" style="margin-left:5%; width: 40%;display: inline-block; text-align: left;  position: relative;  ">
                 <div class="picture1">
                     <img class="profileimage" src="{{ i.picture }}">
                 </div>
                 </div>
-                <div class="whotofollowNamediv" style="width: 40%;  display: inline-block; text-align: left;">
+                <div class="whotofollowNamediv" id="{{"whotoFollow_{0}".format(i.id)}}" style="width: 40%;  display: inline-block; text-align: left;">
                         <div class="whotoFollowName">
                             <a href="{{ url_for('.profile', id = i.id) }}">{{i.displayname}}</a>
                             <a>{{i.email}}</a>
                         </div>
                         </div>
 
-                <div class="whotofollowDivButton"  style="width: 40%;  display: inline-block; text-align: left; padding-top: 10px;  ">
+                <div class="whotofollowDivButton" id="{{"whotoFollow_{0}".format(i.id)}}"  style="width: 40%;  display: inline-block; text-align: left; padding-top: 10px;  ">
                     {% if i.id != user.id %}
                 <button id="{{"followa_{0}".format(i.id)}}" onclick = "followable('{{i.id}}')"  class="whotofollowButton">Follow</button>
                     {% endif %}
@@ -1679,12 +1679,14 @@
 
         });
 
+
         $(".whotoFollow").hover(function(){
-            $(".whotofollowDivButton").show('slow');
-            $(".whotofollowNamediv").hide('slow');
+            console.log(this.name)
+            $(".whotofollowDivButton#"+this.id).show('slow');
+            $(".whotofollowNamediv#"+this.id).hide('slow');
         }, function(){
-            $(".whotofollowDivButton").hide('slow');
-            $(".whotofollowNamediv").show('slow');
+            $(".whotofollowDivButton#"+this.id).hide('slow');
+            $(".whotofollowNamediv#"+this.id).show('slow');
 
         });
     </script>

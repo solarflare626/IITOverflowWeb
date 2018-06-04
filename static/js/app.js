@@ -44,6 +44,7 @@ function login(token) {
         },
         error: function(e) {
             var auth2 = gapi.auth2.getAuthInstance();
+            auth2.disconnect();
             auth2.signOut().then(function() {
                 window.location.replace("/?access_denied")
             })
