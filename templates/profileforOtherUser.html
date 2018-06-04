@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Profile</title>
+    <link rel="icon" type="image/png" href="../static/image/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="../static/css/mainprofile.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -55,7 +56,7 @@
 
                         <a href="{{ url_for('.question') }}"><span class="glyphicon glyphicon-home"></span>  Home</a>
                         <a href="{{ url_for('.profile', id=curuser)}}"><span class="glyphicon glyphicon-user"></span>  Profile</a>
-                        <div class="dropdown"><a class="Notificationbutton  dropdown-toggle" data-toggle="dropdown" href="#" id="btn_notification"><span class="glyphicon glyphicon-bell"></span> Notifications</a><ul  style=" text-overflow:ellipsis;min-height: 200px; max-height: 500px;min-width:500px; overflow-y: auto;overflow-x: hidden" id="notification-content" class="dropdown-menu pull-right">
+                        <div class="dropdown"  style="width: 20%; display: inline-block;"><a class="Notificationbutton  dropdown-toggle" data-toggle="dropdown" href="#" id="btn_notification"><span class="glyphicon glyphicon-bell"></span> Notifications</a><ul  style=" text-overflow:ellipsis;min-height: 200px; max-height: 500px;min-width:500px; overflow-y: auto;overflow-x: hidden" id="notification-content" class="dropdown-menu pull-right">
                         
                             </ul></div>
                         <a href="" onclick="signOut();return false;"><span class="glyphicon glyphicon-asterisk"></span> Logout</a>
@@ -78,13 +79,13 @@
                             <a type="submit" id="profile-FollowedQuestionButton">{{questionsfollowed}} Followed Questions</a>
                             <!-- <a type="submit" id="profile-AnsweredQuestionButton">{{answers}} Answered Questions</a>  -->
                             {% if s_code == 404%}
-                            <button id="followus" class="unfollow">
-                                <a class="msg-follow followbutton" id ="followusText" >Follow</a>
+                            <button id="followus" class="unfollow" style="cursor:pointer;  color: #801515;">
+                                <a style="cursor:pointer;  color: #801515;"class="msg-follow followbutton" id ="followusText" >Follow</a>
                             </button> {%else%}
-                            <button id="followus" class="unfollow">
-                                <a class="msg-follow followbutton" id= "followusText">Unfollow</a>
+                            <button id="followus" class="unfollow"style="cursor:pointer;  color: #801515;">
+                                <a style="cursor:pointer;  color: #801515;" class="msg-follow followbutton" id= "followusText">Unfollow</a>
                             </button> {%endif%} {% endblock %}
-                            <a class="messageprofile" style="cursor:pointer;" onclick="openConversation({{user | safe}})">Message</a>
+                            <a style="cursor:pointer;  color: #801515;" class="messageprofile" style="cursor:pointer;" onclick="openConversation({{user | safe}})">Message</a>
                         </div>
 
                     </div>
@@ -258,7 +259,7 @@
                             </a>
                     
 
-                    <div class="FollowingContainer">
+                    <!-- <div class="FollowingContainer">
 
                             {% for g in json_object1.following %}
                             <div class="FollowersRow">
@@ -281,8 +282,36 @@
                                 </div>
                             </div>
                             </a>
+                            </div>
                             {% endfor %}
-                        </div>
+                        </div> -->
+                        <div class="FollowingContainer">
+                                {% for g in json_object1.following %}
+                                <div class="FollowersRow">
+
+                                    <a href="{{ url_for('.profile', id = g.id) }}">
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="our-team">
+                                                <div class="FollowersPic">
+                                                    <img style="width: 100%; height: 100%;" src="{{ g.picture }}">
+                                                    <div class="team-content">
+                                                        <h3 class="FollowersTitle">{{ g.displayname }}</h3>
+                                                       
+                                                    </div>
+                                                </div>
+                                                <ul class="social">                                                  
+                                                        <button  onclick = "followedUser('{{g.id}}')" >
+                                                            <a style="color: white;" href="#"  id={{"followuser_{0}".format(g.id)}} class="followerButton">Unfollow</a>
+                                                        </button>                                                  
+                                                </ul>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </a>
+
+                                </div>
+                                {% endfor %}
+                            </div>
                 </div>
         </div>
     </div>

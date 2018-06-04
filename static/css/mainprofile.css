@@ -124,7 +124,8 @@ html {
     z-index: 9999;
     width: 100%;
     min-width: 1000px;
-    background: white;
+    color: white;
+    background: linear-gradient(to right,#90001f,rgb(118, 2, 28));
     height: 45px;
     box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.5);
 }
@@ -134,7 +135,7 @@ html {
     font-size: 20px;
     padding: 8px;
     text-decoration: none;
-    color: #5F7189;
+    color: white;
     margin: 2px 8px 10px 10px;
     position: relative;
     display: inline-block;
@@ -143,7 +144,8 @@ html {
 }
 
 .profile-nav a:hover {
-    color: #801515;
+    color: white;
+    background:#d84040 ;
     text-decoration: none;
 }
 
@@ -175,6 +177,7 @@ html {
 .profile-contentTopLinks {
     width: 100%;
     min-width: 1000px;
+    background: linear-gradient(to right,#90001f,rgb(118, 2, 28));
     margin: auto;
     height: 55px;
     box-sizing: border-box;
@@ -206,11 +209,12 @@ html {
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
+    color: white;
 }
 
 .profile-contentTopNav a {
     margin: 10px 10px 5px 10px;
-    color: #5F7189;
+    color: white;
     text-decoration: none;
     font-family: Poppins-Regular, sans-serif;
     font-weight: 900;
@@ -221,7 +225,7 @@ html {
 
 .profile-contentTopNav a:hover {
     text-decoration: none;
-    color: #801515;
+    color: white;
 }
 
 #followus{
@@ -247,7 +251,7 @@ html {
 .editprofilebutton {
     background-color: white;
     border: 2px solid #5F7189;
-    color: #5F7189;
+    color: #801515;
     width: 12%;
     height: 35px;
     border-radius: 30px;
@@ -311,7 +315,7 @@ html {
 }
 
 .profile-contentCenter {
-    border-bottom: 1px solid #E9EBEE;
+    border:2px solid #801515;
     width: 100%;
     clear: both;
     margin: auto;
@@ -376,7 +380,7 @@ html {
     float: right;
     margin-top: 10px;
     display: inline-block;
-    margin-right: 4%;
+    margin-right: 6%;
     padding: 3px;
     background-color: #801515;
     text-align: center;
@@ -769,6 +773,7 @@ button.following:not(.wait):hover .msg-unfollow {
     width: 50%;
     height: 50%;
     background: #fff;
+    border: 2px solid #801515;
     z-index: 4;
     position: fixed;
     top: 16%;
@@ -776,6 +781,7 @@ button.following:not(.wait):hover .msg-unfollow {
     left: 24%;
     display: none;
     padding: 15px;
+    text-align: center;
     -webkit-animation-duration: .5s;
     -webkit-animation-delay: .0s;
     -webkit-animation-fill-mode: both;
@@ -809,6 +815,10 @@ button.following:not(.wait):hover .msg-unfollow {
 
 .kv-avatar {
     display: inline-block;
+    padding: 10px;
+    border: 1px solid #801515;
+    border-radius: 10px;
+    height: 50px;
 }
 
 .kv-avatar .file-input {
@@ -850,13 +860,29 @@ button.following:not(.wait):hover .msg-unfollow {
 
 .submitEditbutton:hover {
     background-color: white;
-    color: #4AB3F4;
-    border-right: 2px solid #4AB3F4;
-    border-left: 2px solid #4AB3F4;
-    border-top: 2px solid #4AB3F4;
-    border-bottom: 2px solid #4AB3F4;
+    color: black;
+    border-right: 2px solid #801515;
+    border-left: 2px solid #801515;
+    border-top: 2px solid #801515;
+    border-bottom: 2px solid #801515;
 }
+#interest-contain{
+    border: 1px solid #801515;
+    margin-left: 13px;
+    border-radius: 10px;
+    margin-right: 3px;
 
+}
+#category-contain::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+#category-contain{
+    border: 1px solid #801515;
+    border-radius: 10px;
+    
+
+}
 .profile-linksInterest {
     margin-top: 5px;
     background: linear-gradient(to right, #D46A6A, #801515);
@@ -864,8 +890,7 @@ button.following:not(.wait):hover .msg-unfollow {
     text-align: left;
     padding: 3px;
     color: #801515;
-    
-Sh    border: 1px solid transparent;
+    border: 1px solid transparent;
 }
 
 .profile-linksInterest:hover {
@@ -913,7 +938,7 @@ Sh    border: 1px solid transparent;
     height: 15%;
     border-bottom: 1px solid #D1D1D1;
     text-overflow: ellipsis;
-    padding-bottom: 10px;
+    padding: 10px;
     color: #555;
     text-align: center;
 }

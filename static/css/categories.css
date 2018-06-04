@@ -29,7 +29,7 @@ html {
 }
 
 .landing {
-    background: linear-gradient(rgba(57, 96, 196, .8), rgba(93, 236, 252, .7)), url(../image/background1.jpeg);
+    background: linear-gradient(to right, rgb(128, 21, 21, .7), rgb(214, 107, 107, .8), rgb(128, 21, 21, .7)), url(../image/categories.jpeg);
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
@@ -38,7 +38,7 @@ html {
 }
 
 .features {
-    background: linear-gradient(rgba(57, 96, 196, 1.5), rgba(93, 236, 252, .8)), url(../image/categories.jpeg);
+    background: linear-gradient(to right, rgb(128, 21, 21, .7), rgb(214, 107, 107, .8), rgb(128, 21, 21, .7)), url(../image/categories.jpeg);
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
