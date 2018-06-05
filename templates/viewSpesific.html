@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -50,49 +49,38 @@
 
             <a href="{{ url_for('.question') }}" class="homeButton"><span class="glyphicon glyphicon-home"></span>  Home</a>
             <a href="{{ url_for('.profile', id = curuser) }}"><span class="glyphicon glyphicon-user"></span> Profile</a>
-            <a href="tags"><span class="glyphicon glyphicon-tags"></span> Tags</a>
+            <a href="/tags"><span class="glyphicon glyphicon-tags"></span> Tags</a>
             <a class="Notificationbutton"><span class="glyphicon glyphicon-bell"></span> Notifications</a>
-            <a href="" onclick="signOut();return false;"><span class="glyphicon glyphicon-asterisk"></span> Logout</a>
+            <a id="signout" style="cursor:pointer;"><span class="glyphicon glyphicon-asterisk"></span> Logout</a>
 
         </div>
     </div>
 
     <div class="specificTagQuestions">
-
-
-
-        <!-- ANSWER -->
-
-
         <div id="newsfeedParent">
-
             <div id="{{ "newqedit_{0}".format(i.id)}}" style="display: block;" class="newdiv">
 
                 <button class="duplicatebutton btn btn-danger" id="{{ "duplicate_{0}".format(i.id)}}" style="display: none;">Mark as Duplicate</button>
 
                 <div class="titlepost">
 
-                    <div class="titlepostpicture"><img src="{{ i.user.picture }}"></div>
+                    <div class="titlepostpicture"><a href="{{ url_for('.profile', id = i.user.id) }}"><img style="cursor: pointer" src="{{ i.user.picture }}"></a></div>
                     <div class=" editanddeleteButtonCont" style="float: right;">
                             {% if user.id == i.user.id %}
-                            <i onclick="showhide('{{i.id}}')" class="fa fa-edit Newsfeed-editButton" title="Edit"></i>
-                            <i onclick="showhide('{{i.id}}')" class="fas fa-trash-alt qheart" title="Delete"></i>
+                            <i style="cursor: pointer" onclick="showhide({{i.id}})" class="fa fa-edit Newsfeed-editButton" title="Edit"></i>
+                            <i style="cursor: pointer" onclick="confirmDelete({{i.id}})" class="fas fa-trash-alt qheart" title="Delete"></i>
                             {% endif %}
-                            <i onclick="showhide1('{{i.id}}')" class="fas fa-copy duplicate" title="Mark As Duplicate"></i>
+                            <i style="cursor: pointer" onclick="showhide1({{i.id}})" class="fas fa-copy duplicate" title="Mark As Duplicate"></i>
                         </div>
-                    <h4 class="titlepostname">{{ i.user.displayname }}
+                   <a href="{{ url_for('.profile', id = i.user.id) }}">
+                        <h4 class="titlepostname">{{ i.user.displayname }}
+                            <br>
+                        </h4>
+                   </a>
+                       <h6 style="margin: 0;">{{i.createdAt}}</h6>
+                            <hr style="margin:0;">
 
-                    </h4>
-                    <h6 style="margin: 0;">{{i.createdAt}}</h6>
-                    <hr style="margin:10px 10px 10px 80px;">
-                    <h5 class="titlepostTitle"><a style="outline: none;">Title:</a> {{i.question|safe}}<a class="showallButton" type="button" title="Show all"  id="{{i.id}}">Show description</a></h5>
-
-
-
-
-
-
-
+                    <h5 class="titlepostTitle"><a style="outline: none;">Title:</a> {{i.question|safe}}<a class="showallButton" style="cursor: pointer;" type="button" title="Show all"  id="{{i.id}}">Show description</a></h5>
                 </div>
 
                 <div style="padding: 10px; border-bottom: 1px solid #D1D1D1; ">
@@ -121,25 +109,29 @@
 
                         {% for answer in i.answers|reverse %}
 
-                        <div class="comments-container {{ "comments-container_{0}".format(i.id)}}" id={{ "comments-container_{0}".format(i.id)}}>
+                        <div class="comments-container {{ "comments-container_{0}".format(i.id)}} delme{{ answer.id }}" id={{ "comments-container_{0}".format(i.id)}}>
                            <br>
                             <ul id="comments-list" class="comments-list" style="margin: 0;">
                                 <li>
                                     <div class="comment-main-level">
                                         <div class="picture2">
-                                            <img src="{{answer.user.picture}}" style="width: 100%; height: 100%;">
+                                            <a href="{{ url_for('.profile', id = answer.user.id) }}">
+                                            <img style="cursor: pointer" src="{{answer.user.picture}}" style="width: 100%; height: 100%;">
+                                            </a>
+                                        </div>
                                         </div>
                                         <div class="comment-box" style=" border: 1px solid #801515; background-color: white; width: 80%;  border-radius: 10px; padding: 10px; margin-left: 15%; text-align: left;">
 
                                             <div class="comment-head">
+
                                                 <div class="answerdivbutton" style="margin-left: 30%;">
-                                                    {% if user.id == answer.user.id%}
-                                                    <button id="{{answer.id}}" class="fa fa-edit edit" title="Edit" style="margin: 5px;"></button>
-                                                    <button id="{{answer.id}}" class="fa fa-trash heart" title="Delete" style="margin: 5px;"></button>
-                                                    {% endif %}
-                                                    <button id="{{answer.id}}" class="fa fa-reply heart" style="margin: 5px;"></button>
-                                                    <button id="{{answer.id}}" onclick="answerUpvote({{ answer.id }})" class="workround1 fa fa-thumbs-up up thumbs-up" style="margin: 5px;"> 0</button>
-                                                    <button id="{{answer.id}}" onclick="answerDownvote({{ answer.id }})" class="workround2 fa fa-thumbs-down down thumbs-down" style="margin: 5px;"> 0</button>
+                                                        {% if user.id == answer.user.id%}
+                                                        <button id="{{answer.id}}" class="fa fa-edit edit" title="Edit" style="margin: 5px; cursor: pointer;"></button>
+                                                        <button id="{{answer.id}}" class="fa fa-trash heart forDEL" title="Delete" style="margin: 5px; cursor: pointer;"></button>
+                                                        {% endif %}
+                                                        <button id="{{answer.id}}" class="fa fa-reply heart" style="margin: 5px;"></button>
+                                                        <button id="{{answer.id}}" onclick="answerUpvote({{ answer.id }})" class="workround1 fa fa-thumbs-up up thumbs-up" style="margin: 5px; cursor: pointer;"> 0</button>
+                                                        <button id="{{answer.id}}" onclick="answerDownvote({{ answer.id }})" class="workround2 fa fa-thumbs-down down thumbs-down" style="margin: 5px; cursor: pointer;"> 0</button>
                                                 </div>
                                                 <div>
                                                  <h5 class="answerdisplayname">{{answer.user.displayname}}
@@ -168,7 +160,7 @@
                                 <li>
                                         <div class="comment-box" style=" border: 1px solid #801515; background-color: white; width: 70%; margin: 0; margin-left: 25%; margin-top: 5px; border-radius: 5px; padding: 5px;">
                                                 <div class="comment-head">
-                                                    <span>{{comment.user.displayname}}<i id="{{comment.id}}" class="fa fa-trash heart"  style="float: right;" title="Delete" ></i></span>
+                                                    <span>{{comment.user.displayname}}<i id="{{comment.id}}" class="fa fa-trash heart"  style="float: right; cursor: pointer;" title="Delete" ></i></span>
                                                    <p>{{comment.createdAt}} </p>
 
                                                 </div>
@@ -184,7 +176,7 @@
 
                                     </ul>
                                     <div class="newpostinput" id={{answer.id}}>
-                                        <input type='text' class="commenttextarea" id="{{ "comment_{0}".format(answer.id) }}" placeholder="Write a Comment">
+                                        <input type='text' class="commenttextarea" id={{ "comment_{0}".format(answer.id) }} placeholder="Write a Comment">
 
                                         <br>
                                         <br>
@@ -208,7 +200,7 @@
 
 
                     <div class="answerdiv" id={{ "answerdiv_{0}".format(i.id)}}>
-                        <textarea class="answertextarea" id="{{ "answer_{0}".format(i.id) }}" placeholder="Write an Answer"> </textarea>
+                        <textarea class="answertextarea" id={{ "answer_{0}".format(i.id) }} placeholder="Write an Answer"> </textarea>
                         <input class="submitanswerbutton" id={{i.id}} value=submit type="button">
                     </div>
                 </div>
@@ -237,8 +229,8 @@
                                 </button>
                             </div>
                             <div class="newsfeedPopUpButton-Cont">
-                                <a id={{i.id}} class="submitbutton5" type="submit">Save</a>
-                                <a onclick="showhide({{ i.id }})">Cancel</a>
+                                <a style="cursor:pointer;" id="{{i.id}}" class="submitbutton5" type="submit">Save</a>
+                                <a style="cursor:pointer;" onclick="showhide({{ i.id }})">Cancel</a>
                             </div>
                         </form>
                     </div>
@@ -247,25 +239,6 @@
             <!-- ANSWER -->
 
         </div>
-
-
-
-
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!-- The Modal -->
     <div id="myModal" class="modal">
 
@@ -335,36 +308,35 @@
         }
     }
 </script>
-
-
-
 <!-- PHILLIP -->
-
-
-
-
-
 <script>
-    $(".qheart").on('click', function() {
-        console.log($(this));
-        var qdelbutton = $(this).attr('id');
+        $(document).ready(function() {
+            gapi.load('auth2', function () {
+                gapi.auth2.init();
+            });
+        });
 
+    $(document).on('click', '#signout', function() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.disconnect();
+    auth2.signOut().then(function() {
 
-
-        //alert(qdelbutton)
         $.ajax({
-            type: "DELETE",
-            url: "http://iitoverflow.herokuapp.com/api/Questions/" + qdelbutton,
-            success: function(result) {
-                alert('I was the bug in Spec tags');
-
-
+            url: "http://localhost:5000/logout",
+            dataType: "json",
+            success: function(resp) {
+                if (resp.message = "okay") {
+                    window.location.replace('/');
+                } else {
+                    console.log("Something went wrong")
+                }
             },
-            error: function(result) {
-                //alert(result);
+            error: function(e) {
+                console.log('ERROR')
             }
         });
-    })
+    });
+});
 
 
     $(".submitbutton5").click(function() {
@@ -398,21 +370,13 @@
                 qid = result.id;
 
                 var tagslength = cleartags.length;
-
-
-
-
-
                 for (i = 0; i < tagslength; i++) {
-
-
 
                     var data1 = {
                         "name": cleartags[i].innerText,
                         "categoryId": category
                     };
                     console.log(cleartags[i].innerText);
-
 
                     // EDIT
 
@@ -426,77 +390,19 @@
                         success: function(result1) {
                             // //alert('ok');
                             console.log(result1);
-
-
                         },
                         error: function(result1) {
                             ////alert(result1);
                             console.log(JSON.stringify(result1));
                         }
                     });
-
-
-
-
-
-                    // EDIT
-
                 }
-
-
-
-
-
-
-
-
-                // $("#newsfeedParent").load(location.href + " #contentCenter");
-
             },
             error: function(result) {
                 //alert('error');
             }
         });
-
-
-
-
-
-
     })
-
-
-    //  $('.newpostinput').keydown(function (e){
-    //  if(e.keyCode == 13){
-    //      //alert('you pressed enter ^_^');
-    //      var aid = $(this).attr('id');
-    //      var commentText = document.getElementsByClassName('commenttextarea');
-    //      var data = {
-    //          "answerId": aid,
-    //          "comment":  commentText
-    //      }
-    //      $.ajax({
-    //                      type: "POST",
-    //                      url: "http://iitoverflow.herokuapp.com/api/Comments",
-    //                      data: JSON.stringify(data),
-    //                      dataType: "json",
-    //                      contentType: "application/json",
-    //                      success: function(result) {
-    //                          //alert('ok');
-
-    //                      },
-    //                      error: function(result) {
-    //                          //alert(result);
-
-    //                      }
-    //                  });
-
-
-
-
-
-    //  }
-    // }
 </script>
 
 
@@ -623,11 +529,71 @@
             $(".answerAndcommentsCont").hide();
 
 });
+
+        $(document).on('click', '.forDEL', function () {
+            var id = $(this).attr('id');
+            $('.delme'+id).hide('slow', function(){ $('.delme'+id).remove(); });
+            var delbutton = $(this).attr('id');
+            $.ajax({
+                type: "DELETE",
+                url: "http://iitoverflow.herokuapp.com/api/Answers/" + delbutton,
+                success: function (result) {
+                    //RELOAD
+                },
+                error: function (result) {
+                }
+            });
+        });
 </script>
 <!--<link rel="stylesheet" href="../static/css/new.css">-->
 
 
-<!-- PHILLIP -->
+<script>
+    function confirmDelete(id) {
+            $('#newqedit_'+id).hide('slow', function(){ $('#newqedit_'+id).remove(); });
+            $.ajax({
+                type: "DELETE",
+                url: "http://iitoverflow.herokuapp.com/api/Questions/" + id,
+                success: function (result) {
+                    alert('Successfully deleted question!');
+                },
+                error: function (result) {
+                    alert('Error in deleting question!');
+                }
+            });
+    }
+
+    function showhide(id) {
+            var div = document.getElementById("qedit_" + id);
+            var div1 = document.getElementById("newqedit_" + id);
+            if (div.style.display !== "none") {
+                div.style.display = "none";
+                div1.style.display = "block";
+                $("#hider").fadeOut("slow");
+                $("#post").fadeOut('slow');
+                $("#form2").css("z-index", "11000");
+                $("#newpost").css("z-index", "10001");
+            } else {
+                div.style.display = "block";
+                div1.style.display = "block";
+                $("#hider").fadeIn('slow');
+                $("#post").fadeIn('slow');
+                $("#form2").css("z-index", "11000");
+                $("#newpost").css("z-index", "9999");
+            }
+        }
+        ///////////////////////////////////////////////////////////////////////////////////
+        function showhide1(id) {
+            var x = document.getElementById("duplicate_" + id);
+            if (x.style.display === "none") {
+                x.style.display = "block";
+                $("#hider").fadeOut("slow");
+            } else {
+                x.style.display = "none";
+                $("#hider").fadeOut("slow");
+            }
+        }
+</script>
 
 </html>
 
