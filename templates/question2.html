@@ -192,11 +192,11 @@
                         </div>
 
                         <div class="titlepostpicture">
-                            <a href="{{ url_for('.profile', id = i.id) }}">
+                            <a href="{{ url_for('.profile', id = i.user.id) }}">
                             <img style="cursor: pointer" src="{{ i.user.picture }}">
                             </a>
                         </div>
-                        <a href="{{ url_for('.profile', id = i.id) }}">
+                        <a href="{{ url_for('.profile', id = i.user.id) }}">
                         <h4  class="titlepostname">{{ i.user.displayname }}
                             <br>
                         </h4>
@@ -1582,8 +1582,9 @@
             element +=
                 '</div><div class="input-group" style="padding-top:4px;padding-bottom:4px;"><input id="btn-input" class="form-control input-sm chat_input" placeholder="Write your message here..." type="text" style="float:bottom"><span class="input-group-btn"><button class="btn-chat btn btn-primary btn-sm">Send</button> </span></div></div></div>';
             // Insert msg body
-            document.getElementsByTagName("body")[0].innerHTML = document.getElementsByTagName("body")[0].innerHTML +
-                element;
+            //document.getElementsByTagName("body")[0].innerHTML = document.getElementsByTagName("body")[0].innerHTML + element;
+
+            $("body").append(element);
             popups.unshift(id);
             calculate_popups();
             $.ajax({

@@ -345,7 +345,7 @@
                 <div id="interest-contain" style="width: 47%; float: left; overflow-y: auto; height: 40%;">
                     <h5>Interests: </h5>
                     {% for i in interests%}
-                    <button value="{{i.id}}" type="button" class="interestbuttons">{{ i.name }}</button>
+                    <button value="{{i.id}}" type="button" class="interestbuttons" id="">{{ i.name }}</button>
                     {% endfor %}
                 </div>
                 <div id="category-contain" style="width: 47%; float: left; overflow-y: auto; height: 40%;">
@@ -449,19 +449,24 @@
     });
     
     $("#submitProfile").on("click", function(e) {
-        e.preventDefault();
+        console.log("Submit Profile button is clicked.");
+        if (interests_list.length == 0) {
+            console.log("Interests must not be empty!");
+            return false;
+        } else {
+            e.preventDefault();
         var formdata = new FormData(); 
         var file = $('#avatar-1').prop('files');
         console.log(file);
         var name = $("#dispName").val();
         var names = $("#inter").val();
         var user = {
-            "displayname": name,
-            "interests": names
+            "displayname": name
+            //"interests": names
         };  
         console.log(JSON.stringify(user));
         $.ajax({
-            url: "http://iitoverflow.herokuapp.com/api/users/{{ curuser }}",
+            url: "http://iitoverflow.herokuapp.com/api/users/{{curuser}}",
             type: "PATCH",
             data: JSON.stringify(user),
             dataType: "JSON",
@@ -511,12 +516,12 @@
                         dataType: "json",
                         success: function (data3) {
                             console.log("interests are deleted")
-                            interests.forEach(function(cat){
+                            interests_list.forEach(function(cat){
                                 console.log(cat);
                                 $.ajax({
                                 url: "http://iitoverflow.herokuapp.com/api/users/"+userId+"/interests/rel/"+cat,
                                 type: "PUT",
-                                data: JSON.stringify(user),
+                                data: JSON.stringify({"userId": userId, "categoryId": cat}),
                                 dataType: "json",
                                 success: function (data3) {
                                     console.log("TEST 3");
@@ -539,6 +544,7 @@
             }
         });
         $("#modalProf").hide();
+        }
     });
    
 
@@ -581,13 +587,14 @@
 </script>
 
 <script type="text/javascript">
-    var interests = [];
+    var interests_list = [];
     {% for i in interests %}
-        var id = {{i.id}};
-        id = id.toString();
-        interests.push(id);
+        var id = "{{i.id}}";
+        console.log(id);
+        interests_list.push(id);
+        console.log("Int IDs 1: " + interests_list + " IntList: " + interests_list.length);
     {% endfor %}
-
+        console.log("Int IDs 2: " + interests_list + " IntList: " + interests_list.length);
     var interests_contain= document.getElementById("interest-contain");
     var category_contain = document.getElementById("category-contain");
     $(document).on('click', '.categorybuttons', function() {
@@ -599,18 +606,18 @@
         btn.setAttribute("value", $(this).val());
         btn.appendChild(text);
         interests_contain.appendChild(btn);
-        interests.push(categoryid);
+        interests_list.push(categoryid);
         $(this).remove();
-        console.log(interests);
+        console.log("Int IDs 3: " + interests_list + " IntList: " + interests_list.length);
     });
 
 
     $(document).on('click', '.interestbuttons', function() {
         var id = $(this).val();
-        var index = interests.indexOf(id);
+        var index = interests_list.indexOf(id);
         // alert("Index in interests: " + index);
         if (index > -1) {
-            interests.splice(index, 1);
+            interests_list.splice(index, 1);
         }
         // alert("List of ids: " + interests);
         categoryname = $(this).text();
@@ -621,6 +628,7 @@
         btn.setAttribute("value", categoryid);
         btn.appendChild(text);
         category_contain.appendChild(btn);
+        console.log("Int IDs 4: " + interests_list + " IntList: " + interests_list.length);
         $(this).remove();
     });
 </script>
