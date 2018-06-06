@@ -14,7 +14,8 @@ body {
     overflow-x: hidden;
     min-width: 800px;
     min-height: 100%;
-    background-color:rgb(181, 177, 175);
+    background-color:	#580D16;
+    /* background-color:rgb(181, 177, 175); */
     font-family: Poppins-Regular, sans-serif;
 }
 
@@ -505,9 +506,10 @@ ul {
 }
 
 .whotofollowcont {
-    padding: 4px;
+    padding: 1px;
     width: 100%;
-    background: linear-gradient(to right, #D46A6A, #801515);
+    /* background: #801515; */
+    background-color: white;
     font-family: Poppins-Regular, sans-serif;
     text-align: center;
     clear: both;
@@ -525,24 +527,24 @@ ul {
 
 .whotoFollow {
     width: 100%;
-    height: 25%;
-    padding: 10px;
-    border-bottom: 1px solid #D1D1D1;
+    height: 26%;
+    padding: 12px 10px 12px 10px;
     text-overflow: ellipsis;
     margin: 0 auto;
-    color: #555;
+    color: white;
     text-align: center;
     transition: background-color 0.5s linear;
 }
 
 .whotoFollowName a {
-    color: #555;
+    color: white;
     font-weight: 1000px;
     text-decoration: none;
 }
 
 .whotoFollow:hover {
-    background-color: rgb(221, 109, 109, 0.9);
+    background-color: #590E15;
+    /* background-color: rgb(221, 109, 109, 0.9); */
     color: white;
 }
 
@@ -551,12 +553,13 @@ ul {
     height: 27%;
     border-bottom: 1px solid #D1D1D1;
     text-overflow: ellipsis;
-    padding-bottom: 10px;
+    padding
+    : 10px;
     color: #555;
 }
 
 .whotoFollow1:hover {
-    background-color: rgb(221, 109, 109, 0.1);
+    background-color: 	#590E15;
     color: white;
 }
 
@@ -784,7 +787,7 @@ ul {
     margin: 0;
     width: 100%;
     height: 35px;
-    background: linear-gradient(to right, #D46A6A, #801515);
+    background-color: #2E060D;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 }
@@ -1054,27 +1057,28 @@ ul {
 .answerdiv {
     border-top: 1px solid #D1D1D1;
     position: relative;
+    text-align: center;
 }
 
 .submitanswerbutton:hover {
     background-color: white;
     color: white;
-    border: 0 solid #000;
+    border: 1 solid #000;
     background-color: #801515;
     border-left: 1px solid white;
     border-right: 1px solid white;
     border-top: 1px solid white;
     border-bottom: 1px solid white;
-    bottom: 3px;
-    right: 13px;
-    padding: 8px;
+    padding: 10px;
     outline: none;
 }
 
 .submitanswerbutton {
+    width: 95%;
     position: relative;
+  
+    margin-top:   10px;
     bottom: 3px;
-    right: 13px;
     background-color: white;
     border-width: 2px;
     border-color: white;
@@ -1172,11 +1176,11 @@ ul {
 }
 
 .links2 {
-    background: linear-gradient(to right, #D46A6A, #801515);
+    background: white;
     margin-right: 7px;
     margin-top: 5px;
     margin-bottom: 8px;
-    padding: 4px;
+    padding: 1px;
     width: 100%;
     height: 60%;
     float: left;
@@ -1224,8 +1228,8 @@ ul {
 }
 
 .links3 {
-     background: linear-gradient(to right, #D46A6A, #801515);
-    padding: 4px;
+     background:  white;
+    padding: 1px;
     width: 100%;
     float: left;
     background-color: white;
