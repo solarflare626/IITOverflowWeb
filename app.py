@@ -78,7 +78,7 @@ def viewRelated(qid):
     question = question.json()
     user = requests.get(baseUrl+'users/'+curuser)
     user = user.json()
-    return render_template('related.html', question=question, user=user, curuser=curuser)
+    return render_template('related.html', i=question, user=user, curuser=curuser)
 
 @app.route('/newsfeed', methods=['GET', 'POST'])
 def question():
@@ -197,10 +197,9 @@ def profile(id):
     user = str(id)
     curr = session['user']
     curuser = str(curr)
-    print(curr)
+
     if id == curr:
         url = ('http://iitoverflow.herokuapp.com/api/users/'+user+'?filter[include]=questions&filter[include]=interests')
-        print(user)
         response =   requests.get(url)
         json_object = response.json()
         url = ('http://iitoverflow.herokuapp.com/api/users/'+user +'/questionsfollowed?filter={"include":{"relation":"user"}}')
@@ -245,7 +244,7 @@ def profile(id):
 
         notfollowed = []
         for user in followableusers:
-            print(user)
+            # print(user)
             u = requests.head('http://iitoverflow.herokuapp.com/api/users/'+curuser+'/following/rel/'+str(user["id"]))
             if u.status_code == 404:
                 notfollowed.append(user)
@@ -286,11 +285,11 @@ def profile(id):
     else:
         followurl = ('http://iitoverflow.herokuapp.com/api/users/'+curuser+ '/following/rel/'+user+'')
         response = requests.head(followurl)
-        print(response.status_code)
+        # print(response.status_code)
         s_code = response.status_code
 
         url = ('http://iitoverflow.herokuapp.com/api/users/'+user+'?filter[include]=questions&filter[include]=interests')
-        print(user)
+        # print(user)
         response = requests.get(url)
         json_object = response.json()
         url = ('http://iitoverflow.herokuapp.com/api/users/'+user +'/questionsfollowed?filter={"include":{"relation":"user"}}')
@@ -323,7 +322,7 @@ def profile(id):
 
         notfollowed = []
         for user in followableusers:
-            print(user)
+            # print(user)
             u = requests.head('http://iitoverflow.herokuapp.com/api/users/'+curuser+'/following/rel/'+str(user["id"]))
             if u.status_code == 404:
                 notfollowed.append(user)
@@ -354,6 +353,7 @@ def profile(id):
         me_user1 = requests.get(baseUrl + 'users/'+curuser+'')
         me_user = me_user1.json()
         return render_template('profileforOtherUser.html',me_user=me_user, me_notifications=me_notifications,me_followed=me_followed,me_following_questions=me_following_questions,me_interests=me_interests,whotofollowusers= whotofollowusers, followableusers= notfollowed, curr= curr, curuser= curuser, user=str(id), s_code= s_code, json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6, questions=val7, nswered_questions=answered_questions)
+
 @app.route('/getCurrentUser', methods=['POST'])
 def getSession():
     return jsonify({"message": str(session['user'])})

@@ -49,7 +49,7 @@
         <div class="newsfeed-nav">
             <div class="newsfeed-search">
                 <form action="/search" method="POST">
-                    <button id="autocom"class="newsfeed-searchbutton" type="submit">
+                    <button id="autocom" class="newsfeed-searchbutton" type="submit">
                         <span class="glyphicon glyphicon-search"></span>
                     </button>
                     <input id="autocomplete" name="searchbar" class="newsfeed-searchbar" type="text" placeholder="Search..">
@@ -199,11 +199,10 @@
                         <a href="{{ url_for('.profile', id = i.id) }}">
                         <h4  class="titlepostname">{{ i.user.displayname }}
                             <br>
-
-                            <h6 style="margin: 0;">{{i.createdAt}}</h6>
-                            <hr style="margin:0;">
                         </h4>
                         </a>
+                                 <h6 style="margin: 0;">{{i.createdAt}}</h6>
+                            <hr style="margin:0;">
                         <h5 class="titlepostTitle">
                             <div style="cursor: pointer" onclick="thisonclick({{ i.id }})"><a style="outline: none; text-decoration: none;">Title:</a> {{i.question|safe}} </div> <a style="cursor: pointer" class="showallButton" type="button" title="Show all"  id="{{i.id}}">Show description</a></h5>
                     </div>
@@ -252,10 +251,10 @@
                                                     
                                                         <div class="answerdivbutton" style="margin-left: 30%;">
                                                                 {% if user.id == answer.user.id%}
-                                                                <button id="{{answer.id}}" class="fa fa-edit edit" title="Edit" style="margin: 5px;"></button>
-                                                                <button id="{{answer.id}}" class="fa fa-trash heart forDEL" title="Delete" style="margin: 5px;"></button>
+                                                                <button id="{{answer.id}}" class="fa fa-edit edit" title="Edit" style="margin: 5px; cursor: pointer;"></button>
+                                                                <button id="{{answer.id}}" class="fa fa-trash heart forDEL" title="Delete" style="margin: 5px; cursor: pointer;"></button>
                                                                 {% endif %}
-                                                                <button id="{{answer.id}}" class="fa fa-reply heart" style="margin: 5px;"></button>
+                                                                <button id="{{answer.id}}" class="fa fa-reply heart" style="margin: 5px; cursor: pointer;"></button>
                                                                 <button id="{{answer.id}}" onclick="answerUpvote({{ answer.id }})" class="workround1 fa fa-thumbs-up up thumbs-up" style="margin: 5px;"> 0</button>
                                                                 <button id="{{answer.id}}" onclick="answerDownvote({{ answer.id }})" class="workround2 fa fa-thumbs-down down thumbs-down" style="margin: 5px;"> 0</button>
                                                         </div>
@@ -289,7 +288,7 @@
                                         <div class="comment-head">
                                             <span>{{comment.user.displayname}}
                                                 {% if user.id == comment.user.id %}
-                                                    <i id="{{comment.id}}" style="cursor: pointer" onclick="deleteCom({{ comment.id }},{{ answer.id }})" class="fa fa-trash heart"  style="float: right;" title="Delete" ></i></span>
+                                                    <i id="{{comment.id}}" style="cursor: pointer" onclick="deleteCom({{ comment.id }},{{ answer.id }})" class="fa fa-trash heart"  style="float: right; cursor: pointer;" title="Delete" ></i></span>
                                                 {% endif %}
                                            <p>{{comment.createdAt}} </p> 
 
@@ -362,8 +361,8 @@
                                 </button>
                             </div>
                             <div class="newsfeedPopUpButton-Cont">
-                                <a id={{i.id}} class="submitbutton5" type="submit">Save</a>
-                                <a onclick="showhide({{ i.id }})">Cancel</a>
+                                <a style="cursor:pointer;" id={{i.id}} class="submitbutton5" type="submit">Save</a>
+                                <a style="cursor:pointer;" onclick="showhide({{ i.id }})">Cancel</a>
                             </div>
                         </form>
                     </div>
