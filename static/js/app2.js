@@ -475,3 +475,5 @@ function deleteCom(c_id,a_id){
         }
     });
 }
+
+

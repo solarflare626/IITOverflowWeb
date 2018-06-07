@@ -397,7 +397,9 @@ def viewQuestion(id):
     url = (baseUrl + 'Questions/'+id+'?filter={"include":[{"relation": "user"},{"relation": "tags"},{"relation": "category"},{"relation": "answers", "scope":{"include": [{"relation": "user"},{"relation": "comments", "scope":{"include":{"relation":"user"}}}]}}]}')
     response = requests.get(url)
     i = response.json()
-    return render_template('viewSpesific.html', i=i, curuser=curuser, user=user)
+    categories = requests.get(baseUrl + 'Categories')
+    categories = categories.json()
+    return render_template('viewSpesific.html', i=i, curuser=curuser, user=user, categories = categories)
 
 @app.after_request
 def add_cors(resp):
