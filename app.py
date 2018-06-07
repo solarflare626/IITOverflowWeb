@@ -205,9 +205,10 @@ def profile(id):
         url = ('http://iitoverflow.herokuapp.com/api/users/'+user +'/questionsfollowed?filter={"include":{"relation":"user"}}')
         response = requests.get(url)
         followed_questions = response.json()
-
-        curl = ('http://iitoverflow.herokuapp.com/api/users/'+user +'?filter[counts]=followers&filter[counts]=following&filter[counts]=answers&filter[counts]=questionsfollowed&filter[counts]=questions&filter[counts]=interests&filter[include]=interests&filter[include]=followers&filter[include]=following&filter[include]=answers&filter[include]=questionsfollowed&filter[include]=questions')
-        response = requests.get(curl)   
+        curl = ('http://iitoverflow.herokuapp.com/api/users/'+user +'?filter[counts]=followers&filter[counts]=following&filter[counts]=answers&filter[counts]=questionsfollowed&filter[counts]=questions&filter[counts]=interests&filter[include]=interests&filter[include]=followers&filter[include]=following&filter[include]=answers&filter[include]=questionsfollowed&filter[include]=questions&filter[questions]=category')
+        response = requests.get(curl)
+        posts = requests.get(baseUrl+'users/'+user+'/questions?filter={"include": [{"relation": "category"}, {"relation": "user"}]}')
+        posts = posts.json()
         json_object1 = response.json()
         val3 = json_object1['followersCount']
         val4 = json_object1['followingCount']   
@@ -281,7 +282,7 @@ def profile(id):
         me_followed = me_followed.json()
         me_user1 = requests.get(baseUrl + 'users/'+curuser+'')
         me_user = me_user1.json()
-        return render_template('profile.html',me_user=me_user, me_notifications=me_notifications,me_followed=me_followed,me_following_questions=me_following_questions,me_interests=me_interests,whotofollowusers=whotofollowusers, categories=categories,json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6, questions=val7, interests=val8, answered_questions=answered_questions, curuser=curuser, followableusers=notfollowed, user= user)
+        return render_template('profile.html',posts = posts, me_user=me_user, me_notifications=me_notifications,me_followed=me_followed,me_following_questions=me_following_questions,me_interests=me_interests,whotofollowusers=whotofollowusers, categories=categories,json_object=json_object, json_object1=json_object1, followers=val3, following=val4, followed_questions=followed_questions, answers=val5, questionsfollowed=val6, questions=val7, interests=val8, answered_questions=answered_questions, curuser=curuser, followableusers=notfollowed, user= user)
     else:
         followurl = ('http://iitoverflow.herokuapp.com/api/users/'+curuser+ '/following/rel/'+user+'')
         response = requests.head(followurl)
