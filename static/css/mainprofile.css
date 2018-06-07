@@ -409,15 +409,46 @@ html {
     width: 100%;
     margin-bottom: 10px;
     padding-right: 13px;
+    position: relative;
+    text-align: left;
 }
 
 .profilePostButton a {
-    width: 18%;
+    width: 23%;
     height: 100%;
     color: #5F7189;
     font-size: 15px;
+    
 }
-
+.profilePostAnswerButton:hover{
+    border: 1px solid #801515;
+}
+.profilePostAnswerButton{
+    padding: 5px 10px 5px 10px;
+    border-radius: 30px;
+    margin-left: 5%;
+    position: relative;
+    border: 1px solid #801515;
+    
+}
+.ProfilepostAnswerDiv{
+    padding: 5px;
+    background-color: #F2F3F5;
+    border: 1px solid grey;
+    display: none;
+    width: 100%;
+    position: relative;
+}
+.ProfilepostAnswerBox{
+    border: 1px solid balck;
+    width: 90%;
+    background-color: rgb(216, 216, 216);
+}
+.ProfilepostCommentBox{
+    border: 1px solid balck;
+    width: 90%;
+    background-color: rgb(216, 216, 216);
+}
 .profilePostButton a:hover {
     color: #801515; 
     text-decoration: none;
@@ -503,7 +534,10 @@ html {
     font-size: 15px;
     margin-left: 0;
 }
-
+.profilePostUsername a{
+    float: right;
+    margin-right:5%;
+}
 .profileNameEmail {
     text-align: center;
     width: 100%;
@@ -1144,4 +1178,38 @@ button.following:not(.wait):hover .msg-unfollow {
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s
+}
+
+.picture2 {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    display: inline-block;
+    float: left;
+    margin-left: 4px;
+}
+.ProfilepostAnswerBox {
+    border: 1px solid #801515;
+    background-color: white;
+    width: 80%;
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: 15%;
+    text-align: left;
+}
+
+.ProfilepostCommentBox {
+    border: 1px solid #801515;
+    background-color: white;
+    width: 70%;
+    margin: 0;
+    margin-left: 25%;
+    margin-top: 5px;
+    border-radius: 5px;
+    padding: 5px;
 }

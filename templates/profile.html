@@ -101,7 +101,7 @@
 
                                         </div>
                                         <div class="profileNameEmail">
-                                            <a class="profilePostUsername">{{question.user.displayname}}</a>
+                                            <h4 class="profilePostUsername">{{question.user.displayname}}<a href="#" class="glyphicon glyphicon-pencil"></a></h4>
                                             <a class="profilePostEmail">{{question.user.email}}</a>
                                             <h3 class="profilePostTitle">Title:{{ question.question|safe }} <a class="showallButton" type="button" title="Show all" style="cursor:pointer;" id="{{question.id}}">Show description</a></h3>
                                         </div>
@@ -112,8 +112,7 @@
                                        
                                         <hr>
                                         <div class="profilePostButton">
-                                                <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
-                                            <a href="#" class="glyphicon glyphicon-pencil"></a>
+                                                <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>                                            
                                             <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" id="QupVote"> </a>
                                             <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down" id= "QdownVote"> </a>
                                             <button  onclick = "followedQuestion('{{question.id}}')" >
@@ -130,7 +129,7 @@
                                             <img class="profilePostPicture" src="{{ question.user.picture }}">
                                         </div>
                                         <div class="profileNameEmail">
-                                            <a class="profilePostUsername">{{question.user.displayname}}</a>
+                                            <h4 class="profilePostUsername">{{question.user.displayname}} <a href="#" class="glyphicon glyphicon-pencil"></a></h4>
                                             <a class="profilePostEmail">{{question.user.email}}</a>
                                             <h3 class="profilePostTitle">Title:{{ question.question | safe}}<a class="showallButton" type="button" title="Show all" style="cursor:pointer;" id="{{question.id}}">Show description</a></h3>
                                         </div>
@@ -138,7 +137,7 @@
                                         <div>{{ question.answer }}</div>
                                         <div class="profilePostButton">
                                                 <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
-                                            <a href="#" class="glyphicon glyphicon-pencil"></a>
+                                           
                                             <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up"> </a>
                                             <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down"> </a>
                                             <button  onclick = "followedQuestion('{{question.id}}')" >
@@ -148,32 +147,54 @@
                                     {% endfor %}
                                 </div>
                                 <div class="postscontainer">
-                                {% for i in json_object.questions|reverse %}
+                                {% for i in posts|reverse %}
 
                                 <div class="profile-contentCenter">
                                     <div class="profilePostPictureCont">
-                                        <img class="profilePostPicture" src="{{ json_object.picture }}">
+                                        <img class="profilePostPicture" src="{{ i.user.picture }}">
 
                                     </div>
                                     <div class="profileNameEmail">
-                                        <a class="profilePostUsername">{{json_object.displayname}}</a>
-                                        <a class="profilePostEmail">{{json_object.email}}</a>
+                                        <h4 class="profilePostUsername">{{i.user.displayname}}<a href="" title ="Edit" class="glyphicon glyphicon-pencil pencileditbutton"  id="{{i.id}}"></a>
+                                            <a href="" title ="Delete" class="glyphicon glyphicon-trash pencileditbutton"  id="{{i.id}}"></a>
+                                            <a href="" title ="Mark as duplicate" class="glyphicon glyphicon-duplicate pencileditbutton"  id="{{i.id}}"></a></h4>
+                                        <a class="profilePostEmail">{{i.user.email}}</a>
                                         <h3 class="profilePostTitle">Title:{{i.question | safe}} <a class="showallButton" type="button" style="cursor:pointer;" title="Show all"  id="{{json_object.id}}">Show description</a> </h3>
                                     </div>
 
                                     <br>
 
-                                    <div class="profilePostAnswer" id={{"show_{0}".format(json_object.id)}} >{{i.questiondesc | safe}}</div>
-                                    <div class="profilePostButton">
-                                            <a href="#"  id={{"followques_{0}".format(questions.id)}} class="profilePostFollowButton">Unfollow</a>
-                                        <a href="" title ="Edit" class=" pencileditbutton"  id="{{i.id}}">Edit</a>
-                                        <a onclick="upvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-up"> </a>
-                                        <a onclick="downvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-down" ></a>
-                                        <button  onclick = "followedQuestion('{{questions.id}}')" >
+                                    <div class="profilePostAnswer" id={{"show_{0}".format(i.id)}} >{{i.questiondesc | safe}}</div>
+                                    
+                                    <div class="profilePostButton">     
+                                            <hr>               
+                                        <a id="{{i.id}}" class="profilePostAnswerButton">View Answer</a>                                        
+                                        <button  onclick = "followedQuestion('{{i.id}}')" >
                                             
                                         </button>
                                     </div>
-                                    
+                                    {% for a in i.answers %}
+                                    <div class="ProfilepostAnswerDiv" id={{"ProfilepostAnswerDiv_{0}".format(i.id)}}>
+                                            <div class="picture2" id="">
+                                                    <a href="">
+                                                    <img style="cursor: pointer;width: 100%; height: 100%;" src="{{a.user.picture}}">
+                                                    </a>
+                                                </div>
+                                        <div  id={{"ProfilepostAnswerBox_{0}".format(a.id)}} class="ProfilepostAnswerBox">
+                                            <h4>{{a.user.displayname}}</h4>
+                                            <h6>{{a.createdAt}}</h6>
+                                            <button id="" onclick="answerUpvote()" class="workround1 fa fa-thumbs-up up thumbs-up" style="margin: 5px;"> 0</button>
+                                            <button id="" onclick="answerDownvote()" class="workround2 fa fa-thumbs-down down thumbs-down" style="margin: 5px;"> 0</button>
+                                            <p>{{a.answer | safe}}</p>
+
+                                        </div>
+                                        {% for c in a.comments%}
+                                        <div  id={{"ProfilepostCommentBox_{0}".format(c.id)}} class="ProfilepostCommentBox">
+                                                <p>{{c.comment}}</p>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endfor %}
                     <div class="form2container"  id={{"edit_{0}".format(i.id)}} style="z-index: 10003;">    
 
 
@@ -1597,5 +1618,35 @@ $(document).on('click','#sideChatHeader', function(e){
  window.addEventListener("resize", calculate_popups);
  window.addEventListener("load", calculate_popups);
  ///////////////////////////////////////////////////////////////////////////////////
+ $(".profilePostAnswerButton").click(function(){
+    var id = $(this).attr("id");
+    if($(this).text()=== "View Answer"){
+        $("#ProfilepostAnswerDiv_"+ id).show('slow');
+        $("#ProfilepostAnswerBox_"+ id).show('slow');
+        $("#ProfilepostCommentBox_"+ id).show('slow');        
+        $(this).text("Hide Answer");
+    }
+    else {
+        $(this).text("View Answer");
+        $("#ProfilepostAnswerDiv_"+ id).hide('slow');
+        $("#ProfilepostAnswerBox_"+ id).hide('slow');
+        $("#ProfilepostCommentBox_"+ id).hide('slow');  
+        
+    }
+   
+ });
 </script>
+
+<!-- $(".showallButton").click(function(){
+    var id = $(this).attr("id");
+    if($(this).text()=== "Show description"){
+        $(this).text("Hide description");
+        $("#show_"+id).show('slow');
+    }
+    else{
+        $(this).text("Show description");
+        $("#show_"+id).hide('slow');
+    } -->
+   
+});
 </html>

@@ -207,7 +207,7 @@ def profile(id):
         followed_questions = response.json()
         curl = ('http://iitoverflow.herokuapp.com/api/users/'+user +'?filter[counts]=followers&filter[counts]=following&filter[counts]=answers&filter[counts]=questionsfollowed&filter[counts]=questions&filter[counts]=interests&filter[include]=interests&filter[include]=followers&filter[include]=following&filter[include]=answers&filter[include]=questionsfollowed&filter[include]=questions&filter[questions]=category')
         response = requests.get(curl)
-        posts = requests.get(baseUrl+'users/'+user+'/questions?filter={"include": [{"relation": "category"}, {"relation": "user"}]}')
+        posts = requests.get(baseUrl+'users/'+user+'/questions?filter={"include": [{"relation": "category"}, {"relation": "user"}, {"relation": "answers", "scope":{"include": [{"relation":"user"}, {"relation":"comments"}]}}]}')
         posts = posts.json()
         json_object1 = response.json()
         val3 = json_object1['followersCount']
