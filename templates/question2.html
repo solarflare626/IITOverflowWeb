@@ -31,6 +31,11 @@
     <script src="../static/js/jQuery-tagEditor-master/jquery.tag-editor.min.js"></script>
     <script src="../static/js/jQuery-tagEditor-master/jquery.caret.min.js"></script>
 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/smoothness/jquery-ui.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
     <!--this script are need for logout -->
     <meta name="google-signin-scope" content="">
     <meta name="google-signin-client_id" content="976545483152-3u1fctn90tf0qvjevud1hkfu3jdneog0.apps.googleusercontent.com">
@@ -340,9 +345,9 @@
 
 
                     <div class="answerdiv" id={{ "answerdiv_{0}".format(i.id)}}>
-                        <textarea name="{{ "answertextarea_{0}".format(i.id) }}" class="answertextarea" id="{{ "answer_{0}".format(i.id) }}" placeholder="Write an Answer"> </textarea>
+                        <textarea name='{{"answertextarea_{0}".format(i.id)}}' class="answertextarea" id='{{"answertextarea_{0}".format(i.id)}}' placeholder="Write an Answer"> </textarea>
                         <script>
-                            CKEDITOR.replace('{{ "answertextarea_{0}".format(i.id) }}');
+                            CKEDITOR.replace('{{"answertextarea_{0}".format(i.id)}}');
                         </script>
                         <input class="submitanswerbutton" id={{i.id}} value=submit type="button">
                     </div>
@@ -361,7 +366,7 @@
                                 CKEDITOR.replace('{{ "textareaedit_{0}".format(i.id) }}');
                             </script>
                             <h5>Tags</h5>
-                            <input class="tagsIDedit" id="{{ "tagsIDedit_{0}".format(i.id) }}" type="text" name="tagsarea" value=" {% for tag in i.tags %} {{tag.name}} {% endfor %}" class="tagsarea"
+                            <input class="tagsIDedit" id="{{ "tagsIDedit_{0}".format(i.id) }}" type="text" name="tagsarea" class="tagsarea"
                             />
                             <div class="popupedit" id="{{i.category.id}}">
                                 <button id="categoryIDedit" type="button" value="" class="categorybuttonedit">
@@ -481,13 +486,39 @@
 
     <!-- SCRIPTS HERE -->
     <script src="../static/js/app2.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
     <script src="../static/js/autocompleteJS.js"></script>
     <script src="../static/js/jquery-3.3.1.min.js"></script>
     <script src="../static/js/jQuery-tagEditor-master/jquery.tag-editor.min.js"></script>
     <script src="../static/js/jQuery-tagEditor-master/jquery.caret.min.js"></script>
     <script>
         ///////////////////////////////////////////////////////////////////////////////////
+        var tags_list = []
+        {% for t in tags %}
+            tags_list.push(t.name);
+        {% endfor %}
+        // $('#tagsID').tagEditor({
+        //     autocomplete: {
+        //         delay: 0, // show suggestions immediately
+        //         position: {
+        //             collision: 'flip'
+        //         }, // automatic menu position up/down
+        //         source: tags_list
+        //     },
+        //     forceLowercase: false,
+        // });
         $('#tagsID').tagEditor({
+            autocomplete: {
+                delay: 0, // show suggestions immediately
+                position: { collision: 'flip' }, // automatic menu position up/down
+                source: tags_list
+            },
+            forceLowercase: false,
+            placeholder: 'Enter tags here ...'
+        });
+        ///////////////////////////////////////////////////////////////////////////////////
+        $('.tagsIDedit').tagEditor({
             autocomplete: {
                 delay: 0, // show suggestions immediately
                 position: {
@@ -497,17 +528,6 @@
             },
             forceLowercase: false,
         });
-        ///////////////////////////////////////////////////////////////////////////////////
-        // $('.tagsIDedit').tagEditor({
-        //     autocomplete: {
-        //         delay: 0, // show suggestions immediately
-        //         position: {
-        //             collision: 'flip'
-        //         }, // automatic menu position up/down
-        //         source: ['haha']
-        //     },
-        //     forceLowercase: false,
-        // });
         ///////////////////////////////////////////////////////////////////////////////////
         $(document).on('click', '.categorybutton', function () {
             $("#myModal").show();
@@ -560,10 +580,11 @@
         $(document).on('click', '.submitanswerbutton', function (e) {
             var qid = $(this).attr('id');
             console.log("questionid", qid);
-            var answer = CKEDITOR.instances['answertextarea_'+qid].getData();
+            var editorText = CKEDITOR.instances['answertextarea_'+qid].getData();
+            //CKEDITOR.instances.textarea.setData('');
             var category = document.getElementById('');
             var data = {
-                "answer": answer,
+                "answer": editorText,
                 "questionId": qid,
                 "userId": "{{curuser}}"
             };
@@ -575,6 +596,7 @@
                 contentType: "application/json",
                 success: function (result) {
                     //RELOAD
+                    $('#answerdiv_'+qid).hide('slow');
                 },
                 error: function (result) {
                 }
@@ -590,6 +612,7 @@
                 url: "http://iitoverflow.herokuapp.com/api/Answers/" + delbutton,
                 success: function (result) {
                     //RELOAD
+                    console.log("Successfully deleted question.");
                 },
                 error: function (result) {
                 }
@@ -630,7 +653,7 @@
                         dataType: "json",
                         contentType: "application/json",
                         success: function (result) {
-                            console.log(result);
+                            console.log("Post tags");
                             alert('gaga');
                             qid = result.id;
                             $('#qedit_' + qid).modal('toggle');
@@ -964,23 +987,9 @@
                 div1.style.display = "block";
                 $("#hider").fadeIn('slow');
                 $("#post").fadeIn('slow');
-                initializetageditor('#tagsIDedit_'+id);
                 $("#form2").css("z-index", "11000");
                 $("#newpost").css("z-index", "9999");
             }
-        }
-        ///////////////////////////////////////////////////////////////////////////////////
-        function initializetageditor(input) {
-            $(input).tagEditor({
-            autocomplete: {
-                delay: 0, // show suggestions immediately
-                position: {
-                    collision: 'flip'
-                }, // automatic menu position up/down
-                source: ['haha']
-            },
-            forceLowercase: false,
-        });
         }
         ///////////////////////////////////////////////////////////////////////////////////
 
