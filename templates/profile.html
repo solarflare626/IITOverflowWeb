@@ -166,8 +166,8 @@
                                         <div class="profilePostButton">
                                                 <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
                                            
-                                            <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up"> </a>
-                                            <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down"> </a>
+                                            <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up">  {{ question.upvotesCount}}</a>
+                                            <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down">  {{ question.downvotesCount}}</a>
                                             <button  onclick = "followedQuestion('{{question.id}}')" >
                                                    
                                             </button>                                        </div>
@@ -735,72 +735,7 @@
 </script>
 
 <script>
-     function upvote(qid) {
-            console.log(qid);
-            $.ajax({
-                type: 'HEAD',
-                async: true,
-                url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsupvoted/rel/'+qid,
-                success: function(message) {
-                    console.log("Already upvoted!");
-                },
-                error: function(message) {
-                    if (message.status == 404) {
-                        $.ajax({
-                            type: "PUT",
-                            async: true,
-                            url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsupvoted/rel/'+qid,
-                            success: function(message) {
-                               $.ajax({
-                                   type: "DELETE",
-                                   async: true,
-                                   url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsdownvoted/rel/'+qid,
-                                   success: function() {
-                                       console.log("Sucessful deleted downvote after upvote!");
-                                       console.log(".glyphicon glyphicon-thumbs-up#"+qid);
-                                       
-                                   }
-                               });
-                               console.log("Upvoted question!")
-                            }
-                        });
-                    }
-                }
-            });
-        }
-        function downvote(qid) {
-            console.log(qid);
-            $.ajax({
-                type: 'HEAD',
-                async: true,
-                url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsdownvoted/rel/'+qid,
-                success: function(message) {
-                    console.log("Already downvoted!");
-                },
-                error: function(message) {
-                    if (message.status == 404) {
-                        $.ajax({
-                            type: "PUT",
-                            async: true,
-                            url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsdownvoted/rel/'+qid,
-                            success: function(message) {
-                                $.ajax({
-                                   type: "DELETE",
-                                   async: true,
-                                   url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsupvoted/rel/'+qid,
-                                   success: function() {
-                                       console.log("Sucessful deleted upvote after downvote!");
-                                       console.log(".glyphicon glyphicon-thumbs-down#"+qid);
-                                   }
-                               });
-                                console.log("Downvoted question!");
-
-                            }
-                        });
-                    }
-                }
-            });
-        }
+    
         function followedQuestion(qid){
             $.ajax({
                 type: "HEAD",
