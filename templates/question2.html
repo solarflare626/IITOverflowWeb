@@ -137,9 +137,9 @@
             </div>
             {% endfor %}
             <hr>
-            <a>
+            <!-- <a>
                 <h4 style="color: white; padding: 10px;">See all</h4>
-            </a>
+            </a> -->
             </div>
         </div>
 
@@ -424,7 +424,7 @@
                     <span class="msg-following">Following</span>
                     <span class="msg-unfollow">Unfollow</span>
                 </button>
-                <a class="voteScore" style="color: white;">Points: {{i.points}}</a>
+                <a class="voteScore" style="color: white; text-decoration: none;">Points: {{i.points}}</a>
             </div>
 
             {% endfor %}
@@ -580,6 +580,7 @@
         $(document).on('click', '.submitanswerbutton', function (e) {
             var qid = $(this).attr('id');
             console.log("questionid", qid);
+        
             var editorText = CKEDITOR.instances['answertextarea_'+qid].getData();
             //CKEDITOR.instances.textarea.setData('');
             var category = document.getElementById('');
@@ -1092,6 +1093,7 @@ function phillip(id) {
                     '</small> </div></div> </div></a></li>';
 
                 $("#notification-content").append(holdNewAnswerHtml);
+                
             } else if ($.grep(questionFollowing, function(obj) {
                     return obj.id === element.question.id;
                 })[0]) {
@@ -1105,6 +1107,7 @@ function phillip(id) {
                     '</small> </div></div> </div></a></li>';
 
                 $("#notification-content").append(holdNewAnswerHtml);
+                CKupdate();
             }
 
         }else if(element.type == 'newComment'){
