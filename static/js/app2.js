@@ -412,42 +412,45 @@ function thisonclick(id){
     window.location.assign(url)
 }
 
-function checker3(id){
-     $.ajax({
-        url: 'http://iitoverflow.herokuapp.com/api/users/'+currentUser+'/following/'+id,
-        type: 'GET',
+function checker3(id) {
+    $.ajax({
+        type: "HEAD",
+        url: "http://iitoverflow.herokuapp.com/api/users/" + currentUser + "/following/rel/" + id + "",
         dataType: "json",
-        async: false,
+        success: function(resp) {
+            //console.log('Found some')
+        },
+
         statusCode: {
-            200: function () {
-                $("#" + id + ".follow2").toggleClass('following')
+            200: function() {
+                $("#" + id + ".whotofollowButton1").toggleClass('following')
             },
-            404: function () {
-                console.clear()
-            }
+
         }
-    });
+    })
+
 }
 
 function follow2(id) {
     $.ajax({
-        type: "POST",
+        type: "PUT",
         contentType: 'application/json; charset=utf-8',
-        url: "http://iitoverflow.herokuapp.com/api/following",
+        url: "http://iitoverflow.herokuapp.com/api/users/"+currentUser+"/following/rel/"+id,
         dataType: "json",
         data: JSON.stringify({
-            'id': id,
+            'questionId': id,
             'userId': currentUser
         }),
         success: function(resp) {
+            console.log("Successfully followed user!")
             console.log(resp);
         },
         error: function(e) {
+            console.log("Error following user!");
             console.log(e)
         }
     });
 }
-
 function unfollow2(id) {
     $.ajax({
         type: "DELETE",
