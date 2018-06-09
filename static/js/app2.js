@@ -93,18 +93,20 @@ $(document).on('click', '#signout', function() {
 
 function follow(id) {
     $.ajax({
-        type: "POST",
+        type: "PUT",
         contentType: 'application/json; charset=utf-8',
-        url: "http://iitoverflow.herokuapp.com/api/QuestionFollows",
+        url: "http://iitoverflow.herokuapp.com/api/users/"+currentUser+"/questionsfollowed/rel/"+id,
         dataType: "json",
         data: JSON.stringify({
             'questionId': id,
             'userId': currentUser
         }),
         success: function(resp) {
+            console.log("Successfully followed question!")
             console.log(resp);
         },
         error: function(e) {
+            console.log("Error following question!");
             console.log(e)
         }
     });
@@ -468,7 +470,8 @@ function deleteCom(c_id,a_id){
         dataType: "json",
 
         success: function(resp) {
-            console.log(resp)
+            console.log("Successfully deleted comment");
+            console.log(resp);
         },
         error: function(e) {
             console.log("error")

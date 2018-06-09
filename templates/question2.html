@@ -34,7 +34,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
     <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/smoothness/jquery-ui.css">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script> -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
     <!--this script are need for logout -->
     <meta name="google-signin-scope" content="">
@@ -267,7 +267,7 @@
                                                     
                                                         <div class="answerdivbutton" style="margin-left: 30%;">
                                                                 {% if user.id == answer.user.id%}
-                                                                <button id="{{answer.id}}" class="fa fa-edit edit" title="Edit" style="margin: 5px; cursor: pointer;"></button>
+                                                                <!-- <button id="{{answer.id}}" class="fa fa-edit edit" title="Edit" style="margin: 5px; cursor: pointer;"></button> -->
                                                                 <button id="{{answer.id}}" class="fa fa-trash heart forDEL" title="Delete" style="margin: 5px; cursor: pointer;"></button>
                                                                 {% endif %}
                                                                 <button id="{{answer.id}}" class="fa fa-reply heart" style="margin: 5px; cursor: pointer;"></button>
@@ -326,7 +326,6 @@
                                 <br>
                                 <br>
                                 <div>
-                                      
                                 </div>
                                 <hr style="background:rgb(118, 2, 28); margin: 0;">
                             </div>
@@ -435,7 +434,9 @@
         <div class="links3">
          <div style="padding: 10px; background-color: #2E060D; overflow: hidden">
             <h3 style="color: white;">Related Links</h3>
-            <hr> {% for i in questions %}
+            <hr>
+            
+             {% for i in questions %}
             <a class="links3Linkstitle" href="/related/{{i.id}}" style="color: white;">
                 <span style="color: white;" class="glyphicon glyphicon-link"></span> {{i.question}} </a> {% endfor %}
          </div>

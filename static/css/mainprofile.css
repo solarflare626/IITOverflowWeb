@@ -1213,3 +1213,12 @@ button.following:not(.wait):hover .msg-unfollow {
     border-radius: 5px;
     padding: 5px;
 }
+
+.categorypopups {
+    border: 1px solid #D0D0D0;
+    border-radius: 100px;
+    padding: 5px;
+    margin: 3px;
+    display: inline-block;
+    color: #657786;
+}
