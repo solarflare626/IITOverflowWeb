@@ -34,10 +34,6 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
     <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/smoothness/jquery-ui.css">
-<<<<<<< HEAD
-    <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script> -->
-=======
->>>>>>> 4d75d85a4634eec8f27a536622649faa681c8596
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
     <!--this script are need for logout -->
     <meta name="google-signin-scope" content="">
@@ -220,7 +216,7 @@
                             <br>
                         </h4>
                         </a>
-                                 <h6 style="margin: 0;">{{i.createdAt}}</h6>
+                                 <h6 style="margin: 0;" id="{{i.createdAt}}" class="time_hold">{{i.createdAt}}</h6>
                             <hr style="margin:0;">
                         <h5 class="titlepostTitle">
                             <div style="cursor: pointer" onclick="thisonclick({{ i.id }})"><a style="outline: none; text-decoration: none;">Title:</a> {{i.question|safe}} </div> <a style="cursor: pointer" class="showallButton" type="button" title="Show all"  id="{{i.id}}">Show description</a></h5>
@@ -283,7 +279,7 @@
                                                             <br>
                                                           
                                                         </div>
-                                                        <p style="padding: 0;margin: 0px; font-size: 10px; float: left; text-align: left; display: block; width: 100%;">{{i.createdAt}}</p>
+                                                        <p style="padding: 0;margin: 0px; font-size: 10px; float: left; text-align: left; display: block; width: 100%;" id="{{answer.createdAt}}" class="time_hold">{{answer.createdAt}}</p>
                                                        
                                                     </div>
                                                     <hr style="margin: 5px; width: 100%; display: block;">
@@ -298,7 +294,7 @@
                                 </li>
                             </ul>
                             <div>
-                            <ul class="comments-list reply-list">
+                            <ul id="ul-comments-container_{{answer.id}}" class="comments-list reply-list">
                                 <!-- COMMENT -->
                                 {% for comment in answer.comments|reverse %}
                              
@@ -309,7 +305,7 @@
                                                 {% if user.id == comment.user.id %}
                                                     <i id="{{comment.id}}" style="cursor: pointer" onclick="deleteCom({{ comment.id }},{{ answer.id }})" class="fa fa-trash heart"  style="float: right; cursor: pointer;" title="Delete" ></i></span>
                                                 {% endif %}
-                                           <p>{{comment.createdAt}} </p> 
+                                           <p id="{{comment.createdAt}}" class="time_hold">{{comment.createdAt}} </p> 
 
                                         </div>
                                         <hr style="margin: 0;">
@@ -600,7 +596,8 @@
                 contentType: "application/json",
                 success: function (result) {
                     //RELOAD
-                    $('#answerdiv_'+qid).hide('slow');
+                    //$("#answer_" + qid).val('');
+                    //$('#answerdiv_'+qid).hide('slow');
                 },
                 error: function (result) {
                 }
@@ -847,7 +844,7 @@
             }
         });
         ///////////////////////////////////////////////////////////////////////////////////
-        $('input[type=text]').on('keydown', function(e) {
+        $(document).on('keydown','input[type=text]', function(e) {
             if (e.which == 13) {
                 e.preventDefault();
                 var a = $(this).attr('id');
@@ -857,6 +854,7 @@
                 var comment = $('#' + a).val();
                 console.log(comment);
                 //COMMENT
+                
                 var data = {
                     "comment": comment,
                     "answerId": aid,
@@ -873,6 +871,8 @@
                         //window.location.href += "#toReload";
                         //location.reload();
                             //alert('reloaded');
+
+                            $('#' + a).val('');
                     },
                     error: function(result) {
                         alert(result);
@@ -1060,6 +1060,7 @@ function phillip(id) {
         var interests = {{interests | tojson}};
     ///////////////////////////////////////////////////////////////////////////////////
     $(document).ready(function() {
+        
 
             
         
@@ -1068,12 +1069,12 @@ function phillip(id) {
         if(element.type == 'newQuestion'){
             
             var holdNewQuestionHtml =
-                '<li><a href="/Question/' + element.question.id +
+                '<li><a href="/question/' + element.question.id +
                 '" class="notification-box"><div class="row"><div class="col-lg-3 col-sm-3 col-3 text-center"><img src="' +
                     element.user.picture +
                 '" class="w-50 img-circle" width="30" height="30" ></div><div class="col-lg-8 col-sm-8 col-8" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><strong class="text-info">' +
-                        element.user.displayname + '</strong> posted a new Question: ' + element.question.question +
-                '<div><small class="text-warning">' + getDate(element.question.createdAt) +
+                        element.user.displayname + '</strong> posted a new Question: ' + jQuery('<p>'+element.question.question + '</p>').text() +
+                '<div><small id="'+element.question.createdAt+'" class="text-warning time_hold">' + getDate(element.question.createdAt) +
                 '</small> </div></div> </div></a></li>';
             $("#notification-content").append(holdNewQuestionHtml);
 
@@ -1082,12 +1083,12 @@ function phillip(id) {
             var holdNewAnswerHtml = "";
             if (element.question.userId == socketUser) {
                 holdNewAnswerHtml +=
-                    '<li><a href="/Question/' + element.question.id +
+                    '<li><a href="/question/' + element.question.id +
                     '" class="notification-box"><div class="row"><div class="col-lg-3 col-sm-3 col-3 text-center"><img src="' +
                         element.user.picture +
                     '" class="w-50 img-circle" width="30" height="30" ></div><div class="col-lg-8 col-sm-8 col-8"><strong class="text-info">' +
-                        element.user.displayname + '</strong> answered your question: ' + element.answer.answer +
-                    '<div><small class="text-warning">' + getDate(element.answer.createdAt) +
+                        element.user.displayname + '</strong> answered your question: ' +jQuery('<p>' + element.answer.answer+ '</p>').text() +
+                    '<div><small id="'+element.answer.createdAt+'" class="text-warning time_hold">' + getDate(element.answer.createdAt) +
                     '</small> </div></div> </div></a></li>';
 
                 $("#notification-content").append(holdNewAnswerHtml);
@@ -1095,12 +1096,12 @@ function phillip(id) {
                     return obj.id === element.question.id;
                 })[0]) {
                 holdNewAnswerHtml +=
-                    '<li><a href="/Question/' + element.question.id +
+                    '<li><a href="/question/' + element.question.id +
                     '" class="notification-box"><div class="row"><div class="col-lg-3 col-sm-3 col-3 text-center"><img src="' +
                         element.user.picture +
                     '" class="w-50 img-circle" width="30" height="30" ></div><div class="col-lg-8 col-sm-8 col-8"><strong class="text-info">' +
-                        element.user.displayname + '</strong> answered a question you\'re following: ' + element.answer.answer +
-                    '<div><small class="text-warning">' + getDate(element.answer.createdAt) +
+                        element.user.displayname + '</strong> answered a question you\'re following: ' + jQuery('<p>'+element.answer.answe+ '</p>').text() +
+                    '<div><small id="'+element.answer.createdAt+'" class="text-warning time_hold">' + getDate(element.answer.createdAt) +
                     '</small> </div></div> </div></a></li>';
 
                 $("#notification-content").append(holdNewAnswerHtml);
@@ -1108,12 +1109,12 @@ function phillip(id) {
 
         }else if(element.type == 'newComment'){
             holdNewAnswerHtml +=
-                    '<li><a href="/Question/' + element.question.id +
+                    '<li><a href="/question/' + element.question.id +
                     '" class="notification-box"><div class="row"><div class="col-lg-3 col-sm-3 col-3 text-center"><img src="' +
                         element.user.picture +
                     '" class="w-50 img-circle" width="30" height="30" ></div><div class="col-lg-8 col-sm-8 col-8"><strong class="text-info">' +
-                        element.user.displayname + '</strong> commented on your answer: ' + element.comment.comment +
-                    '<div><small class="text-warning">' + getDate(element.comment.createdAt) +
+                        element.user.displayname + '</strong> commented on your answer: ' + jQuery('<p>'+element.comment.comment + '</p>').text()+
+                    '<div><small id="'+element.comment.createdAt+'" class="text-warning time_hold">' + getDate(element.comment.createdAt) +
                     '</small> </div></div> </div></a></li>';
 
                 $("#notification-content").append(holdNewAnswerHtml);
@@ -1148,40 +1149,238 @@ function phillip(id) {
 
             //console.log(data.user, " is now online");
         });
+
+        
+        insertComment = function(data){
+            var hold = '<li>'+
+            '<div class="comment-box" style=" border: 1px solid #801515; background-color: white; width: 70%; margin: 0; margin-left: 25%; margin-top: 5px; border-radius: 5px; padding: 5px;">'+
+            '<div class="comment-head">'+
+            '<span>'+data.user.displayname;
+            if(socketUser == data.user.id){
+                hold+= '<i id="'+data.comment.id+'" style="cursor: pointer" onclick="deleteCom('+data.comment.id+' ,'+data.answer.id+')" class="fa fa-trash heart"  style="float: right; cursor: pointer;" title="Delete" ></i></span>';
+            }
+            hold +='<p id="'+data.comment.createdAt+'" class="time_hold">'+getDate(data.comment.createdAt)+' </p>'+
+            ''+
+            '</div>'+
+            '<hr style="margin: 0;">'+
+            ''+
+            '<div class="comment-content" style="padding: 10px; margin-bottom: 10px;">'+data.comment.comment+
+            '</div>'+
+            '</div>'+
+            ''+
+            '</li>';
+
+            if($("#ul-comments-container_"+data.answer.id).length){
+                $("#ul-comments-container_"+data.answer.id).append(hold);
+            }
+        }
+        insertAnswer = function(data){
+            var hold = '<div class="comments-container comments-container_'+data.question.id+' delme'+data.answer.id+'" id="comments-container_'+data.answer.id+'">'+
+            '<br>'+
+            '<ul id="comments-list" class="comments-list" style="margin: 0;">'+
+            '<li>'+
+            '<div class="comment-main-level">'+
+            '<div class="picture2" id="'+data.answer.id+'">'+
+            '<a href="/profile/'+data.user.id+'">'+
+            '<img style="cursor: pointer;width: 100%; height: 100%;" src="'+data.user.picture+'">'+
+            '</a>'+
+            '</div>'+
+            '<div class="comment-box" style="  border: 1px solid #801515; background-color: white; width: 80%;  border-radius: 10px; padding: 10px; margin-left: 15%; text-align: left;">'+
+            '<div class="comment-head">'+
+            ''+
+            '<div class="answerdivbutton" style="margin-left: 30%;">';
+            if(data.user.id == socketUser){
+                hold += '<button id="'+data.answer.id+'" class="fa fa-edit edit" title="Edit" style="margin: 5px; cursor: pointer;"></button>'+
+            '<button id="'+data.answer.id+'" class="fa fa-trash heart forDEL" title="Delete" style="margin: 5px; cursor: pointer;"></button>';
+
+            }
+            hold += '<button id="'+data.answer.id+'" class="fa fa-reply heart" style="margin: 5px; cursor: pointer;"></button>'+
+            '<button id="'+data.answer.id+'" onclick="answerUpvote('+data.answer.id+')" class="workround1 fa fa-thumbs-up up thumbs-up" style="margin: 5px;"> 0</button>'+
+            '<button id="'+data.answer.id+'" onclick="answerDownvote('+data.answer.id+')" class="workround2 fa fa-thumbs-down down thumbs-down" style="margin: 5px;"> 0</button>'+
+            '</div>'+
+            '<div>'+
+            '<h5 class="answerdisplayname">'+data.user.displayname+
+            '</h5>'+
+            '<br>'+
+            '</div>'+
+            '<p style="padding: 0;margin: 0px; font-size: 10px; float: left; text-align: left; display: block; width: 100%;" id="'+data.answer.createdAt+'" class="time_hold">'+getDate(data.answer.createdAt)+'</p>'+
+            ''+
+            '</div>'+
+            '<hr style="margin: 5px; width: 100%; display: block;">'+
+            '<br style="margin: 0;">'+
+            ''+
+            ''+
+            '<div class="comment-content">'+
+            data.answer.answer+
+            '</div>'+
+            '</div>'+
+            '</div>'+
+            '</li>'+
+            '</ul>'+
+            '<div>'+
+            '<ul id="ul-comments-container_'+data.answer.id+'" class="comments-list reply-list">'+
+            '<!-- COMMENT -->'+
+            
+            ''+
+            '</ul>'+
+            '<div class="newpostinput" id="'+data.answer.id+'">'+
+            '<input type="text" class="commenttextarea" id="comment_'+data.answer.id+'" placeholder="Write a Comment">'+
+            ''+
+            '<br>'+
+            '<br>'+
+            '<div>'+
+            ''+
+            '</div>'+
+            '<hr style="background:rgb(118, 2, 28); margin: 0;">'+
+            '</div>'+
+            '</div>'+
+            ''+
+            ''+
+            '</div>';
+
+            if($("#toReloadAnswer_"+data.question.id).length){
+                $("#toReloadAnswer_"+data.question.id).append(hold);
+            }
+        }
+        insertQuestion = function(data){
+            console.log("insertQuestion");
+            var hold = '<div id="newqedit_'+data.question.id+'" style="display: block;" class="newdiv">'+
+            ''+
+            '<button class="duplicatebutton btn btn-danger" id="duplicate_'+data.question.id+'" style="display: none;">Mark as Duplicate</button>'+
+            ''+
+            '<div class="titlepost">'+
+            ''+
+            '<div class=" editanddeleteButtonCont">'+
+            '';
+            if(socketUser == data.user.id){
+                hold += '<i onclick="showhide('+data.question.id+')" style="cursor: pointer" class="fa fa-edit Newsfeed-editButton" title="Edit"></i>'+
+            '<i onclick="confirmDelete('+data.question.id+')" style="cursor: pointer" class="fas fa-trash-alt qheart" title="Delete"></i>';
+            
+            }
+         
+            hold += '<i onclick="showhide1('+data.question.id+')" style="cursor: pointer" class="fas fa-copy duplicate" title="Mark As Duplicate"></i>'+
+            '</div>'+
+            ''+
+            '<div class="titlepostpicture">'+
+            '<a href="/profile/'+data.user.id+'">'+
+            '<img style="cursor: pointer" src="'+data.user.picture+'">'+
+            '</a>'+
+            '</div>'+
+            '<a href="/profile/'+data.user.id+'">'+
+            '<h4  class="titlepostname">'+data.user.displayname+
+            '<br>'+
+            '</h4>'+
+            '</a>'+
+            '<h6 style="margin: 0;" id="'+data.question.createdAt+'" class="time_hold">'+getDate(data.question.createdAt)+'</h6>'+
+            '<hr style="margin:0;">'+
+            '<h5 class="titlepostTitle">'+
+            '<div style="cursor: pointer" onclick="thisonclick('+data.question.id+')"><a style="outline: none; text-decoration: none;">Title:</a> '+data.question.question+' </div> <a style="cursor: pointer" class="showallButton" type="button" title="Show all"  id="'+data.question.id+'">Show description</a></h5>'+
+            '</div>'+
+            ''+
+            '<div style="padding: 10px; border-bottom: 1px solid #D1D1D1; ">'+
+            '<div class="descriptionpost" id="show_'+data.question.id+'">Description: '+data.question.questiondesc+
+            '</div>'+
+            '<div class="categorypost">Category: '+data.question.category.name+
+            '<div></div>'+
+            '</div>'+
+            '<div class="tagspost">Tags: '+data.question.tags+
+            '<div></div>'+
+            '</div>'+
+            '<div class="newpostbuttons"><button id="'+data.question.id+'" name="'+data.question.userId+'" class="follow followbutton">'+
+            '<span class="msg-follow">Follow</span>'+
+            '<span class="msg-following">Following</span>'+
+            '<span class="msg-unfollow">Unfollow</span>'+
+            '</button>'+
+            '<button class="answerbutton" id="'+data.question.id+'">Answer</button>'+
+            '<button id="data.question.id" onclick="upvote('+data.question.id+')" title="Upvote" style="color: #1abc9c; width: 23%;display: inline-block;" class="votebutton up glyphicon glyphicon-thumbs-up"> '+0+'</button>'+
+            '<button id="data.question.id" onclick="downvote('+data.question.id+')" title="Downvote" style="color: #e74c3c; width: 23%; display: inline-block;" class="votebutton down glyphicon glyphicon-thumbs-down"> '+0+'</button>'+
+            '</div>'+
+            '</div>'+
+            '<div style="background-color: #F2F3F5; text-align: left; padding:0 5px 0 5px; width: 100%;" id="toReloadAnswer_'+data.question.id+'"}>'+
+            '<!-- COMMENT -->'+
+            '</div>'+
+            '<!-- TOEDIT -->'+
+            '<div class="answerdiv" id="answerdiv_'+data.question.id+'">'+
+            '<textarea name="answertextarea" class="answertextarea" id="answer_'+data.question.id+'" placeholder="Write an Answer"> </textarea>'+
+            "<script>"+"CKEDITOR.replace(\'answertextarea\');<\/script>"+
+            '<input class="submitanswerbutton" id="'+data.question.id+'" value=submit type="button">'+
+            '</div>'+
+            '</div>'+
+            ''+
+            '<!-- EDIT MODE -->'+
+            ''+
+            '<div style="display: none;" id="qedit_'+data.question.id+'" class="newdivEdit">'+
+            '<div class="form2container">'+
+            '<form id="form2" style="box-shadow: 15px;">'+
+            '<h5>Title</h5>'+
+            '<input class="editQuestionTitle" type="text" id="titleedit" value="'+data.question.question+'>'+
+            '<h5>Description</h5>'+
+            '<textarea name="textareaedit_data.question.id">'+data.question.questiondesc+'</textarea>'+
+            '<script>'+
+            'CKEDITOR.replace("textareaedit_'+data.question.id+'");'+
+            '<\/script>'+
+            '<h5>Tags</h5>'+
+            '<input id="tagsIDedit" type="text" name="tagsarea" value="'+data.question.tags+'" class="tagsarea"'+
+            '/>'+
+            '<div class="popupedit" id="'+data.question.category.id+'">'+
+            '<button id="categoryIDedit" type="button" value="" class="categorybuttonedit">'+
+            '<b>Category:</b>'+
+            '</button>'+
+            '<button class="selectedcategorybuttonedit" type="button">'+
+            data.question.category.name+
+            '</button>'+
+            '</div>'+
+            '<div class="newsfeedPopUpButton-Cont">'+
+            '<a style="cursor:pointer;" id="'+data.question.id+'"class="submitbutton5" type="submit">Save</a>'+
+            '<a style="cursor:pointer;" onclick="showhide('+data.question.id+')">Cancel</a>'+
+            '</div>'+
+            '</form>'+
+            '</div>'+
+            '</div>'+
+            '<!-- EDIT MODE END -->';
+
+            $("#newsfeedParent").prepend(hold);
+
+        }
         notificationSocket.on('newQuestion', function(data) {
             //console.log("New Question");
             //console.log(data);
             console.log("NewQuestion",data);
             var holdNewQuestionHtml = "";
-            if (data.question.userId != socketUser)
+            if (data.question.userId != socketUser){
                 if ($.grep(userFollowing, function(obj) {
                         return obj.id === data.question.userId;
                     })[0] || $.grep(interests, function(obj) {
                         return obj.id === data.question.categoryId;
                     })[0]) {
                     holdNewQuestionHtml +=
-                        '<li><a href="/Question/' + data.question.id +
+                        '<li><a href="/question/' + data.question.id +
                         '" class="notification-box"><div class="row"><div class="col-lg-3 col-sm-3 col-3 text-center"><img src="' +
                         data.user.picture +
                         '" class="w-50 img-circle" width="30" height="30" ></div><div class="col-lg-8 col-sm-8 col-8"><strong class="text-info">' +
-                        data.user.displayname + '</strong> posted a new Question: ' + data.question.question +
+                        data.user.displayname + '</strong> posted a new Question: ' +jQuery('<p>'+data.question.question+ '</p>').text()  +
                         '<div><small class="text-warning">' + "Just now" +
                         '</small> </div></div> </div></a></li>';
                     $("#notification-content").prepend(holdNewQuestionHtml);
+                    insertQuestion(data);
 
                 }
+            }else{
+                insertQuestion(data);
+            }
         });
         notificationSocket.on('newAnswer', function(data) {
+            insertAnswer(data);
             console.log("NewAnswer",data);
             var holdNewAnswerHtml = "";
             if (data.answer.userId != socketUser)
             if (data.question.userId == socketUser) {
                 holdNewAnswerHtml +=
-                    '<li><a href="/Question/' + data.question.id +
+                    '<li><a href="/question/' + data.question.id +
                     '" class="notification-box"><div class="row"><div class="col-lg-3 col-sm-3 col-3 text-center"><img src="' +
                     data.user.picture +
                     '" class="w-50 img-circle" width="30" height="30" ></div><div class="col-lg-8 col-sm-8 col-8"><strong class="text-info">' +
-                    data.user.displayname + '</strong> answered your question: ' + data.answer.answer +
+                    data.user.displayname + '</strong> answered your question: ' + jQuery('<p>'+data.answer.answer+ '</p>').text() +
                     '<div><small class="text-warning">' +"Just now"+
                     '</small> </div></div> </div></a></li>';
 
@@ -1190,11 +1389,11 @@ function phillip(id) {
                     return obj.id === data.question.id;
                 })[0]) {
                 holdNewAnswerHtml +=
-                    '<li><a href="/Question/' + data.question.id +
+                    '<li><a href="/question/' + data.question.id +
                     '" class="notification-box"><div class="row"><div class="col-lg-3 col-sm-3 col-3 text-center"><img src="' +
                     data.user.picture +
                     '" class="w-50 img-circle" width="30" height="30" ></div><div class="col-lg-8 col-sm-8 col-8"><strong class="text-info">' +
-                    data.user.displayname + '</strong> answered a question you\'re following: ' + data.answer.answer +
+                    data.user.displayname + '</strong> answered a question you\'re following: ' +  jQuery('<p>'+data.answer.answer+ '</p>').text() +
                     '<div><small class="text-warning">' + "Just now" +
                     '</small> </div></div> </div></a></li>';
 
@@ -1205,11 +1404,12 @@ function phillip(id) {
             //console.log(data);
         });
         notificationSocket.on('newComment', function(data) {
+            insertComment(data);    
             console.log("NewComment",data);
             var holdNewAnswerHtml = "";
             if (data.answer.userId == socketUser && data.comment.userId != socketUser) {
                 holdNewAnswerHtml +=
-                    '<li><a href="/Question/' + data.question.id +
+                    '<li><a href="/question/' + data.question.id +
                     '" class="notification-box"><div class="row"><div class="col-lg-3 col-sm-3 col-3 text-center"><img src="' +
                     data.user.picture +
                     '" class="w-50 img-circle" width="30" height="30" ></div><div class="col-lg-8 col-sm-8 col-8"><strong class="text-info">' +
@@ -1270,6 +1470,16 @@ function phillip(id) {
 
         }
 
+        setInterval(function(){ 
+            console.log("update time");
+            $('.time_hold').each(function(index,item){
+            
+                $(item).html(getDate($(item).attr('id')));
+            
+            });
+                    
+        }, 3000);
+
         getDate = function(date) {
 
             var date2 = new Date().getTime() - new Date(date).getTime();
@@ -1279,17 +1489,17 @@ function phillip(id) {
             if (Math.floor(seconds / 3600) >= 24)
                 return new Date(date).toUTCString();
 
-            if (Math.floor(seconds / 3600))
+            if (Math.floor(seconds / 3600) > 0)
                 return "" + Math.floor(seconds / 3600) + " hours ago";
 
-            if (Math.floor(seconds / 60))
+            if (Math.floor(seconds / 60)> 0)
                 return "" + Math.floor(seconds / 60) + " minutes ago";
 
-            if (Math.floor(seconds / 1))
+            if (Math.floor(seconds / 1)>0)
                 return "" + Math.floor(seconds / 1) + " seconds ago";
 
             return "Just now";
-            return new Date(date).toUTCString();
+            //return new Date(date).toUTCString();
 
 
 
