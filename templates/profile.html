@@ -9,7 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="../static/css/mainprofile.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/js/jQuery-tagEditor-master/jquery.tag-editor.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="../static/js/jquery-ui-1.12.1.custom/jquery-ui.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -26,8 +28,11 @@
     <meta name="google-signin-client_secret" content="dhayVHWZ-OsnjdQO47qZXhOD">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <link href="../static/css/sideChat.css" rel="stylesheet">
-
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="../static/js/jQuery-tagEditor-master/jquery.tag-editor.min.js"></script>
+    <script src="../static/js/jQuery-tagEditor-master/jquery.caret.min.js"></script>
 </head>
 
 <body>
@@ -94,32 +99,54 @@
 
                             <div class="profileCenterDiv">
                                 <div class="FollowedQuestionsContainer" style="display: none;">
-                                    {% for question in followed_questions|reverse %}
+                                    {% for i in followed_questions|reverse %}
                                     <div class="profile-contentCenter">
-                                        <div class="profilePostPictureCont">
-                                            <img class="profilePostPicture" src="{{ question.user.picture }}">
-
-                                        </div>
-                                        <div class="profileNameEmail">
-                                            <a class="profilePostUsername">{{question.user.displayname}}</a>
-                                            <a class="profilePostEmail">{{question.user.email}}</a>
-                                            <h3 class="profilePostTitle">Title:{{ question.question|safe }} <a class="showallButton" type="button" title="Show all" style="cursor:pointer;" id="{{question.id}}">Show description</a></h3>
-                                        </div>
-
-                                        <br>
-
-                                        <div class="profilePostAnswer" id={{"show_{0}".format(question.id)}}>{{ question.questiondesc|safe }}</div>
-                                       
-                                        <hr>
-                                        <div class="profilePostButton">
-                                                <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
-                                            <a href="#" class="glyphicon glyphicon-pencil"></a>
-                                            <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" id="QupVote"> </a>
-                                            <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down" id= "QdownVote"> </a>
-                                            <button  onclick = "followedQuestion('{{question.id}}')" >
-                                           
-                                            </button>
-                                        </div>
+                                           <div class="profilePostPictureCont">
+                                                <img class="profilePostPicture" src="{{ i.user.picture }}">
+        
+                                            </div>
+                                            <div class="profileNameEmail">
+                                                <h4 class="profilePostUsername">{{i.user.displayname}}
+                                                    <a style="cursor:pointer;" title ="Mark as duplicate" class="glyphicon glyphicon-duplicate pencileditbutton" id="{{i.id}}"></a></h4>
+                                                <a class="profilePostEmail">{{i.user.email}}</a>
+                                                <h3 class="profilePostTitle">Title:{{i.question | safe}} <a class="showallButton" type="button" style="cursor:pointer;" title="Show all"  id="{{i.id}}">Show description</a> </h3>
+                                            </div>
+        
+                                            <br>
+        
+                                            <div class="profilePostAnswer" id={{"show_{0}".format(i.id)}} >{{i.questiondesc | safe}}</div>
+                                            
+                                            <div class="profilePostButton">     
+                                                    <hr>               
+                                                <a id="{{i.id}}" class="profilePostAnswerButton">View Answer</a>                                        
+                                                <button  onclick = "followedQuestion('{{i.id}}')" >
+                                                    
+                                                </button>
+                                            </div>
+                                            <div class="ProfilepostAnswerDiv" id={{"ProfilepostAnswerDiv_{0}".format(i.id)}}>HEyHEYHEYHEYHEYHEYHEY</div>
+                                            {% for a in i.answers %}
+                                            <div class="ProfilepostAnswerDiv" id={{"ProfilepostAnswerDiv_{0}".format(i.id)}}>HEyHEYHEYHEYHEYHEYHEY</div>
+                                            <div class="ProfilepostAnswerDiv" id={{"ProfilepostAnswerDiv_{0}".format(i.id)}}>
+                                                    <div class="picture2" id="">
+                                                            <a href="">
+                                                            <img style="cursor: pointer;width: 100%; height: 100%;" src="{{a.user.picture}}">
+                                                            </a>
+                                                        </div>
+                                                <div  id={{"ProfilepostAnswerBox_{0}".format(a.id)}} class="ProfilepostAnswerBox">
+                                                    <h4>{{a.user.displayname}}</h4>
+                                                    <h6>{{a.createdAt}}</h6>
+                                                    <button id="{{a.id}}" onclick="answerUpvote('{{a.id}}')" class="workround1 fa fa-thumbs-up up thumbs-up" style="margin: 5px;"> {{a.upvotes}}</button>
+                                                    <button id="" onclick="answerDownvote('{{a.id}}')" class="workround2 fa fa-thumbs-down down thumbs-down" style="margin: 5px;"> {{a.downvotes}}</button>
+                                                    <p>{{a.answer | safe}}</p>
+        
+                                                </div>
+                                                {% for c in a.comments %}
+                                                <div  id={{"ProfilepostCommentBox_{0}".format(c.id)}} class="ProfilepostCommentBox">
+                                                        <p>{{c.comment}}</p>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                            {% endfor %}
                                     </div>
                                     {% endfor %}
                                 </div>
@@ -130,7 +157,7 @@
                                             <img class="profilePostPicture" src="{{ question.user.picture }}">
                                         </div>
                                         <div class="profileNameEmail">
-                                            <a class="profilePostUsername">{{question.user.displayname}}</a>
+                                            <h4 class="profilePostUsername">{{question.user.displayname}} <a href="#" class="glyphicon glyphicon-pencil"></a></h4>
                                             <a class="profilePostEmail">{{question.user.email}}</a>
                                             <h3 class="profilePostTitle">Title:{{ question.question | safe}}<a class="showallButton" type="button" title="Show all" style="cursor:pointer;" id="{{question.id}}">Show description</a></h3>
                                         </div>
@@ -138,9 +165,9 @@
                                         <div>{{ question.answer }}</div>
                                         <div class="profilePostButton">
                                                 <a href="#"  id={{"followques_{0}".format(question.id)}} class="profilePostFollowButton">Unfollow</a>
-                                            <a href="#" class="glyphicon glyphicon-pencil"></a>
-                                            <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up"> </a>
-                                            <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down"> </a>
+                                           
+                                            <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up">  {{ question.upvotesCount}}</a>
+                                            <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down">  {{ question.downvotesCount}}</a>
                                             <button  onclick = "followedQuestion('{{question.id}}')" >
                                                    
                                             </button>                                        </div>
@@ -148,48 +175,78 @@
                                     {% endfor %}
                                 </div>
                                 <div class="postscontainer">
-                                {% for i in json_object.questions|reverse %}
+                                {% for i in posts|reverse %}
 
                                 <div class="profile-contentCenter">
                                     <div class="profilePostPictureCont">
-                                        <img class="profilePostPicture" src="{{ json_object.picture }}">
+                                        <img class="profilePostPicture" src="{{ i.user.picture }}">
 
                                     </div>
                                     <div class="profileNameEmail">
-                                        <a class="profilePostUsername">{{json_object.displayname}}</a>
-                                        <a class="profilePostEmail">{{json_object.email}}</a>
-                                        <h3 class="profilePostTitle">Title:{{i.question | safe}} <a class="showallButton" type="button" style="cursor:pointer;" title="Show all"  id="{{json_object.id}}">Show description</a> </h3>
+                                        <h4 class="profilePostUsername">{{i.user.displayname}}
+                                            <a style="cursor:pointer;" title ="Edit" class="glyphicon glyphicon-pencil pencileditbutton" onclick="showhide('{{i.id}}')" id="{{i.id}}"></a>
+                                            <a style="cursor:pointer;" title ="Delete" class="glyphicon glyphicon-trash pencileditbutton" onclick="confirmDelete('{{i.id}}')" id="{{i.id}}"></a>
+                                            <a style="cursor:pointer;" title ="Mark as duplicate" class="glyphicon glyphicon-duplicate pencileditbutton" id="{{i.id}}"></a></h4>
+                                        <a class="profilePostEmail">{{i.user.email}}</a>
+                                        <h3 class="profilePostTitle">Title:{{i.question | safe}} <a class="showallButton" type="button" style="cursor:pointer;" title="Show all"  id="{{i.id}}">Show description</a> </h3>
                                     </div>
 
                                     <br>
 
-                                    <div class="profilePostAnswer" id={{"show_{0}".format(json_object.id)}} >{{i.questiondesc | safe}}</div>
-                                    <div class="profilePostButton">
-                                            <a href="#"  id={{"followques_{0}".format(questions.id)}} class="profilePostFollowButton">Unfollow</a>
-                                        <a href="" title ="Edit" class=" pencileditbutton"  id="{{i.id}}">Edit</a>
-                                        <a onclick="upvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-up"> </a>
-                                        <a onclick="downvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-down" ></a>
-                                        <button  onclick = "followedQuestion('{{questions.id}}')" >
+                                    <div class="profilePostAnswer" id={{"show_{0}".format(i.id)}} >{{i.questiondesc | safe}}</div>
+                                    
+                                    <div class="profilePostButton">     
+                                            <hr>               
+                                        <a id="{{i.id}}" class="profilePostAnswerButton">View Answer</a>                                        
+                                        <button  onclick = "followedQuestion('{{i.id}}')" >
                                             
                                         </button>
                                     </div>
-                                    
+                                    {% for a in i.answers %}
+                                    <div class="ProfilepostAnswerDiv" id={{"ProfilepostAnswerDiv_{0}".format(i.id)}}>
+                                            <div class="picture2" id="">
+                                                    <a href="">
+                                                    <img style="cursor: pointer;width: 100%; height: 100%;" src="{{a.user.picture}}">
+                                                    </a>
+                                                </div>
+                                        <div  id={{"ProfilepostAnswerBox_{0}".format(a.id)}} class="ProfilepostAnswerBox">
+                                            <h4>{{a.user.displayname}}</h4>
+                                            <h6>{{a.createdAt}}</h6>
+                                            <button id="{{a.id}}" onclick="answerUpvote('{{a.id}}')" class="workround1 fa fa-thumbs-up up thumbs-up" style="margin: 5px;"> {{a.upvotes}}</button>
+                                            <button id="" onclick="answerDownvote('{{a.id}}')" class="workround2 fa fa-thumbs-down down thumbs-down" style="margin: 5px;"> {{a.downvotes}}</button>
+                                            <p>{{a.answer | safe}}</p>
+
+                                        </div>
+                                        {% for c in a.comments%}
+                                        <div  id={{"ProfilepostCommentBox_{0}".format(c.id)}} class="ProfilepostCommentBox">
+                                                <p>{{c.comment}}</p>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endfor %}
                     <div class="form2container"  id={{"edit_{0}".format(i.id)}} style="z-index: 10003;">    
 
-
-                            <form class = "form2" >
+                            <form class = "form2" id={{"editform_{0}".format(i.id)}} style="margin-top: -250px;">
     
                                 <h5>Title</h5>
                                 <input class="editQuestionTitle" type="text" id="titleedit" value="{{i.question}}">
                                 <h5>Description</h5>
-                                <textarea style="border: 1px solid black; height:200px; font-size:14pt;" rows="9" type="text" class="editTitleDescription" id="descedit">{{i.questiondesc}}</textarea>
-    
+                                <textarea name={{"editquestion_{0}".format(i.id)}} id={{"editquestion_{0}".format(i.id)}} style="border: 1px solid black; height:200px; font-size:14pt;" rows="9" type="text" class="editTitleDescription" id="descedit">{{i.questiondesc}}</textarea>
+                                <script>
+                                    CKEDITOR.replace('{{"editquestion_{0}".format(i.id)}}')
+                                </script>
     
                                 <h5>Tags</h5>
                                 <input id="tagsIDedit" type="text" name="tagsarea" value=" {% for tag in i.tags %} {{tag.name}} {% endfor %}" class="tagsarea" />
                                
-                                <button id="categoryIDedit" type="button" value="" class="categorybutton"><b>Category:</b> </button> 
-    
+                                <div class="popupedit" id="{{i.category.id}}">
+                                        <button id="categoryIDedit" type="button" value="" class="categorybuttonedit">
+                                            <b>Category:</b>
+                                        </button>
+                                        <button class="selectedcategorybuttonedit" type="button">
+                                            {{ i.category.name }}
+                                        </button>
+                                </div>
     
                                 <div class="newsfeedPopUpButton-Cont">
                                     <!-- <button type="submit" id="{{i.id}}" style="margin-left: -10%" class="submitbutton5">Submit</button> -->
@@ -345,7 +402,7 @@
                 <div id="interest-contain" style="width: 47%; float: left; overflow-y: auto; height: 40%;">
                     <h5>Interests: </h5>
                     {% for i in interests%}
-                    <button value="{{i.id}}" type="button" class="interestbuttons">{{ i.name }}</button>
+                    <button value="{{i.id}}" type="button" class="interestbuttons" id="">{{ i.name }}</button>
                     {% endfor %}
                 </div>
                 <div id="category-contain" style="width: 47%; float: left; overflow-y: auto; height: 40%;">
@@ -360,11 +417,40 @@
 
         </div>
     </div>
+    <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content" style="margin-top: 30%;">
+                <span class="close">&times;</span> {% for category in categories %}
+                <a id="{{category.id}}" class="categorypopups"> {{category.name}} </a> {% endfor %}
+            </div>
+        </div>
     <script src="../static/js/autocompleteJS.js"></script>
+    <script src="../static/js/app2.js"></script>
     <!--<script src="../static/js/app2.js"></script>-->
     <div id="sideChat"></div>
 </body>
+
 <script type="text/javascript">
+    $('.tagsarea').tagEditor({
+
+    });
+    ///////////////////////////////////////////////////////////////////////////////////
+    $(document).on('click', '.categorybuttonedit', function () {
+            $("#myModal").show();
+            $("#myModal").css("z-index", "10004");
+        });
+
+    ///////////////////////////////////////////////////////////////////////////////////
+    $(document).on('click', '.categorypopups', function () {
+            var catty, cattyid, selectedCategory, btn, text2;
+            catty = this.text;
+            cattyid = $(this).attr('id');
+            text2 = document.createTextNode(catty);
+            var modal = document.getElementById('myModal');
+            modal.style.display = 'none';
+            $('.popupedit').attr('id', cattyid);
+            $('.selectedcategorybuttonedit').text(catty);
+        });
 
     $(document).ready(function() {
             gapi.load('auth2', function () {
@@ -373,7 +459,8 @@
         });
 
     $(document).ready(function() {
-        $(".form2container").hide();
+        // $(".form2container").hide();
+        $(".form2").hide();
         $(".profile-contentCenter").show('slow');
         $(".FollowersContainer").hide();
         $(".FollowingContainer").hide();
@@ -447,21 +534,40 @@
             $(".modal_main").fadeOut();
         });
     });
+
+    function confirmDelete(id) {
+        console.log("Clicked delete button");
+            $.ajax({
+                type: "DELETE",
+                url: "http://iitoverflow.herokuapp.com/api/Questions/"+id,
+                success: function (result) {
+                    console.log('Successfully deleted question!');
+                },
+                error: function (result) {
+                    console.log('Error in deleting question!');
+                }
+            });
+        }
     
     $("#submitProfile").on("click", function(e) {
-        e.preventDefault();
+        console.log("Submit Profile button is clicked.");
+        if (interests_list.length == 0) {
+            console.log("Interests must not be empty!");
+            return false;
+        } else {
+            e.preventDefault();
         var formdata = new FormData(); 
         var file = $('#avatar-1').prop('files');
         console.log(file);
         var name = $("#dispName").val();
         var names = $("#inter").val();
         var user = {
-            "displayname": name,
-            "interests": names
+            "displayname": name
+            //"interests": names
         };  
         console.log(JSON.stringify(user));
         $.ajax({
-            url: "http://iitoverflow.herokuapp.com/api/users/{{ curuser }}",
+            url: "http://iitoverflow.herokuapp.com/api/users/{{curuser}}",
             type: "PATCH",
             data: JSON.stringify(user),
             dataType: "JSON",
@@ -511,12 +617,12 @@
                         dataType: "json",
                         success: function (data3) {
                             console.log("interests are deleted")
-                            interests.forEach(function(cat){
+                            interests_list.forEach(function(cat){
                                 console.log(cat);
                                 $.ajax({
                                 url: "http://iitoverflow.herokuapp.com/api/users/"+userId+"/interests/rel/"+cat,
                                 type: "PUT",
-                                data: JSON.stringify(user),
+                                data: JSON.stringify({"userId": userId, "categoryId": cat}),
                                 dataType: "json",
                                 success: function (data3) {
                                     console.log("TEST 3");
@@ -539,6 +645,7 @@
             }
         });
         $("#modalProf").hide();
+        }
     });
    
 
@@ -581,13 +688,14 @@
 </script>
 
 <script type="text/javascript">
-    var interests = [];
+    var interests_list = [];
     {% for i in interests %}
-        var id = {{i.id}};
-        id = id.toString();
-        interests.push(id);
+        var id = "{{i.id}}";
+        console.log(id);
+        interests_list.push(id);
+        console.log("Int IDs 1: " + interests_list + " IntList: " + interests_list.length);
     {% endfor %}
-
+        console.log("Int IDs 2: " + interests_list + " IntList: " + interests_list.length);
     var interests_contain= document.getElementById("interest-contain");
     var category_contain = document.getElementById("category-contain");
     $(document).on('click', '.categorybuttons', function() {
@@ -599,18 +707,18 @@
         btn.setAttribute("value", $(this).val());
         btn.appendChild(text);
         interests_contain.appendChild(btn);
-        interests.push(categoryid);
+        interests_list.push(categoryid);
         $(this).remove();
-        console.log(interests);
+        console.log("Int IDs 3: " + interests_list + " IntList: " + interests_list.length);
     });
 
 
     $(document).on('click', '.interestbuttons', function() {
         var id = $(this).val();
-        var index = interests.indexOf(id);
+        var index = interests_list.indexOf(id);
         // alert("Index in interests: " + index);
         if (index > -1) {
-            interests.splice(index, 1);
+            interests_list.splice(index, 1);
         }
         // alert("List of ids: " + interests);
         categoryname = $(this).text();
@@ -621,77 +729,13 @@
         btn.setAttribute("value", categoryid);
         btn.appendChild(text);
         category_contain.appendChild(btn);
+        console.log("Int IDs 4: " + interests_list + " IntList: " + interests_list.length);
         $(this).remove();
     });
 </script>
 
 <script>
-     function upvote(qid) {
-            console.log(qid);
-            $.ajax({
-                type: 'HEAD',
-                async: true,
-                url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsupvoted/rel/'+qid,
-                success: function(message) {
-                    console.log("Already upvoted!");
-                },
-                error: function(message) {
-                    if (message.status == 404) {
-                        $.ajax({
-                            type: "PUT",
-                            async: true,
-                            url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsupvoted/rel/'+qid,
-                            success: function(message) {
-                               $.ajax({
-                                   type: "DELETE",
-                                   async: true,
-                                   url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsdownvoted/rel/'+qid,
-                                   success: function() {
-                                       console.log("Sucessful deleted downvote after upvote!");
-                                       console.log(".glyphicon glyphicon-thumbs-up#"+qid);
-                                       
-                                   }
-                               });
-                               console.log("Upvoted question!")
-                            }
-                        });
-                    }
-                }
-            });
-        }
-        function downvote(qid) {
-            console.log(qid);
-            $.ajax({
-                type: 'HEAD',
-                async: true,
-                url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsdownvoted/rel/'+qid,
-                success: function(message) {
-                    console.log("Already downvoted!");
-                },
-                error: function(message) {
-                    if (message.status == 404) {
-                        $.ajax({
-                            type: "PUT",
-                            async: true,
-                            url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsdownvoted/rel/'+qid,
-                            success: function(message) {
-                                $.ajax({
-                                   type: "DELETE",
-                                   async: true,
-                                   url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsupvoted/rel/'+qid,
-                                   success: function() {
-                                       console.log("Sucessful deleted upvote after downvote!");
-                                       console.log(".glyphicon glyphicon-thumbs-down#"+qid);
-                                   }
-                               });
-                                console.log("Downvoted question!");
-
-                            }
-                        });
-                    }
-                }
-            });
-        }
+    
         function followedQuestion(qid){
             $.ajax({
                 type: "HEAD",
@@ -842,23 +886,40 @@ $(".showallButton").click(function(){
     });
 
 
-        $(".pencileditbutton").click(function() {
-            var id = $(this).attr("id");
-            if ($(this).text() === "Edit") {
-                $("#edit_" + id).show('slow');
-                $(".form2container").css("z-index", "11000");
-                $(this).text("Close")
+        // $(".pencileditbutton").click(function() {
+        //     var id = $(this).attr("id");
+        //     if ($("#edit_" + id).is(":visible")) {
+        //         $("#edit_" + id).hide();
+        //         $("#editform_"+id).hide();
+        //     }
+        //     else {
+        //         $("#edit_" + id).show();
+        //         $("#editform_"+id).show();
+        //     }
+        // });
+
+        function showhide(id) {
+            if ($("#editform_" + id).is(":visible")) {
+                // $("#edit_" + id).hide();
+                $("#editform_"+id).hide();
             }
             else {
-                $(this).text("Edit");
-                $("#edit_" + id).hide('slow');  
+                // $("#edit_" + id).show();
+                $("#editform_"+id).show();
             }
-        });
+        }
+
+        function CKupdate() {
+            for (instance in CKEDITOR.instances) {
+                CKEDITOR.instances[instance].updateElement();
+                CKEDITOR.instances[instance].setData('');
+            }
+        }
 
         
         $(document).on('click', '.submitbutton5', function () {
             var qid = $(this).attr('id');
-            var editorText = CKEDITOR.instances['textareaedit_'+qid].getData();
+            var editorText = CKEDITOR.instances['editquestion_'+qid].getData();
             var posttitle = document.getElementById('titleedit').value;
             var gettags = document.getElementById('tagsIDedit').value;
             var cleartitle = document.getElementById('titleedit');
@@ -881,19 +942,20 @@ $(".showallButton").click(function(){
                     console.log(result);
                     // alert('gaga');
                     qid = result.id;
-                    $('#qedit_' + qid).modal('toggle');
+                    //$('#qedit_' + qid).modal('toggle');
                     var tagslength = cleartags.length;
                     $.ajax({ 
                         type: "PUT",
-                        url: "https://iitoverflow.herokuapp.com/api/Questions/",
+                        url: "https://iitoverflow.herokuapp.com/api/Questions/"+qid,
                         data: JSON.stringify(data),
                         dataType: "json",
                         contentType: "application/json",
                         success: function (result) {
                             console.log(result);
+                            $("#editform_"+qid).hide();
                             // alert('gaga');
                             qid = result.id;
-                            $('#qedit_' + qid).modal('toggle');
+                            //$('#qedit_' + qid).modal('toggle');
                             var tagslength = cleartags.length;
                             for (i = 0; i < tagslength; i++) {
                                 var data1 = {
@@ -1589,5 +1651,37 @@ $(document).on('click','#sideChatHeader', function(e){
  window.addEventListener("resize", calculate_popups);
  window.addEventListener("load", calculate_popups);
  ///////////////////////////////////////////////////////////////////////////////////
+ $(".profilePostAnswerButton").click(function(){
+    var id = $(this).attr("id");
+    if($(this).text()=== "View Answer"){
+        console.log("Show answer");
+        $("#ProfilepostAnswerDiv_"+ id).show('slow');
+        $("#ProfilepostAnswerBox_"+ id).show('slow');
+        $("#ProfilepostCommentBox_"+ id).show('slow');        
+        $(this).text("Hide Answer");
+    }
+    else {
+        console.log("Hide answer");
+        $(this).text("View Answer");
+        $("#ProfilepostAnswerDiv_"+ id).hide('slow');
+        $("#ProfilepostAnswerBox_"+ id).hide('slow');
+        $("#ProfilepostCommentBox_"+ id).hide('slow');  
+        
+    }
+   
+ });
 </script>
+
+<!-- $(".showallButton").click(function(){
+    var id = $(this).attr("id");
+    if($(this).text()=== "Show description"){
+        $(this).text("Hide description");
+        $("#show_"+id).show('slow');
+    }
+    else{
+        $(this).text("Show description");
+        $("#show_"+id).hide('slow');
+    } -->
+   
+});
 </html>

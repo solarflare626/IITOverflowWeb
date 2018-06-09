@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width" />
 
     <link rel="icon" type="image/png" href="../static/image/favicon.ico" />
+    <link rel="stylesheet" href="../static/js/jQuery-tagEditor-master/jquery.tag-editor.css" />
     <link rel="stylesheet" href="../static/js/jquery-ui-1.12.1.custom/jquery-ui.min.css" />
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
@@ -28,6 +29,10 @@
     <script src="//code.jquery.com/jquery-1.9.1.js"></script>
     <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+    <!--<script src="../static/ckeditor/ckeditor.js"></script>-->
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
 
     <title>Question</title>
 
@@ -213,13 +218,12 @@
                             <h5>Title</h5>
                             <input class="editQuestionTitle" type="text" id="titleedit" value="{{i.question}}">
                             <h5>Description</h5>
-                            <textarea name={{ "textareaedit_{0}".format(i.id) }}>{{i.questiondesc}}</textarea>
+                            <textarea name="edit">{{i.questiondesc}}</textarea>
                             <script>
-                                CKEDITOR.replace('{{ "textareaedit_{0}".format(i.id) }}');
+                                CKEDITOR.replace("edit");
                             </script>
                             <h5>Tags</h5>
-                            <input id="tagsIDedit" type="text" name="tagsarea" value=" {% for tag in i.tags %} {{tag.name}} {% endfor %}" class="tagsarea"
-                            />
+                            <input id="tagsIDedit" type="text" name="tagsarea" value=" {% for tag in i.tags %} {{tag.name}} {% endfor %}"  class="tagsarea"/>
                             <div class="popupedit" id="{{i.category.id}}">
                                 <button id="categoryIDedit" type="button" value="" class="categorybuttonedit">
                                     <b>Category:</b>
@@ -239,35 +243,37 @@
             <!-- ANSWER -->
 
         </div>
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-
-
-        <!-- Modal content -->
-        <div class="modal-content" style="width: 40%; text-align: center;">
-            <span class="close" style="display: none;">&times;</span>
-            <input type="textarea" placeholder="Enter comment here" style="border-radius: 10px; outline: none; height: 30px; margin-bottom: 5px;">
-            <a type="submit" style=" margin-left: 70%; border: 1px solid black; border-radius: 10px; padding:5px 10px 5px 10px; margin-top: 10px; width: 30%; display: inline-block;">Submit</a>
-        </div>
-
-    </div>
-    <!-- The Modal -->
-    <div id="myModal1" class="modal">
-
-
-        <!-- Modal content -->
-        <div class="modal-content1" style="width: 40%; text-align: center;">
-            <span class="close" style="display: none;">&times;</span>
-            <input type="textarea" placeholder="Enter answer here" style="border-radius: 10px; outline: none; height: 30px; margin-bottom: 5px;">
-            <a type="submit" style=" margin-left: 70%; border: 1px solid black; border-radius: 10px; padding:5px 10px 5px 10px; margin-top: 10px; width: 30%; display: inline-block;">Submit</a>
-        </div>
-
-    </div>
+        <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <span class="close">&times;</span> {% for category in categories %}
+                    <a id="{{category.id}}" class="categorypopups" value="{{category.name}}"> {{category.name}} </a> {% endfor %}
+                </div>
+            </div>
     <script src="../static/js/app2.js"></script>
     <script src="../static/js/autocompleteJS.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
+<!-- SCRIPTS HERE -->
+<script src="../static/js/app2.js"></script>
+<script src="../static/js/autocompleteJS.js"></script>
+<script src="../static/js/jquery-3.3.1.min.js"></script>
+<script src="../static/js/jQuery-tagEditor-master/jquery.tag-editor.min.js"></script>
+<script src="../static/js/jQuery-tagEditor-master/jquery.caret.min.js"></script>
 <script>
+
+    ///////////////////////////////////////////////////////////////////////////////////
+    $('#tagsIDedit').tagEditor({
+            autocomplete: {
+                delay: 0, // show suggestions immediately
+                position: {
+                    collision: 'flip'
+                }, // automatic menu position up/down
+                source: ['haha']
+            },
+            forceLowercase: false,
+        });
+        ///////////////////////////////////////////////////////////////////////////////////
     // Get the modal
     var modal = document.getElementById('myModal');
     var modal1 = document.getElementById('myModal1');
@@ -338,71 +344,96 @@
     });
 });
 
-
-    $(".submitbutton5").click(function() {
-
-
-        var qid = $(this).attr('id');
-        var editorText = CKEDITOR.instances.textarea.getData();
-        var posttitle = document.getElementById('titleedit').value;
-        var gettags = document.getElementById('tagsIDedit').value;
-        var cleartitle = document.getElementById('titleedit');
-        var cleartags = document.getElementsByClassName('tag-editor-tag');
-        console.log(cleartags);
-        // var category = document.getElementsByClassName('categorypopups')[0].id;
-
-
-        var data = {
-            "question": posttitle,
-            "questiondesc": editorText,
-            "userId": 1
-        };
-
-        $.ajax({
-            type: "PUT",
-            url: "https://iitoverflow.herokuapp.com/api/Questions",
-            data: JSON.stringify(data),
-            dataType: "json",
-            contentType: "application/json",
-            success: function(result) {
-                console.log(result);
-                //alert('gaga');
-                qid = result.id;
-
-                var tagslength = cleartags.length;
-                for (i = 0; i < tagslength; i++) {
-
-                    var data1 = {
-                        "name": cleartags[i].innerText,
-                        "categoryId": category
-                    };
-                    console.log(cleartags[i].innerText);
-
-                    // EDIT
-
+///////////////////////////////////////////////////////////////////////////////////
+$(document).on('click', '.categorybutton', function () {
+            $("#myModal").show();
+            $("#myModal").css("z-index", "10004");
+        });
+        ///////////////////////////////////////////////////////////////////////////////////
+        $(document).on('click', '.categorybuttonedit', function () {
+            $("#myModal").show();
+            $("#myModal").css("z-index", "11001");
+        });
+        ///////////////////////////////////////////////////////////////////////////////////
+        $(document).on('click', '.categorypopups', function () {
+            var catty, cattyid, selectedCategory, btn, text2;
+            catty = this.text;
+            cattyid = $(this).attr('id');
+            text2 = document.createTextNode(catty);
+            var modal = document.getElementById('myModal');
+            modal.style.display = 'none';
+            $('.popup').attr('id', cattyid);
+            $('.selectedcategorybutton').text(catty);
+            $('.popupedit').attr('id', cattyid);
+            $('.selectedcategorybuttonedit').text(catty);
+        });
+        ///////////////////////////////////////////////////////////////////////////////////
+        $(document).on('click', '.submitbutton5', function () {
+            var qid = $(this).attr('id');
+            var editorText = CKEDITOR.instances.edit.getData();
+            var posttitle = document.getElementById('titleedit').value;
+            var gettags = document.getElementById('tagsIDedit').value;
+            var cleartitle = document.getElementById('titleedit');
+            var category = $('.popupedit').attr('id');
+            var cleartags = document.getElementsByClassName('tag-editor-tag');
+            console.log(cleartags);
+            var data = {
+                "question": posttitle,
+                "questiondesc": editorText,
+                "userId": "{{ curuser }}",
+                "categoryId": category
+            };
+            $.ajax({
+                type: "PUT",
+                url: "https://iitoverflow.herokuapp.com/api/Questions/"+qid,
+                data: JSON.stringify(data),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (result) {
+                    console.log(result);
+                    alert('gaga');
+                    qid = result.id;
+                    $('#qedit_' + qid).modal('toggle');
+                    var tagslength = cleartags.length;
                     $.ajax({
-                        type: "POST",
-                        url: "http://iitoverflow.herokuapp.com/api/Questions/" + qid + "/tags",
-                        data: JSON.stringify(data1),
+                        type: "PUT",
+                        url: "https://iitoverflow.herokuapp.com/api/Questions/"+qid,
+                        data: JSON.stringify(data),
                         dataType: "json",
                         contentType: "application/json",
-
-                        success: function(result1) {
-                            // //alert('ok');
-                            console.log(result1);
-                        },
-                        error: function(result1) {
-                            ////alert(result1);
-                            console.log(JSON.stringify(result1));
+                        success: function (result) {
+                            console.log(result);
+                            alert('gaga');
+                            qid = result.id;
+                            $('#qedit_' + qid).modal('toggle');
+                            var tagslength = cleartags.length;
+                            for (i = 0; i < tagslength; i++) {
+                                var data1 = {
+                                    "name": cleartags[i].innerText,
+                                    "categoryId": category
+                                };
+                                console.log(cleartags[i].innerText);
+                                // EDIT
+                                $.ajax({
+                                    type: "POST",
+                                    url: "http://iitoverflow.herokuapp.com/api/Questions/" + qid + "/tags",
+                                    data: JSON.stringify(data1),
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    success: function (result1) {
+                                        console.log(result1);
+                                    },
+                                    error: function (result1) {
+                                        console.log(JSON.stringify(result1));
+                                    }
+                                });
+                            }
                         }
                     });
                 }
-            },
-            error: function(result) {
-                //alert('error');
-            }
+            });
         });
-    })
+        ///////////////////////////////////////////////////////////////////////////////////
 </script>
 
 

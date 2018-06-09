@@ -137,8 +137,8 @@
                                                     </button>
                                             <a href="#" class="glyphicon glyphicon-pencil"></a>
                                             <a href="#" class="glyphicon glyphicon-comment"></a>
-                                            <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" id="QupVote"> </a>
-                                            <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down" id= "QdownVote"> </a>
+                                            <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" id="QupVote">{{ question.upvotesCount}}</a>
+                                            <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down" id= "QdownVote">{{ question.downvotesCount}} </a>
                                             
                                         </div>
                                     </div>
@@ -164,8 +164,8 @@
                                             </button>
                                     <a href="#" class="glyphicon glyphicon-pencil"></a>
                                     <a href="#" class="glyphicon glyphicon-comment"></a>
-                                    <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" ></a>
-                                    <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down"></a>
+                                    <a onclick="upvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-up" {{ question.upvotesCount}}></a>
+                                    <a onclick="downvote('{{question.id}}')" class="glyphicon glyphicon-thumbs-down"> {{ question.downvotesCount}}</a>
                                    
                                 </div>
                             </div>
@@ -194,8 +194,8 @@
                                             <a href="#"  id={{"followques_{0}".format(i.id)}} class="profilePostFollowButton">Unfollow</a>
                                         </button>
                                 <a href="#" class="glyphicon glyphicon-comment"></a>
-                                <a onclick="upvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-up" ></a>
-                                <a onclick="downvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-down"></a>
+                                <a onclick="upvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-up" > {{ question.upvotesCount}} </a>
+                                <a onclick="downvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-down"> {{ question.downvotesCount}} </a>
                                
                             </div>
 
@@ -453,7 +453,7 @@
             });
         });
 
-      function upvote(qid) {
+     function upvote(qid) {
             console.log(qid);
             $.ajax({
                 type: 'HEAD',
@@ -461,7 +461,6 @@
                 url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsupvoted/rel/'+qid,
                 success: function(message) {
                     console.log("Already upvoted!");
-                    
                 },
                 error: function(message) {
                     if (message.status == 404) {
@@ -475,20 +474,20 @@
                                    async: true,
                                    url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsdownvoted/rel/'+qid,
                                    success: function() {
+                                       getUpvote(q_id);
+                                       getDownVote(q_id);
                                        console.log("Sucessful deleted downvote after upvote!");
-                                       console.log(".glyphicon glyphicon-thumbs-up#"+qid);
-                                       $(".glyphicon glyphicon-thumbs-up#"+qid).css("color", "blue");
+                                       
                                    }
                                });
-                               console.log("Upvoted question!");
-
+                               getUpvote(q_id);
+                               console.log("Upvoted question!")
                             }
                         });
                     }
                 }
             });
         }
-
         function downvote(qid) {
             console.log(qid);
             $.ajax({
@@ -496,6 +495,7 @@
                 async: true,
                 url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsdownvoted/rel/'+qid,
                 success: function(message) {
+                    getDownVote(q_id);
                     console.log("Already downvoted!");
                 },
                 error: function(message) {
@@ -510,8 +510,10 @@
                                    async: true,
                                    url: 'http://iitoverflow.herokuapp.com/api/users/{{curuser}}/questionsupvoted/rel/'+qid,
                                    success: function() {
+                                    getDownVote(q_id);
+                                    getUpvote(q_id);
                                        console.log("Sucessful deleted upvote after downvote!");
-                                       console.log(".glyphicon glyphicon-thumbs-down#"+qid);
+                                      
                                    }
                                });
                                 console.log("Downvoted question!");
@@ -522,7 +524,34 @@
                 }
             });
         }
-    
+
+        
+function getUpvote(q_id){
+
+$.ajax({
+    url: 'http://iitoverflow.herokuapp.com/api/Questions/'+q_id+'/upvotes/count',
+    type: 'GET',
+    dataType: "json",
+    async: false,
+    success: function (data) {
+        $("#"+q_id+".up").text(" "+data.count);
+    }
+});
+}
+
+function getDownVote(q_id) {
+
+$.ajax({
+    url: 'http://iitoverflow.herokuapp.com/api/Questions/' + q_id + '/downvotes/count',
+    type: 'GET',
+    dataType: "json",
+    async: false,
+    success: function (data) {
+        $("#" + q_id + ".down").text(" " + data.count);
+    }
+});
+}
+
         function followedQuestion(qid){
             $.ajax({
                 type: "HEAD",
@@ -1279,8 +1308,8 @@ $(document).on('click','#sideChatHeader', function(e){
      element +=
          '</div><div class="input-group" style="padding-top:4px;padding-bottom:4px;"><input id="btn-input" class="form-control input-sm chat_input" placeholder="Write your message here..." type="text" style="float:bottom"><span class="input-group-btn"><button class="btn-chat btn btn-primary btn-sm">Send</button> </span></div></div></div>';
      // Insert msg body
-     document.getElementsByTagName("body")[0].innerHTML = document.getElementsByTagName("body")[0].innerHTML +
-         element;
+     //document.getElementsByTagName("body")[0].innerHTML = document.getElementsByTagName("body")[0].innerHTML +element;
+     $("body").append(element);
      popups.unshift(id);
      calculate_popups();
      $.ajax({
