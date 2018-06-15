@@ -37,8 +37,8 @@
 
 <body>
     <div class="profile-fullpage">
-        <div class="profile-section">
-            <div class="profile-landing">
+        
+        
                 <div class="profile-nav">
                     <div class="profile-search">
                         <form action="/search" method="POST">
@@ -174,7 +174,7 @@
                                     </div>
                                     {% endfor %}
                                 </div>
-                                <div class="postscontainer">
+                                <div class="postscontainer" style="  background-color: #580D16;">
                                 {% for i in posts|reverse %}
 
                                 <div class="profile-contentCenter">
@@ -359,8 +359,8 @@
                         </div>
 
                     </div>
-                </div>
-            </div>
+                
+           
         </div>
 
     </div>
@@ -478,7 +478,7 @@
         $(".profile-contentRight").show('slow');
         $(".profile-contentLeft").show('slow');
         $(".profileCenterDiv").show('slow');
-        $(".postscontainer").show();
+        $(".postscontainer").show('slow');
     })
     $("#profile-FollowersButton").click(function() {
         $(".profile-contentCenter").hide();
@@ -789,12 +789,10 @@
                         error: function(message){
                             console.log(message);
                         }
-                    });
+                     });
                     $('#followuser_').text('Follow')
                 },
                 error: function(message){
-                    console.log("FOLLOW QUESTION");
-                        console.log("FOLLOW QUESTION");
                         $.ajax({
                             type: "PUT",
                             async: true,
@@ -808,7 +806,7 @@
 
             });
         }
-            
+    
     function followable(qid){
         
         $.ajax({

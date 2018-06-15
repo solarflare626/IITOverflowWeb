@@ -27,7 +27,7 @@ def fillup():
         if request.method == 'POST':
             ids = request.json['ids']
             for i in ids:
-                requests.post(baseUrl + 'Interests',
+                requests.post(baseUrl    + 'Interests',
                               json={"categoryId": i, "userId": session['user']})
             return jsonify({"message": "ok"})
 

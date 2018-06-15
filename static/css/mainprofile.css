@@ -35,7 +35,8 @@ html {
     min-width: 1000px;
     font-family: Poppins-Regular, sans-serif;
     font-size: 100%;
-    background-color: #E6ECF0;
+    /* background-color: #E6ECF0; */
+    background:	#580D16;
 }
 
 .profile-searchbutton {
@@ -251,6 +252,7 @@ html {
 .editprofilebutton {
     background-color: white;
     border: 2px solid #5F7189;
+    border-color: transparent;
     color: #801515;
     width: 12%;
     height: 35px;
@@ -371,6 +373,7 @@ html {
     overflow: auto;
     width: 100%;
     min-width: 1000px;
+    background-color: #801515;
 }
 
 .profile-contentRight {
@@ -393,6 +396,7 @@ html {
     height: 100%;
     margin-top: 10px;
     position: absolute;
+    background-color:	#580D16;
 }
 
 .profile-contentLeft {
