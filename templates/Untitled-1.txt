@@ -347,7 +347,7 @@
                         <script>
                             CKEDITOR.replace('{{"answertextarea_{0}".format(i.id)}}');
                         </script>
-                        <input class="submitanswerbutton" id={{i.id}} value="submit" type="button">
+                        <input class="submitanswerbutton" id={{i.id}} value=submit type="button">
                     </div>
                 </div>
 
@@ -1093,6 +1093,7 @@ function phillip(id) {
                     '</small> </div></div> </div></a></li>';
 
                 $("#notification-content").append(holdNewAnswerHtml);
+                
             } else if ($.grep(questionFollowing, function(obj) {
                     return obj.id === element.question.id;
                 })[0]) {
@@ -1106,7 +1107,7 @@ function phillip(id) {
                     '</small> </div></div> </div></a></li>';
 
                 $("#notification-content").append(holdNewAnswerHtml);
-                
+                CKupdate();
             }
 
         }else if(element.type == 'newComment'){
@@ -1303,9 +1304,9 @@ function phillip(id) {
             '</div>'+
             '<!-- TOEDIT -->'+
             '<div class="answerdiv" id="answerdiv_'+data.question.id+'">'+
-            '<textarea name="answertextarea_'+data.question.id+'" class="answertextarea" id="answertextarea_'+data.question.id+'" placeholder="Write an Answer"> </textarea>'+
-            "<script>"+"CKEDITOR.replace(\'answertextarea_"+data.question.id+"\');<\/script>"+
-            '<input class="submitanswerbutton" id="'+data.question.id+'" value="submit" type="button">'+
+            '<textarea name="answertextarea" class="answertextarea" id="answer_'+data.question.id+'" placeholder="Write an Answer"> </textarea>'+
+            "<script>"+"CKEDITOR.replace(\'answertextarea\');<\/script>"+
+            '<input class="submitanswerbutton" id="'+data.question.id+'" value=submit type="button">'+
             '</div>'+
             '</div>'+
             ''+
