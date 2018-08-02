@@ -789,12 +789,10 @@
                         error: function(message){
                             console.log(message);
                         }
-                    });
+                     });
                     $('#followuser_').text('Follow')
                 },
                 error: function(message){
-                    console.log("FOLLOW QUESTION");
-                        console.log("FOLLOW QUESTION");
                         $.ajax({
                             type: "PUT",
                             async: true,
@@ -808,7 +806,7 @@
 
             });
         }
-            
+    
     function followable(qid){
         
         $.ajax({
