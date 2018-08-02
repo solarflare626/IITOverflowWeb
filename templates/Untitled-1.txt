@@ -1,0 +1,48 @@
+.picture1 {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    background: yellow;
+    border: 2px solid white;
+    float: left;
+    position: relative;
+    margin-top: 5px;
+    margin-left: 7px;
+    padding: 0;
+    display: block;
+}
+
+.titlepostpicture {
+    border-radius: 50%;
+    width: 10%;
+    height: 10%;
+    padding-bottom: 10%;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    display: inline-block;
+    float: left;
+    margin-right: 2%;
+}
+
+
+
+#tagsID+.tag-editor {
+    background: #fafafa;
+    font-size: 12px;
+}
+
+#tagsID+.tag-editor .tag-editor-tag {
+    color: #fff;
+    background: #555;
+    border-radius: 2px;
+}
+
+#tagsID+.tag-editor .tag-editor-spacer {
+    width: 7px;
+}
+
+#tagsID+.tag-editor .tag-editor-delete {
+    display: none;
+}

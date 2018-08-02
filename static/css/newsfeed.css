@@ -1483,12 +1483,13 @@ p {
 
 .categorypopups:hover {
     /* background-color: linear-gradient(to right, #4267B2, #5D91FA); */
-    background: -moz-linear-gradient(45deg, #00dbde, #5D91FA);
-    background: -webkit-linear-gradient(45deg, #00dbde, #5D91FA);
-    background: -o-linear-gradient(45deg, #00dbde, #5D91FA);
+    background: -moz-linear-gradient(45deg, #580D16, #AA3939);
+    background: -webkit-linear-gradient(45deg, #580D16, #AA3939);
+    background: -o-linear-gradient(45deg, #580D16, #AA3939);
     color: white;
     border-color: white;
     border-width: 0;
+    text-decoration: none;
 }
 
 .editanddeleteButtonCont {

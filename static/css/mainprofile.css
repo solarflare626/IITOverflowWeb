@@ -173,6 +173,7 @@ html {
     height: 400px;
     box-sizing: border-box;
     position: absolute;
+    background-color: #580D16;
 }
 
 .profile-contentTopLinks {
@@ -194,6 +195,8 @@ html {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    
+    background-color: #580D16;
 }
 
 .profile-contentTopCover img {
@@ -365,7 +368,8 @@ html {
     width: 45%;
     margin: 10px auto;
     margin-right: 10px;
-    background-color: #E6ECF0;
+    /* background-color: #E6ECF0; */
+    background-color: #580D16;
 }
 
 .profile-fullpage {
@@ -396,7 +400,7 @@ html {
     height: 100%;
     margin-top: 10px;
     position: absolute;
-    background-color:	#580D16;
+    background-color:#580D16;
 }
 
 .profile-contentLeft {
@@ -541,6 +545,7 @@ html {
 .profilePostUsername a{
     float: right;
     margin-right:5%;
+    color: #580D16;
 }
 .profileNameEmail {
     text-align: center;
