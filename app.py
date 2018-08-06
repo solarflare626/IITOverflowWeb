@@ -219,11 +219,10 @@ def profile(id):
         val8 = json_object1['interests']
 
         url = ('http://iitoverflow.herokuapp.com/api/users/'+user +'/answers?filter[include]=user&filter[include]=question')
-        response = requests.get(url) 
+        response = requests.get(url)
         answered_questions = response.json()
 
-        url = ('http://iitoverflow.herokuapp.com/api/users/'+user +
-            '/questionsfollowed?filter={"include":{"relation":"user"}}')
+        url = ('http://iitoverflow.herokuapp.com/api/users/'+user +'/questionsfollowed?filter={"include":[{"relation":"user"}, {"relation":"answers", "scope":{"include": [{"relation":"user"}, {"relation":"comments", "scope":{"include": {"relation": "user"}}}, {"relation":"upvotes"}, {"relation":"downvotes"}]}}]}')
         response = requests.get(url)
         followed_questions = response.json()
         

@@ -114,7 +114,7 @@
         
                                             <br>
         
-                                            <div class="profilePostAnswer" id={{"show_{0}".format(i.id)}} >{{i.questiondesc | safe}}</div>
+                                            <div class="profilePostAnswer" id="show_{{i.id}}" >{{i.questiondesc | safe}}</div>
                                             
                                             <div class="profilePostButton">     
                                                     <hr>               
@@ -123,30 +123,30 @@
                                                     
                                                 </button>
                                             </div>
-                                            <div class="ProfilepostAnswerDiv" id={{"ProfilepostAnswerDiv_{0}".format(i.id)}}>HEyHEYHEYHEYHEYHEYHEY</div>
-                                            {% for a in i.answers %}
-                                            <div class="ProfilepostAnswerDiv" id={{"ProfilepostAnswerDiv_{0}".format(i.id)}}>HEyHEYHEYHEYHEYHEYHEY</div>
                                             <div class="ProfilepostAnswerDiv" id={{"ProfilepostAnswerDiv_{0}".format(i.id)}}>
-                                                    <div class="picture2" id="">
-                                                            <a href="">
-                                                            <img style="cursor: pointer;width: 100%; height: 100%;" src="{{a.user.picture}}">
-                                                            </a>
-                                                        </div>
-                                                <div  id={{"ProfilepostAnswerBox_{0}".format(a.id)}} class="ProfilepostAnswerBox">
-                                                    <h4>{{a.user.displayname}}</h4>
-                                                    <h6>{{a.createdAt}}</h6>
-                                                    <button id="{{a.id}}" onclick="answerUpvote('{{a.id}}')" class="workround1 fa fa-thumbs-up up thumbs-up" style="margin: 5px;"> {{a.upvotes}}</button>
-                                                    <button id="" onclick="answerDownvote('{{a.id}}')" class="workround2 fa fa-thumbs-down down thumbs-down" style="margin: 5px;"> {{a.downvotes}}</button>
-                                                    <p>{{a.answer | safe}}</p>
-        
-                                                </div>
-                                                {% for c in a.comments %}
-                                                <div  id={{"ProfilepostCommentBox_{0}".format(c.id)}} class="ProfilepostCommentBox">
-                                                        <p>{{c.comment}}</p>
+                                                {% for a in i.answers %}
+                                                <div class="ProfilepostAnswerDivLOL" id={{"ProfilepostAnswerDiv_{0}".format(i.id)}}>
+                                                        <div class="picture2" id="">
+                                                                <a href="">
+                                                                <img style="cursor: pointer;width: 100%; height: 100%;" src="{{a.user.picture}}">
+                                                                </a>
+                                                            </div>
+                                                    <div  id={{"ProfilepostAnswerBox_{0}".format(a.id)}} class="ProfilepostAnswerBox">
+                                                        <h4>{{a.user.displayname}}</h4>
+                                                        <h6>{{a.createdAt}}</h6>
+                                                        <button id="{{a.id}}" onclick="answerUpvote('{{a.id}}')" class="workround1 fa fa-thumbs-up up thumbs-up" style="margin: 5px;"> {{a.upvotes}}</button>
+                                                        <button id="" onclick="answerDownvote('{{a.id}}')" class="workround2 fa fa-thumbs-down down thumbs-down" style="margin: 5px;"> {{a.downvotes}}</button>
+                                                        <p>{{a.answer | safe}}</p>
+            
+                                                    </div>
+                                                    {% for c in a.comments%}
+                                                    <div  id={{"ProfilepostCommentBox_{0}".format(c.id)}} class="ProfilepostCommentBox">
+                                                            <p>{{c.comment}}</p>
+                                                    </div>
+                                                    {% endfor %}
                                                 </div>
                                                 {% endfor %}
                                             </div>
-                                            {% endfor %}
                                     </div>
                                     {% endfor %}
                                 </div>

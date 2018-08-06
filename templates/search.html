@@ -56,226 +56,216 @@
         </div>
     </div>
 
-    <div class="specificTagQuestions">
+    <div style="width: 50%; margin: auto; margin-top: 7%;">
+            <div id="newsfeedParent">
 
-
-
-        <!-- ANSWER -->
-
-
-        <div id="newsfeedParent">
-
-            {% for i in searched|reverse %}
-
-
-            <div id="{{ "newqedit_{0}".format(i.id)}}" style="display: block;" class="newdiv">
-
-                <button class="duplicatebutton btn btn-danger" id="{{ "duplicate_{0}".format(i.id)}}" style="display: none;">Mark as Duplicate</button>
-
-                <div class="titlepost">
-
-                    <div class="titlepostpicture"><a href="{{ url_for('.profile', id = i.user.id) }}"><img style="cursor: pointer" src="{{ i.user.picture }}"></a></div>
-                    <div class=" editanddeleteButtonCont" style="float: right;">
-                            {% if user.id == i.user.id %}
-                            <i style="cursor: pointer" onclick="showhide({{i.id}})" class="fa fa-edit Newsfeed-editButton" title="Edit"></i>
-                            <i style="cursor: pointer" onclick="confirmDelete({{i.id}})" class="fas fa-trash-alt qheart" title="Delete"></i>
-                            {% endif %}
-                            <i style="cursor: pointer" onclick="showhide1({{i.id}})" class="fas fa-copy duplicate" title="Mark As Duplicate"></i>
-                        </div>
-                   <a href="{{ url_for('.profile', id = i.user.id) }}">
-                        <h4 class="titlepostname">{{ i.user.displayname }}
-                            <br>
-                        </h4>
-                   </a>
-                       <h6 style="margin: 0;">{{i.createdAt}}</h6>
-                            <hr style="margin:0;">
-
-                    <h5 class="titlepostTitle"><a style="outline: none;">Title:</a> {{i.question|safe}}<a class="showallButton" style="cursor: pointer;" type="button" title="Show all"  id="{{i.id}}">Show description</a></h5>
-                   
-
-                    
-
-
-
-
-                </div>
-
-                <div style="padding: 10px; border-bottom: 1px solid #D1D1D1; ">
-                    <div class="descriptionpost" id={{"show_{0}".format(i.id)}}>Description: {{i.questiondesc|safe}}
-                        <div></div>
-                    </div>
-                    <div class="categorypost">Category: {{i.category.name}}
-                        <div></div>
-                    </div>
-                    <div class="tagspost">Tags: {% for tag in i.tags %} {{tag.name}} {% endfor %}
-
-                        <div></div>
-                    </div>
-                    <div class="newpostbuttons"><button id="{{ i.id }}" name="{{ i.userId }}" class="follow followbutton">
-                                    <span class="msg-follow">Follow</span>
-                                    <span class="msg-following">Following</span>
-                                    <span class="msg-unfollow">Unfollow</span>
-                                  </button><button class="answerbutton" id="{{i.id}}">Answer</button><button id="{{ i.id }}" onclick="upvote({{ i.id }})" title="Upvote" style="color: #1abc9c; width: 23%;display: inline-block;" class="votebutton up glyphicon glyphicon-thumbs-up"> {{ i.upvotesCount }}</button>
-                        <button id="{{ i.id }}" onclick="downvote({{ i.id }})" title="Downvote" style="color: #e74c3c; width: 23%; display: inline-block;" class="votebutton down glyphicon glyphicon-thumbs-down"> {{i.downvotesCount}}</button>
-                    </div>
-
-                </div>
-
-
-                <div class="answerAndcommentsCont" style="background-color: #F2F3F5; text-align: left;" id={{ "toReloadAnswer_{0}".format(i.id)}}>
-
-                        {% for answer in i.answers|reverse %}
-
-                        <div class="comments-container {{ "comments-container_{0}".format(i.id)}} delme{{ answer.id }}" id={{ "comments-container_{0}".format(i.id)}}>
-                           <br>
-                            <ul id="comments-list" class="comments-list" style="margin: 0;">
-                                <li>
-                                    <div class="comment-main-level">
-                                        <div class="picture2">
-                                            <a href="{{ url_for('.profile', id = answer.user.id) }}">
-                                            <img style="cursor: pointer" src="{{answer.user.picture}}" style="width: 100%; height: 100%;">
-                                            </a>
-                                        </div>
-                                        </div>
-                                        <div class="comment-box" style=" border: 1px solid #801515; background-color: white; width: 80%;  border-radius: 10px; padding: 10px; margin-left: 15%; text-align: left;">
-                                         
-                                            <div class="comment-head">
-                                                    
-                                                <div class="answerdivbutton" style="margin-left: 30%;">
-                                                        {% if user.id == answer.user.id%}
-                                                        <button id="{{answer.id}}" class="fa fa-edit edit" title="Edit" style="margin: 5px;"></button>
-                                                        <button id="{{answer.id}}" class="fa fa-trash heart forDEL" title="Delete" style="margin: 5px;"></button>
-                                                        {% endif %}
-                                                        <button id="{{answer.id}}" class="fa fa-reply heart" style="margin: 5px;"></button>
-                                                        <button id="{{answer.id}}" onclick="answerUpvote({{ answer.id }})" class="workround1 fa fa-thumbs-up up thumbs-up" style="margin: 5px;"> 0</button>
-                                                        <button id="{{answer.id}}" onclick="answerDownvote({{ answer.id }})" class="workround2 fa fa-thumbs-down down thumbs-down" style="margin: 5px;"> 0</button>
-                                                </div>
-                                                <div>
-                                                 <h5 class="answerdisplayname">{{answer.user.displayname}} 
-                                                            </h5>
-                                                    <br>
-                                                  
-                                                </div>
-                                                <p style="padding: 0;margin: 0px; font-size: 10px; float: left; text-align: left; display: block; width: 100%;">{{i.createdAt}}</p>
-                                                       
-                                                    </div>
-                                                    <hr style="margin: 5px; width: 100%; display: block;">
-                                            <br style="margin: 0;">
-                                            
-                                            <div class="comment-content">
-                                                {{ answer.answer|safe }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <div>
-                            <ul class="comments-list reply-list">
-                                <!-- COMMENT -->
-                                {% for comment in answer.comments|reverse %}
-                             
-                                <li>
-                                        <div class="comment-box" style=" border: 1px solid #801515; background-color: white; width: 70%; margin: 0; margin-left: 25%; margin-top: 5px; border-radius: 5px; padding: 5px;">
-                                                <div class="comment-head">
-                                                    <span>{{comment.user.displayname}}<i id="{{comment.id}}" class="fa fa-trash heart"  style="float: right;" title="Delete" ></i></span>
-                                                   <p>{{comment.createdAt}} </p> 
+                    {% for i in searched|reverse %}
         
-                                                </div>
-                                                <hr style="margin: 0;">
-                                               
-                                                <div class="comment-content" style="padding: 10px; margin-bottom: 10px;">
-                                                    {{comment.comment}}
+                    <div id="{{ "newqedit_{0}".format(i.id)}}" style="display: block;" class="newdiv">
+        
+        
+                        {% if i.duplicate %}
+        
+                        <button class="duplicatebutton btn btn-danger" id="{{ " duplicate_{0} ".format(i.id)}}" style="display: block;">Duplicate</button>
+        
+                        {% endif %}
+        
+                        <div class="titlepost">
+        
+                            <div class=" editanddeleteButtonCont">
+        
+                                {% if user.id == i.user.id %}
+                                <i onclick="showhide('{{i.id}}')" style="cursor: pointer" class="fa fa-edit Newsfeed-editButton" title="Edit"></i>
+                                <i onclick="confirmDelete('{{i.id}}')" style="cursor: pointer" class="fas fa-trash-alt qheart" title="Delete"></i>
+                                {% endif %}
+        
+        
+                                <!-- CHANGES -->
+                                <i onclick="phillip('{{i.id}}')" style="cursor: pointer" class="fas fa-copy duplicate" title="Mark As Duplicate"></i>
+        
+                                <!-- CHANGES -->
+                            </div>
+        
+                            <div class="titlepostpicture">
+                                <a href="{{ url_for('.profile', id = i.user.id) }}">
+                                <img style="cursor: pointer" src="{{ i.user.picture }}">
+                                </a>
+                            </div>
+                            <a href="{{ url_for('.profile', id = i.user.id) }}">
+                            <h4  class="titlepostname">{{ i.user.displayname }}
+                                <br>
+                            </h4>
+                            </a>
+                                     <h6 style="margin: 0;" id="{{i.createdAt}}" class="time_hold">{{i.createdAt}}</h6>
+                                <hr style="margin:0;">
+                            <h5 class="titlepostTitle">
+                                <div style="cursor: pointer" onclick="thisonclick({{ i.id }})"><a style="outline: none; text-decoration: none;">Title:</a> {{i.question|safe}} </div> <a style="cursor: pointer" class="showallButton" type="button" title="Show all"  id="{{i.id}}">Show description</a></h5>
+                        </div>
+        
+                        <div style="padding: 10px; border-bottom: 1px solid #D1D1D1; ">
+                            <div class="descriptionpost" id={{"show_{0}".format(i.id)}}>Description: {{i.questiondesc|safe}}
+        
+                            </div>
+                            <div class="categorypost">Category: {{i.category.name}}
+                                <div></div>
+                            </div>
+                            <div class="tagspost">Tags: {% for tag in i.tags %} {{tag.name}} {% endfor %}
+        
+                                <div></div>
+                            </div>
+                            <div class="newpostbuttons"><button id="{{ i.id }}" name="{{ i.userId }}" class="follow followbutton">
+                                        <span class="msg-follow">Follow</span>
+                                        <span class="msg-following">Following</span>
+                                        <span class="msg-unfollow">Unfollow</span>
+                                    </button>
+                                <button class="answerbutton" id="{{i.id}}">Answer</button>
+                                <button id="{{ i.id }}" onclick="upvote('{{i.id}}')" title="Upvote" style="color: #1abc9c; width: 23%;display: inline-block;" class="votebutton up glyphicon glyphicon-thumbs-up"> {{ i.upvotesCount}}</button>
+                                <button id="{{ i.id }}" onclick="downvote('{{i.id}}')" title="Downvote" style="color: #e74c3c; width: 23%; display: inline-block;" class="votebutton down glyphicon glyphicon-thumbs-down"> {{i.downvotesCount}}</button>
+                            </div>
+        
+                        </div>
+        
+        
+                        <div style="background-color: #F2F3F5; text-align: left; padding:0 5px 0 5px; width: 100%;" id={{ "toReloadAnswer_{0}".format(i.id)}}>
+        
+        
+                            {% for answer in i.answers|reverse %}
+        
+                            <div class="comments-container {{ "comments-container_{0}".format(i.id)}} delme{{ answer.id }}" id="{{"comments-container_{0}".format(i.id)}}">
+                               <br>
+                                <ul id="comments-list" class="comments-list" style="margin: 0;">
+                                    <li>
+                                        <div class="comment-main-level">
+                                            <div class="picture2" id="{{ answer.id }}">
+                                                <a href="{{ url_for('.profile', id = i.id) }}">
+                                                <img style="cursor: pointer;width: 100%; height: 100%;" src="{{answer.user.picture}}">
+                                                </a>
+                                            </div>
+                                            <div class="comment-box" style="  border: 1px solid #801515; background-color: white; width: 80%;  border-radius: 10px; padding: 10px; margin-left: 15%; text-align: left;">
+                                                    <div class="comment-head">
+                                                        
+                                                            <div class="answerdivbutton" style="margin-left: 30%;">
+                                                                    {% if user.id == answer.user.id%}
+                                                                    <!-- <button id="{{answer.id}}" class="fa fa-edit edit" title="Edit" style="margin: 5px; cursor: pointer;"></button> -->
+                                                                    <button id="{{answer.id}}" class="fa fa-trash heart forDEL" title="Delete" style="margin: 5px; cursor: pointer;"></button>
+                                                                    {% endif %}
+                                                                    <button id="{{answer.id}}" class="fa fa-reply heart" style="margin: 5px; cursor: pointer;"></button>
+                                                                    <button id="{{answer.id}}" onclick="answerUpvote({{ answer.id }})" class="workround1 fa fa-thumbs-up up thumbs-up" style="margin: 5px;"> 0</button>
+                                                                    <button id="{{answer.id}}" onclick="answerDownvote({{ answer.id }})" class="workround2 fa fa-thumbs-down down thumbs-down" style="margin: 5px;"> 0</button>
+                                                            </div>
+                                                            <div>
+                                                             <h5 class="answerdisplayname">{{answer.user.displayname}} 
+                                                                        </h5>
+                                                                <br>
+                                                              
+                                                            </div>
+                                                            <p style="padding: 0;margin: 0px; font-size: 10px; float: left; text-align: left; display: block; width: 100%;" id="{{answer.createdAt}}" class="time_hold">{{answer.createdAt}}</p>
+                                                           
+                                                        </div>
+                                                        <hr style="margin: 5px; width: 100%; display: block;">
+                                                <br style="margin: 0;">
+                                                
+                                                
+                                                <div class="comment-content">
+                                                    {{ answer.answer|safe }}
                                                 </div>
                                             </div>
-                                            
-                                        </li>
-                                        {% endfor %}
-                                      
-                                    </ul>
-                                    <div class="newpostinput" id={{answer.id}}>
-                                        <input type='text' class="commenttextarea" id={{ "comment_{0}".format(answer.id) }} placeholder="Write a Comment">
-                                       
-                                        <br>
-                                        <br>
-                                        <div>
-                                              
                                         </div>
-                                        <hr style="background:rgb(118, 2, 28);">
-                                    </div>
-                                </div>
+                                    </li>
+                                </ul>
+                                <div>
+                                <ul id="ul-comments-container_{{answer.id}}" class="comments-list reply-list">
+                                    <!-- COMMENT -->
+                                    {% for comment in answer.comments|reverse %}
+                                 
+                                    <li>
+                                        <div class="comment-box" style=" border: 1px solid #801515; background-color: white; width: 70%; margin: 0; margin-left: 25%; margin-top: 5px; border-radius: 5px; padding: 5px;">
+                                            <div class="comment-head">
+                                                <span>{{comment.user.displayname}}
+                                                    {% if user.id == comment.user.id %}
+                                                        <i id="{{comment.id}}" style="cursor: pointer" onclick="deleteCom({{ comment.id }},{{ answer.id }})" class="fa fa-trash heart"  style="float: right; cursor: pointer;" title="Delete" ></i></span>
+                                                    {% endif %}
+                                               <p id="{{comment.createdAt}}" class="time_hold">{{comment.createdAt}} </p> 
+        
+                                            </div>
+                                            <hr style="margin: 0;">
+                                           
+                                            <div class="comment-content" style="padding: 10px; margin-bottom: 10px;">
+                                                {{comment.comment}}
+                                            </div>
+                                        </div>
+                                        
+                                    </li>
+                                    {% endfor %}
+                                  
+                                </ul>
+                                <div class="newpostinput" id={{answer.id}}>
+                                    <input type='text' class="commenttextarea" id="{{ "comment_{0}".format(answer.id) }}" placeholder="Write a Comment">
                                    
-                                    <!-- <h2>   {{answer.answer}} </h2> -->
+                                    <br>
+                                    <br>
+                                    <div>
+                                    </div>
+                                    <hr style="background:rgb(118, 2, 28); margin: 0;">
                                 </div>
-
-                        {% endfor %}
-
-                        <!-- COMMENT -->
-                    </div>
-
-
-                    <!-- TOEDIT -->
-
-
-                    <div class="answerdiv" id={{ "answerdiv_{0}".format(i.id)}}>
-                        <textarea class="answertextarea" id={{ "answer_{0}".format(i.id) }} placeholder="Write an Answer"> </textarea>
-                        <input class="submitanswerbutton" id={{i.id}} value=submit type="button">
-                    </div>
-                </div>
-
-                <!-- EDIT MODE -->
-
-                <div style="display: none;" id={{ "qedit_{0}".format(i.id)}} class="newdivEdit">
-                    <div class="form2container">
-                        <form id="form2" style="box-shadow: 15px;">
-                            <h5>Title</h5>
-                            <input class="editQuestionTitle" type="text" id="titleedit" value="{{i.question}}">
-                            <h5>Description</h5>
-                            <textarea name={{ "textareaedit_{0}".format(i.id) }}>{{i.questiondesc}}</textarea>
+                            </div>
+                               
+                                <!-- <h2>   {{answer.answer}} </h2> -->
+                            </div>
+        
+                            {% endfor %}
+        
+                            <!-- COMMENT -->
+                        </div>
+        
+        
+                        <!-- TOEDIT -->
+        
+        
+                        <div class="answerdiv" id={{ "answerdiv_{0}".format(i.id)}}>
+                            <textarea name='{{"answertextarea_{0}".format(i.id)}}' class="answertextarea" id='{{"answertextarea_{0}".format(i.id)}}' placeholder="Write an Answer"> </textarea>
                             <script>
-                                CKEDITOR.replace('{{ "textareaedit_{0}".format(i.id) }}');
+                                CKEDITOR.replace('{{"answertextarea_{0}".format(i.id)}}');
                             </script>
-                            <h5>Tags</h5>
-                            <input id="tagsIDedit" type="text" name="tagsarea" value=" {% for tag in i.tags %} {{tag.name}} {% endfor %}" class="tagsarea"
-                            />
-                            <div class="popupedit" id="{{i.category.id}}">
-                                <button id="categoryIDedit" type="button" value="" class="categorybuttonedit">
-                                    <b>Category:</b>
-                                </button>
-                                <button class="selectedcategorybuttonedit" type="button">
-                                    {{ i.category.name }}
-                                </button>
-                            </div>
-                            <div class="newsfeedPopUpButton-Cont">
-                                <a style="cursor:pointer;" id="{{i.id}}" class="submitbutton5" type="submit">Save</a>
-                                <a style="cursor:pointer;" onclick="showhide({{ i.id }})">Cancel</a>
-                            </div>
-                        </form>
+                            <input class="submitanswerbutton" id={{i.id}} value="submit" type="button">
+                        </div>
                     </div>
+        
+                    <!-- EDIT MODE -->
+        
+                    <div style="display: none;" id={{ "qedit_{0}".format(i.id)}} class="newdivEdit">
+                        <div class="form2container">
+                            <form id="form2" style="box-shadow: 15px;">
+                                <h5>Title</h5>
+                                <input class="editQuestionTitle" type="text" id="{{"titleedit_{0}".format(i.id)}}" value="{{i.question}}">
+                                <h5>Description</h5>
+                                <textarea name="{{ "textareaedit_{0}".format(i.id) }}">{{i.questiondesc}}</textarea>
+                                <script>
+                                    CKEDITOR.replace('{{ "textareaedit_{0}".format(i.id) }}');
+                                </script>
+                                <h5>Tags</h5>
+                                <input class="tagsIDedit" id="{{ "tagsIDedit_{0}".format(i.id) }}" type="text" name="tagsarea" class="tagsarea"
+                                />
+                                <div class="popupedit" id="{{i.category.id}}">
+                                    <button id="categoryIDedit" type="button" value="" class="categorybuttonedit">
+                                        <b>Category:</b>
+                                    </button>
+                                    <button class="selectedcategorybuttonedit" type="button">
+                                        {{ i.category.name }}
+                                    </button>
+                                </div>
+                                <div class="newsfeedPopUpButton-Cont">
+                                    <a style="cursor:pointer;" id={{i.id}} class="submitbutton5" type="submit">Save</a>
+                                    <a style="cursor:pointer;" onclick="showhide({{ i.id }})">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- EDIT MODE END -->
+        
+                    {% endfor %}
                 </div>
-                <!-- EDIT MODE END -->
-
-                {% endfor %}
-            <!-- ANSWER -->
-
-        </div>
-
-
-
-
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <!-- The Modal -->
     <div id="myModal" class="modal">
@@ -356,6 +346,10 @@
 
 
 <script>
+    $(document).ready(function() {
+        $('.comments-container').hide();
+    });
+
      $(document).ready(function() {
             gapi.load('auth2', function () {
                 gapi.auth2.init();
@@ -606,17 +600,16 @@
 
 
 <script>
-    $(document).on('click', '.answerbutton', function () {
-        if ($('.answerAndcommentsCont').is(':visible')) {
-            $(".answerAndcommentsCont").hide('slow');
-            $(".answertextarea").hide();
-            $(".submitanswerbutton").hide()
-        } else {
-            $(".answerAndcommentsCont").show('slow');
-            $(".answertextarea").show();
-            $(".submitanswerbutton").show()
-        }
-    });
+        $(document).on('click', '.answerbutton', function (e) {
+            var id = $(this).attr('id');
+            if ($(".comments-container_" + id).is(":visible") || $("#answerdiv_" + id).is(":visible")) {
+                $(".comments-container_" + id).hide('slow');
+                $("#answerdiv_" + id).hide('slow');
+            } else {
+                $(".comments-container_" + id).show('slow');
+                $("#answerdiv_" + id).show('slow');
+            }
+        });
 
     $('.commentbutton').click(function() {
         $('.commenttextarea').focus();
