@@ -384,7 +384,7 @@
 
     <div id="modalProf" class="modal">
         <div class="modal_close close"></div>
-        <div class="modal_main">
+        <div id="modalProf_content" class="modal_main">
             <img src="/static/images/ic.png" class="close" style="height: 20px; width: 20px; margin-top:13px;left:96%;position:fixed;">
             <form class="form form-vertical" action="http://iitoverflow.herokuapp.com/api/users/{{curuser}}/updatePofile" method="post" enctype="multipart/form-data">
 
@@ -524,8 +524,11 @@
     })
     $(document).ready(function() {
         $(".editprofilebutton").click(function() {
-            $(".modal").fadeIn();
-            $(".modal_main").show();
+            $('#modalProf').show();
+            $('#modalProf_content').show();
+            // $('.modal_main').show();
+            // $(".modal").fadeIn();
+            // $(".modal_main").show();
         });
     });
     $(document).ready(function() {

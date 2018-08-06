@@ -478,7 +478,8 @@
             contentType: "application/json",
             success: function(result) {
                 //alert(#'ok');
-                $('#newsfeedParent').load(location.href + '#newsfeedParent')
+                location.reload();
+                // $('#newsfeedParent').load(location.href + '#newsfeedParent')
                     //alert('reloaded');
             },
             error: function(result) {

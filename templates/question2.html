@@ -39,7 +39,7 @@
     <meta name="google-signin-scope" content="">
     <meta name="google-signin-client_id" content="976545483152-3u1fctn90tf0qvjevud1hkfu3jdneog0.apps.googleusercontent.com">
     <meta name="google-signin-client_secret" content="dhayVHWZ-OsnjdQO47qZXhOD">
-   
+    
     <!--<script src="../static/ckeditor/ckeditor.js"></script>-->
     <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
@@ -1007,21 +1007,21 @@
 // CHANGES 6/8/18
 
 function phillip(id) {
+    console.log('Duplicate is clicked');
+    alert('Duplicate is clicked!');
     $.ajax({
         type: "PATCH",
         contentType: 'application/json;',
         url: "http://iitoverflow.herokuapp.com/api/Questions/" + id,
-        dataType: "json",
-        data:{
-
-      "duplicate": true  
-
-        },
+        dataType: "JSON",
+        data: JSON.stringify({"duplicate": true}),
         success: function(resp) {
             console.log(resp);
+            alert('Marked as Duplicate');
         },
 
         error: function(e) {
+            alert('Error Marked as Duplicate');
             console.log(e);
         }
     });

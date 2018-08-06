@@ -87,6 +87,7 @@
                                 <a style="cursor:pointer;  color: #801515;" class="msg-follow followbutton" id= "followusText">Unfollow</a>
                             </button> {%endif%} {% endblock %}
                             <a style="cursor:pointer;  color: #801515;" class="messageprofile" style="cursor:pointer;" onclick="openConversation({{user | safe}})">Message</a>
+                            <a style="cursor:pointer;  color: #801515;" class="messageprofile report" style="cursor:pointer;" id="">Report User</a>
                         </div>
 
                     </div>
@@ -194,8 +195,8 @@
                                             <a href="#"  id={{"followques_{0}".format(i.id)}} class="profilePostFollowButton">Unfollow</a>
                                         </button>
                                 <a href="#" class="glyphicon glyphicon-comment"></a>
-                                <a onclick="upvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-up" > {{ question.upvotesCount}} </a>
-                                <a onclick="downvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-down"> {{ question.downvotesCount}} </a>
+                                <a onclick="upvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-up" > {{ i.upvotesCount}} </a>
+                                <a onclick="downvote('{{i.id}}')" class="glyphicon glyphicon-thumbs-down"> {{ i.downvotesCount}} </a>
                                
                             </div>
 
@@ -451,6 +452,10 @@
                     }
                 }
             });
+        });
+
+        $(document).on('click', '.report', function() {
+            alert('User has been reported! HAHAHAHAHA');
         });
 
      function upvote(qid) {

@@ -55,8 +55,8 @@
             <a href="{{ url_for('.question') }}" class="homeButton"><span class="glyphicon glyphicon-home"></span>  Home</a>
             <a href="{{ url_for('.profile', id = curuser) }}"><span class="glyphicon glyphicon-user"></span> Profile</a>
             <a href="/tags"><span class="glyphicon glyphicon-tags"></span> Tags</a>
-            <a class="Notificationbutton"><span class="glyphicon glyphicon-bell"></span> Notifications</a>
-            <a id="signout" style="cursor:pointer;"><span class="glyphicon glyphicon-asterisk"></span> Logout</a>
+            <a class="Notificationbutton" style="color: white;"><span class="glyphicon glyphicon-bell"></span> Notifications</a>
+            <a id="signout" style="cursor:pointer; color: white;"><span class="glyphicon glyphicon-asterisk"></span> Logout</a>
 
         </div>
     </div>
@@ -196,18 +196,18 @@
                                 </div>
 
                         {% endfor %}
-
+                        <div class="answerdiv" id={{ "answerdiv_{0}".format(i.id)}}>
+                            <textarea name="answer" class="answertextarea" id="answer" placeholder="Write an Answer"></textarea>
+                            <script>
+                                CKEDITOR.replace('answer');
+                            </script>
+                        </div>
+                        <input class="submitanswerbutton" id={{i.id}} value=submit type="button">
                         <!-- COMMENT -->
                     </div>
 
-
                     <!-- TOEDIT -->
 
-
-                    <div class="answerdiv" id={{ "answerdiv_{0}".format(i.id)}}>
-                        <textarea class="answertextarea" id={{ "answer_{0}".format(i.id) }} placeholder="Write an Answer"> </textarea>
-                        <input class="submitanswerbutton" id={{i.id}} value=submit type="button">
-                    </div>
                 </div>
 
                 <!-- EDIT MODE -->
@@ -343,7 +343,31 @@
         });
     });
 });
-
+$(document).on('click', '.submitanswerbutton', function (e) {
+            var qid = $(this).attr('id');
+            console.log("questionid", qid);
+            var editorText = CKEDITOR.instances['answer'].getData();
+            console.log('Answer: ', editorText);
+            var data = {
+                "answer": editorText,
+                "questionId": qid,
+                "userId": "{{curuser}}"
+            };
+            $.ajax({
+                type: "POST",
+                url: "https://iitoverflow.herokuapp.com/api/Answers",
+                data: JSON.stringify(data),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (result) {
+                    $('.answerdiv').hide();
+                    $('.submitanswerbutton').hide();
+                    location.reload();
+                },
+                error: function (result) {
+                }
+            });
+        });
 ///////////////////////////////////////////////////////////////////////////////////
 $(document).on('click', '.categorybutton', function () {
             $("#myModal").show();
@@ -468,7 +492,7 @@ $(document).on('click', '.categorybutton', function () {
                 contentType: "application/json",
                 success: function(result) {
                     alert('ok');
-                    $('#newsfeedParent').load(location.href + '#newsfeedParent')
+
                         //alert('reloaded');
                 },
                 error: function(result) {
@@ -482,43 +506,6 @@ $(document).on('click', '.categorybutton', function () {
         }
     });
 
-
-
-
-
-    $('.submitanswerbutton').click(function() {
-
-        var qid = $(this).attr('id');
-        //alert(qid);
-
-        var answer = $("#answer_" + qid).val();
-        // var answer = $('.answertextarea#' + qid ).val();
-
-        var category = document.getElementById('')
-            //alert(answer);
-        var data = {
-            "answer": answer,
-            "questionId": qid,
-            "userId": "{{curuser}}"
-        }
-
-        $.ajax({
-            type: "POST",
-            url: "https://iitoverflow.herokuapp.com/api/Answers",
-            data: JSON.stringify(data),
-            dataType: "json",
-            contentType: "application/json",
-            success: function(result) {
-                //alert(#'ok');
-                $('#newsfeedParent').load(location.href + '#newsfeedParent')
-                    //alert('reloaded');
-            },
-            error: function(result) {
-                //alert(result);
-            }
-        });
-
-    })
 </script>
 
 
@@ -528,12 +515,14 @@ $(document).on('click', '.categorybutton', function () {
     $(document).on('click', '.answerbutton', function () {
         if ($('.answerAndcommentsCont').is(':visible')) {
             $(".answerAndcommentsCont").hide('slow');
-            $(".answertextarea").hide();
-            $(".submitanswerbutton").hide()
+            $('.answerdiv').hide();
+            // $(".answertextarea").hide();
+            $(".submitanswerbutton").hide();
         } else {
             $(".answerAndcommentsCont").show('slow');
-            $(".answertextarea").show();
-            $(".submitanswerbutton").show()
+            // $(".answertextarea").show();
+            $('.answerdiv').show();
+            $(".submitanswerbutton").show();
         }
     });
 
@@ -554,6 +543,7 @@ $(document).on('click', '.categorybutton', function () {
 
         });
         $( document ).ready(function() {
+            $('.answerdiv').hide();
             $(".answertextarea").hide();
             $(".submitanswerbutton").hide()
             $(".descriptionpost").hide();

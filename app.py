@@ -78,7 +78,7 @@ def viewRelated(qid):
     question = question.json()
     user = requests.get(baseUrl+'users/'+curuser)
     user = user.json()
-    return render_template('related.html', i=question, user=user, curuser=curuser)
+    return render_template('viewSpesific.html', i=question, user=user, curuser=curuser)
 
 @app.route('/newsfeed', methods=['GET', 'POST'])
 def question():
