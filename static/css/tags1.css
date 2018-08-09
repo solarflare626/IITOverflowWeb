@@ -12,6 +12,8 @@ body {
     height: 100%;
     overflow-y: scroll;
     font-family: Poppins-Regular, sans-serif;
+    text-align: center;
+    background-color: #E9EBEE;
 }
 
 .tags-section {
@@ -43,6 +45,7 @@ body {
     height: 6%;
     box-shadow: 0 2px 6px -4px rgba(0, 0, 0, 0.8);
     font-family: Poppins-Regular, sans-serif;
+    display: block;
 }
 
 .tags-pages {
@@ -82,7 +85,7 @@ body {
     outline: none;
     text-decoration: none;
     color: rgb(133, 152, 165);
-    border: 2px solid #66757F;
+    border: 1px solid #66757F;
 }
 
 .searchbutton:hover {
@@ -92,17 +95,113 @@ body {
 }
 
 .specificTagQuestions {
-    width: 40%;
-    margin-top: 6%;
-    margin-left: 30%;
-    background-color: #E9EBEE;
-    overflow: scroll;
-    text-align: center;
-    color: black;
-    display: inline-block;
+    position: relative;
+    width: 45%;
+    margin-top: 3.5%;
+    margin-left: 27.5%;
+    display: block;
 }
 
 .specificTagsDiv {
-    border-bottom: 1px solid rgb(194, 201, 206);
     background-color: white;
+    height: auto;
+    margin-bottom: 5px;
+    padding: 10px;
+    box-shadow: 0 4px 10px -5px rgba(0, 0, 0, 0.8);
+}
+
+.specitifictagsButtons a {
+    border: 1px solid #66757F;
+    padding: 5px 10px 5px 10px;
+    width: 20%;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+.specitifictagsButtons {
+    width: 100%;
+}
+
+.specitifictagsButtons a:hover {
+    border: 1px solid #801515;
+}
+
+.specificTagsDiv h4 {
+    text-align: left;
+}
+
+.specificTagsDiv h5 {
+    text-align: left;
+}
+
+.specificTagsDiv p {
+    text-align: left;
+}
+
+.editbuttonTags {
+    width: 10%;
+    border: 1px solid #66757F;
+    float: right;
+    border-radius: 10px;
+}
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+
+/* Modal Content/Box */
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    /* Could be more or less, depending on screen size */
+}
+
+.modal-content1 {
+    background-color: #fefefe;
+    margin: 15% auto;
+    /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    /* Could be more or less, depending on screen size */
+}
+
+
+/* The Close Button */
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }

@@ -96,7 +96,7 @@
         if (index > -1) {
             interests.splice(index, 1);
         }
-        // alert("List of ids: " + interests);
+        //alert("List of ids: " + interests);
         categoryname = $(this).text();
         categoryid = $(this).val();
         text = document.createTextNode(categoryname);
@@ -112,7 +112,7 @@
         if (interests.length == 0) {
             alert("Interests must not be empty!");
         } else {
-            alert("Submit Level 1");
+            //alert("Submit Level 1");
             var data = {
                 "ids": interests,
             }
@@ -124,7 +124,7 @@
                 }),
                 contentType: 'application/json; charset=UTF-8',
                 success: function() {
-                    alert("Submit Level 2");
+                    //alert("Submit Level 2");
                     console.log('Success!!!');
                     window.location.replace('/newsfeed');
                 },

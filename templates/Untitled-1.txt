@@ -1,3 +1,53 @@
+<<<<<<< HEAD
+.picture1 {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    background: yellow;
+    border: 2px solid white;
+    float: left;
+    position: relative;
+    margin-top: 5px;
+    margin-left: 7px;
+    padding: 0;
+    display: block;
+}
+
+.titlepostpicture {
+    border-radius: 50%;
+    width: 10%;
+    height: 10%;
+    padding-bottom: 10%;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    display: inline-block;
+    float: left;
+    margin-right: 2%;
+}
+
+
+
+#tagsID+.tag-editor {
+    background: #fafafa;
+    font-size: 12px;
+}
+
+#tagsID+.tag-editor .tag-editor-tag {
+    color: #fff;
+    background: #555;
+    border-radius: 2px;
+}
+
+#tagsID+.tag-editor .tag-editor-spacer {
+    width: 7px;
+}
+
+#tagsID+.tag-editor .tag-editor-delete {
+    display: none;
+}
+=======
 <!DOCTYPE html>
 <html>
 
@@ -39,7 +89,7 @@
     <meta name="google-signin-scope" content="">
     <meta name="google-signin-client_id" content="976545483152-3u1fctn90tf0qvjevud1hkfu3jdneog0.apps.googleusercontent.com">
     <meta name="google-signin-client_secret" content="dhayVHWZ-OsnjdQO47qZXhOD">
-    
+   
     <!--<script src="../static/ckeditor/ckeditor.js"></script>-->
     <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
@@ -137,9 +187,9 @@
             </div>
             {% endfor %}
             <hr>
-            <!-- <a>
+            <a>
                 <h4 style="color: white; padding: 10px;">See all</h4>
-            </a> -->
+            </a>
             </div>
         </div>
 
@@ -347,7 +397,7 @@
                         <script>
                             CKEDITOR.replace('{{"answertextarea_{0}".format(i.id)}}');
                         </script>
-                        <input class="submitanswerbutton" id={{i.id}} value="submit" type="button">
+                        <input class="submitanswerbutton" id={{i.id}} value=submit type="button">
                     </div>
                 </div>
 
@@ -388,7 +438,6 @@
             <div id="myModal" class="modal">
                 <!-- Modal content -->
                 <div class="modal-content">
-                    <h3>Choose only one Category!</h3>
                     <span class="close">&times;</span> {% for category in categories %}
                     <a id="{{category.id}}" class="categorypopups" value="{{category.name}}"> {{category.name}} </a> {% endfor %}
                 </div>
@@ -420,13 +469,12 @@
                     <a style=" color: white;">{{i.email}}</a>
 
                 </div>
-                
-                <button style="cursor: pointer" id="{{ i.id }}" name="{{ i.userId }}" class="follow2 whotofollowButton1">
+                <button style="cursor: pointer" id="{{ i.id }}" name="{{ i.userId }}" class=" follow2 whotofollowButton1">
                     <span class="msg-follow">Follow</span>
                     <span class="msg-following">Following</span>
                     <span class="msg-unfollow">Unfollow</span>
                 </button>
-                <a class="voteScore" style="color: white; text-decoration: none;">Points: {{i.points}}</a>
+                <a class="voteScore" style="color: white;">Points: {{i.points}}</a>
             </div>
 
             {% endfor %}
@@ -843,9 +891,6 @@
             $("tagsbar").show('slow');
             $("categorybar").show('slow');
             $("#post").hide();
-            $("")
-          
-            
           //  $("#contentCenter").load(/newsfeed + " #contentCenter");
             }
         });
@@ -1007,21 +1052,21 @@
 // CHANGES 6/8/18
 
 function phillip(id) {
-    console.log('Duplicate is clicked');
-    alert('Duplicate is clicked!');
     $.ajax({
         type: "PATCH",
         contentType: 'application/json;',
         url: "http://iitoverflow.herokuapp.com/api/Questions/" + id,
-        dataType: "JSON",
-        data: JSON.stringify({"duplicate": true}),
+        dataType: "json",
+        data:{
+
+      "duplicate": true  
+
+        },
         success: function(resp) {
             console.log(resp);
-            alert('Marked as Duplicate');
         },
 
         error: function(e) {
-            alert('Error Marked as Duplicate');
             console.log(e);
         }
     });
@@ -1112,7 +1157,6 @@ function phillip(id) {
                     '</small> </div></div> </div></a></li>';
 
                 $("#notification-content").append(holdNewAnswerHtml);
-                
                 CKupdate();
             }
 
@@ -1310,9 +1354,9 @@ function phillip(id) {
             '</div>'+
             '<!-- TOEDIT -->'+
             '<div class="answerdiv" id="answerdiv_'+data.question.id+'">'+
-            '<textarea name="answertextarea_'+data.question.id+'" class="answertextarea" id="answertextarea_'+data.question.id+'" placeholder="Write an Answer"> </textarea>'+
-            "<script>"+"CKEDITOR.replace(\'answertextarea_"+data.question.id+"\');<\/script>"+
-            '<input class="submitanswerbutton" id="'+data.question.id+'" value="submit" type="button">'+
+            '<textarea name="answertextarea" class="answertextarea" id="answer_'+data.question.id+'" placeholder="Write an Answer"> </textarea>'+
+            "<script>"+"CKEDITOR.replace(\'answertextarea\');<\/script>"+
+            '<input class="submitanswerbutton" id="'+data.question.id+'" value=submit type="button">'+
             '</div>'+
             '</div>'+
             ''+
@@ -1998,3 +2042,4 @@ function phillip(id) {
 </body>
 
 </html>
+>>>>>>> ec4222044f6603bade106fc26418ec1de43886a1

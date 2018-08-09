@@ -40,19 +40,20 @@
     <div class="newsfeed-nav">
         <div class="newsfeed-search">
 
-                <form action="/search" method="POST">
-                    <button id="autocom"class="newsfeed-searchbutton" type="submit">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>
-                    <input id="autocomplete" name="searchbar" class="newsfeed-searchbar" type="text" placeholder="Search..">
+             <form action="/search" method="POST">
+                <button class="newsfeed-searchbutton" type="submit">
+                    <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                <input id="autocomplete" name="searchbar" class="newsfeed-searchbar" type="text" placeholder="Search..">
                 </form>
+
         </div>
         <div class="newsfeed-pages">
 
             <a href="{{ url_for('.question') }}" class="homeButton"><span class="glyphicon glyphicon-home"></span>  Home</a>
             <a href="{{ url_for('.profile', id = curuser) }}"><span class="glyphicon glyphicon-user"></span> Profile</a>
-            <a ><span class="glyphicon glyphicon-tags"></span> Tags</a>
-            <a class="Notificationbutton" ><span class="glyphicon glyphicon-bell"></span> Notifications</a>
+            <a href="tags"><span class="glyphicon glyphicon-tags"></span> Tags</a>
+            <a class="Notificationbutton"><span class="glyphicon glyphicon-bell"></span> Notifications</a>
             <a href="" onclick="signOut();return false;"><span class="glyphicon glyphicon-asterisk"></span> Logout</a>
 
         </div>
@@ -328,7 +329,6 @@
 
     </div>
 <script src="../static/js/app2.js"></script>
-<script src="../static/js/autocompleteJS.js"></script>"
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
 <script>
@@ -610,8 +610,7 @@
             contentType: "application/json",
             success: function(result) {
                 //alert(#'ok');
-                location.reload();
-                // $('#newsfeedParent').load(location.href + '#newsfeedParent')
+                $('#newsfeedParent').load(location.href + '#newsfeedParent')
                     //alert('reloaded');
             },
             error: function(result) {

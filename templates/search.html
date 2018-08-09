@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+    <link rel="icon" type="image/png" href="../static/image/favicon.ico" />
+    <link rel="stylesheet" href="../static/js/jquery-ui-1.12.1.custom/jquery-ui.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <link href="../static/css/fontawesome-all.css" rel="stylesheet">
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
+
+    <meta name="google-signin-scope" content="">
+    <meta name="google-signin-client_id" content="976545483152-3u1fctn90tf0qvjevud1hkfu3jdneog0.apps.googleusercontent.com">
+    <meta name="google-signin-client_secret" content="dhayVHWZ-OsnjdQO47qZXhOD">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="../static/css/tags1.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/newsfeed.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../static/js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="../static/js/jquery-3.3.1.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+    <title>Question</title>
+
+</head>
+
+<body>
+    <div class="newsfeed-nav">
+        <div class="newsfeed-search">
+
+             <form action="/search" method="POST">
+                <button id="autocom" class="newsfeed-searchbutton" type="submit">
+                    <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                <input id="autocomplete" name="searchbar" class="newsfeed-searchbar" type="text" placeholder="Search..">
+                </form>
+
+        </div>
+        <div class="newsfeed-pages">
+
+            <a href="{{ url_for('.question') }}" class="homeButton"><span class="glyphicon glyphicon-home"></span>  Home</a>
+            <a href="{{ url_for('.profile', id = curuser) }}"><span class="glyphicon glyphicon-user"></span> Profile</a>
+            <a href="/tags"><span class="glyphicon glyphicon-tags"></span> Tags</a>
+            <a class="Notificationbutton"><span class="glyphicon glyphicon-bell"></span> Notifications</a>
+            <a id="signout" style="cursor:pointer;"><span class="glyphicon glyphicon-asterisk"></span> Logout</a>
+
+        </div>
+    </div>
+
+    <div style="width: 50%; margin: auto; margin-top: 7%;">
+            <div id="newsfeedParent">
+
+                    {% for i in searched|reverse %}
+        
+                    <div id="{{ "newqedit_{0}".format(i.id)}}" style="display: block;" class="newdiv">
+        
+        
+                        {% if i.duplicate %}
+        
+                        <button class="duplicatebutton btn btn-danger" id="{{ " duplicate_{0} ".format(i.id)}}" style="display: block;">Duplicate</button>
+        
+                        {% endif %}
+        
+                        <div class="titlepost">
+        
+                            <div class=" editanddeleteButtonCont">
+        
+                                {% if user.id == i.user.id %}
+                                <i onclick="showhide('{{i.id}}')" style="cursor: pointer" class="fa fa-edit Newsfeed-editButton" title="Edit"></i>
+                                <i onclick="confirmDelete('{{i.id}}')" style="cursor: pointer" class="fas fa-trash-alt qheart" title="Delete"></i>
+                                {% endif %}
+        
+        
+                                <!-- CHANGES -->
+                                <i onclick="phillip('{{i.id}}')" style="cursor: pointer" class="fas fa-copy duplicate" title="Mark As Duplicate"></i>
+        
+                                <!-- CHANGES -->
+                            </div>
+        
+                            <div class="titlepostpicture">
+                                <a href="{{ url_for('.profile', id = i.user.id) }}">
+                                <img style="cursor: pointer" src="{{ i.user.picture }}">
+                                </a>
+                            </div>
+                            <a href="{{ url_for('.profile', id = i.user.id) }}">
+                            <h4  class="titlepostname">{{ i.user.displayname }}
+                                <br>
+                            </h4>
+                            </a>
+                                     <h6 style="margin: 0;" id="{{i.createdAt}}" class="time_hold">{{i.createdAt}}</h6>
+                                <hr style="margin:0;">
+                            <h5 class="titlepostTitle">
+                                <div style="cursor: pointer" onclick="thisonclick({{ i.id }})"><a style="outline: none; text-decoration: none;">Title:</a> {{i.question|safe}} </div> <a style="cursor: pointer" class="showallButton" type="button" title="Show all"  id="{{i.id}}">Show description</a></h5>
+                        </div>
+        
+                        <div style="padding: 10px; border-bottom: 1px solid #D1D1D1; ">
+                            <div class="descriptionpost" id={{"show_{0}".format(i.id)}}>Description: {{i.questiondesc|safe}}
+        
+                            </div>
+                            <div class="categorypost">Category: {{i.category.name}}
+                                <div></div>
+                            </div>
+                            <div class="tagspost">Tags: {% for tag in i.tags %} {{tag.name}} {% endfor %}
+        
+                                <div></div>
+                            </div>
+                            <div class="newpostbuttons"><button id="{{ i.id }}" name="{{ i.userId }}" class="follow followbutton">
+                                        <span class="msg-follow">Follow</span>
+                                        <span class="msg-following">Following</span>
+                                        <span class="msg-unfollow">Unfollow</span>
+                                    </button>
+                                <button class="answerbutton" id="{{i.id}}">Answer</button>
+                                <button id="{{ i.id }}" onclick="upvote('{{i.id}}')" title="Upvote" style="color: #1abc9c; width: 23%;display: inline-block;" class="votebutton up glyphicon glyphicon-thumbs-up"> {{ i.upvotesCount}}</button>
+                                <button id="{{ i.id }}" onclick="downvote('{{i.id}}')" title="Downvote" style="color: #e74c3c; width: 23%; display: inline-block;" class="votebutton down glyphicon glyphicon-thumbs-down"> {{i.downvotesCount}}</button>
+                            </div>
+        
+                        </div>
+        
+        
+                        <div style="background-color: #F2F3F5; text-align: left; padding:0 5px 0 5px; width: 100%;" id={{ "toReloadAnswer_{0}".format(i.id)}}>
+        
+        
+                            {% for answer in i.answers|reverse %}
+        
+                            <div class="comments-container {{ "comments-container_{0}".format(i.id)}} delme{{ answer.id }}" id="{{"comments-container_{0}".format(i.id)}}">
+                               <br>
+                                <ul id="comments-list" class="comments-list" style="margin: 0;">
+                                    <li>
+                                        <div class="comment-main-level">
+                                            <div class="picture2" id="{{ answer.id }}">
+                                                <a href="{{ url_for('.profile', id = i.id) }}">
+                                                <img style="cursor: pointer;width: 100%; height: 100%;" src="{{answer.user.picture}}">
+                                                </a>
+                                            </div>
+                                            <div class="comment-box" style="  border: 1px solid #801515; background-color: white; width: 80%;  border-radius: 10px; padding: 10px; margin-left: 15%; text-align: left;">
+                                                    <div class="comment-head">
+                                                        
+                                                            <div class="answerdivbutton" style="margin-left: 30%;">
+                                                                    {% if user.id == answer.user.id%}
+                                                                    <!-- <button id="{{answer.id}}" class="fa fa-edit edit" title="Edit" style="margin: 5px; cursor: pointer;"></button> -->
+                                                                    <button id="{{answer.id}}" class="fa fa-trash heart forDEL" title="Delete" style="margin: 5px; cursor: pointer;"></button>
+                                                                    {% endif %}
+                                                                    <button id="{{answer.id}}" class="fa fa-reply heart" style="margin: 5px; cursor: pointer;"></button>
+                                                                    <button id="{{answer.id}}" onclick="answerUpvote({{ answer.id }})" class="workround1 fa fa-thumbs-up up thumbs-up" style="margin: 5px;"> 0</button>
+                                                                    <button id="{{answer.id}}" onclick="answerDownvote({{ answer.id }})" class="workround2 fa fa-thumbs-down down thumbs-down" style="margin: 5px;"> 0</button>
+                                                            </div>
+                                                            <div>
+                                                             <h5 class="answerdisplayname">{{answer.user.displayname}} 
+                                                                        </h5>
+                                                                <br>
+                                                              
+                                                            </div>
+                                                            <p style="padding: 0;margin: 0px; font-size: 10px; float: left; text-align: left; display: block; width: 100%;" id="{{answer.createdAt}}" class="time_hold">{{answer.createdAt}}</p>
+                                                           
+                                                        </div>
+                                                        <hr style="margin: 5px; width: 100%; display: block;">
+                                                <br style="margin: 0;">
+                                                
+                                                
+                                                <div class="comment-content">
+                                                    {{ answer.answer|safe }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div>
+                                <ul id="ul-comments-container_{{answer.id}}" class="comments-list reply-list">
+                                    <!-- COMMENT -->
+                                    {% for comment in answer.comments|reverse %}
+                                 
+                                    <li>
+                                        <div class="comment-box" style=" border: 1px solid #801515; background-color: white; width: 70%; margin: 0; margin-left: 25%; margin-top: 5px; border-radius: 5px; padding: 5px;">
+                                            <div class="comment-head">
+                                                <span>{{comment.user.displayname}}
+                                                    {% if user.id == comment.user.id %}
+                                                        <i id="{{comment.id}}" style="cursor: pointer" onclick="deleteCom({{ comment.id }},{{ answer.id }})" class="fa fa-trash heart"  style="float: right; cursor: pointer;" title="Delete" ></i></span>
+                                                    {% endif %}
+                                               <p id="{{comment.createdAt}}" class="time_hold">{{comment.createdAt}} </p> 
+        
+                                            </div>
+                                            <hr style="margin: 0;">
+                                           
+                                            <div class="comment-content" style="padding: 10px; margin-bottom: 10px;">
+                                                {{comment.comment}}
+                                            </div>
+                                        </div>
+                                        
+                                    </li>
+                                    {% endfor %}
+                                  
+                                </ul>
+                                <div class="newpostinput" id={{answer.id}}>
+                                    <input type='text' class="commenttextarea" id="{{ "comment_{0}".format(answer.id) }}" placeholder="Write a Comment">
+                                   
+                                    <br>
+                                    <br>
+                                    <div>
+                                    </div>
+                                    <hr style="background:rgb(118, 2, 28); margin: 0;">
+                                </div>
+                            </div>
+                               
+                                <!-- <h2>   {{answer.answer}} </h2> -->
+                            </div>
+        
+                            {% endfor %}
+        
+                            <!-- COMMENT -->
+                        </div>
+        
+        
+                        <!-- TOEDIT -->
+        
+        
+                        <div class="answerdiv" id={{ "answerdiv_{0}".format(i.id)}}>
+                            <textarea name='{{"answertextarea_{0}".format(i.id)}}' class="answertextarea" id='{{"answertextarea_{0}".format(i.id)}}' placeholder="Write an Answer"> </textarea>
+                            <script>
+                                CKEDITOR.replace('{{"answertextarea_{0}".format(i.id)}}');
+                            </script>
+                            <input class="submitanswerbutton" id={{i.id}} value="submit" type="button">
+                        </div>
+                    </div>
+        
+                    <!-- EDIT MODE -->
+        
+                    <div style="display: none;" id={{ "qedit_{0}".format(i.id)}} class="newdivEdit">
+                        <div class="form2container">
+                            <form id="form2" style="box-shadow: 15px;">
+                                <h5>Title</h5>
+                                <input class="editQuestionTitle" type="text" id="{{"titleedit_{0}".format(i.id)}}" value="{{i.question}}">
+                                <h5>Description</h5>
+                                <textarea name="{{ "textareaedit_{0}".format(i.id) }}">{{i.questiondesc}}</textarea>
+                                <script>
+                                    CKEDITOR.replace('{{ "textareaedit_{0}".format(i.id) }}');
+                                </script>
+                                <h5>Tags</h5>
+                                <input class="tagsIDedit" id="{{ "tagsIDedit_{0}".format(i.id) }}" type="text" name="tagsarea" class="tagsarea"
+                                />
+                                <div class="popupedit" id="{{i.category.id}}">
+                                    <button id="categoryIDedit" type="button" value="" class="categorybuttonedit">
+                                        <b>Category:</b>
+                                    </button>
+                                    <button class="selectedcategorybuttonedit" type="button">
+                                        {{ i.category.name }}
+                                    </button>
+                                </div>
+                                <div class="newsfeedPopUpButton-Cont">
+                                    <a style="cursor:pointer;" id={{i.id}} class="submitbutton5" type="submit">Save</a>
+                                    <a style="cursor:pointer;" onclick="showhide({{ i.id }})">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- EDIT MODE END -->
+        
+                    {% endfor %}
+                </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+
+        <!-- Modal content -->
+        <div class="modal-content" style="width: 40%; text-align: center;">
+            <span class="close" style="display: none;">&times;</span>
+            <input type="textarea" placeholder="Enter comment here" style="border-radius: 10px; outline: none; height: 30px; margin-bottom: 5px;">
+            <a type="submit" style=" margin-left: 70%; border: 1px solid black; border-radius: 10px; padding:5px 10px 5px 10px; margin-top: 10px; width: 30%; display: inline-block;">Submit</a>
+        </div>
+
+    </div>
+    <!-- The Modal -->
+    <div id="myModal1" class="modal">
+
+
+        <!-- Modal content -->
+        <div class="modal-content1" style="width: 40%; text-align: center;">
+            <span class="close" style="display: none;">&times;</span>
+            <input type="textarea" placeholder="Enter answer here" style="border-radius: 10px; outline: none; height: 30px; margin-bottom: 5px;">
+            <a type="submit" style=" margin-left: 70%; border: 1px solid black; border-radius: 10px; padding:5px 10px 5px 10px; margin-top: 10px; width: 30%; display: inline-block;">Submit</a>
+        </div>
+
+    </div>
+    <script src="../static/js/app2.js"></script>
+    <script src="../static/js/autocompleteJS.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+</body>
+<script>
+    // Get the modal
+    var modal = document.getElementById('myModal');
+    var modal1 = document.getElementById('myModal1');
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+    var btn1 = document.getElementById("myBtn1");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+
+
+    }
+    btn1.onclick = function() {
+
+        modal1.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+        modal1.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+
+
+
+        } else {
+            modal1.style.display = "none";
+        }
+    }
+</script>
+
+
+
+<!-- PHILLIP -->
+
+
+
+
+
+<script>
+    $(document).ready(function() {
+        $('.comments-container').hide();
+    });
+
+     $(document).ready(function() {
+            gapi.load('auth2', function () {
+                gapi.auth2.init();
+            });
+        });
+
+    $(document).on('click', '#signout', function() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.disconnect();
+    auth2.signOut().then(function() {
+
+        $.ajax({
+            url: "http://localhost:5000/logout",
+            dataType: "json",
+            success: function(resp) {
+                if (resp.message = "okay") {
+                    window.location.replace('/');
+                } else {
+                    console.log("Something went wrong")
+                }
+            },
+            error: function(e) {
+                console.log('ERROR')
+            }
+        });
+    });
+});
+
+
+    $(".submitbutton5").click(function() {
+
+
+        var qid = $(this).attr('id');
+        var editorText = CKEDITOR.instances.textarea.getData();
+        var posttitle = document.getElementById('titleedit').value;
+        var gettags = document.getElementById('tagsIDedit').value;
+        var cleartitle = document.getElementById('titleedit');
+        var cleartags = document.getElementsByClassName('tag-editor-tag');
+        console.log(cleartags);
+        // var category = document.getElementsByClassName('categorypopups')[0].id;
+
+
+        var data = {
+            "question": posttitle,
+            "questiondesc": editorText,
+            "userId": 1
+        };
+
+        $.ajax({
+            type: "PUT",
+            url: "https://iitoverflow.herokuapp.com/api/Questions",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json",
+            success: function(result) {
+                console.log(result);
+                //alert('gaga');
+                qid = result.id;
+
+                var tagslength = cleartags.length;
+
+
+
+
+
+                for (i = 0; i < tagslength; i++) {
+
+
+
+                    var data1 = {
+                        "name": cleartags[i].innerText,
+                        "categoryId": category
+                    };
+                    console.log(cleartags[i].innerText);
+
+
+                    // EDIT
+
+                    $.ajax({
+                        type: "POST",
+                        url: "http://iitoverflow.herokuapp.com/api/Questions/" + qid + "/tags",
+                        data: JSON.stringify(data1),
+                        dataType: "json",
+                        contentType: "application/json",
+
+                        success: function(result1) {
+                            // //alert('ok');
+                            console.log(result1);
+
+
+                        },
+                        error: function(result1) {
+                            ////alert(result1);
+                            console.log(JSON.stringify(result1));
+                        }
+                    });
+
+
+
+
+
+                    // EDIT
+
+                }
+
+
+
+
+
+
+
+
+                // $("#newsfeedParent").load(location.href + " #contentCenter");
+
+            },
+            error: function(result) {
+                //alert('error');
+            }
+        });
+
+
+
+
+
+
+    })
+
+
+    //  $('.newpostinput').keydown(function (e){
+    //  if(e.keyCode == 13){
+    //      //alert('you pressed enter ^_^');
+    //      var aid = $(this).attr('id');
+    //      var commentText = document.getElementsByClassName('commenttextarea');
+    //      var data = {
+    //          "answerId": aid,
+    //          "comment":  commentText
+    //      }
+    //      $.ajax({
+    //                      type: "POST",
+    //                      url: "http://iitoverflow.herokuapp.com/api/Comments",
+    //                      data: JSON.stringify(data),
+    //                      dataType: "json",
+    //                      contentType: "application/json",
+    //                      success: function(result) {
+    //                          //alert('ok');
+
+    //                      },
+    //                      error: function(result) {
+    //                          //alert(result);
+
+    //                      }
+    //                  });
+
+
+
+
+
+    //  }
+    // }
+</script>
+
+
+
+<script>
+    $('input[type=text]').on('keydown', function(e) {
+
+        if (e.which == 13) {
+            e.preventDefault();
+
+            var a = $(this).attr('id');
+            alert(a)
+            var aid = a.split("_").pop()
+
+            alert(aid);
+            var comment = $('#' + a).val();
+            console.log(comment);
+
+            //COMMENT
+            var data = {
+                "comment": comment,
+                "answerId": aid,
+                "userId": "{{curuser}}"
+            }
+
+
+            $.ajax({
+                type: "POST",
+                url: "http://iitoverflow.herokuapp.com/api/Answers/" + aid + "/comments",
+                data: JSON.stringify(data),
+                dataType: "json",
+                contentType: "application/json",
+                success: function(result) {
+                    alert('ok');
+                    $('#newsfeedParent').load(location.href + '#newsfeedParent')
+                        //alert('reloaded');
+                },
+                error: function(result) {
+                    alert(result);
+                }
+            });
+
+            //COMMENT
+
+
+        }
+    });
+
+
+
+
+
+    $('.submitanswerbutton').click(function() {
+
+        var qid = $(this).attr('id');
+        //alert(qid);
+
+        var answer = $("#answer_" + qid).val();
+        // var answer = $('.answertextarea#' + qid ).val();
+
+        var category = document.getElementById('')
+            //alert(answer);
+        var data = {
+            "answer": answer,
+            "questionId": qid,
+            "userId": "{{curuser}}"
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "https://iitoverflow.herokuapp.com/api/Answers",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json",
+            success: function(result) {
+                //alert(#'ok');
+                $('#newsfeedParent').load(location.href + '#newsfeedParent')
+                    //alert('reloaded');
+            },
+            error: function(result) {
+                //alert(result);
+            }
+        });
+
+    })
+</script>
+
+
+
+
+<script>
+        $(document).on('click', '.answerbutton', function (e) {
+            var id = $(this).attr('id');
+            if ($(".comments-container_" + id).is(":visible") || $("#answerdiv_" + id).is(":visible")) {
+                $(".comments-container_" + id).hide('slow');
+                $("#answerdiv_" + id).hide('slow');
+            } else {
+                $(".comments-container_" + id).show('slow');
+                $("#answerdiv_" + id).show('slow');
+            }
+        });
+
+    $('.commentbutton').click(function() {
+        $('.commenttextarea').focus();
+    });
+
+     $(".showallButton").click(function() {
+            var id = $(this).attr("id");
+            if ($(this).text() === "Show description") {
+                $(this).text("Hide description");
+                $("#show_" + id).show('slow');
+            }
+            else {
+                $(this).text("Show description");
+                $("#show_" + id).hide('slow');
+            }
+
+        });
+        $( document ).ready(function() {
+            $(".answertextarea").hide();
+            $(".submitanswerbutton").hide()
+            $(".descriptionpost").hide();
+            $(".answerAndcommentsCont").hide();
+    
+});
+
+        $(document).on('click', '.forDEL', function () {
+            var id = $(this).attr('id');
+            $('.delme'+id).hide('slow', function(){ $('.delme'+id).remove(); });
+            var delbutton = $(this).attr('id');
+            $.ajax({
+                type: "DELETE",
+                url: "http://iitoverflow.herokuapp.com/api/Answers/" + delbutton,
+                success: function (result) {
+                    //RELOAD
+                },
+                error: function (result) {
+                }
+            });
+        });
+</script>
+<!--<link rel="stylesheet" href="../static/css/new.css">-->
+
+
+<script>
+    function confirmDelete(id) {
+            $('#newqedit_'+id).hide('slow', function(){ $('#newqedit_'+id).remove(); });
+            $.ajax({
+                type: "DELETE",
+                url: "http://iitoverflow.herokuapp.com/api/Questions/" + id,
+                success: function (result) {
+                    alert('Successfully deleted question!');
+                },
+                error: function (result) {
+                    alert('Error in deleting question!');
+                }
+            });
+    }
+
+    function showhide(id) {
+            var div = document.getElementById("qedit_" + id);
+            var div1 = document.getElementById("newqedit_" + id);
+            if (div.style.display !== "none") {
+                div.style.display = "none";
+                div1.style.display = "block";
+                $("#hider").fadeOut("slow");
+                $("#post").fadeOut('slow');
+                $("#form2").css("z-index", "11000");
+                $("#newpost").css("z-index", "10001");
+            } else {
+                div.style.display = "block";
+                div1.style.display = "block";
+                $("#hider").fadeIn('slow');
+                $("#post").fadeIn('slow');
+                $("#form2").css("z-index", "11000");
+                $("#newpost").css("z-index", "9999");
+            }
+        }
+        ///////////////////////////////////////////////////////////////////////////////////
+        function showhide1(id) {
+            var x = document.getElementById("duplicate_" + id);
+            if (x.style.display === "none") {
+                x.style.display = "block";
+                $("#hider").fadeOut("slow");
+            } else {
+                x.style.display = "none";
+                $("#hider").fadeOut("slow");
+            }
+        }
+</script>
+
+</html>
+
